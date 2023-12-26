@@ -21,3 +21,4 @@ if __name__ == "__main__":
     args = init()
 
     project = Project(args)
+    project.start()
