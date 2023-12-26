@@ -1,8 +1,12 @@
 from __future__ import annotations
+
+import os.path
+from pathlib import Path
 from pprint import pprint
 
 from rich.console import Console
 
+from helpers.Storage import Storage
 from helpers.agents.ProductOwner import ProductOwner
 from utils.prompt_toolkit import get_input
 
@@ -32,6 +36,7 @@ class Project:
         self._print_settings()
 
         self.console: Console = Console()
+        self.storage = Storage(Path(os.path.abspath('projects/example')).absolute())
 
     def _print_settings(self) -> None:
         pprint(
@@ -47,7 +52,7 @@ class Project:
         self.product_owner = ProductOwner(self)
         self.product_owner.print_project()
         self.product_owner.print_role()
-        self.product_owner.get_project_description()
+        self.product_owner.get_project_description(self.storage['specification.md'])
 
         while True:
             try:
