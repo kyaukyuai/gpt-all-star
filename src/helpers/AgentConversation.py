@@ -8,8 +8,6 @@ from langchain_core.messages import BaseMessage, AIMessage, HumanMessage, System
 from openai import OpenAI
 import tiktoken
 
-from pprint import pprint
-
 from logger.logger import logger
 from utils.prompts import get_prompt
 
@@ -24,7 +22,6 @@ class AgentConversation:
         self.messages.append(
             AgentConversation.create_system_message(
                 get_prompt(f"system_messages/{agent.role}")))
-        pprint(self.messages)
 
     @staticmethod
     def create_system_message(message: str) -> SystemMessage:

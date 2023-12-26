@@ -47,7 +47,7 @@ class Project:
         self.product_owner = ProductOwner(self)
         self.product_owner.print_project()
         self.product_owner.print_role()
-        # self.product_owner.get_project_description()
+        self.product_owner.get_project_description()
 
         while True:
             try:

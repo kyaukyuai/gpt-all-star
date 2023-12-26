@@ -6,10 +6,10 @@ from prompt_toolkit.styles import Style
 
 
 class FileContentCompleter(Completer):
-    def __init__(self, fnames):
+    def __init__(self, fine_names):
         self.words = []
-        for fname in fnames:
-            with open(fname, "r") as f:
+        for file_name in fine_names:
+            with open(file_name, "r") as f:
                 content = f.read()
             self.words.extend(content.split())
 
@@ -25,12 +25,12 @@ class FileContentCompleter(Completer):
                 yield Completion(word, start_position=-len(last_word))
 
 
-def get_input(history_file, fnames):
-    inp = ""
+def get_input(history_file, file_names):
+    user_input = ""
     multiline_input = False
 
     style = Style.from_dict({"": "green"})
-    completer_instance = FileContentCompleter(fnames)
+    completer_instance = FileContentCompleter(file_names)
 
     while True:
         if multiline_input:
@@ -53,10 +53,10 @@ def get_input(history_file, fnames):
         elif line.strip() == "}" and multiline_input:
             break
         elif multiline_input:
-            inp += line + "\n"
+            user_input += line + "\n"
         else:
-            inp = line
+            user_input = line
             break
 
     print()
-    return inp
+    return user_input

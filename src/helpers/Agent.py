@@ -1,8 +1,10 @@
 from pprint import pprint
 
+from helpers.AgentRole import AgentRole
+
 
 class Agent:
-    def __init__(self, role: str, project) -> None:
+    def __init__(self, role: AgentRole, project) -> None:
         """
         Agent constructor
 
@@ -16,7 +18,7 @@ class Agent:
         if not isinstance(project, Project):
             raise ValueError("`project` should be an instance of Project")
 
-        self.role: str = role
+        self.role: AgentRole = role
         self.project: Project = project
 
     def print_role(self) -> None:
