@@ -9,7 +9,7 @@ class Agent:
         :param role: Role of this agent
         :param project: Project of this agent
         """
-        from .Project import Project
+        from helpers.Project import Project
 
         if not isinstance(role, str) or not role:
             raise ValueError("`role` should be a non-empty string")

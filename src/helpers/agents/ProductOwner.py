@@ -1,7 +1,11 @@
 from __future__ import annotations
 
-from ..Agent import Agent
-from ..AgentConversation import AgentConversation
+import json
+from pprint import pprint
+
+from helpers.Agent import Agent
+from helpers.AgentConversation import AgentConversation
+from logger.logger import logger
 
 
 class ProductOwner(Agent):
@@ -12,10 +16,7 @@ class ProductOwner(Agent):
         """
         super().__init__('product_owner', project)
 
-    def get_project_description(self) -> AgentConversation:
-        """Get Project description
-
-        :return: Instance of the AgentConversation class
-        """
+    def get_project_description(self):
         self.project.current_step = 'project_description'
-        return AgentConversation(self)
+        agent_conversation = AgentConversation(self)
+        agent_conversation.next(agent_conversation.messages, "")
