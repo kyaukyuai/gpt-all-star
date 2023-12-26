@@ -1,7 +1,10 @@
 from __future__ import annotations
 from pprint import pprint
 
-from .agents.ProductOwner import ProductOwner
+from rich.console import Console
+
+from helpers.agents.ProductOwner import ProductOwner
+from utils.prompt_toolkit import get_input
 
 
 class Project:
@@ -28,6 +31,8 @@ class Project:
 
         self._print_settings()
 
+        self.console: Console = Console()
+
     def _print_settings(self) -> None:
         pprint(
             f"Project setting is set with args: {self.args},"
@@ -42,4 +47,16 @@ class Project:
         self.product_owner = ProductOwner(self)
         self.product_owner.print_project()
         self.product_owner.print_role()
-        self.product_owner.get_project_description()
+        # self.product_owner.get_project_description()
+
+        while True:
+            try:
+                self.execute()
+            except KeyboardInterrupt:
+                break
+
+    def execute(self):
+        messages = self.product_owner.agent_conversation.messages
+        user_input = get_input('project.history', set())
+        self.product_owner.agent_conversation.next(messages, user_input)
+        self.console.print()
