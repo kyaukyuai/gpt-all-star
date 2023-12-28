@@ -1,6 +1,7 @@
 import argparse
 import uuid
-from pprint import pprint
+
+from logger.logger import logger
 
 
 def get_arguments():
@@ -15,5 +16,5 @@ def get_arguments():
     # Parse the arguments.
     args = parser.parse_args()
 
-    pprint(f"If you wish to continue with this project in future run 'python main.py --app_id {args.app_id}'")
+    logger.info(f"If you wish to continue with this project in future run 'python main.py --app_id {args.app_id}'")
     return vars(args)

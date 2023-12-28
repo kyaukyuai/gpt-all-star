@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import json
+
 import openai
 from langchain_community.chat_models import ChatOpenAI
 from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
-from langchain_core.messages import BaseMessage, AIMessage, HumanMessage, SystemMessage
+from langchain_core.messages import BaseMessage, AIMessage, HumanMessage, SystemMessage, messages_to_dict, \
+    messages_from_dict
 from openai import OpenAI
 import tiktoken
 
@@ -35,9 +38,23 @@ class AgentConversation:
     def create_ai_message(message: str) -> AIMessage:
         return AIMessage(content=message)
 
+    @staticmethod
+    def serialize_messages(messages: list[BaseMessage]) -> str:
+        return json.dumps(messages_to_dict(messages))
+
+    @staticmethod
+    def deserialize_messages(json_dict_str: str) -> list[BaseMessage]:
+        data = json.loads(json_dict_str)
+        pre_validated_data = [{
+            **item, "data": {
+                **item["data"], "is_chunk": False
+            }
+        } for item in data]
+        return list(messages_from_dict(pre_validated_data))
+
     def next(self, messages: list[BaseMessage], prompt: str | None) -> list[BaseMessage]:
         if prompt is not None:
-            self.messages.append(AgentConversation.create_system_message(prompt))
+            self.messages.append(AgentConversation.create_human_message(prompt))
 
         logger.info(f"Creating a new chat completion: {messages}")
 

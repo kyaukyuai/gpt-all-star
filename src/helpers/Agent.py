@@ -1,6 +1,5 @@
-from pprint import pprint
-
 from helpers.AgentRole import AgentRole
+from logger.logger import logger
 
 
 class Agent:
@@ -22,13 +21,7 @@ class Agent:
         self.project: Project = project
 
     def print_role(self) -> None:
-        """
-        Prints the role of this agent
-        """
-        pprint(f'The role of this agent is {self.role}')
+        logger.info(f"The role of this agent is {self.role}")
 
     def print_project(self) -> None:
-        """
-        Prints the project of this agent
-        """
-        pprint(f'The project of this agent is {self.project.name}')
+        logger.info(f"The project of this agent is {self.project.name}")

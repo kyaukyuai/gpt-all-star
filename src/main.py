@@ -1,5 +1,4 @@
 import sys
-from pprint import pprint
 from dotenv import load_dotenv
 
 from helpers.Project import Project
@@ -13,7 +12,6 @@ def init() -> dict:
     arguments = get_arguments()
 
     logger.info(f"Starting with args: {arguments}")
-    pprint(f"Starting with args: {arguments}")
 
     return arguments
 
