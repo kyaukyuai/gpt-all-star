@@ -4,7 +4,7 @@ from langchain_core.messages import BaseMessage
 
 from core.agents.Agent import Agent, AgentRole
 from core.Message import Message
-from utils.prompts import get_prompt
+from prompts.prompts import get_prompt
 
 
 class ProductOwner(Agent):

@@ -10,7 +10,7 @@ from langchain_core.messages import BaseMessage
 
 from core.Message import Message
 from logger.logger import logger
-from utils.prompts import get_prompt
+from prompts.prompts import get_prompt
 
 
 class Agent:

@@ -5,7 +5,7 @@ from core.Message import Message
 from core.steps.Step import Step, NEXT_COMMAND
 from core.Storage import Storages
 from logger.logger import logger
-from utils.prompt_toolkit import get_input
+from cli.prompt_toolkit import get_input
 
 
 class Clarify(Step):
