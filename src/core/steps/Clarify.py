@@ -1,9 +1,9 @@
 from langchain_core.messages import BaseMessage
 
-from helpers.Agents import Agents
-from helpers.Message import Message
-from helpers.Step import Step, NEXT_COMMAND
-from helpers.Storage import Storages
+from core.Agents import Agents
+from core.Message import Message
+from core.Step import Step, NEXT_COMMAND
+from core.Storage import Storages
 from logger.logger import logger
 from utils.prompt_toolkit import get_input
 

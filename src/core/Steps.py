@@ -1,7 +1,7 @@
 from enum import Enum
 
-from helpers.steps.Clarify import Clarify
-from helpers.steps.Specification import Specification
+from core.steps.Clarify import Clarify
+from core.steps.Specification import Specification
 
 
 class StepType(str, Enum):

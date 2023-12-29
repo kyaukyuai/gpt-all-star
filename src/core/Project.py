@@ -3,10 +3,10 @@ from __future__ import annotations
 import os.path
 from pathlib import Path
 
-from helpers.Agents import Agents
-from helpers.Steps import StepType, STEPS
-from helpers.Storage import Storage, Storages
-from helpers.agents.ProductOwner import ProductOwner
+from core.Agents import Agents
+from core.Steps import StepType, STEPS
+from core.Storage import Storage, Storages
+from core.agents.ProductOwner import ProductOwner
 from logger.logger import logger
 
 

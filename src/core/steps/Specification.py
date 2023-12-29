@@ -1,10 +1,10 @@
 from langchain_core.messages import BaseMessage
 
-from helpers import Agents
-from helpers.Message import Message
-from helpers.Step import Step
-from helpers.Storage import Storages
-from helpers.agents.ProductOwner import ProductOwner
+from core import Agents
+from core.Message import Message
+from core.Step import Step
+from core.Storage import Storages
+from core.agents.ProductOwner import ProductOwner
 from logger.logger import logger
 
 

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from helpers.agents.ProductOwner import ProductOwner
+from core.agents.ProductOwner import ProductOwner
 
 
 @dataclass

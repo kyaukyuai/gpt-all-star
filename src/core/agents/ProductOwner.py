@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from langchain_core.messages import BaseMessage
 
-from helpers.Agent import Agent, AgentRole
-from helpers.Message import Message
+from core.Agent import Agent, AgentRole
+from core.Message import Message
 from utils.prompts import get_prompt
 
 

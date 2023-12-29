@@ -1,7 +1,7 @@
 from rich.console import Console
 
-from helpers.Agents import Agents
-from helpers.Storage import Storages
+from core.Agents import Agents
+from core.Storage import Storages
 
 NEXT_COMMAND = "next"
 

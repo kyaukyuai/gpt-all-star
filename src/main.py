@@ -1,7 +1,7 @@
 import sys
 from dotenv import load_dotenv
 
-from helpers.Project import Project
+from core.Project import Project
 from utils.arguments import get_arguments
 from logger.logger import logger
 

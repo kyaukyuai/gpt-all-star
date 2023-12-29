@@ -8,7 +8,7 @@ from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
 
-from helpers.Message import Message
+from core.Message import Message
 from logger.logger import logger
 from utils.prompts import get_prompt
 
