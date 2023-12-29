@@ -30,6 +30,7 @@ class Project:
         self.storages = Storages(
             origin=Storage(project_path),
             result=Storage(project_path / "result"),
+            src=Storage(project_path / "src"),
         )
 
         self.agents = Agents(

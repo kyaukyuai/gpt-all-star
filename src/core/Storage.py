@@ -44,3 +44,4 @@ class Storage:
 class Storages:
     origin: Storage
     result: Storage
+    src: Storage

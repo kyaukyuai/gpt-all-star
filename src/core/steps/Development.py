@@ -22,4 +22,7 @@ class Development(Step):
         self.storages.result[self.__class__.__name__.lower()] = Message.serialize_messages(
             self.agents.engineer.messages)
 
+        files = Message.parse_message(self.agents.engineer.latest_message_content())
+        for file_name, file_content in files:
+            self.storages.src[file_name] = file_content
         return self.agents.engineer.messages

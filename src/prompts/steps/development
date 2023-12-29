@@ -1,5 +1,6 @@
 Think step by step and reason yourself to the correct decisions to make sure we get it right.
 First lay out the names of the core classes, functions, methods that will be necessary, As well as a quick comment on their purpose.
+If you are using a database such as SQLite, please also create a script to initialize the necessary tables.
 
 You will output the content of each file necessary to achieve the goal, including ALL code.
 Represent files like so:
