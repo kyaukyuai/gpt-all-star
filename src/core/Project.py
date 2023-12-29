@@ -4,6 +4,7 @@ import os.path
 from pathlib import Path
 
 from core.agents.Agents import Agents
+from core.agents.Engineer import Engineer
 from core.steps.Steps import StepType, STEPS
 from core.Storage import Storage, Storages
 from core.agents.ProductOwner import ProductOwner
@@ -28,11 +29,12 @@ class Project:
         project_path = Path(os.path.abspath('projects/example')).absolute()
         self.storages = Storages(
             origin=Storage(project_path),
-            result=Storage(project_path / "result")
+            result=Storage(project_path / "result"),
         )
 
         self.agents = Agents(
-            product_owner=ProductOwner()
+            product_owner=ProductOwner(),
+            engineer=Engineer(),
         )
 
     def start(self) -> None:

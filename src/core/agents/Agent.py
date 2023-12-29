@@ -61,3 +61,4 @@ def create_llm(model: str, temperature: float) -> BaseChatModel:
 
 class AgentRole(str, Enum):
     PRODUCT_OWNER = "product_owner"
+    ENGINEER = "engineer"
