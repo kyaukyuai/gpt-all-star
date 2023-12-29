@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import shutil
+from dataclasses import dataclass
 from pathlib import Path
 
 
@@ -37,3 +38,9 @@ class Storage:
             item_path.unlink()
         elif item_path.is_dir():
             shutil.rmtree(item_path)
+
+
+@dataclass
+class Storages:
+    origin: Storage
+    result: Storage

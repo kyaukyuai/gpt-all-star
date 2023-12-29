@@ -4,13 +4,12 @@ from langchain_core.messages import BaseMessage
 
 from helpers.Agent import Agent, AgentRole
 from helpers.Message import Message
-from logger.logger import logger
 from utils.prompts import get_prompt
 
 
 class ProductOwner(Agent):
-    def __init__(self, project) -> None:
-        super().__init__(AgentRole.PRODUCT_OWNER, project)
+    def __init__(self) -> None:
+        super().__init__(AgentRole.PRODUCT_OWNER)
 
     def get_project_description(self, specification: str):
         self.messages.append(Message.create_system_message(get_prompt('steps/clarify')))

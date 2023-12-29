@@ -1,17 +1,15 @@
-from enum import Enum
+from rich.console import Console
 
-from helpers.Message import Message
+from helpers.Agents import Agents
+from helpers.Storage import Storages
+
+NEXT_COMMAND = "next"
 
 
 class Step:
-    def __init__(self) -> None:
-        self.conversation = Message()
+    def __init__(self, agents: Agents, storages: Storages) -> None:
+        self.agents = agents
+        self.storages = storages
+        self.console = Console()
 
-
-class StepType(str, Enum):
-    DEFAULT = "default"
-
-
-STEPS = {
-    StepType.DEFAULT: ['clarify', 'update_specification']
-}
+        self.console.rule(f"STEP: {self.__class__.__name__}")

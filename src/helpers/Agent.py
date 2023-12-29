@@ -14,18 +14,11 @@ from utils.prompts import get_prompt
 
 
 class Agent:
-    def __init__(self, role: AgentRole, project) -> None:
-        from helpers.Project import Project
-
+    def __init__(self, role: AgentRole) -> None:
         if not isinstance(role, str) or not role:
             raise ValueError("`role` should be a non-empty string")
-        if not isinstance(project, Project):
-            raise ValueError("`project` should be an instance of Project")
 
         self.role: AgentRole = role
-        self.project: Project = project
-
-        self.print_project()
         self.print_role()
 
         self.llm = create_llm('gpt-4', 0.1)
@@ -34,9 +27,6 @@ class Agent:
 
     def print_role(self) -> None:
         logger.info(f"The role of this agent is {self.role}")
-
-    def print_project(self) -> None:
-        logger.info(f"The project of this agent is {self.project.name}")
 
     def chat(self, human_input: str | None) -> None:
         if human_input is not None:
