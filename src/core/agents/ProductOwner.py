@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from langchain_core.messages import BaseMessage
 
-from core.Agent import Agent, AgentRole
+from core.agents.Agent import Agent, AgentRole
 from core.Message import Message
 from utils.prompts import get_prompt
 

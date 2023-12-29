@@ -1,10 +1,9 @@
 from langchain_core.messages import BaseMessage
 
-from core import Agents
+from core.agents import Agents
 from core.Message import Message
-from core.Step import Step
+from core.steps.Step import Step
 from core.Storage import Storages
-from core.agents.ProductOwner import ProductOwner
 from logger.logger import logger
 
 
