@@ -1,7 +1,8 @@
+from prompt_toolkit.history import FileHistory
+
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import Completer, Completion
 from prompt_toolkit.document import Document
-from prompt_toolkit.history import FileHistory
 from prompt_toolkit.styles import Style
 
 
