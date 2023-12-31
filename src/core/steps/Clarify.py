@@ -13,13 +13,7 @@ class Clarify(Step):
         super().__init__(agents, storages)
 
     def run(self) -> list[BaseMessage]:
-        prompt = (
-            self.storages.origin['prompt']
-            if self.storages.origin.get('prompt') is not None
-            else ask_user('project.history', 'What application do you want datable-interpreter to generate?')
-        )
-
-        self.agents.product_owner.get_project_description(prompt)
+        self.agents.product_owner.get_project_description(self._get_prompt())
 
         user_input = None
         response = ""
@@ -49,3 +43,10 @@ class Clarify(Step):
         self.storages.memory[self.__class__.__name__.lower()] = Message.serialize_messages(
             self.agents.product_owner.messages)
         return self.agents.product_owner.messages
+
+    def _get_prompt(self) -> str:
+        return (
+            self.storages.origin['prompt']
+            if self.storages.origin.get('prompt') is not None
+            else ask_user('project.history', 'What application do you want to generate?')
+        )
