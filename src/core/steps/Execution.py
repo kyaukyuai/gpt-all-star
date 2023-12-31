@@ -3,9 +3,11 @@ import subprocess
 from termcolor import colored
 from langchain_core.messages import BaseMessage
 
+from core.Message import Message
 from core.Storage import Storages
 from core.agents.Agents import Agents
 from core.steps.Step import Step
+from logger.logger import logger
 
 
 class Execution(Step):
@@ -36,14 +38,73 @@ class Execution(Step):
         print("You can press ctrl+c *once* to stop the execution.")
         print()
 
-        p = subprocess.Popen("bash run.sh", shell=True, cwd=self.storages.src.path)
+        command = "bash run.sh"
         try:
-            p.wait()
+            subprocess.run(
+                command, shell=True, cwd=self.storages.src.path,
+                check=True, text=True, stderr=subprocess.PIPE
+            )
+        except subprocess.CalledProcessError as e:
+            user_input = "Please modify the source code based on the error wording above."
+            count = 0
+
+            self.console.print(f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
+                               style="bold red")
+            for file_name, file_str in self._get_code_strings().items():
+                self.console.print(f"Adding file {file_name} to the prompt...", style="blue")
+                code_input = format_file_to_input(file_name, file_str)
+                self.agents.engineer.messages.append(Message.create_system_message(f"{code_input}"))
+
+            self.agents.engineer.messages.append(Message.create_system_message(e.stderr))
+
+            self.agents.engineer.chat(user_input)
+            response = self.agents.engineer.latest_message_content()
+            logger.info(f"response: {response}")
+            self.console.print()
+            count += 1
+
+            self.storages.memory['self_healing'] = Message.serialize_messages(
+                self.agents.engineer.messages)
+
+            files = Message.parse_message(self.agents.engineer.latest_message_content())
+            for file_name, file_content in files:
+                self.storages.src[file_name] = file_content
+
+            self.run()
+
         except KeyboardInterrupt:
-            print()
-            print("Stopping execution.")
-            print("Execution stopped.")
-            p.kill()
-            print()
+            self.console.print()
+            self.console.print("Stopping execution.", style="bold yellow")
+            self.console.print("Execution stopped.", style="bold red")
+            self.console.print()
 
         return []
+
+    def _get_code_strings(self) -> dict[str, str]:
+        files_dict = {}
+
+        for path in self.storages.src.path.iterdir():
+            if path.is_file():
+                try:
+                    with open(path, "r", encoding="utf-8") as f:
+                        file_content = f.read()
+                except UnicodeDecodeError:
+                    raise ValueError(
+                        f"Non-text file detected: {path}, datable-interpreter currently only supports utf-8 "
+                        f"decidable text"
+                        f"files."
+                    )
+
+            files_dict[path] = file_content
+
+        return files_dict
+
+
+def format_file_to_input(file_name: str, file_content: str) -> str:
+    file_str = f"""
+    {file_name}
+    ```
+    {file_content}
+    ```
+    """
+    return file_str
