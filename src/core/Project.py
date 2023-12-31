@@ -3,6 +3,7 @@ from __future__ import annotations
 import os.path
 from pathlib import Path
 
+from cli.prompt_toolkit import ask_user
 from core.agents.Agents import Agents
 from core.agents.Engineer import Engineer
 from core.steps.Steps import StepType, STEPS
@@ -24,7 +25,7 @@ class Project:
         self.description: str | None = description
         self.current_step: str | None = current_step
 
-        self.step_type = StepType.DEFAULT
+        self.steps = STEPS[self.args['step']] if self.args['step'] is not None else STEPS[StepType.DEFAULT]
 
         project_path = Path(os.path.abspath('projects/example')).absolute()
         self.storages = Storages(
@@ -40,7 +41,7 @@ class Project:
 
     def start(self) -> None:
         try:
-            for step in STEPS[self.step_type]:
+            for step in self.steps:
                 try:
                     step(self.agents, self.storages).run()
                 except Exception as e:
@@ -49,3 +50,10 @@ class Project:
         except KeyboardInterrupt:
             logger.info("Interrupt received! Stopping...")
             pass
+
+    def finish(self) -> None:
+        ask_user(self,
+                 "Project is finished! Do you want to add any features or changes? If yes, describe it here and if "
+                 "no, just press ENTER",
+                 require_some_input=False)
+        return

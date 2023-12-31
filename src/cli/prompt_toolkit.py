@@ -4,6 +4,9 @@ from prompt_toolkit import prompt
 from prompt_toolkit.completion import Completer, Completion
 from prompt_toolkit.document import Document
 from prompt_toolkit.styles import Style
+from rich.console import Console
+
+from logger.logger import logger
 
 
 class FileContentCompleter(Completer):
@@ -26,7 +29,10 @@ class FileContentCompleter(Completer):
                 yield Completion(word, start_position=-len(last_word))
 
 
-def get_input(history_file, file_names):
+def get_input(history_file, file_names=None):
+    if file_names is None:
+        file_names = set()
+
     user_input = ""
     multiline_input = False
 
@@ -61,3 +67,23 @@ def get_input(history_file, file_names):
 
     print()
     return user_input
+
+
+def ask_user(project, question: str, require_some_input=True):
+    console = Console()
+
+    while True:
+        console.print(question, style="white bold")
+        answer = get_input('project.history').strip()
+
+        logger.info('Q: %s', question)
+        logger.info('A: %s', answer)
+
+        if not answer:
+            if require_some_input:
+                print("No input provided! Please try again.")
+            else:
+                print("Exiting application.")
+                exit(0)
+        else:
+            return answer

@@ -1,4 +1,3 @@
-import sys
 from dotenv import load_dotenv
 
 from core.Project import Project
@@ -21,4 +20,4 @@ if __name__ == "__main__":
 
     project = Project(args)
     project.start()
-    sys.exit()
+    project.finish()

@@ -11,7 +11,13 @@ def get_arguments():
     # Add arguments with defaults.
     parser.add_argument('--user_id', type=str, default=str(uuid.uuid4()), help='User ID')
     parser.add_argument('--app_id', type=str, default=str(uuid.uuid4()), help='App ID')
-    parser.add_argument('--step', type=str, default=None, help='Step')
+    parser.add_argument(
+        '--step', '-s',
+        choices=['clarify', 'specification', 'development'],
+        type=str,
+        default=None,
+        help='Step'
+    )
 
     # Parse the arguments.
     args = parser.parse_args()
