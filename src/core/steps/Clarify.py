@@ -5,7 +5,7 @@ from core.Message import Message
 from core.steps.Step import Step, NEXT_COMMAND
 from core.Storage import Storages
 from logger.logger import logger
-from cli.prompt_toolkit import get_input
+from cli.prompt_toolkit import get_input, ask_user
 
 
 class Clarify(Step):
@@ -13,7 +13,13 @@ class Clarify(Step):
         super().__init__(agents, storages)
 
     def run(self) -> list[BaseMessage]:
-        self.agents.product_owner.get_project_description(self.storages.origin['specification.md'])
+        prompt = (
+            self.storages.origin['prompt']
+            if self.storages.origin.get('prompt') is not None
+            else ask_user('project.history', 'What application do you want datable-interpreter to generate?')
+        )
+
+        self.agents.product_owner.get_project_description(prompt)
 
         user_input = None
         response = ""

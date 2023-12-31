@@ -4,6 +4,7 @@ import shutil
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 
 class Storage:
@@ -39,6 +40,12 @@ class Storage:
             item_path.unlink()
         elif item_path.is_dir():
             shutil.rmtree(item_path)
+
+    def get(self, key: str, default: Any = None) -> Any:
+        try:
+            return self[key]
+        except KeyError:
+            return default
 
 
 @dataclass

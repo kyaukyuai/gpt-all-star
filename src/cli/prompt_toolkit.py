@@ -65,7 +65,6 @@ def get_input(history_file, file_names=None):
             user_input = line
             break
 
-    print()
     return user_input
 
 
@@ -75,9 +74,10 @@ def ask_user(project, question: str, require_some_input=True):
     while True:
         console.print(question, style="white bold")
         answer = get_input('project.history').strip()
+        console.print()
 
-        logger.info('Q: %s', question)
-        logger.info('A: %s', answer)
+        logger.info('Question: %s', question)
+        logger.info('Answer: %s', answer)
 
         if not answer:
             if require_some_input:
