@@ -38,13 +38,14 @@ class Project:
             engineer=Engineer(),
         )
 
-        self.steps = STEPS[self.args['step']] if self.args['step'] is not None else STEPS[StepType.DEFAULT]
-        if self.steps in [StepType.DEFAULT]:
+        self.step_type = self.args['step'] or StepType.DEFAULT
+        if self.step_type is StepType.DEFAULT:
+            logger.info("archive previous storages")
             Storages.archive_storage(self.storages)
 
     def start(self) -> None:
         try:
-            for step in self.steps:
+            for step in STEPS[self.step_type]:
                 try:
                     step(self.agents, self.storages).run()
                 except Exception as e:
