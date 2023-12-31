@@ -1,6 +1,5 @@
 from langchain_core.messages import BaseMessage
 
-from cli.prompt_toolkit import ask_user
 from core.agents import Agents
 from core.Message import Message
 from core.steps.Step import Step, NEXT_COMMAND
@@ -22,8 +21,8 @@ class Specification(Step):
 
         while True:
             if count > 0:
-                self.console.print()
-                user_input = ask_user(
+                self.terminal.new_lines(1)
+                user_input = self.terminal.ask_user(
                     f"Do you want to add any features or changes?"
                     f" If yes, describe it here and if no, just type `{NEXT_COMMAND}`"
                 )

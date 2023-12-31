@@ -3,7 +3,7 @@ from __future__ import annotations
 import os.path
 from pathlib import Path
 
-from cli.prompt_toolkit import ask_user
+from cli.Terminal import ConsoleTerminal
 from core.agents.Agents import Agents
 from core.agents.Engineer import Engineer
 from core.steps.Steps import StepType, STEPS
@@ -56,7 +56,7 @@ class Project:
             pass
 
     def finish(self) -> None:
-        ask_user(
+        ConsoleTerminal().ask_user(
             "Project is finished! Do you want to add any features or changes? If yes, describe it here and if "
             "no, just press ENTER",
             require_some_input=False)

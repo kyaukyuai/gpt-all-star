@@ -5,7 +5,6 @@ from core.Message import Message
 from core.steps.Step import Step, NEXT_COMMAND
 from core.Storage import Storages
 from logger.logger import logger
-from cli.prompt_toolkit import ask_user
 
 
 class Clarify(Step):
@@ -21,13 +20,13 @@ class Clarify(Step):
 
         while "nothing to clarify" not in response.lower():
             if count > 0:
-                self.console.print()
-                user_input = ask_user(f"Answer in text, or o proceed to the next step, type `{NEXT_COMMAND}`")
+                self.terminal.new_lines(2)
+                user_input = self.terminal.ask_user(f"Answer in text, or o proceed to the next step, type `{NEXT_COMMAND}`")
                 if user_input == NEXT_COMMAND:
                     self.agents.product_owner.chat(
                         "Make your own assumptions and state them explicitly,"
                         " **finally please answer 'It's clear!'**")
-                    self.console.print()
+                    self.terminal.new_lines(1)
                     break
 
             self.agents.product_owner.chat(user_input)

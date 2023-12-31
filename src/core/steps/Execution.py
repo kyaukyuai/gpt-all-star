@@ -48,10 +48,10 @@ class Execution(Step):
             user_input = "Please modify the source code based on the error wording above."
             count = 0
 
-            self.console.print(f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
-                               style="bold red")
+            self.terminal.print(f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
+                                style="bold red")
             for file_name, file_str in self._get_code_strings().items():
-                self.console.print(f"Adding file {file_name} to the prompt...", style="blue")
+                self.terminal.print(f"Adding file {file_name} to the prompt...", style="blue")
                 code_input = format_file_to_input(file_name, file_str)
                 self.agents.engineer.messages.append(Message.create_system_message(f"{code_input}"))
 
@@ -60,7 +60,7 @@ class Execution(Step):
             self.agents.engineer.chat(user_input)
             response = self.agents.engineer.latest_message_content()
             logger.info(f"response: {response}")
-            self.console.print()
+            self.terminal.new_lines(1)
             count += 1
 
             self.storages.memory['self_healing'] = Message.serialize_messages(
@@ -73,10 +73,10 @@ class Execution(Step):
             self.run()
 
         except KeyboardInterrupt:
-            self.console.print()
-            self.console.print("Stopping execution.", style="bold yellow")
-            self.console.print("Execution stopped.", style="bold red")
-            self.console.print()
+            self.terminal.new_lines(1)
+            self.terminal.print("Stopping execution.", style="bold yellow")
+            self.terminal.print("Execution stopped.", style="bold red")
+            self.terminal.new_lines(1)
 
         return []
 

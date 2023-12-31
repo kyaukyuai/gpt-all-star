@@ -24,7 +24,7 @@ class Development(Step):
 
         response = self.agents.engineer.latest_message_content()
         logger.info(f"response: {response}")
-        self.console.print()
+        self.terminal.new_lines(1)
 
         self.storages.memory['development'] = Message.serialize_messages(
             self.agents.engineer.messages)
@@ -42,7 +42,7 @@ class Development(Step):
 
         response = self.agents.engineer.latest_message_content()
         logger.info(f"response: {response}")
-        self.console.print()
+        self.terminal.new_lines(1)
 
         self.storages.memory['generate_entrypoint'] = Message.serialize_messages(
             self.agents.engineer.messages)
