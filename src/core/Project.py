@@ -55,8 +55,9 @@ class Project:
             pass
 
     def finish(self) -> None:
-        ask_user(self,
-                 "Project is finished! Do you want to add any features or changes? If yes, describe it here and if "
-                 "no, just press ENTER",
-                 require_some_input=False)
+        ask_user(
+            "Project is finished! Do you want to add any features or changes? If yes, describe it here and if "
+            "no, just press ENTER",
+            require_some_input=False)
+        logger.info(f"Completed project: {self.name}")
         return

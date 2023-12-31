@@ -14,7 +14,7 @@ class Specification(Step):
     def run(self) -> list[BaseMessage]:
         message = Message.deserialize_messages(
             self.storages.memory['clarify']) if self.agents.product_owner.is_initialized() else None
-        self.agents.product_owner.update_project_specification(message)
+        self.agents.product_owner.create_specification(message)
 
         self.agents.product_owner.chat(None)
 

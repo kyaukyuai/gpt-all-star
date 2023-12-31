@@ -68,11 +68,11 @@ def get_input(history_file, file_names=None):
     return user_input
 
 
-def ask_user(project, question: str, require_some_input=True):
+def ask_user(question: str, require_some_input=True):
     console = Console()
 
     while True:
-        console.print(question, style="white bold")
+        console.print(question, style="yellow bold")
         answer = get_input('project.history').strip()
         console.print()
 

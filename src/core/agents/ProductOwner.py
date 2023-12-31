@@ -11,11 +11,12 @@ class ProductOwner(Agent):
     def __init__(self) -> None:
         super().__init__(AgentRole.PRODUCT_OWNER)
 
-    def get_project_description(self, specification: str):
-        self.messages.append(Message.create_system_message(get_prompt('steps/clarify')))
-        self.messages.append(Message.create_human_message(specification))
+    def clarify_project(self, specification: str) -> None:
+        prompt_message = Message.create_system_message(get_prompt('steps/clarify'))
+        human_message = Message.create_human_message(specification)
+        self.messages.extend([prompt_message, human_message])
 
-    def update_project_specification(self, messages: list[BaseMessage] | None) -> None:
+    def create_specification(self, messages: list[BaseMessage] | None) -> None:
         if messages is not None:
             self.messages += messages
 
