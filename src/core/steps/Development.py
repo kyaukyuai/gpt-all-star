@@ -14,6 +14,11 @@ class Development(Step):
         super().__init__(agents, storages)
 
     def run(self) -> list[BaseMessage]:
+        self._develop()
+        self._generate_entrypoint()
+        return self.agents.engineer.messages
+
+    def _develop(self):
         self.agents.engineer.develop(self.storages.memory['specification.md'])
         self.agents.engineer.chat(None)
 
@@ -31,6 +36,10 @@ class Development(Step):
         self.agents.engineer.generate_entrypoint()
         self.agents.engineer.chat(None)
 
+    def _generate_entrypoint(self):
+        self.agents.engineer.generate_entrypoint()
+        self.agents.engineer.chat(None)
+
         response = self.agents.engineer.latest_message_content()
         logger.info(f"response: {response}")
         self.console.print()
@@ -40,10 +49,3 @@ class Development(Step):
         regex = r"```\S*\n(.+?)```"
         matches = re.finditer(regex, response, re.DOTALL)
         self.storages.src["run.sh"] = "\n".join(match.group(1) for match in matches)
-        return self.agents.engineer.messages
-
-    def _develop(self):
-        pass
-
-    def _generate_entrypoint(self):
-        pass
