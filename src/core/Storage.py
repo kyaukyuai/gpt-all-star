@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 
 
@@ -46,3 +47,11 @@ class Storages:
     memory: Storage
     src: Storage
     archive: Storage
+
+    @staticmethod
+    def archive_storage(storages: Storages) -> None:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        shutil.move(str(storages.memory.path),
+                    str(storages.archive.path / timestamp / storages.memory.path.name))
+        shutil.move(str(storages.src.path),
+                    str(storages.archive.path / timestamp / storages.src.path.name))

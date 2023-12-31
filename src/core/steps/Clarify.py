@@ -24,7 +24,8 @@ class Clarify(Step):
                 user_input = get_input('project.history', set())
                 if user_input == NEXT_COMMAND:
                     self.agents.product_owner.chat(
-                        "Make your own assumptions and state them explicitly, and please answer 'Clear'")
+                        "Make your own assumptions and state them explicitly,"
+                        "**finally please answer 'It's clear!'**")
                     self.console.print()
                     break
 
