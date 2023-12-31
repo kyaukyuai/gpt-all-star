@@ -21,7 +21,7 @@ class Agent:
         self.role: AgentRole = role
         self.print_role()
 
-        self.llm = create_llm('gpt-4', 0.1)
+        self.llm = _create_llm('gpt-4', 0.1)
         self.messages: list[BaseMessage] = [
             Message.create_system_message(get_prompt(f"system_messages/{self.role.name}"))]
 
@@ -45,14 +45,14 @@ class Agent:
         return self.messages[-1].content.strip()
 
 
-def create_llm(model: str, temperature: float) -> BaseChatModel:
+def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
     supported_models = [model.id for model in openai.models.list()]
 
-    if model not in supported_models:
-        raise ValueError(f"Model {model} not supported")
+    if model_name not in supported_models:
+        raise ValueError(f"Model {model_name} not supported")
 
     return ChatOpenAI(
-        model=model,
+        model=model_name,
         temperature=temperature,
         streaming=True,
         client=openai.chat.completions,
