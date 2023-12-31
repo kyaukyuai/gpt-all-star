@@ -26,7 +26,7 @@ class Clarify(Step):
                 if user_input == NEXT_COMMAND:
                     self.agents.product_owner.chat(
                         "Make your own assumptions and state them explicitly,"
-                        "**finally please answer 'It's clear!'**")
+                        " **finally please answer 'It's clear!'**")
                     self.console.print()
                     break
 
