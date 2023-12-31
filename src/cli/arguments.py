@@ -13,7 +13,7 @@ def get_arguments():
     parser.add_argument('--app_id', type=str, default=str(uuid.uuid4()), help='App ID')
     parser.add_argument(
         '--step', '-s',
-        choices=['clarify', 'specification', 'development'],
+        choices=['clarify', 'specification', 'development', 'execution'],
         type=str,
         default=None,
         help='Step'
