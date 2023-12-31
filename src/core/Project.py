@@ -39,7 +39,7 @@ class Project:
         )
 
         self.steps = STEPS[self.args['step']] if self.args['step'] is not None else STEPS[StepType.DEFAULT]
-        if self.steps is StepType.DEFAULT:
+        if self.steps in [StepType.DEFAULT]:
             Storages.archive_storage(self.storages)
 
     def start(self) -> None:

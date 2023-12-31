@@ -32,17 +32,19 @@ class Agent:
         if human_input is not None:
             self.messages.append(Message.create_human_message(human_input))
 
-        logger.info(f"Creating a new chat completion: {human_input}")
+        logger.info(f"Messages before chat: {self.messages}")
 
         callbacks = StreamingStdOutCallbackHandler()
         response = self.llm(self.messages, callbacks=[callbacks])
-        logger.info(f"Received response: {response}")
-
         self.messages.append(response)
-        logger.info(f"current messages: {self.messages}")
+
+        logger.info(f"Messages after chat: {self.messages}")
 
     def latest_message_content(self) -> str:
         return self.messages[-1].content.strip()
+
+    def is_initialized(self) -> bool:
+        return len(self.messages) <= 1
 
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:

@@ -12,7 +12,10 @@ class Specification(Step):
         super().__init__(agents, storages)
 
     def run(self) -> list[BaseMessage]:
-        self.agents.product_owner.update_project_specification(None)
+        message = Message.deserialize_messages(
+            self.storages.memory['clarify']) if self.agents.product_owner.is_initialized() else None
+        self.agents.product_owner.update_project_specification(message)
+
         self.agents.product_owner.chat(None)
 
         response = self.agents.product_owner.latest_message_content()
