@@ -43,5 +43,6 @@ class Storage:
 @dataclass
 class Storages:
     origin: Storage
-    result: Storage
+    memory: Storage
     src: Storage
+    archive: Storage

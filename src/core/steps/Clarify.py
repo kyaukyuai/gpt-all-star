@@ -39,6 +39,6 @@ class Clarify(Step):
                                style='bold yellow')
             self.console.print()
 
-        self.storages.result[self.__class__.__name__.lower()] = Message.serialize_messages(
+        self.storages.memory[self.__class__.__name__.lower()] = Message.serialize_messages(
             self.agents.product_owner.messages)
         return self.agents.product_owner.messages

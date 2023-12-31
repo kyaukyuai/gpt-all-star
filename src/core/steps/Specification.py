@@ -19,8 +19,8 @@ class Specification(Step):
         logger.info(f"response: {response}")
         self.console.print()
 
-        self.storages.result[self.__class__.__name__.lower()] = Message.serialize_messages(
+        self.storages.memory[self.__class__.__name__.lower()] = Message.serialize_messages(
             self.agents.product_owner.messages)
         file = Message.parse_message(self.agents.product_owner.latest_message_content())[0]
-        self.storages.result['specification.md'] = file[1]
+        self.storages.memory['specification.md'] = file[1]
         return self.agents.product_owner.messages

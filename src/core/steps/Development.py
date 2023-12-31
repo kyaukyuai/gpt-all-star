@@ -14,14 +14,14 @@ class Development(Step):
         super().__init__(agents, storages)
 
     def run(self) -> list[BaseMessage]:
-        self.agents.engineer.develop(self.storages.result['specification.md'])
+        self.agents.engineer.develop(self.storages.memory['specification.md'])
         self.agents.engineer.chat(None)
 
         response = self.agents.engineer.latest_message_content()
         logger.info(f"response: {response}")
         self.console.print()
 
-        self.storages.result['development'] = Message.serialize_messages(
+        self.storages.memory['development'] = Message.serialize_messages(
             self.agents.engineer.messages)
 
         files = Message.parse_message(self.agents.engineer.latest_message_content())
@@ -35,7 +35,7 @@ class Development(Step):
         logger.info(f"response: {response}")
         self.console.print()
 
-        self.storages.result['generate_entrypoint'] = Message.serialize_messages(
+        self.storages.memory['generate_entrypoint'] = Message.serialize_messages(
             self.agents.engineer.messages)
         regex = r"```\S*\n(.+?)```"
         matches = re.finditer(regex, response, re.DOTALL)

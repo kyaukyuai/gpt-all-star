@@ -30,8 +30,9 @@ class Project:
         project_path = Path(os.path.abspath('projects/example')).absolute()
         self.storages = Storages(
             origin=Storage(project_path),
-            result=Storage(project_path / "result"),
+            memory=Storage(project_path / "memory"),
             src=Storage(project_path / "src"),
+            archive=Storage(project_path / ".archive"),
         )
 
         self.agents = Agents(
