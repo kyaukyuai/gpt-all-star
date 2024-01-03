@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import os
 from enum import Enum
+from functools import lru_cache
 
 import openai
-from langchain_community.chat_models import ChatOpenAI
+from langchain_community.chat_models import ChatOpenAI, AzureChatOpenAI
 from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
@@ -48,17 +50,39 @@ class Agent:
 
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
-    supported_models = [model.id for model in openai.models.list()]
+    endpoint = os.getenv("ENDPOINT")
+    if endpoint == "AZURE":
+        return _create_azure_chat_openai_instance(model_name)
+    else:
+        return _create_chat_openai_instance(model_name, temperature)
 
-    if model_name not in supported_models:
+
+def _create_chat_openai_instance(model_name: str, temperature: float):
+    if model_name not in _get_supported_models():
         raise ValueError(f"Model {model_name} not supported")
-
     return ChatOpenAI(
         model=model_name,
         temperature=temperature,
         streaming=True,
         client=openai.chat.completions,
     )
+
+
+def _create_azure_chat_openai_instance(model_name: str):
+    return AzureChatOpenAI(
+        openai_api_version=os.getenv("OPENAI_API_VERSION", "2023-05-15"),
+        deployment_name=model_name,
+        streaming=True,
+    )
+
+
+def _get_supported_models() -> list[str]:
+    # cache the models list since it is unlikely to change frequently.
+    @lru_cache(maxsize=1)
+    def _fetch_supported_models():
+        return [model.id for model in openai.models.list()]
+
+    return _fetch_supported_models()
 
 
 class AgentRole(str, Enum):
