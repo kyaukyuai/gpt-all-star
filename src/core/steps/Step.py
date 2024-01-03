@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
 from langchain_core.messages import BaseMessage
-from rich.console import Console
 
 from cli.Terminal import ConsoleTerminal
 from core.agents.Agents import Agents

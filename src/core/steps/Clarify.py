@@ -21,7 +21,8 @@ class Clarify(Step):
         while "nothing to clarify" not in response.lower():
             if count > 0:
                 self.terminal.new_lines(2)
-                user_input = self.terminal.ask_user(f"Answer in text, or o proceed to the next step, type `{NEXT_COMMAND}`")
+                user_input = self.terminal.ask_user(
+                    f"Answer in text, or o proceed to the next step, type `{NEXT_COMMAND}`")
                 if user_input == NEXT_COMMAND:
                     self.agents.product_owner.chat(
                         "Make your own assumptions and state them explicitly,"
@@ -43,5 +44,5 @@ class Clarify(Step):
         return (
             self.storages.origin['prompt']
             if self.storages.origin.get('prompt') is not None
-            else ask_user("What application do you want to generate?")
+            else self.terminal.ask_user("What application do you want to generate?")
         )

@@ -3,8 +3,14 @@ from __future__ import annotations
 import json
 import re
 
-from langchain_core.messages import (BaseMessage, AIMessage, HumanMessage, SystemMessage, messages_to_dict,
-                                     messages_from_dict)
+from langchain_core.messages import (
+    BaseMessage,
+    AIMessage,
+    HumanMessage,
+    SystemMessage,
+    messages_to_dict,
+    messages_from_dict,
+)
 
 
 class Message:
@@ -27,11 +33,9 @@ class Message:
     @staticmethod
     def deserialize_messages(json_dict_str: str) -> list[BaseMessage]:
         data = json.loads(json_dict_str)
-        pre_validated_data = [{
-            **item, "data": {
-                **item["data"], "is_chunk": False
-            }
-        } for item in data]
+        pre_validated_data = [
+            {**item, "data": {**item["data"], "is_chunk": False}} for item in data
+        ]
         return list(messages_from_dict(pre_validated_data))
 
     @staticmethod
