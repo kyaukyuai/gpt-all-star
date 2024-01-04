@@ -5,7 +5,6 @@ from langchain_core.messages import BaseMessage
 from core.Storage import Storages
 from core.agents.Agent import Agent, AgentRole, NEXT_COMMAND
 from core.Message import Message
-from prompts.prompts import get_prompt
 from prompts.steps import step_prompts
 
 
@@ -16,7 +15,9 @@ class ProductOwner(Agent):
     def clarify_instructions(self) -> None:
         self.messages.append(
             Message.create_system_message(
-                step_prompts.clarify_template.format(instructions=self._get_instructions())
+                step_prompts.clarify_instructions_template.format(
+                    instructions=self._get_instructions()
+                )
             )
         )
 
@@ -38,7 +39,7 @@ class ProductOwner(Agent):
             self.chat(user_input)
             count += 1
 
-        self.storages.memory['clarify_specification'] = Message.serialize_messages(self.messages)
+        self.storages.memory['clarify_instructions'] = Message.serialize_messages(self.messages)
 
     def _get_instructions(self) -> str:
         return (
@@ -47,8 +48,35 @@ class ProductOwner(Agent):
             else self.terminal.ask_user("What application do you want to generate?")
         )
 
-    def create_specification(self, messages: list[BaseMessage] | None) -> None:
-        if messages is not None:
-            self.messages += messages
+    def summarize_specifications(self) -> None:
+        self.messages.extend(self._get_clarified_instructions())
+        self.messages.append(
+            Message.create_system_message(
+                step_prompts.summarize_specifications_template.format()
+            )
+        )
 
-        self.messages.append(Message.create_system_message(get_prompt('steps/update_specification')))
+        user_input = None
+        count = 0
+
+        while True:
+            if count > 0:
+                self.terminal.new_lines(1)
+                user_input = self.terminal.ask_user(
+                    f"Do you want to add any features or changes?"
+                    f" If yes, describe it here and if no, just type `{NEXT_COMMAND}`"
+                )
+                if user_input == NEXT_COMMAND:
+                    break
+
+            self.chat(user_input)
+            count += 1
+
+        self.storages.memory[self.__class__.__name__.lower()] = Message.serialize_messages(
+            self.messages)
+        file = Message.parse_message(self.latest_message_content())[0]
+        self.storages.memory['specification.md'] = file[1]
+
+    def _get_clarified_instructions(self) -> list[BaseMessage]:
+        return Message.deserialize_messages(
+            self.storages.memory['clarify_instructions']) if self.is_initialized() else []
