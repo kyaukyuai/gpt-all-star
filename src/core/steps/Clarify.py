@@ -8,4 +8,4 @@ class Clarify(Step):
         super().__init__(agents, storages)
 
     def run(self) -> None:
-        self.agents.product_owner.clarify_specification()
+        self.agents.product_owner.clarify_instructions()

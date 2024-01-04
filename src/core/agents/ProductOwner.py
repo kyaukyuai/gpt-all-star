@@ -13,7 +13,7 @@ class ProductOwner(Agent):
     def __init__(self, storages: Storages) -> None:
         super().__init__(AgentRole.PRODUCT_OWNER, storages)
 
-    def clarify_specification(self) -> None:
+    def clarify_instructions(self) -> None:
         self.messages.append(
             Message.create_system_message(
                 step_prompts.clarify_template.format(instructions=self._get_instructions())
