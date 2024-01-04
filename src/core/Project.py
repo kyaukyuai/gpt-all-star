@@ -34,8 +34,8 @@ class Project:
         )
 
         self.agents = Agents(
-            product_owner=ProductOwner(),
-            engineer=Engineer(),
+            product_owner=ProductOwner(storages=self.storages),
+            engineer=Engineer(storages=self.storages),
         )
 
         self.step_type = self.args['step'] or StepType.DEFAULT

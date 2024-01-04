@@ -12,6 +12,7 @@ from langchain_core.messages import BaseMessage
 
 from cli.Terminal import ConsoleTerminal
 from core.Message import Message
+from core.Storage import Storages
 from logger.logger import logger
 from prompts.prompts import get_prompt
 
@@ -19,7 +20,7 @@ NEXT_COMMAND = "next"
 
 
 class Agent:
-    def __init__(self, role: AgentRole) -> None:
+    def __init__(self, role: AgentRole, storages: Storages) -> None:
         if not isinstance(role, str) or not role:
             raise ValueError("`role` should be a non-empty string")
 
@@ -30,6 +31,7 @@ class Agent:
         self.messages: list[BaseMessage] = [
             Message.create_system_message(get_prompt(f"system_messages/{self.role.name}"))]
 
+        self.storages = storages
         self.terminal = ConsoleTerminal()
 
     def print_role(self) -> None:
