@@ -1,3 +1,13 @@
+# CLARIFY
+from langchain_core.prompts import PromptTemplate
+
+clarify_template = PromptTemplate.from_template("""
 You will read instructions and not carry them out, only seek to clarify them.
 Specifically you will first summarise a list of super short bullets of areas that need clarification.
 Then you will pick one clarifying question, and wait for an answer from the user.
+
+Here is the instructions:
+```
+{instructions}
+```
+""")

@@ -10,9 +10,12 @@ from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
 
+from cli.Terminal import ConsoleTerminal
 from core.Message import Message
 from logger.logger import logger
 from prompts.prompts import get_prompt
+
+NEXT_COMMAND = "next"
 
 
 class Agent:
@@ -26,6 +29,8 @@ class Agent:
         self.llm = _create_llm('gpt-4', 0.1)
         self.messages: list[BaseMessage] = [
             Message.create_system_message(get_prompt(f"system_messages/{self.role.name}"))]
+
+        self.terminal = ConsoleTerminal()
 
     def print_role(self) -> None:
         logger.info(f"The role of this agent is {self.role}")
