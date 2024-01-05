@@ -21,23 +21,10 @@ class ProductOwner(Agent):
             )
         )
 
-        user_input = None
-        count = 0
-
-        while "nothing to clarify" not in self.latest_message_content().lower():
-            if count > 0:
-                self.terminal.new_lines(2)
-                user_input = self.terminal.ask_user(
-                    f"Answer in text, or proceed to the next step, type `{NEXT_COMMAND}`")
-                if user_input == NEXT_COMMAND:
-                    self.chat(
-                        "Make your own assumptions and state them explicitly,"
-                        " **finally please answer 'It's clear!'**")
-                    self.terminal.new_lines(1)
-                    break
-
-            self.chat(user_input)
-            count += 1
+        self._execute(
+            "Answer in text, or proceed to the next step, type `{}`".format(NEXT_COMMAND),
+            "Make your own assumptions and state them explicitly, **finally please answer 'It's clear!'**"
+        )
 
         self.storages.memory['clarify_instructions'] = Message.serialize_messages(self.messages)
 
@@ -56,21 +43,10 @@ class ProductOwner(Agent):
             )
         )
 
-        user_input = None
-        count = 0
-
-        while True:
-            if count > 0:
-                self.terminal.new_lines(1)
-                user_input = self.terminal.ask_user(
-                    f"Do you want to add any features or changes?"
-                    f" If yes, describe it here and if no, just type `{NEXT_COMMAND}`"
-                )
-                if user_input == NEXT_COMMAND:
-                    break
-
-            self.chat(user_input)
-            count += 1
+        self._execute(
+            "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
+                NEXT_COMMAND),
+        )
 
         self.storages.memory[self.__class__.__name__.lower()] = Message.serialize_messages(
             self.messages)

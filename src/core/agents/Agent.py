@@ -55,6 +55,23 @@ class Agent:
     def is_initialized(self) -> bool:
         return len(self.messages) <= 1
 
+    def _execute(self, follow_up_message: str, final_message: str | None = None) -> None:
+        user_input = None
+        count = 0
+
+        while True:
+            if count > 0:
+                self.terminal.new_lines(2)
+                user_input = self.terminal.ask_user(follow_up_message)
+                if user_input == NEXT_COMMAND:
+                    if final_message:
+                        self.chat(final_message)
+                        self.terminal.new_lines(1)
+                    break
+
+            self.chat(user_input)
+            count += 1
+
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
     endpoint = os.getenv("ENDPOINT")
