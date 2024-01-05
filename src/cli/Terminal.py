@@ -6,6 +6,7 @@ from prompt_toolkit.document import Document
 from prompt_toolkit.history import FileHistory
 from prompt_toolkit.styles import Style
 from rich.console import Console
+from rich.panel import Panel
 from rich.style import Style as RichStyle
 
 from logger.logger import logger
@@ -23,6 +24,11 @@ class ConsoleTerminal:
 
     def print(self, text: str, style: Optional[Union[str, RichStyle]] = None) -> None:
         self.console.print(text, style=style)
+
+    def panel(self, title: str) -> None:
+        panel = Panel(f"[bold cyan]{title}[/bold cyan]", expand=False)
+        self.console.print(panel)
+        self.new_lines(1)
 
     def input(self, history_file, file_names=None):
         if file_names is None:
