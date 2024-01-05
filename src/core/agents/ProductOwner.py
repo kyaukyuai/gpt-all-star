@@ -48,7 +48,7 @@ class ProductOwner(Agent):
                 NEXT_COMMAND),
         )
 
-        self.storages.memory[self.__class__.__name__.lower()] = Message.serialize_messages(
+        self.storages.memory['summarize_specifications'] = Message.serialize_messages(
             self.messages)
         file = Message.parse_message(self.latest_message_content())[0]
         self.storages.memory['specification.md'] = file[1]

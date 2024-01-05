@@ -1,29 +1,50 @@
-from langchain_core.messages import BaseMessage
+from __future__ import annotations
+
+import re
 
 from core.Message import Message
 from core.Storage import Storages
-from core.agents.Agent import Agent, AgentRole
-from prompts.prompts import get_prompt
+from core.agents.Agent import Agent, AgentRole, NEXT_COMMAND
+from prompts.steps import step_prompts
 
 
 class Engineer(Agent):
     def __init__(self, storages: Storages) -> None:
         super().__init__(AgentRole.ENGINEER, storages)
 
-    def develop(self, specification: str):
-        self.messages.append(Message.create_system_message(get_prompt('steps/development')))
-        self.messages.append(Message.create_human_message(specification))
+    def generate_sourcecode(self):
+        self.messages.append(
+            Message.create_system_message(
+                step_prompts.generate_sourcecode_template.format(
+                    specifications=self.storages.memory['specification.md'])
+            )
+        )
+
+        self._execute(
+            "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
+                NEXT_COMMAND),
+        )
+
+        self.storages.memory['generate_sourcecode'] = Message.serialize_messages(self.messages)
+
+        files = Message.parse_message(self.latest_message_content())
+        for file_name, file_content in files:
+            self.storages.src[file_name] = file_content
 
     def generate_entrypoint(self):
-        self.messages.append(Message.create_system_message(
-            "You will get information about a codebase that is currently on disk in "
-            "the current folder.\n"
-            "From this you will answer with code blocks that includes all the necessary "
-            "unix terminal commands to "
-            "a) install dependencies "
-            "b) run all necessary parts of the codebase (in parallel if necessary).\n"
-            "Do not install globally. Do not use sudo.\n"
-            "Do not explain the code, just give the commands.\n"
-            "Do not use placeholders, use example values (like . for a folder argument) "
-            "if necessary.\n"
-        ))
+        self.messages.append(
+            Message.create_system_message(
+                step_prompts.generate_entrypoint_template.format()
+            )
+        )
+
+        self._execute(
+            "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
+                NEXT_COMMAND),
+        )
+
+        self.storages.memory['generate_entrypoint'] = Message.serialize_messages(
+            self.messages)
+        regex = r"```\S*\n(.+?)```"
+        matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
+        self.storages.src["run.sh"] = "\n".join(match.group(1) for match in matches)
