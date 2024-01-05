@@ -5,7 +5,7 @@ import re
 from core.Message import Message
 from core.Storage import Storages
 from core.agents.Agent import Agent, AgentRole, NEXT_COMMAND
-from prompts.steps import step_prompts
+from core.steps import step_prompts
 
 
 class Engineer(Agent):

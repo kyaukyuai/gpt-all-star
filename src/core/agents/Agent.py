@@ -14,7 +14,7 @@ from cli.Terminal import ConsoleTerminal
 from core.Message import Message
 from core.Storage import Storages
 from logger.logger import logger
-from prompts.prompts import get_prompt
+from core.agents.agent_prompts import get_agent_prompts
 
 NEXT_COMMAND = "next"
 
@@ -29,7 +29,7 @@ class Agent:
 
         self.llm = _create_llm('gpt-4', 0.1)
         self.messages: list[BaseMessage] = [
-            Message.create_system_message(get_prompt(f"system_messages/{self.role.name}"))]
+            Message.create_system_message(get_agent_prompts(self.role.name).format())]
 
         self.storages = storages
         self.terminal = ConsoleTerminal()
@@ -67,6 +67,7 @@ class Agent:
                     if final_message:
                         self.chat(final_message)
                         self.terminal.new_lines(1)
+                    self.terminal.new_lines(1)
                     break
 
             self.chat(user_input)

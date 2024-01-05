@@ -5,7 +5,7 @@ from langchain_core.messages import BaseMessage
 from core.Storage import Storages
 from core.agents.Agent import Agent, AgentRole, NEXT_COMMAND
 from core.Message import Message
-from prompts.steps import step_prompts
+from core.steps import step_prompts
 
 
 class ProductOwner(Agent):

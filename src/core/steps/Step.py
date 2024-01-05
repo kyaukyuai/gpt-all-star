@@ -6,8 +6,6 @@ from cli.Terminal import ConsoleTerminal
 from core.agents.Agents import Agents
 from core.Storage import Storages
 
-NEXT_COMMAND = "next"
-
 
 class Step(ABC):
     def __init__(self, agents: Agents, storages: Storages) -> None:
