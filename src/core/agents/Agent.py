@@ -113,3 +113,4 @@ def _get_supported_models() -> list[str]:
 class AgentRole(str, Enum):
     PRODUCT_OWNER = "product_owner"
     ENGINEER = "engineer"
+    ARCHITECT = "architect"

@@ -5,6 +5,7 @@ from pathlib import Path
 
 from cli.Terminal import ConsoleTerminal
 from core.agents.Agents import Agents
+from core.agents.Architect import Architect
 from core.agents.Engineer import Engineer
 from core.steps.Steps import StepType, STEPS
 from core.Storage import Storage, Storages
@@ -30,12 +31,14 @@ class Project:
             origin=Storage(project_path),
             memory=Storage(project_path / "memory"),
             src=Storage(project_path / "src"),
+            docs=Storage(project_path / "docs"),
             archive=Storage(project_path / ".archive"),
         )
 
         self.agents = Agents(
             product_owner=ProductOwner(storages=self.storages),
             engineer=Engineer(storages=self.storages),
+            architect=Architect(storages=self.storages),
         )
 
         self.step_type = self.args['step'] or StepType.DEFAULT
@@ -59,8 +62,8 @@ class Project:
 
     def finish(self) -> None:
         ConsoleTerminal().ask_user(
-            "Project is finished! Do you want to add any features or changes? If yes, describe it here and if "
-            "no, just press ENTER",
+            "Project is finished! Do you want to add any features or changes?"
+            " If yes, describe it here and if no, just press ENTER",
             require_some_input=False)
         logger.info(f"Completed project: {self.name}")
         return

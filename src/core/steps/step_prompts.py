@@ -34,7 +34,39 @@ specification.md
 ```
 """)
 
-generate_sourcecode_template = PromptTemplate.from_template("""
+design_systems_template = PromptTemplate.from_template("""
+Read the specifications.
+
+Here is specifications:
+```
+{specifications}
+```
+
+Think step by step and write up all technologies that will be used by your development team to create the application.
+Do not write any explanations behind your choices but only a list of technologies that will be used. 
+You do state only frontend, backend and database to execute local environment.
+Try to use major technologies as much as possible.
+
+**The output should be presented in markdown format.**
+
+FILENAME.md
+```
+CONTENT
+```
+
+The following tokens must be replaced like so:
+FILENAME is the lowercase combined path and file name including the file extension
+CONTENT is the text in the file
+
+Example representation of a file:
+
+system_design.md
+```
+# Outline
+```
+""")
+
+generate_source_code_template = PromptTemplate.from_template("""
 You will read specifications and think step by step and reason yourself to the correct decisions to make sure we get it right.
 First lay out the names of the core classes, functions, methods that will be necessary, As well as a quick comment on their purpose.
 

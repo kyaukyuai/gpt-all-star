@@ -9,5 +9,5 @@ class Specification(Step):
 
     def run(self) -> None:
         self.agents.product_owner.clarify_instructions()
-        self.terminal.print("Project specification is following.", style="bold blue")
+        self.terminal.next("Specifications are following...")
         self.agents.product_owner.summarize_specifications()

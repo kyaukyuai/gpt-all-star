@@ -3,10 +3,9 @@ from core.agents.Agents import Agents
 from core.steps.Step import Step
 
 
-class Development(Step):
+class SystemDesign(Step):
     def __init__(self, agents: Agents, storages: Storages) -> None:
         super().__init__(agents, storages)
 
     def run(self) -> None:
-        self.agents.engineer.generate_source_code()
-        self.agents.engineer.generate_entrypoint()
+        self.agents.architect.list_technology_stack()

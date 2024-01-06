@@ -30,6 +30,10 @@ class ConsoleTerminal:
         self.console.print(panel)
         self.new_lines(1)
 
+    def next(self, text: str) -> None:
+        self.print(text, style="#FFFFFF bold")
+        self.new_lines(1)
+
     def input(self, history_file, file_names=None):
         if file_names is None:
             file_names = set()

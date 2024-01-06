@@ -1,6 +1,5 @@
 from langchain_core.prompts import PromptTemplate
 
-
 engineer_template = PromptTemplate.from_template("""
 You are a full stack software developer working for a software development company.
 You write very modular and clean code.
@@ -25,6 +24,11 @@ You always think step by step and ask detailed questions to completely understan
 Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """)
 
+architect_template = PromptTemplate.from_template("""
+You are an experienced software architect. Your expertise is in creating an architecture for an MVP (minimum viable products) for web apps that can be developed as fast as possible by using as many ready-made technologies as possible.
+You prefer using Python.
+""")
+
 
 def get_agent_prompts(name: str) -> PromptTemplate:
     from core.agents.Agent import AgentRole
@@ -33,5 +37,7 @@ def get_agent_prompts(name: str) -> PromptTemplate:
         return engineer_template
     elif name == AgentRole.PRODUCT_OWNER.name:
         return product_owner_template
+    elif name == AgentRole.ARCHITECT.name:
+        return architect_template
     else:
         raise ValueError("Invalid agent name")

@@ -53,6 +53,7 @@ class Storages:
     origin: Storage
     memory: Storage
     src: Storage
+    docs: Storage
     archive: Storage
 
     @staticmethod
@@ -62,3 +63,5 @@ class Storages:
                     str(storages.archive.path / timestamp / storages.memory.path.name))
         shutil.move(str(storages.src.path),
                     str(storages.archive.path / timestamp / storages.src.path.name))
+        shutil.move(str(storages.docs.path),
+                    str(storages.archive.path / timestamp / storages.docs.path.name))

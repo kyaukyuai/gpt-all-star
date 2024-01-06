@@ -12,11 +12,11 @@ class Engineer(Agent):
     def __init__(self, storages: Storages) -> None:
         super().__init__(AgentRole.ENGINEER, storages)
 
-    def generate_sourcecode(self):
+    def generate_source_code(self):
         self.messages.append(
             Message.create_system_message(
-                step_prompts.generate_sourcecode_template.format(
-                    specifications=self.storages.memory['specification.md'])
+                step_prompts.generate_source_code_template.format(
+                    specifications=self.storages.docs['specifications.md'])
             )
         )
 
@@ -25,7 +25,7 @@ class Engineer(Agent):
                 NEXT_COMMAND),
         )
 
-        self.storages.memory['generate_sourcecode'] = Message.serialize_messages(self.messages)
+        self.storages.memory['generate_source_code'] = Message.serialize_messages(self.messages)
 
         files = Message.parse_message(self.latest_message_content())
         for file_name, file_content in files:

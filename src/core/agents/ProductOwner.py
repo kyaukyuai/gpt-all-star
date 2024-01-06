@@ -23,7 +23,8 @@ class ProductOwner(Agent):
 
         self._execute(
             "Answer in text, or proceed to the next step, type `{}`".format(NEXT_COMMAND),
-            "Make your own assumptions and state them explicitly, **finally please answer 'It's clear!'**"
+            "Make your own simplest assumptions possible and state them explicitly,"
+            " **finally please answer 'It's clear!'**"
         )
 
         self.storages.memory['clarify_instructions'] = Message.serialize_messages(self.messages)
@@ -51,7 +52,7 @@ class ProductOwner(Agent):
         self.storages.memory['summarize_specifications'] = Message.serialize_messages(
             self.messages)
         file = Message.parse_message(self.latest_message_content())[0]
-        self.storages.memory['specification.md'] = file[1]
+        self.storages.docs['specifications.md'] = file[1]
 
     def _get_clarified_instructions(self) -> list[BaseMessage]:
         return Message.deserialize_messages(
