@@ -17,7 +17,7 @@ class ConsoleTerminal:
         self.console = Console()
 
     def section(self, title: str) -> None:
-        self.console.rule(title)
+        self.console.rule(title, style="#63CD91 bold")
 
     def new_lines(self, count: int = 1) -> None:
         self.console.print("\n" * (count - 1))
@@ -37,7 +37,7 @@ class ConsoleTerminal:
         user_input = ""
         multiline_input = False
 
-        style = Style.from_dict({"": "green"})
+        style = Style.from_dict({"": "#FF910A"})
         completer_instance = FileContentCompleter(file_names)
 
         while True:
@@ -70,7 +70,7 @@ class ConsoleTerminal:
 
     def ask_user(self, question: str, require_some_input=True):
         while True:
-            self.print(question, style="yellow bold")
+            self.print(f"[#FFFF00 bold]?[/#FFFF00 bold] {question}", style="#FFFFFF bold")
             answer = self.input('project.history').strip()
             self.new_lines(1)
 

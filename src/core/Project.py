@@ -43,10 +43,9 @@ class Project:
             logger.info("archive previous storages")
             Storages.archive_storage(self.storages)
 
-        self.terminal = ConsoleTerminal()
+        ConsoleTerminal().panel("Welcome to your-dev-team")
 
     def start(self) -> None:
-        self.terminal.panel("Welcome to your-dev-team")
         try:
             for step in STEPS[self.step_type]:
                 try:
