@@ -9,3 +9,4 @@ class SystemDesign(Step):
 
     def run(self) -> None:
         self.agents.architect.list_technology_stack()
+        self.agents.architect.layout_directory()

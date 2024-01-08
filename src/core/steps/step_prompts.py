@@ -66,6 +66,40 @@ system_design.md
 ```
 """)
 
+layout_directory_template = PromptTemplate.from_template("""
+You will read specifications and technology_stack, and then think step by step and reason yourself to the correct decisions to make sure we get it right.
+Please lay out the names of the core classes, functions, methods that will be necessary, As well as a quick comment on their purpose.
+Follow a language and framework appropriate best practice file naming convention.
+
+Here is the specifications:
+```
+{specifications}
+```
+
+Here is the technology stack:
+```
+{technology_stack}
+```
+
+**The output should be presented in markdown format.**
+
+FILENAME.md
+```
+CONTENT
+```
+
+The following tokens must be replaced like so:
+FILENAME is the lowercase combined path and file name including the file extension
+CONTENT is the text in the file
+
+Example representation of a file:
+
+layout.md
+```
+# Outline
+```
+""")
+
 generate_source_code_template = PromptTemplate.from_template("""
 You will read specifications and think step by step and reason yourself to the correct decisions to make sure we get it right.
 First lay out the names of the core classes, functions, methods that will be necessary, As well as a quick comment on their purpose.
