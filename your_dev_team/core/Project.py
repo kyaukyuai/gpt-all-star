@@ -54,7 +54,7 @@ class Project:
         table.add_column("Position")
         table.add_column("Description")
         for agent in vars(self.agents).values():
-            table.add_row("Taro Yamada", agent.role.name, "...")
+            table.add_row("Taro Yamada", agent.role, "...")
         self.terminal.print(table)
 
 

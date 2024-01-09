@@ -10,7 +10,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.style import Style as RichStyle
 
-from ..logger.logger import logger
+from your_dev_team.logger.logger import logger
 
 
 class ConsoleTerminal:
@@ -50,7 +50,7 @@ class ConsoleTerminal:
             if multiline_input:
                 show = ". "
             else:
-                show = "> "
+                show = "you: "
 
             try:
                 line = prompt(
@@ -74,9 +74,9 @@ class ConsoleTerminal:
 
         return user_input
 
-    def ask_user(self, question: str, require_some_input=True):
+    def ask_user(self, question: str, questioner: str | None=None, require_some_input=True):
         while True:
-            self.print(f"[#FFFF00 bold]?[/#FFFF00 bold] {question}", style="#FFFFFF bold")
+            self.print(f"[#FFFF00 bold]{questioner if questioner is not None else ''}:[/#FFFF00 bold] {question}", style="#FFFFFF bold")
             answer = self.input('project.history').strip()
             self.new_lines(1)
 

@@ -33,7 +33,7 @@ class ProductOwner(Agent):
         return (
             self.storages.origin['instructions']
             if self.storages.origin.get('instructions') is not None
-            else self.terminal.ask_user("What application do you want to generate?")
+            else self.terminal.ask_user("What application do you want to generate?", self.role)
         )
 
     def summarize_specifications(self) -> None:
