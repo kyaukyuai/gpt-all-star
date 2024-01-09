@@ -16,7 +16,10 @@ class Engineer(Agent):
         self.messages.append(
             Message.create_system_message(
                 step_prompts.generate_source_code_template.format(
-                    specifications=self.storages.docs['specifications.md'])
+                    specifications=self.storages.docs['specifications.md'],
+                    technology_stack=self.storages.docs['technology_stack.md'],
+                    directory_layout=self.storages.docs['layout_directory.md'],
+                ),
             )
         )
 

@@ -106,17 +106,28 @@ layout.md
 ```
 # Outline
 ```
+
+**Finally, please check again that you have all the necessary files.**
 """
 )
 
 generate_source_code_template = PromptTemplate.from_template(
     """
-You will read specifications and think step by step and reason yourself to the correct decisions to make sure we get it right.
-First lay out the names of the core classes, functions, methods that will be necessary, As well as a quick comment on their purpose.
+You will read specifications and technology stack and directory layout, and then think step by step and reason yourself to the correct decisions to make sure we get it right.
 
 Here is the specifications:
 ```
 {specifications}
+```
+
+Here is the technology stack:
+```
+{technology_stack}
+```
+
+Here is the directory layout:
+```
+{directory_layout}
 ```
 
 You will output the content of each file necessary to achieve the goal, including ALL code.
