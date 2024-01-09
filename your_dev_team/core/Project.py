@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os.path
 from pathlib import Path
+from rich.table import Table
 
 from your_dev_team.cli.Terminal import ConsoleTerminal
 from your_dev_team.core.agents.Agents import Agents
@@ -46,7 +47,15 @@ class Project:
             logger.info("archive previous storages")
             Storages.archive_storage(self.storages)
 
-        ConsoleTerminal().panel("your-dev-team")
+        self.terminal = ConsoleTerminal()
+        self.terminal.panel("your-dev-team")
+        table = Table(show_header=True, header_style="magenta",title="Members")
+        table.add_column("Name")
+        table.add_column("Position")
+        table.add_column("Description")
+        for agent in vars(self.agents).values():
+            table.add_row("Taro Yamada", agent.role.name, "...")
+        self.terminal.print(table)
 
 
     def start(self) -> None:
