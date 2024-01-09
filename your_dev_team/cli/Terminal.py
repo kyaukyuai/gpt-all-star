@@ -5,6 +5,7 @@ from prompt_toolkit.completion import Completer, Completion
 from prompt_toolkit.document import Document
 from prompt_toolkit.history import FileHistory
 from prompt_toolkit.styles import Style
+import pyfiglet
 from rich.console import Console
 from rich.panel import Panel
 from rich.style import Style as RichStyle
@@ -26,7 +27,8 @@ class ConsoleTerminal:
         self.console.print(text, style=style)
 
     def panel(self, title: str) -> None:
-        panel = Panel(f"[bold cyan]{title}[/bold cyan]", expand=False)
+        ascii_art = pyfiglet.figlet_format(title)
+        panel = Panel(f"[bold cyan]{ascii_art}[/bold cyan]", expand=False)
         self.console.print(panel)
         self.new_lines(1)
 

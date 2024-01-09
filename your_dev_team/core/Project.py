@@ -46,7 +46,8 @@ class Project:
             logger.info("archive previous storages")
             Storages.archive_storage(self.storages)
 
-        ConsoleTerminal().panel("Welcome to your-dev-team")
+        ConsoleTerminal().panel("your-dev-team")
+
 
     def start(self) -> None:
         try:

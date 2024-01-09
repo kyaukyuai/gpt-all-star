@@ -15,6 +15,7 @@ rich = "^13.7.0"
 prompt-toolkit = "^3.0.43"
 termcolor = "^2.4.0"
 typer = "^0.9.0"
+pyfiglet = "^1.0.2"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
