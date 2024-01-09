@@ -31,7 +31,7 @@ You prefer using Python.
 
 
 def get_agent_prompts(name: str) -> PromptTemplate:
-    from core.agents.Agent import AgentRole
+    from your_dev_team.core.agents.Agent import AgentRole
 
     if name == AgentRole.ENGINEER.name:
         return engineer_template

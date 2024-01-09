@@ -1,6 +1,6 @@
-from core.agents import Agents
-from core.steps.Step import Step
-from core.Storage import Storages
+from your_dev_team.core.agents import Agents
+from your_dev_team.core.steps.Step import Step
+from your_dev_team.core.Storage import Storages
 
 
 class Specification(Step):

@@ -9,7 +9,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.style import Style as RichStyle
 
-from logger.logger import logger
+from ..logger.logger import logger
 
 
 class ConsoleTerminal:

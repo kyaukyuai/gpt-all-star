@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 
 from langchain_core.messages import BaseMessage
 
-from cli.Terminal import ConsoleTerminal
-from core.agents.Agents import Agents
-from core.Storage import Storages
+from your_dev_team.cli.Terminal import ConsoleTerminal
+from your_dev_team.core.agents.Agents import Agents
+from your_dev_team.core.Storage import Storages
 
 
 class Step(ABC):

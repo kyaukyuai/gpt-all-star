@@ -1,9 +1,9 @@
 from enum import Enum
 
-from core.steps.Development import Development
-from core.steps.Execution import Execution
-from core.steps.Specification import Specification
-from core.steps.SystemDesign import SystemDesign
+from your_dev_team.core.steps.Development import Development
+from your_dev_team.core.steps.Execution import Execution
+from your_dev_team.core.steps.Specification import Specification
+from your_dev_team.core.steps.SystemDesign import SystemDesign
 
 
 class StepType(str, Enum):

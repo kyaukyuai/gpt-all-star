@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from langchain_core.messages import BaseMessage
 
-from core.Storage import Storages
-from core.agents.Agent import Agent, AgentRole, NEXT_COMMAND
-from core.Message import Message
-from core.steps import step_prompts
+from your_dev_team.core.Storage import Storages
+from your_dev_team.core.agents.Agent import Agent, AgentRole, NEXT_COMMAND
+from your_dev_team.core.Message import Message
+from your_dev_team.core.steps import step_prompts
 
 
 class ProductOwner(Agent):

@@ -3,11 +3,11 @@ import subprocess
 from termcolor import colored
 from langchain_core.messages import BaseMessage
 
-from core.Message import Message
-from core.Storage import Storages
-from core.agents.Agents import Agents
-from core.steps.Step import Step
-from logger.logger import logger
+from your_dev_team.core.Message import Message
+from your_dev_team.core.Storage import Storages
+from your_dev_team.core.agents.Agents import Agents
+from your_dev_team.core.steps.Step import Step
+from your_dev_team.logger.logger import logger
 
 
 class Execution(Step):

@@ -10,11 +10,11 @@ from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
 
-from cli.Terminal import ConsoleTerminal
-from core.Message import Message
-from core.Storage import Storages
-from logger.logger import logger
-from core.agents.agent_prompts import get_agent_prompts
+from your_dev_team.cli.Terminal import ConsoleTerminal
+from your_dev_team.core.Message import Message
+from your_dev_team.core.Storage import Storages
+from your_dev_team.logger.logger import logger
+from your_dev_team.core.agents.agent_prompts import get_agent_prompts
 
 NEXT_COMMAND = "next"
 

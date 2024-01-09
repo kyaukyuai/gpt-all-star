@@ -1,9 +1,12 @@
 from dotenv import load_dotenv
+import typer
 
-from core.Project import Project
-from cli.arguments import get_arguments
-from logger.logger import logger
+from your_dev_team.core.Project import Project
+from your_dev_team.cli.arguments import get_arguments
+from your_dev_team.logger.logger import logger
 
+
+app = typer.Typer()
 
 def init() -> dict:
     load_dotenv()
@@ -15,9 +18,14 @@ def init() -> dict:
     return arguments
 
 
-if __name__ == "__main__":
+@app.command()
+def main() -> None:
     args = init()
 
     project = Project(args)
     project.start()
     project.finish()
+
+
+if __name__ == "__main__":
+    main()
