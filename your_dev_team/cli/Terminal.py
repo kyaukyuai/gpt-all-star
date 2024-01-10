@@ -15,20 +15,20 @@ from your_dev_team.logger.logger import logger
 
 class ConsoleTerminal:
     def __init__(self):
-        self.console = Console()
+        self._console = Console()
 
     def section(self, title: str) -> None:
-        self.console.rule(title, style="#63CD91 bold")
+        self._console.rule(title, style="#63CD91 bold")
 
     def new_lines(self, count: int = 1) -> None:
-        self.console.print("\n" * (count - 1))
+        self._console.print("\n" * (count - 1))
 
     def print(self, text: str, style: Optional[Union[str, RichStyle]] = None) -> None:
-        self.console.print(text, style=style)
+        self._console.print(text, style=style)
 
     def panel(self, title: str) -> None:
         ascii_art = pyfiglet.figlet_format(title)
-        self.console.print(ascii_art, style="#63CD91 bold")
+        self._console.print(ascii_art, style="#63CD91 bold")
         self.new_lines(1)
 
     def next(self, text: str) -> None:
