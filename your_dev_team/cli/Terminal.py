@@ -28,8 +28,7 @@ class ConsoleTerminal:
 
     def panel(self, title: str) -> None:
         ascii_art = pyfiglet.figlet_format(title)
-        panel = Panel(f"[bold cyan]{ascii_art}[/bold cyan]", expand=False)
-        self.console.print(panel)
+        self.console.print(ascii_art, style="#63CD91 bold")
         self.new_lines(1)
 
     def next(self, text: str) -> None:
@@ -74,14 +73,19 @@ class ConsoleTerminal:
 
         return user_input
 
-    def ask_user(self, question: str, questioner: str | None=None, require_some_input=True):
+    def ask_user(
+        self, question: str, questioner: str | None = None, require_some_input=True
+    ):
         while True:
-            self.print(f"[#FFFF00 bold]{questioner if questioner is not None else ''}:[/#FFFF00 bold] {question}", style="#FFFFFF bold")
-            answer = self.input('project.history').strip()
+            self.print(
+                f"[#FFFF00 bold]{questioner if questioner is not None else ''}:[/#FFFF00 bold] {question}",
+                style="#FFFFFF bold",
+            )
+            answer = self.input("project.history").strip()
             self.new_lines(1)
 
-            logger.info('Question: %s', question)
-            logger.info('Answer: %s', answer)
+            logger.info("Question: %s", question)
+            logger.info("Answer: %s", answer)
 
             if not answer:
                 if require_some_input:
