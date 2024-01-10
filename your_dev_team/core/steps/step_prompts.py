@@ -1,4 +1,3 @@
-# CLARIFY
 from langchain_core.prompts import PromptTemplate
 
 clarify_instructions_template = PromptTemplate.from_template(
@@ -13,7 +12,6 @@ Here is the instructions:
 ```
 """
 )
-
 
 summarize_specifications_template = PromptTemplate.from_template(
     """
@@ -39,6 +37,20 @@ specification.md
 """
 )
 
+design_systems_planning_template = PromptTemplate.from_template(
+    """
+Read the specifications.
+
+Here is specifications:
+```
+{specifications}
+```
+
+Create a list of tasks for the architect to do so that developers can get into the implementation of the source code.
+Please output them in the order in which they should be implemented.
+"""
+)
+
 design_systems_template = PromptTemplate.from_template(
     """
 Read the specifications.
@@ -49,7 +61,7 @@ Here is specifications:
 ```
 
 Think step by step and write up all technologies that will be used by your development team to create the application.
-Do not write any explanations behind your choices but only a list of technologies that will be used. 
+Do not write any explanations behind your choices but only a list of technologies that will be used.
 You do state only frontend, backend and database to execute local environment.
 Try to use major technologies as much as possible.
 
