@@ -28,13 +28,17 @@ class Agent(ABC):
         self.role: AgentRole = role
         self.print_role()
 
+        self._console = ConsoleTerminal()
+
         self.llm = _create_llm("gpt-4", 0.1)
-        self.messages: list[BaseMessage] = [
-            Message.create_system_message(get_agent_prompts(self.role.name).format())
-        ]
+        description = self.ask(
+            f"please input about {self.role}",
+            require_answer=False,
+            default_value=get_agent_prompts(self.role.name).format(),
+        )
+        self.messages: list[BaseMessage] = [Message.create_system_message(description)]
 
         self.storages = storages
-        self._console = ConsoleTerminal()
 
     def print_role(self) -> None:
         logger.info(f"The role of this agent is {self.role}")
@@ -51,13 +55,15 @@ class Agent(ABC):
 
         logger.info(f"Messages after chat: {self.messages}")
 
-    def ask(self, question: str, require_answer: bool = True) -> str:
+    def ask(
+        self, question: str, require_answer: bool = True, default_value: str = None
+    ) -> str:
         while True:
             self._console.print(
-                f"[#FFFF00 bold]{self.role}:[/#FFFF00 bold] {question}",
+                f"[#FFFF00 bold]{self.role}:[/#FFFF00 bold] {question} (default: {default_value})",
                 style="#FFFFFF bold",
             )
-            answer = self._console._input("project.history").strip()
+            answer = self._console._input("project.history").strip() or default_value
             self._console.new_lines(1)
 
             logger.info("Question: %s", question)

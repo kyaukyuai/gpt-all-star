@@ -50,7 +50,6 @@ class Project:
             Storages.archive_storage(self.storages)
 
         self.terminal = ConsoleTerminal()
-        self.terminal.panel("your-dev-team")
         table = Table(show_header=True, header_style="magenta", title="Members")
         table.add_column("Name")
         table.add_column("Position")
