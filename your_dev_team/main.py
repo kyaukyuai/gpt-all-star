@@ -10,9 +10,11 @@ from your_dev_team.logger.logger import logger
 app = typer.Typer()
 
 
-def init() -> dict:
+def hello_world() -> None:
     ConsoleTerminal().panel("your-dev-team")
 
+
+def init() -> dict:
     load_dotenv()
 
     arguments = get_arguments()
@@ -24,6 +26,7 @@ def init() -> dict:
 
 @app.command()
 def main() -> None:
+    hello_world()
     args = init()
 
     project = Project(args)
