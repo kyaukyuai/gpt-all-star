@@ -4,7 +4,7 @@ import os.path
 from pathlib import Path
 from rich.table import Table
 
-from your_dev_team.cli.Terminal import ConsoleTerminal
+from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
 from your_dev_team.core.agents.Agents import Agents
 from your_dev_team.core.agents.Architect import Architect
 from your_dev_team.core.agents.Copilot import Copilot

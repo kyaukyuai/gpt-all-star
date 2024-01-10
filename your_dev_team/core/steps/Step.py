@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from langchain_core.messages import BaseMessage
 
-from your_dev_team.cli.Terminal import ConsoleTerminal
+from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
 from your_dev_team.core.agents.Agents import Agents
 from your_dev_team.core.Storage import Storages
 

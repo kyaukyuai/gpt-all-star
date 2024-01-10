@@ -11,7 +11,7 @@ from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
 
-from your_dev_team.cli.Terminal import ConsoleTerminal
+from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
 from your_dev_team.core.Message import Message
 from your_dev_team.core.Storage import Storages
 from your_dev_team.logger.logger import logger
@@ -34,7 +34,7 @@ class Agent(ABC):
         ]
 
         self.storages = storages
-        self.terminal = ConsoleTerminal()
+        self._console = ConsoleTerminal()
 
     def print_role(self) -> None:
         logger.info(f"The role of this agent is {self.role}")
@@ -53,12 +53,12 @@ class Agent(ABC):
 
     def ask(self, question: str, require_answer: bool = True) -> str:
         while True:
-            self.terminal.print(
+            self._console.print(
                 f"[#FFFF00 bold]{self.role}:[/#FFFF00 bold] {question}",
                 style="#FFFFFF bold",
             )
-            answer = self.terminal._input("project.history").strip()
-            self.terminal.new_lines(1)
+            answer = self._console._input("project.history").strip()
+            self._console.new_lines(1)
 
             logger.info("Question: %s", question)
             logger.info("Answer: %s", answer)
@@ -86,13 +86,13 @@ class Agent(ABC):
 
         while True:
             if count > 0:
-                self.terminal.new_lines(2)
+                self._console.new_lines(2)
                 user_input = self.ask(follow_up_message)
                 if user_input == NEXT_COMMAND:
                     if final_message:
                         self.chat(final_message)
-                        self.terminal.new_lines(1)
-                    self.terminal.new_lines(1)
+                        self._console.new_lines(1)
+                    self._console.new_lines(1)
                     break
 
             self.chat(user_input)
