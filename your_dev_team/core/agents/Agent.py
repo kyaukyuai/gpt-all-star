@@ -1,4 +1,5 @@
 from __future__ import annotations
+from abc import ABC
 
 import os
 from enum import Enum
@@ -19,7 +20,7 @@ from your_dev_team.core.agents.agent_prompts import get_agent_prompts
 NEXT_COMMAND = "next"
 
 
-class Agent:
+class Agent(ABC):
     def __init__(self, role: AgentRole, storages: Storages) -> None:
         if not isinstance(role, str) or not role:
             raise ValueError("`role` should be a non-empty string")
@@ -27,9 +28,10 @@ class Agent:
         self.role: AgentRole = role
         self.print_role()
 
-        self.llm = _create_llm('gpt-4', 0.1)
+        self.llm = _create_llm("gpt-4", 0.1)
         self.messages: list[BaseMessage] = [
-            Message.create_system_message(get_agent_prompts(self.role.name).format())]
+            Message.create_system_message(get_agent_prompts(self.role.name).format())
+        ]
 
         self.storages = storages
         self.terminal = ConsoleTerminal()
@@ -55,7 +57,9 @@ class Agent:
     def is_initialized(self) -> bool:
         return len(self.messages) <= 1
 
-    def _execute(self, follow_up_message: str, final_message: str | None = None) -> None:
+    def _execute(
+        self, follow_up_message: str, final_message: str | None = None
+    ) -> None:
         user_input = None
         count = 0
 
