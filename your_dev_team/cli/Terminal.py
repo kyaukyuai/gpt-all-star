@@ -7,10 +7,7 @@ from prompt_toolkit.history import FileHistory
 from prompt_toolkit.styles import Style
 import pyfiglet
 from rich.console import Console
-from rich.panel import Panel
 from rich.style import Style as RichStyle
-
-from your_dev_team.logger.logger import logger
 
 
 class ConsoleTerminal:
@@ -35,7 +32,7 @@ class ConsoleTerminal:
         self.print(text, style="#FFFFFF bold")
         self.new_lines(1)
 
-    def input(self, history_file, file_names=None):
+    def _input(self, history_file, file_names=None):
         if file_names is None:
             file_names = set()
 
@@ -72,29 +69,6 @@ class ConsoleTerminal:
                 break
 
         return user_input
-
-    def ask_user(
-        self, question: str, questioner: str | None = None, require_some_input=True
-    ):
-        while True:
-            self.print(
-                f"[#FFFF00 bold]{questioner if questioner is not None else ''}:[/#FFFF00 bold] {question}",
-                style="#FFFFFF bold",
-            )
-            answer = self.input("project.history").strip()
-            self.new_lines(1)
-
-            logger.info("Question: %s", question)
-            logger.info("Answer: %s", answer)
-
-            if not answer:
-                if require_some_input:
-                    print("No input provided! Please try again.")
-                else:
-                    print("Exiting application.")
-                    exit(0)
-            else:
-                return answer
 
 
 class FileContentCompleter(Completer):

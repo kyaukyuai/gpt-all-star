@@ -51,6 +51,27 @@ class Agent(ABC):
 
         logger.info(f"Messages after chat: {self.messages}")
 
+    def ask(self, question: str, require_answer: bool = True) -> str:
+        while True:
+            self.terminal.print(
+                f"[#FFFF00 bold]{self.role}:[/#FFFF00 bold] {question}",
+                style="#FFFFFF bold",
+            )
+            answer = self.terminal._input("project.history").strip()
+            self.terminal.new_lines(1)
+
+            logger.info("Question: %s", question)
+            logger.info("Answer: %s", answer)
+
+            if not answer:
+                if require_answer:
+                    print("No input provided! Please try again.")
+                else:
+                    print("Exiting application.")
+                    exit(0)
+            else:
+                return answer
+
     def latest_message_content(self) -> str:
         return self.messages[-1].content.strip()
 
@@ -66,7 +87,7 @@ class Agent(ABC):
         while True:
             if count > 0:
                 self.terminal.new_lines(2)
-                user_input = self.terminal.ask_user(follow_up_message)
+                user_input = self.ask(follow_up_message)
                 if user_input == NEXT_COMMAND:
                     if final_message:
                         self.chat(final_message)
@@ -115,6 +136,7 @@ def _get_supported_models() -> list[str]:
 
 
 class AgentRole(str, Enum):
+    COPILOT = "copilot"
     PRODUCT_OWNER = "product_owner"
     ENGINEER = "engineer"
     ARCHITECT = "architect"

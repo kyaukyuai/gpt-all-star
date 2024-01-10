@@ -7,6 +7,7 @@ from rich.table import Table
 from your_dev_team.cli.Terminal import ConsoleTerminal
 from your_dev_team.core.agents.Agents import Agents
 from your_dev_team.core.agents.Architect import Architect
+from your_dev_team.core.agents.Copilot import Copilot
 from your_dev_team.core.agents.Engineer import Engineer
 from your_dev_team.core.steps.Steps import StepType, STEPS
 from your_dev_team.core.Storage import Storage, Storages
@@ -16,18 +17,18 @@ from your_dev_team.logger.logger import logger
 
 class Project:
     def __init__(
-            self,
-            args: dict,
-            name: str | None = None,
-            description: str | None = None,
-            current_step: str | None = None
+        self,
+        args: dict,
+        name: str | None = None,
+        description: str | None = None,
+        current_step: str | None = None,
     ) -> None:
         self.args: dict = args
         self.name: str | None = name
         self.description: str | None = description
         self.current_step: str | None = current_step
 
-        project_path = Path(os.path.abspath('projects/example')).absolute()
+        project_path = Path(os.path.abspath("projects/example")).absolute()
         self.storages = Storages(
             origin=Storage(project_path),
             memory=Storage(project_path / "memory"),
@@ -37,26 +38,26 @@ class Project:
         )
 
         self.agents = Agents(
+            copilot=Copilot(storages=self.storages),
             product_owner=ProductOwner(storages=self.storages),
             engineer=Engineer(storages=self.storages),
             architect=Architect(storages=self.storages),
         )
 
-        self.step_type = self.args['step'] or StepType.DEFAULT
+        self.step_type = self.args["step"] or StepType.DEFAULT
         if self.step_type is StepType.DEFAULT:
             logger.info("archive previous storages")
             Storages.archive_storage(self.storages)
 
         self.terminal = ConsoleTerminal()
         self.terminal.panel("your-dev-team")
-        table = Table(show_header=True, header_style="magenta",title="Members")
+        table = Table(show_header=True, header_style="magenta", title="Members")
         table.add_column("Name")
         table.add_column("Position")
         table.add_column("Description")
         for agent in vars(self.agents).values():
             table.add_row("Taro Yamada", agent.role, "...")
         self.terminal.print(table)
-
 
     def start(self) -> None:
         try:
@@ -71,9 +72,5 @@ class Project:
             pass
 
     def finish(self) -> None:
-        ConsoleTerminal().ask_user(
-            "Project is finished! Do you want to add any features or changes?"
-            " If yes, describe it here and if no, just press ENTER",
-            require_some_input=False)
-        logger.info(f"Completed project: {self.name}")
-        return
+        self.agents.copilot.finish()
+        pass
