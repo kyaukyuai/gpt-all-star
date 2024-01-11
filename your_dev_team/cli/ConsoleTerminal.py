@@ -46,7 +46,7 @@ class ConsoleTerminal:
             if multiline_input:
                 show = ". "
             else:
-                show = "you: "
+                show = "You: "
 
             try:
                 line = prompt(

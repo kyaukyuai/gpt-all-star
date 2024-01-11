@@ -5,6 +5,7 @@ from pathlib import Path
 from rich.table import Table
 
 from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
+from your_dev_team.core.agents.Agent import AgentRole
 from your_dev_team.core.agents.Agents import Agents
 from your_dev_team.core.agents.Architect import Architect
 from your_dev_team.core.agents.Copilot import Copilot
@@ -55,7 +56,8 @@ class Project:
         table.add_column("Position")
         table.add_column("Description")
         for agent in vars(self.agents).values():
-            table.add_row("Taro Yamada", agent.role, "...")
+            if agent.role != AgentRole.COPILOT:
+                table.add_row("Taro Yamada", agent.role, "...")
         self.terminal.print(table)
 
     def start(self) -> None:

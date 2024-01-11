@@ -31,10 +31,14 @@ class Agent(ABC):
         self._console = ConsoleTerminal()
 
         self.llm = _create_llm("gpt-4", 0.1)
-        description = self.ask(
-            f"please input about {self.role}",
-            require_answer=False,
-            default_value=get_agent_prompts(self.role.name).format(),
+        description = (
+            self.ask(
+                f"please input about {self.role}",
+                require_answer=False,
+                default_value=get_agent_prompts(self.role.name).format(),
+            )
+            if self.role != AgentRole.COPILOT
+            else get_agent_prompts(self.role.name).format()
         )
         self.messages: list[BaseMessage] = [Message.create_system_message(description)]
 

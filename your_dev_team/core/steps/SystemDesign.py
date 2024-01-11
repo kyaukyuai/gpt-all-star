@@ -8,6 +8,6 @@ class SystemDesign(Step):
         super().__init__(agents, storages)
 
     def run(self) -> None:
-        self.agents.architect.plan()
+        # self.agents.architect.plan()
         self.agents.architect.list_technology_stack()
         self.agents.architect.layout_directory()

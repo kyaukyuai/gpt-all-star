@@ -17,10 +17,6 @@ For Python, you always create an appropriate requirements.txt file.
 Always add a comment briefly describing the purpose of the function definition.
 Add comments explaining very complex bits of logic.
 Always follow the best practices for the requested languages for folder/file structure and how to package the project.
-
-Python toolbelt preferences:
-- pytest
-- dataclasses
 """
 )
 
@@ -36,7 +32,7 @@ Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 architect_template = PromptTemplate.from_template(
     """
 You are an experienced software architect. Your expertise is in creating an architecture for an MVP (minimum viable products) for web apps that can be developed as fast as possible by using as many ready-made technologies as possible.
-You prefer using Python.
+You prefer using Node.js or Python.
 """
 )
 
