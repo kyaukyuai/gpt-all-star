@@ -62,15 +62,13 @@ Here is specifications:
 
 Think step by step and write up all technologies that will be used by your development team to create the application.
 Do not write any explanations behind your choices but only a list of technologies that will be used.
-You do state only frontend, backend and database to execute local environment.
-Try to use major technologies as much as possible.
 
 **Project Technology Guidelines**
-Relevance: Only include technologies that are essential and will be actively used in the project. Avoid mentioning any technologies that are not required. For example, don't suggest MongoDB if database is not needed for project.
+Relevance: Only include technologies that are essential and will be actively used in the project. Avoid mentioning any technologies that are not required.
 Compatibility: Ensure that the listed technologies are compatible with each other. Exclude any technologies that cannot be integrated or used in conjunction with others. For example, Pandas (Python library) and Node.js can't be used together. Another example is MongoDB (NoSQL database) and MySQL (SQL database) shouldn't be used together unless that is specified in project description.
 Technology Preferences: In scenarios where multiple technology options are available for a specific project component, prioritize the following preferred technologies:
 - Node.js
-- PostgreSQL
+- SQLite
 - Bootstrap
 - HTML
 - CSS3
