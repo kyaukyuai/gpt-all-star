@@ -22,16 +22,20 @@ NEXT_COMMAND = "next"
 
 class Agent(ABC):
     def __init__(self, role: AgentRole, storages: Storages) -> None:
-        if not isinstance(role, str) or not role:
-            raise ValueError("`role` should be a non-empty string")
+        self._console = ConsoleTerminal()
+        self._llm = _create_llm("gpt-4", 0.1)
 
         self.role: AgentRole = role
-        self.print_role()
-
-        self._console = ConsoleTerminal()
-
-        self.llm = _create_llm("gpt-4", 0.1)
-        description = (
+        self.name = (
+            self.ask(
+                f"please input your name",
+                require_answer=False,
+                default_value=AgentRole.default_name()[self.role],
+            )
+            if self.role != AgentRole.COPILOT
+            else ""
+        )
+        self.profile = (
             self.ask(
                 f"please input about {self.role}",
                 require_answer=False,
@@ -40,12 +44,9 @@ class Agent(ABC):
             if self.role != AgentRole.COPILOT
             else get_agent_prompts(self.role.name).format()
         )
-        self.messages: list[BaseMessage] = [Message.create_system_message(description)]
 
+        self.messages: list[BaseMessage] = [Message.create_system_message(self.profile)]
         self.storages = storages
-
-    def print_role(self) -> None:
-        logger.info(f"The role of this agent is {self.role}")
 
     def chat(self, human_input: str | None) -> None:
         if human_input is not None:
@@ -54,7 +55,7 @@ class Agent(ABC):
         logger.info(f"Messages before chat: {self.messages}")
 
         callbacks = StreamingStdOutCallbackHandler()
-        response = self.llm(self.messages, callbacks=[callbacks])
+        response = self._llm(self.messages, callbacks=[callbacks])
         self.messages.append(response)
 
         logger.info(f"Messages after chat: {self.messages}")
@@ -64,8 +65,7 @@ class Agent(ABC):
     ) -> str:
         while True:
             self._console.print(
-                f"[#FFFF00 bold]{self.role}:[/#FFFF00 bold] {question} (default: {default_value})",
-                style="#FFFFFF bold",
+                f"[#FFFF00 bold]{self.role}: {question}[/#FFFF00 bold] (default: {default_value})"
             )
             answer = self._console._input("project.history").strip() or default_value
             self._console.new_lines(1)
@@ -150,3 +150,21 @@ class AgentRole(str, Enum):
     PRODUCT_OWNER = "product_owner"
     ENGINEER = "engineer"
     ARCHITECT = "architect"
+
+    @classmethod
+    def default_name(cls):
+        return {
+            cls.COPILOT: "copilot",
+            cls.PRODUCT_OWNER: "Elon Musk",
+            cls.ENGINEER: "David Heinemeier Hansson",
+            cls.ARCHITECT: "Jeff Dean",
+        }
+
+    @classmethod
+    def color_scheme(cls):
+        return {
+            cls.COPILOT: "blue",
+            cls.PRODUCT_OWNER: "green",
+            cls.ENGINEER: "red",
+            cls.ARCHITECT: "yellow",
+        }

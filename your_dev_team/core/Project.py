@@ -51,13 +51,13 @@ class Project:
             Storages.archive_storage(self.storages)
 
         self.terminal = ConsoleTerminal()
-        table = Table(show_header=True, header_style="magenta", title="Members")
+        table = Table(show_header=True, header_style="magenta", title="Team Members")
         table.add_column("Name")
-        table.add_column("Position")
-        table.add_column("Description")
+        table.add_column("Role")
+        table.add_column("Profile")
         for agent in vars(self.agents).values():
             if agent.role != AgentRole.COPILOT:
-                table.add_row("Taro Yamada", agent.role, "...")
+                table.add_row(agent.name, agent.role, agent.profile)
         self.terminal.print(table)
 
     def start(self) -> None:
