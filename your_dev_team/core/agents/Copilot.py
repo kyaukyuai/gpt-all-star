@@ -1,14 +1,12 @@
 from your_dev_team.core.Storage import Storages
+from your_dev_team.core.agents import Agents
 from your_dev_team.core.agents.Agent import Agent, AgentRole, NEXT_COMMAND
 from your_dev_team.logger.logger import logger
 
 
 class Copilot(Agent):
-    def __init__(self, storages: Storages) -> None:
-        super().__init__(AgentRole.COPILOT, storages)
-
-    def build_team_members(self) -> None:
-        pass
+    def __init__(self, storages: Storages, name: str, profile: str) -> None:
+        super().__init__(AgentRole.COPILOT, storages, name, profile)
 
     def finish(self) -> None:
         self.ask(

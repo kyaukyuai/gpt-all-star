@@ -2,10 +2,7 @@ from __future__ import annotations
 
 import os.path
 from pathlib import Path
-from rich.table import Table
 
-from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
-from your_dev_team.core.agents.Agent import AgentRole
 from your_dev_team.core.agents.Agents import Agents
 from your_dev_team.core.agents.Architect import Architect
 from your_dev_team.core.agents.Copilot import Copilot
@@ -39,7 +36,9 @@ class Project:
         )
 
         self.agents = Agents(
-            copilot=Copilot(storages=self.storages),
+            copilot=Copilot(
+                storages=self.storages, name="copilot", profile="this is copilot"
+            ),
             product_owner=ProductOwner(storages=self.storages),
             engineer=Engineer(storages=self.storages),
             architect=Architect(storages=self.storages),
@@ -49,16 +48,6 @@ class Project:
         if self.step_type is StepType.DEFAULT:
             logger.info("archive previous storages")
             Storages.archive_storage(self.storages)
-
-        self.terminal = ConsoleTerminal()
-        table = Table(show_header=True, header_style="magenta", title="Team Members")
-        table.add_column("Name")
-        table.add_column("Role")
-        table.add_column("Profile")
-        for agent in vars(self.agents).values():
-            if agent.role != AgentRole.COPILOT:
-                table.add_row(agent.name, agent.role, agent.profile)
-        self.terminal.print(table)
 
     def start(self) -> None:
         try:
