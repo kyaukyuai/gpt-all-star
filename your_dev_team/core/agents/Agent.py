@@ -61,8 +61,9 @@ class Agent(ABC):
         self, question: str, require_answer: bool = True, default_value: str = None
     ) -> str:
         while True:
+            default = f" (default: {default_value})" if not require_answer else ""
             self._console.print(
-                f"[{AgentRole.color_scheme()[self.role]} bold]{self.name}: {question}[/{AgentRole.color_scheme()[self.role]} bold] (default: {default_value})"
+                f"[{AgentRole.color_scheme()[self.role]} bold]{self.name}: {question}[/{AgentRole.color_scheme()[self.role]} bold]{default}"
             )
             answer = self._console._input("project.history").strip() or default_value
             self._console.new_lines(1)
@@ -152,8 +153,8 @@ class AgentRole(str, Enum):
     def default_name(cls):
         return {
             cls.COPILOT: "copilot",
-            cls.PRODUCT_OWNER: "Elon Musk",
-            cls.ENGINEER: "David Heinemeier Hansson",
+            cls.PRODUCT_OWNER: "Steve Jobs",
+            cls.ENGINEER: "DHH",
             cls.ARCHITECT: "Jeff Dean",
         }
 
