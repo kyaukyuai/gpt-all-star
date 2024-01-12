@@ -4,6 +4,7 @@ from abc import ABC
 import os
 from enum import Enum
 from functools import lru_cache
+import warnings
 
 import openai
 from langchain_community.chat_models import AzureChatOpenAI, ChatOpenAI
@@ -18,6 +19,7 @@ from your_dev_team.logger.logger import logger
 from your_dev_team.core.agents.agent_prompts import get_agent_prompts
 
 NEXT_COMMAND = "next"
+warnings.simplefilter("ignore")
 
 
 class Agent(ABC):
