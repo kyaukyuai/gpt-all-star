@@ -11,9 +11,9 @@ class Step(ABC):
     def __init__(self, agents: Agents, storages: Storages) -> None:
         self.agents = agents
         self.storages = storages
-        self.terminal = ConsoleTerminal()
+        self.console = ConsoleTerminal()
 
-        self.terminal.section(f"STEP: {self.__class__.__name__}")
+        self.console.section(f"STEP: {self.__class__.__name__}")
 
     @abstractmethod
     def run(self) -> list[BaseMessage]:
