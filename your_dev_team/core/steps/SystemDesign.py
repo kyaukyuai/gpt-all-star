@@ -8,6 +8,11 @@ class SystemDesign(Step):
         super().__init__(agents, storages)
 
     def run(self) -> None:
-        # self.agents.architect.plan()
+        self.agents.copilot.state("Let's move on to the system design step!")
+        self.console.new_lines(1)
+        self.agents.architect.state("How about the following?")
         self.agents.architect.list_technology_stack()
+        self.console.new_lines(1)
+        self.agents.architect.state("How about the following?")
         self.agents.architect.layout_directory()
+        self.console.new_lines(1)

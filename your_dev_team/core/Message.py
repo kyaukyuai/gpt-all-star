@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import warnings
 
 from langchain_core.messages import (
     BaseMessage,
@@ -11,6 +12,8 @@ from langchain_core.messages import (
     messages_to_dict,
     messages_from_dict,
 )
+
+warnings.simplefilter("ignore")
 
 
 class Message:
