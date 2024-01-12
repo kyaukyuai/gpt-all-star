@@ -34,7 +34,7 @@ class TeamBuilding(Step):
         )
 
     def _display_team_members(self) -> None:
-        table = Table(show_header=True, header_style="magenta", title="Team Members")
+        table = Table(show_header=True, header_style="#FFB001", title="Team Members")
         table.add_column("Name")
         table.add_column("Role")
         table.add_column("Profile")

@@ -15,7 +15,7 @@ class ConsoleTerminal:
         self._console = Console()
 
     def section(self, title: str) -> None:
-        self._console.rule(title, style="#63CD91 bold")
+        self._console.rule(title, style="#44EE77 bold")
 
     def new_lines(self, count: int = 1) -> None:
         self._console.print("\n" * (count - 1))
@@ -25,11 +25,7 @@ class ConsoleTerminal:
 
     def panel(self, title: str) -> None:
         ascii_art = pyfiglet.figlet_format(title)
-        self._console.print(ascii_art, style="#63CD91 bold")
-        self.new_lines(1)
-
-    def next(self, text: str) -> None:
-        self.print(text, style="#FFFFFF bold")
+        self._console.print(ascii_art, style="#44EE77 bold")
         self.new_lines(1)
 
     def _input(self, history_file, file_names=None):
@@ -39,7 +35,7 @@ class ConsoleTerminal:
         user_input = ""
         multiline_input = False
 
-        style = Style.from_dict({"": "#FF910A"})
+        style = Style.from_dict({"": "#FB475E"})
         completer_instance = FileContentCompleter(file_names)
 
         while True:

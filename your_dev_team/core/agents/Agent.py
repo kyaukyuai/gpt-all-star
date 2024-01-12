@@ -160,9 +160,10 @@ class AgentRole(str, Enum):
 
     @classmethod
     def color_scheme(cls):
+        # Pastel Dreams color combination from https://www.canva.com/colors/color-palettes/pastel-dreams/
         return {
-            cls.COPILOT: "yellow",
-            cls.PRODUCT_OWNER: "green",
-            cls.ENGINEER: "red",
-            cls.ARCHITECT: "blue",
+            cls.COPILOT: "#FBE7C6",
+            cls.PRODUCT_OWNER: "#B4F8C8",
+            cls.ENGINEER: "#A0E7E5",
+            cls.ARCHITECT: "#FFAEBC",
         }
