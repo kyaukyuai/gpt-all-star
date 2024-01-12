@@ -59,6 +59,8 @@ class ProductOwner(Agent):
         )
         file = Message.parse_message(self.latest_message_content())[0]
         self.storages.docs["specifications.md"] = file[1]
+        self.state("Here are the specifications:")
+        self.output_md(self.storages.docs["specifications.md"])
 
     def _get_clarified_instructions(self) -> list[BaseMessage]:
         return (

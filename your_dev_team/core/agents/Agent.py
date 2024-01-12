@@ -11,6 +11,8 @@ from langchain_community.chat_models import AzureChatOpenAI, ChatOpenAI
 from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
+from rich.markdown import Markdown
+from rich.panel import Panel
 
 from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
 from your_dev_team.core.Message import Message
@@ -51,6 +53,9 @@ class Agent(ABC):
         self._console.print(
             f"{self.name}: {text}", style=f"bold {AgentRole.color_scheme()[self.role]}"
         )
+
+    def output_md(self, md: str) -> None:
+        self._console.print(Panel(Markdown(md, style="bold")))
 
     def ask(
         self, question: str, require_answer: bool = True, default_value: str = None
