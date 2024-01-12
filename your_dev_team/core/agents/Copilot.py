@@ -7,6 +7,9 @@ class Copilot(Agent):
     def __init__(self, storages: Storages) -> None:
         super().__init__(AgentRole.COPILOT, storages)
 
+    def build_team_members(self) -> None:
+        pass
+
     def finish(self) -> None:
         self.ask(
             "Project is finished! Do you want to add any features or changes?"

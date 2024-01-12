@@ -8,6 +8,4 @@ class TeamBuilding(Step):
         super().__init__(agents, storages)
 
     def run(self) -> None:
-        self.agents.product_owner.clarify_instructions()
-        self.console.next("Specifications are following...")
-        self.agents.product_owner.summarize_specifications()
+        self.agents.copilot.build_team_members()
