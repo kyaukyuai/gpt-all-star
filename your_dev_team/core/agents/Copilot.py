@@ -8,6 +8,9 @@ class Copilot(Agent):
     def __init__(self, storages: Storages, name: str, profile: str) -> None:
         super().__init__(AgentRole.COPILOT, storages, name, profile)
 
+    def start(self) -> None:
+        self._console.panel("your-dev-team")
+
     def finish(self) -> None:
         self.ask(
             "Project is finished! Do you want to add any features or changes?"

@@ -50,6 +50,7 @@ class Project:
             Storages.archive_storage(self.storages)
 
     def start(self) -> None:
+        self.agents.copilot.start()
         try:
             for step in STEPS[self.step_type]:
                 try:

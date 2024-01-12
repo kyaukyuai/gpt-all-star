@@ -12,10 +12,6 @@ app = typer.Typer()
 warnings.simplefilter("ignore")
 
 
-def hello_world() -> None:
-    ConsoleTerminal().panel("your-dev-team")
-
-
 def init() -> dict:
     load_dotenv()
 
@@ -28,7 +24,6 @@ def init() -> dict:
 
 @app.command()
 def main() -> None:
-    hello_world()
     args = init()
 
     project = Project(args)
