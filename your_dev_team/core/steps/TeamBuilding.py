@@ -1,7 +1,6 @@
 from rich.table import Table
 from your_dev_team.core.agents import Agents
 from your_dev_team.core.agents.Agent import AgentRole
-from your_dev_team.core.agents.agent_prompts import get_agent_prompts
 from your_dev_team.core.steps.Step import Step
 
 
@@ -29,7 +28,7 @@ class TeamBuilding(Step):
         agent.profile = self.agents.copilot.ask(
             f"What is the profile of the {role.name.lower()}?",
             require_answer=False,
-            default_value=get_agent_prompts(role.name).format(),
+            default_value=AgentRole.default_profile()[role].format(),
         )
 
     def _display_team_members(self) -> None:

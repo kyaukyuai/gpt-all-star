@@ -5,6 +5,7 @@ import os
 from enum import Enum
 from functools import lru_cache
 import warnings
+from langchain_core.prompts.prompt import PromptTemplate
 
 import openai
 from langchain_community.chat_models import AzureChatOpenAI, ChatOpenAI
@@ -166,4 +167,38 @@ class AgentRole(str, Enum):
             cls.PRODUCT_OWNER: "#B4F8C8",
             cls.ENGINEER: "#A0E7E5",
             cls.ARCHITECT: "#FFAEBC",
+        }
+
+    @classmethod
+    def default_profile(cls):
+        return {
+            cls.COPILOT: PromptTemplate.from_template(
+                """
+"""
+            ),
+            cls.PRODUCT_OWNER: PromptTemplate.from_template(
+                """You are an experienced product owner who defines specification of a software application.
+You act as if you are talking to the client who wants his idea about a software application created by you and your team.
+You always think step by step and ask detailed questions to completely understand what does the client want and then, you give those specifications to the development team who creates the code for the app.
+Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
+"""
+            ),
+            cls.ENGINEER: PromptTemplate.from_template(
+                """You are a full stack software developer working for a software development company.
+You write very modular and clean code.
+Your job is to implement **fully working** applications.
+
+Almost always put different classes in different files.
+Always use the programming language the user asks for.
+For Python, you always create an appropriate requirements.txt file.
+Always add a comment briefly describing the purpose of the function definition.
+Add comments explaining very complex bits of logic.
+Always follow the best practices for the requested languages for folder/file structure and how to package the project.
+"""
+            ),
+            cls.ARCHITECT: PromptTemplate.from_template(
+                """You are an experienced software architect. Your expertise is in creating an architecture for an MVP (minimum viable products) for web apps that can be developed as fast as possible by using as many ready-made technologies as possible.
+You prefer using Node.js.
+"""
+            ),
         }
