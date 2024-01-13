@@ -54,7 +54,7 @@ class Project:
         try:
             for step in STEPS[self.step_type]:
                 try:
-                    step(self.agents, self.storages).run()
+                    step(self.agents).run()
                 except Exception as e:
                     logger.error(f"Failed to execute step {step}. Reason: {str(e)}")
                     raise e

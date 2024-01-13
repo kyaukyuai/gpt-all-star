@@ -1,11 +1,10 @@
-from your_dev_team.core.Storage import Storages
 from your_dev_team.core.agents.Agents import Agents
 from your_dev_team.core.steps.Step import Step
 
 
 class SystemDesign(Step):
-    def __init__(self, agents: Agents, storages: Storages) -> None:
-        super().__init__(agents, storages)
+    def __init__(self, agents: Agents) -> None:
+        super().__init__(agents)
 
     def run(self) -> None:
         self.agents.copilot.state("Let's move on to the system design step!")

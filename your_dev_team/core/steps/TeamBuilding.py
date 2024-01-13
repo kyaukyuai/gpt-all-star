@@ -3,12 +3,11 @@ from your_dev_team.core.agents import Agents
 from your_dev_team.core.agents.Agent import AgentRole
 from your_dev_team.core.agents.agent_prompts import get_agent_prompts
 from your_dev_team.core.steps.Step import Step
-from your_dev_team.core.Storage import Storages
 
 
 class TeamBuilding(Step):
-    def __init__(self, agents: Agents, storages: Storages) -> None:
-        super().__init__(agents, storages)
+    def __init__(self, agents: Agents) -> None:
+        super().__init__(agents)
 
     def run(self) -> None:
         self.agents.copilot.state("Let's build a team!")
