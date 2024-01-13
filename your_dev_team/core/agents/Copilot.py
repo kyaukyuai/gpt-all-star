@@ -140,9 +140,17 @@ class Copilot(Agent):
 
     def git_push(self) -> None:
         self.state("Pushing to the repository...")
-        repo_path = self.storages.src.path
+        repo_path = self.storages.origin.path
         repo = git.Repo.init(repo_path)
-        files_to_add = [str(file) for file in repo_path.iterdir() if file.is_file()]
+        files_to_add = [
+            str(file)
+            for file in repo_path.rglob("*")
+            if file.is_file()
+            and "node_modules" not in str(file)
+            and ".git" not in str(file)
+            and "memory" not in str(file)
+            and ".archive" not in str(file)
+        ]
         if not files_to_add:
             logger.info("No files to add to the repository.")
             return
@@ -152,7 +160,9 @@ class Copilot(Agent):
 
         try:
             remote_name = "origin"
-            remote_url = "https://github.com/your-dev-team/sample.git"
+            remote_url = (
+                f"https://github.com/your-dev-team/{self.storages.origin.path.name}.git"
+            )
             if remote_name in repo.remotes:
                 remote = repo.remotes[remote_name]
                 remote.set_url(remote_url)
@@ -162,8 +172,12 @@ class Copilot(Agent):
             # 現在のブランチ名を取得してプッシュ
             current_branch = repo.active_branch.name
             remote.push(refspec=f"{current_branch}:{current_branch}")
-        except Exception as e:
+        except git.exc.GitCommandError as e:
             logger.error(f"Failed to push to the repository: {e}")
+            raise e
+        except Exception as e:
+            logger.error(f"An unexpected error occurred: {e}")
+            raise e
 
     def create_github_repo(self) -> None:
         url = "https://api.github.com/orgs/your-dev-team/repos"
@@ -173,14 +187,14 @@ class Copilot(Agent):
             "Authorization": f"token {token}",
             "Accept": "application/vnd.github.v3+json",
         }
-        data = {"name": "sample", "private": False}
+        data = {"name": self.storages.origin.path.name, "private": False}
 
         response = requests.post(url, headers=headers, json=data)
 
         if response.status_code == 201:
-            print("Repository created successfully.")
+            self.state("Repository created successfully.")
         else:
-            print(
+            self.state(
                 f"Failed to create repository. Status code: {response.status_code}, {response.text}"
             )
 
