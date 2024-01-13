@@ -1,4 +1,7 @@
+import os
 import subprocess
+import git
+import requests
 from termcolor import colored
 
 from your_dev_team.core.Message import Message
@@ -15,11 +18,17 @@ class Copilot(Agent):
         self._console.panel("your-dev-team")
 
     def finish(self) -> None:
-        self.ask(
+        response = self.ask(
             "Project is finished! Do you want to add any features or changes?"
-            " If yes, describe it here and if no, just press ENTER",
+            " If yes, describe it here and if no, just press ENTER"
+            " If press SAVE, the project will be saved and you can continue later.",
             require_answer=False,
+            default_value="no",
         )
+        if response.lower() in ["save"]:
+            self.create_github_repo()
+            self.git_push()
+
         logger.info(f"Completed project: {self.name}")
 
     def execute_code(self) -> None:
@@ -67,12 +76,12 @@ class Copilot(Agent):
             )
             count = 0
 
-            self.console.print(
+            self._console.print(
                 f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
                 style="bold red",
             )
             for file_name, file_str in self._get_code_strings().items():
-                self.console.print(
+                self._console.print(
                     f"Adding file {file_name} to the prompt...", style="blue"
                 )
                 code_input = format_file_to_input(file_name, file_str)
@@ -87,7 +96,7 @@ class Copilot(Agent):
             self.agents.engineer.chat(user_input)
             response = self.agents.engineer.latest_message_content()
             logger.info(f"response: {response}")
-            self.console.new_lines(1)
+            self._console.new_lines(1)
             count += 1
 
             self.storages.memory["self_healing"] = Message.serialize_messages(
@@ -101,10 +110,10 @@ class Copilot(Agent):
             self.run()
 
         except KeyboardInterrupt:
-            self.console.new_lines(1)
-            self.console.print("Stopping execution.", style="bold yellow")
-            self.console.print("Execution stopped.", style="bold red")
-            self.console.new_lines(1)
+            self._console.new_lines(1)
+            self._console.print("Stopping execution.", style="bold yellow")
+            self._console.print("Execution stopped.", style="bold red")
+            self._console.new_lines(1)
 
         return []
 
@@ -126,6 +135,52 @@ class Copilot(Agent):
             files_dict[path] = file_content
 
         return files_dict
+
+    def git_push(self) -> None:
+        self.state("Pushing to the repository...")
+        repo_path = self.storages.src.path
+        repo = git.Repo.init(repo_path)
+        files_to_add = [str(file) for file in repo_path.iterdir() if file.is_file()]
+        if not files_to_add:
+            logger.info("No files to add to the repository.")
+            return
+
+        repo.index.add(files_to_add)
+        repo.index.commit("Add files via your-dev-team")
+
+        try:
+            remote_name = "origin"
+            remote_url = "https://github.com/your-dev-team/sample.git"
+            if remote_name in repo.remotes:
+                remote = repo.remotes[remote_name]
+                remote.set_url(remote_url)
+            else:
+                remote = repo.create_remote(remote_name, remote_url)
+
+            # 現在のブランチ名を取得してプッシュ
+            current_branch = repo.active_branch.name
+            remote.push(refspec=f"{current_branch}:{current_branch}")
+        except Exception as e:
+            logger.error(f"Failed to push to the repository: {e}")
+
+    def create_github_repo(self) -> None:
+        url = "https://api.github.com/orgs/your-dev-team/repos"
+        token = os.getenv("GITHUB_TOKEN")
+
+        headers = {
+            "Authorization": f"token {token}",
+            "Accept": "application/vnd.github.v3+json",
+        }
+        data = {"name": "sample", "private": False}
+
+        response = requests.post(url, headers=headers, json=data)
+
+        if response.status_code == 201:
+            print("Repository created successfully.")
+        else:
+            print(
+                f"Failed to create repository. Status code: {response.status_code}, {response.text}"
+            )
 
 
 def format_file_to_input(file_name: str, file_content: str) -> str:
