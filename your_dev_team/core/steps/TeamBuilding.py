@@ -39,6 +39,6 @@ class TeamBuilding(Step):
         table.add_column("Profile")
         for agent in vars(self.agents).values():
             if agent.role != AgentRole.COPILOT:
-                table.add_row(agent.name, agent.role, agent.profile)
+                table.add_row(agent.name, agent.role.name, agent.profile)
         self.console.print(table)
         self.console.new_lines(1)

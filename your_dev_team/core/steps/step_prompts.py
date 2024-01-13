@@ -47,6 +47,7 @@ Here is specifications:
 ```
 
 Create a list of tasks for the architect to do so that developers can get into the implementation of the source code.
+You will write a very long answer. Make sure that every detail of the architecture is, in the end, implemented as code.
 Please output them in the order in which they should be implemented.
 """
 )
@@ -62,6 +63,7 @@ Here is specifications:
 
 Think step by step and write up all technologies that will be used by your development team to create the application.
 Do not write any explanations behind your choices but only a list of technologies that will be used.
+You will write a very long answer. Make sure that every detail of the architecture is, in the end, implemented as code.
 
 **Project Technology Guidelines**
 Relevance: Only include technologies that are essential and will be actively used in the project. Avoid mentioning any technologies that are not required.

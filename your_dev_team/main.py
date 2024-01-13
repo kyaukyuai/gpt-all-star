@@ -1,7 +1,6 @@
 import warnings
 from dotenv import load_dotenv
 import typer
-from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
 
 from your_dev_team.core.Project import Project
 from your_dev_team.cli.arguments import get_arguments
