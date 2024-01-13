@@ -1,4 +1,6 @@
 import os
+import random
+import string
 import subprocess
 import git
 import requests
@@ -15,8 +17,20 @@ class Copilot(Agent):
     def __init__(self, storages: Storages, name: str, profile: str) -> None:
         super().__init__(AgentRole.COPILOT, storages, name, profile)
 
-    def start(self) -> None:
-        self._console.panel("your-dev-team")
+    def start(self, project_name: str) -> None:
+        self.state(f"Let's start the project! ({project_name})")
+        self._console.new_lines(1)
+
+    def ask_project_name(self) -> str:
+        default_project_name = "".join(
+            random.choice(string.ascii_letters + string.digits) for i in range(15)
+        )
+        project_name = self.ask(
+            "What is the name of the project?",
+            require_answer=False,
+            default_value=default_project_name,
+        )
+        return project_name
 
     def finish(self) -> None:
         self.ask(

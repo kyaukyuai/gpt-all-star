@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os.path
 from pathlib import Path
+from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
 
 from your_dev_team.core.agents.Agents import Agents
 from your_dev_team.core.agents.Architect import Architect
@@ -17,16 +18,16 @@ class Project:
     def __init__(
         self,
         args: dict,
-        name: str | None = None,
-        description: str | None = None,
-        current_step: str | None = None,
     ) -> None:
         self.args: dict = args
-        self.name: str | None = name
-        self.description: str | None = description
-        self.current_step: str | None = current_step
+        self.name = (
+            self.args["project_name"]
+            or Copilot(
+                storages=None, name="copilot", profile="this is copilot"
+            ).ask_project_name()
+        )
 
-        project_path = Path(os.path.abspath("projects/example")).absolute()
+        project_path = Path(os.path.abspath(f"projects/{self.name}")).absolute()
         self.storages = Storages(
             origin=Storage(project_path),
             memory=Storage(project_path / "memory"),
@@ -50,7 +51,7 @@ class Project:
             Storages.archive_storage(self.storages)
 
     def start(self) -> None:
-        self.agents.copilot.start()
+        self.agents.copilot.start(self.name)
         try:
             for step in STEPS[self.step_type]:
                 try:

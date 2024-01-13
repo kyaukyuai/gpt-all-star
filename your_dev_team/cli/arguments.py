@@ -19,6 +19,13 @@ def get_arguments():
         default=None,
         help="Step",
     )
+    parser.add_argument(
+        "--project_name",
+        "-p",
+        type=str,
+        default=None,
+        help="Project name",
+    )
 
     args = parser.parse_args()
     return vars(args)

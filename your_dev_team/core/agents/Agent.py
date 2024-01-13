@@ -76,8 +76,7 @@ class Agent(ABC):
                 if require_answer:
                     print("No input provided! Please try again.")
                 else:
-                    print("Exiting application.")
-                    exit(0)
+                    return
             else:
                 return answer
 
