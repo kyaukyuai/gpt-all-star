@@ -13,6 +13,7 @@ def get_arguments():
             "system_design",
             "development",
             "execution",
+            "deployment",
         ],
         type=str,
         default=None,

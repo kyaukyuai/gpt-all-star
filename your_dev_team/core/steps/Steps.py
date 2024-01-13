@@ -1,4 +1,5 @@
 from enum import Enum
+from your_dev_team.core.steps.Deployment import Deployment
 
 from your_dev_team.core.steps.Development import Development
 from your_dev_team.core.steps.Execution import Execution
@@ -14,6 +15,7 @@ class StepType(str, Enum):
     SYSTEM_DESIGN = "system_design"
     DEVELOPMENT = "development"
     EXECUTION = "execution"
+    DEPLOYMENT = "deployment"
 
 
 STEPS = {
@@ -23,10 +25,12 @@ STEPS = {
         SystemDesign,
         Development,
         Execution,
+        Deployment,
     ],
     StepType.TEAM_BUILDING: [TeamBuilding],
     StepType.SPECIFICATION: [Specification],
     StepType.SYSTEM_DESIGN: [SystemDesign],
     StepType.DEVELOPMENT: [Development],
     StepType.EXECUTION: [Execution],
+    StepType.DEPLOYMENT: [Deployment],
 }

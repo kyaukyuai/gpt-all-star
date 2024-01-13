@@ -18,16 +18,12 @@ class Copilot(Agent):
         self._console.panel("your-dev-team")
 
     def finish(self) -> None:
-        response = self.ask(
+        self.ask(
             "Project is finished! Do you want to add any features or changes?"
-            " If yes, describe it here and if no, just press ENTER"
-            " If press SAVE, the project will be saved and you can continue later.",
+            " If yes, describe it here and if no, just press ENTER",
             require_answer=False,
-            default_value="no",
+            default_value=None,
         )
-        if response.lower() in ["save"]:
-            self.create_github_repo()
-            self.git_push()
 
         logger.info(f"Completed project: {self.name}")
 
@@ -85,37 +81,31 @@ class Copilot(Agent):
                     f"Adding file {file_name} to the prompt...", style="blue"
                 )
                 code_input = format_file_to_input(file_name, file_str)
-                self.agents.engineer.messages.append(
-                    Message.create_system_message(f"{code_input}")
-                )
+                self.messages.append(Message.create_system_message(f"{code_input}"))
 
-            self.agents.engineer.messages.append(
-                Message.create_system_message(e.stderr)
-            )
+            self.messages.append(Message.create_system_message(e.stderr))
 
-            self.agents.engineer.chat(user_input)
-            response = self.agents.engineer.latest_message_content()
+            self.chat(user_input)
+            response = self.latest_message_content()
             logger.info(f"response: {response}")
             self._console.new_lines(1)
             count += 1
 
             self.storages.memory["self_healing"] = Message.serialize_messages(
-                self.agents.engineer.messages
+                self.messages
             )
 
-            files = Message.parse_message(self.agents.engineer.latest_message_content())
+            files = Message.parse_message(self.latest_message_content())
             for file_name, file_content in files:
                 self.storages.src[file_name] = file_content
 
-            self.run()
+            self.execute_code()
 
         except KeyboardInterrupt:
             self._console.new_lines(1)
             self._console.print("Stopping execution.", style="bold yellow")
             self._console.print("Execution stopped.", style="bold red")
             self._console.new_lines(1)
-
-        return []
 
     def _get_code_strings(self) -> dict[str, str]:
         files_dict = {}
