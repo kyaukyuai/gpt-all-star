@@ -7,6 +7,7 @@ from termcolor import colored
 from your_dev_team.core.Message import Message
 from your_dev_team.core.Storage import Storages
 from your_dev_team.core.agents.Agent import Agent, AgentRole
+from your_dev_team.core.steps import step_prompts
 from your_dev_team.logger.logger import logger
 
 
@@ -67,9 +68,6 @@ class Copilot(Agent):
                 stderr=subprocess.PIPE,
             )
         except subprocess.CalledProcessError as e:
-            user_input = (
-                "Please modify the source code based on the error wording above."
-            )
             count = 0
 
             self._console.print(
@@ -85,7 +83,7 @@ class Copilot(Agent):
 
             self.messages.append(Message.create_system_message(e.stderr))
 
-            self.chat(user_input)
+            self.chat(step_prompts.fix_source_code_template.format())
             response = self.latest_message_content()
             logger.info(f"response: {response}")
             self._console.new_lines(1)
