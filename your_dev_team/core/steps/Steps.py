@@ -3,6 +3,7 @@ from your_dev_team.core.steps.Deployment import Deployment
 
 from your_dev_team.core.steps.Development import Development
 from your_dev_team.core.steps.Execution import Execution
+from your_dev_team.core.steps.Improvement import Improvement
 from your_dev_team.core.steps.Specification import Specification
 from your_dev_team.core.steps.SystemDesign import SystemDesign
 from your_dev_team.core.steps.TeamBuilding import TeamBuilding
@@ -15,6 +16,7 @@ class StepType(str, Enum):
     SYSTEM_DESIGN = "system_design"
     DEVELOPMENT = "development"
     EXECUTION = "execution"
+    IMPROVEMENT = "improvement"
     DEPLOYMENT = "deployment"
 
 
@@ -25,6 +27,7 @@ STEPS = {
         SystemDesign,
         Development,
         Execution,
+        Improvement,
         Deployment,
     ],
     StepType.TEAM_BUILDING: [TeamBuilding],
@@ -32,5 +35,6 @@ STEPS = {
     StepType.SYSTEM_DESIGN: [SystemDesign],
     StepType.DEVELOPMENT: [Development],
     StepType.EXECUTION: [Execution],
+    StepType.IMPROVEMENT: [Improvement],
     StepType.DEPLOYMENT: [Deployment],
 }
