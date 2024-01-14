@@ -5,6 +5,7 @@ import subprocess
 import git
 import requests
 from termcolor import colored
+from rich.syntax import Syntax
 
 from your_dev_team.core.Message import Message
 from your_dev_team.core.Storage import Storages
@@ -124,7 +125,6 @@ class Copilot(Agent):
 
     def push_to_git_repository(self) -> None:
         self._create_new_github_repository()
-        self.state("Pushing to the repository...")
         repo_path = self.storages.origin.path
         repo = git.Repo.init(repo_path)
         files_to_add = [
@@ -140,6 +140,22 @@ class Copilot(Agent):
             logger.info("No files to add to the repository.")
             return
 
+        self.state("The following diff will be pushed to the repository")
+        repo_path = self.storages.origin.path
+        repo = git.Repo(repo_path)
+        diffs = repo.git.diff("HEAD")
+        syntax = Syntax(diffs, "diff", theme="monokai", line_numbers=True)
+        self._console.print(syntax)
+
+        response = self.ask(
+            "Continue with commit and push? (y/n)",
+            require_answer=False,
+            default_value="y",
+        )
+        if response.lower() not in ["", "y", "yes"]:
+            return
+
+        self.state("Pushing to the repository...")
         repo.index.add(files_to_add)
         repo.index.commit("Add files via your-dev-team")
 
