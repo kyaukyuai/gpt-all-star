@@ -1,9 +1,6 @@
-import os
 import random
 import string
 import subprocess
-import git
-import requests
 from termcolor import colored
 from rich.syntax import Syntax
 
@@ -11,6 +8,7 @@ from your_dev_team.core.Message import Message
 from your_dev_team.core.Storage import Storages
 from your_dev_team.core.agents.Agent import Agent, AgentRole
 from your_dev_team.core.steps import step_prompts
+from your_dev_team.helper.Git import Git
 from your_dev_team.logger.logger import logger
 
 
@@ -124,83 +122,28 @@ class Copilot(Agent):
         return self.storages.src.recursive_file_search()
 
     def push_to_git_repository(self) -> None:
-        self._create_new_github_repository()
-        repo_path = self.storages.origin.path
-        repo = git.Repo.init(repo_path)
-        files_to_add = [
-            str(file)
-            for file in repo_path.rglob("*")
-            if file.is_file()
-            and "node_modules" not in str(file)
-            and ".git" not in str(file)
-            and "memory" not in str(file)
-            and ".archive" not in str(file)
-        ]
+        git = Git(self.storages.origin.path)
+        files_to_add = git.files()
         if not files_to_add:
             logger.info("No files to add to the repository.")
             return
 
         self.state("The following diff will be pushed to the repository")
-        repo_path = self.storages.origin.path
-        repo = git.Repo(repo_path)
-        diffs = repo.git.diff("HEAD")
-        syntax = Syntax(diffs, "diff", theme="monokai", line_numbers=True)
+        syntax = Syntax(git.diffs(), "diff", theme="monokai", line_numbers=True)
         self._console.print(syntax)
 
+        if not self._confirm_push():
+            return
+
+        self.state("Pushing to the repository...")
+        git.add(files_to_add)
+        git.commit()
+        git.push()
+
+    def _confirm_push(self):
         response = self.ask(
             "Continue with commit and push? (y/n)",
             require_answer=False,
             default_value="y",
         )
-        if response.lower() not in ["", "y", "yes"]:
-            return
-
-        self.state("Pushing to the repository...")
-        repo.index.add(files_to_add)
-        repo.index.commit("Add files via your-dev-team")
-
-        try:
-            remote_name = "origin"
-            remote_url = (
-                f"https://github.com/your-dev-team/{self.storages.origin.path.name}.git"
-            )
-            if remote_name in repo.remotes:
-                remote = repo.remotes[remote_name]
-                if remote.url != remote_url:
-                    remote.set_url(remote_url)
-            else:
-                remote = repo.create_remote(remote_name, remote_url)
-
-            current_branch = repo.active_branch.name
-            remote.push(refspec=f"{current_branch}:{current_branch}")
-        except git.exc.GitCommandError as e:
-            logger.error(f"Failed to push to the repository: {e}")
-            raise e
-        except Exception as e:
-            logger.error(f"An unexpected error occurred: {e}")
-            raise e
-
-    def _create_new_github_repository(self) -> None:
-        url = "https://api.github.com/orgs/your-dev-team/repos"
-        token = os.getenv("GITHUB_TOKEN")
-
-        headers = {
-            "Authorization": f"token {token}",
-            "Accept": "application/vnd.github.v3+json",
-        }
-        data = {"name": self.storages.origin.path.name, "private": False}
-
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            repos = response.json()
-            if any(repo["name"] == self.storages.origin.path.name for repo in repos):
-                self.state("Repository already exists, skipping creation.")
-                return
-
-        response = requests.post(url, headers=headers, json=data)
-        if response.status_code == 201:
-            self.state("Repository created successfully.")
-        else:
-            self.state(
-                f"Failed to create repository. Status code: {response.status_code}, {response.text}"
-            )
+        return response.lower() in ["", "y", "yes"]

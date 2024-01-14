@@ -64,7 +64,12 @@ class Storage:
                     )
                 files_dict[str(item)] = file_content
             elif item.is_dir():
-                if item.name != "node_modules":
+                if (
+                    item.name != "node_modules"
+                    and item.name != ".git"
+                    and item.name != ".archive"
+                    and item.name != "memory"
+                ):
                     self.recursive_file_search(item, files_dict)
         return files_dict
 
