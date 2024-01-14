@@ -9,6 +9,5 @@ class Deployment(Step):
     def run(self) -> None:
         self.agents.copilot.state("Let's move on to the deployment step!")
         self.console.new_lines(1)
-        self.agents.copilot.create_github_repo()
-        self.agents.copilot.git_push()
+        self.agents.copilot.push_to_git_repository()
         self.console.new_lines(1)

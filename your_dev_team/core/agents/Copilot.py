@@ -122,7 +122,8 @@ class Copilot(Agent):
     def _get_code_strings(self) -> dict[str, str]:
         return self.storages.src.recursive_file_search()
 
-    def git_push(self) -> None:
+    def push_to_git_repository(self) -> None:
+        self._create_new_github_repository()
         self.state("Pushing to the repository...")
         repo_path = self.storages.origin.path
         repo = git.Repo.init(repo_path)
@@ -149,11 +150,11 @@ class Copilot(Agent):
             )
             if remote_name in repo.remotes:
                 remote = repo.remotes[remote_name]
-                remote.set_url(remote_url)
+                if remote.url != remote_url:
+                    remote.set_url(remote_url)
             else:
                 remote = repo.create_remote(remote_name, remote_url)
 
-            # 現在のブランチ名を取得してプッシュ
             current_branch = repo.active_branch.name
             remote.push(refspec=f"{current_branch}:{current_branch}")
         except git.exc.GitCommandError as e:
@@ -163,7 +164,7 @@ class Copilot(Agent):
             logger.error(f"An unexpected error occurred: {e}")
             raise e
 
-    def create_github_repo(self) -> None:
+    def _create_new_github_repository(self) -> None:
         url = "https://api.github.com/orgs/your-dev-team/repos"
         token = os.getenv("GITHUB_TOKEN")
 
@@ -181,7 +182,6 @@ class Copilot(Agent):
                 return
 
         response = requests.post(url, headers=headers, json=data)
-
         if response.status_code == 201:
             self.state("Repository created successfully.")
         else:
