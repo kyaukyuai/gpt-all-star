@@ -189,6 +189,13 @@ class Copilot(Agent):
         }
         data = {"name": self.storages.origin.path.name, "private": False}
 
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            repos = response.json()
+            if any(repo["name"] == self.storages.origin.path.name for repo in repos):
+                self.state("Repository already exists, skipping creation.")
+                return
+
         response = requests.post(url, headers=headers, json=data)
 
         if response.status_code == 201:
