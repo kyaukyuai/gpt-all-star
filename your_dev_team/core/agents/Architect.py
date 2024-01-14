@@ -38,9 +38,6 @@ class Architect(Agent):
             ),
         )
 
-        self.storages.memory["technology_stack"] = Message.serialize_messages(
-            self.messages
-        )
         file = Message.parse_message(self.latest_message_content())[0]
         self.storages.docs["technology_stack.md"] = file[1]
         self.state("Here are the technology stack:")
@@ -62,9 +59,6 @@ class Architect(Agent):
             ),
         )
 
-        self.storages.memory["layout_directory"] = Message.serialize_messages(
-            self.messages
-        )
         file = Message.parse_message(self.latest_message_content())[0]
         self.storages.docs["layout_directory.md"] = file[1]
         self.state("Here are the layout directory:")

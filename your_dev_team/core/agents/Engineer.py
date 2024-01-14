@@ -29,10 +29,6 @@ class Engineer(Agent):
             ),
         )
 
-        self.storages.memory["generate_source_code"] = Message.serialize_messages(
-            self.messages
-        )
-
         files = Message.parse_message(self.latest_message_content())
         for file_name, file_content in files:
             self.storages.src[file_name] = file_content
@@ -50,9 +46,6 @@ class Engineer(Agent):
             ),
         )
 
-        self.storages.memory["generate_entrypoint"] = Message.serialize_messages(
-            self.messages
-        )
         regex = r"```\S*\n(.+?)```"
         matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
         self.storages.src["run.sh"] = "\n".join(match.group(1) for match in matches)
@@ -84,9 +77,6 @@ class Engineer(Agent):
             ),
         )
 
-        self.storages.memory["improve_source_code"] = Message.serialize_messages(
-            self.messages
-        )
         files = Message.parse_message(self.latest_message_content())
         for file_name, file_content in files:
             self.storages.src[file_name] = file_content

@@ -102,10 +102,6 @@ class Copilot(Agent):
             self._console.new_lines(1)
             count += 1
 
-            self.storages.memory["self_healing"] = Message.serialize_messages(
-                self.messages
-            )
-
             files = Message.parse_message(self.latest_message_content())
             for file_name, file_content in files:
                 self.storages.src[file_name] = file_content

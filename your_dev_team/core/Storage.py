@@ -68,7 +68,6 @@ class Storage:
                     item.name != "node_modules"
                     and item.name != ".git"
                     and item.name != ".archive"
-                    and item.name != "memory"
                 ):
                     self.recursive_file_search(item, files_dict)
         return files_dict
@@ -77,7 +76,6 @@ class Storage:
 @dataclass
 class Storages:
     origin: Storage
-    memory: Storage
     src: Storage
     docs: Storage
     archive: Storage
@@ -85,10 +83,6 @@ class Storages:
     @staticmethod
     def archive_storage(storages: Storages) -> None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        shutil.move(
-            str(storages.memory.path),
-            str(storages.archive.path / timestamp / storages.memory.path.name),
-        )
         shutil.move(
             str(storages.src.path),
             str(storages.archive.path / timestamp / storages.src.path.name),

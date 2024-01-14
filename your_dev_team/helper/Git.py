@@ -19,7 +19,6 @@ class Git:
             if file.is_file()
             and "node_modules" not in str(file)
             and ".git" not in str(file)
-            and "memory" not in str(file)
             and ".archive" not in str(file)
         ]
 

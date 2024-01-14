@@ -30,18 +30,6 @@ class Message:
         return AIMessage(content=message)
 
     @staticmethod
-    def serialize_messages(messages: list[BaseMessage]) -> str:
-        return json.dumps(messages_to_dict(messages))
-
-    @staticmethod
-    def deserialize_messages(json_dict_str: str) -> list[BaseMessage]:
-        data = json.loads(json_dict_str)
-        pre_validated_data = [
-            {**item, "data": {**item["data"], "is_chunk": False}} for item in data
-        ]
-        return list(messages_from_dict(pre_validated_data))
-
-    @staticmethod
     def parse_message(message: str) -> list[tuple[str, str]]:
         regex = r"(\S+)\n\s*```[^\n]*\n(.+?)```"
         matches = re.finditer(regex, message, re.DOTALL)

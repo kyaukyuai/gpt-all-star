@@ -29,10 +29,6 @@ class ProductOwner(Agent):
             " **finally please answer 'It's clear!'**",
         )
 
-        self.storages.memory["clarify_instructions"] = Message.serialize_messages(
-            self.messages
-        )
-
     def _get_instructions(self) -> str:
         return (
             self.storages.origin["instructions"]
@@ -41,7 +37,6 @@ class ProductOwner(Agent):
         )
 
     def summarize_specifications(self) -> None:
-        self.messages.extend(self._get_clarified_instructions())
         self.messages.append(
             Message.create_system_message(
                 step_prompts.summarize_specifications_template.format()
@@ -54,17 +49,7 @@ class ProductOwner(Agent):
             ),
         )
 
-        self.storages.memory["summarize_specifications"] = Message.serialize_messages(
-            self.messages
-        )
         file = Message.parse_message(self.latest_message_content())[0]
         self.storages.docs["specifications.md"] = file[1]
         self.state("Here are the specifications:")
         self.output_md(self.storages.docs["specifications.md"])
-
-    def _get_clarified_instructions(self) -> list[BaseMessage]:
-        return (
-            Message.deserialize_messages(self.storages.memory["clarify_instructions"])
-            if self.is_initialized()
-            else []
-        )
