@@ -24,7 +24,13 @@ class Git:
         ]
 
     def diffs(self):
-        return self.repo.git.diff("HEAD")
+        try:
+            if self.repo.head.is_valid() and list(self.repo.iter_commits()):
+                return self.repo.git.diff("HEAD")
+            else:
+                return "No commits in the repository."
+        except git.exc.GitCommandError:
+            return "An error occurred while executing git command."
 
     def add(self, files):
         self.repo.index.add(files)

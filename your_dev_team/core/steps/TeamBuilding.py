@@ -9,7 +9,7 @@ class TeamBuilding(Step):
         super().__init__(agents)
 
     def run(self) -> None:
-        self.agents.copilot.state("Let's build a team!")
+        self.agents.copilot.state("Let's start by building a team!")
         self.console.new_lines(1)
         self._introduce_agent(self.agents.product_owner, AgentRole.PRODUCT_OWNER)
         self._introduce_agent(self.agents.engineer, AgentRole.ENGINEER)
