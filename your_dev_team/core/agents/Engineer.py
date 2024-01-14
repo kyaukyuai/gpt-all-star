@@ -67,7 +67,7 @@ class Engineer(Agent):
             self._console.print(
                 f"Adding file {file_name} to the prompt...", style="blue"
             )
-            code_input = format_file_to_input(file_name, file_str)
+            code_input = step_prompts.format_file_to_input(file_name, file_str)
             self.messages.append(Message.create_system_message(f"{code_input}"))
 
         response = self.ask(
@@ -89,33 +89,4 @@ class Engineer(Agent):
         )
 
     def _get_code_strings(self) -> dict[str, str]:
-        files_dict = {}
-        self._recursive_file_search(self.storages.src.path, files_dict)
-        return files_dict
-
-    def _recursive_file_search(self, path, files_dict):
-        for item in path.iterdir():
-            if item.is_file():
-                try:
-                    with open(item, "r", encoding="utf-8") as f:
-                        file_content = f.read()
-                except UnicodeDecodeError:
-                    raise ValueError(
-                        f"Non-text file detected: {item}, datable-interpreter currently only supports utf-8 "
-                        f"decodable text"
-                        f"files."
-                    )
-                files_dict[item] = file_content
-            elif item.is_dir():
-                if item.name != "node_modules":
-                    self._recursive_file_search(item, files_dict)
-
-
-def format_file_to_input(file_name: str, file_content: str) -> str:
-    file_str = f"""
-    {file_name}
-    ```
-    {file_content}
-    ```
-    """
-    return file_str
+        return self.storages.src.recursive_file_search()

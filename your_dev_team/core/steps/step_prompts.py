@@ -318,3 +318,13 @@ If you want to put code in a new file, use an edit block with:
 - The new file's contents in the `updated` section
 """
 )
+
+
+def format_file_to_input(file_name: str, file_content: str) -> str:
+    file_str = f"""
+    {file_name}
+    ```
+    {file_content}
+    ```
+    """
+    return file_str

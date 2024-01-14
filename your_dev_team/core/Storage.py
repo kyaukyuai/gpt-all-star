@@ -22,16 +22,16 @@ class Storage:
         return item_path
 
     def __getitem__(self, item: str):
-        with self.get_path(item).open('r', encoding='utf-8') as f:
+        with self.get_path(item).open("r", encoding="utf-8") as f:
             return f.read()
 
     def __setitem__(self, key: str, value: str):
-        if key.startswith('../'):
+        if key.startswith("../"):
             raise ValueError(f"File name '{key}' attempted to access parent path.")
 
         full_path = self.path / key
         full_path.parent.mkdir(parents=True, exist_ok=True)
-        full_path.write_text(value, encoding='utf-8')
+        full_path.write_text(value, encoding="utf-8")
 
     def __delitem__(self, item: str):
         item_path = self.get_path(item)
@@ -47,6 +47,27 @@ class Storage:
         except KeyError:
             return default
 
+    def recursive_file_search(
+        self, path: Path | None = None, files_dict=None
+    ) -> dict[str, str]:
+        if files_dict is None:
+            files_dict = {}
+        for item in (path or self.path).iterdir():
+            if item.is_file():
+                try:
+                    with open(item, "r", encoding="utf-8") as f:
+                        file_content = f.read()
+                except UnicodeDecodeError:
+                    raise ValueError(
+                        f"Non-text file detected: {item}, your-dev-team currently only supports utf-8 "
+                        f"decodable text files."
+                    )
+                files_dict[str(item)] = file_content
+            elif item.is_dir():
+                if item.name != "node_modules":
+                    self.recursive_file_search(item, files_dict)
+        return files_dict
+
 
 @dataclass
 class Storages:
@@ -59,9 +80,15 @@ class Storages:
     @staticmethod
     def archive_storage(storages: Storages) -> None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        shutil.move(str(storages.memory.path),
-                    str(storages.archive.path / timestamp / storages.memory.path.name))
-        shutil.move(str(storages.src.path),
-                    str(storages.archive.path / timestamp / storages.src.path.name))
-        shutil.move(str(storages.docs.path),
-                    str(storages.archive.path / timestamp / storages.docs.path.name))
+        shutil.move(
+            str(storages.memory.path),
+            str(storages.archive.path / timestamp / storages.memory.path.name),
+        )
+        shutil.move(
+            str(storages.src.path),
+            str(storages.archive.path / timestamp / storages.src.path.name),
+        )
+        shutil.move(
+            str(storages.docs.path),
+            str(storages.archive.path / timestamp / storages.docs.path.name),
+        )

@@ -92,7 +92,7 @@ class Copilot(Agent):
                 self._console.print(
                     f"Adding file {file_name} to the prompt...", style="blue"
                 )
-                code_input = format_file_to_input(file_name, file_str)
+                code_input = step_prompts.format_file_to_input(file_name, file_str)
                 self.messages.append(Message.create_system_message(f"{code_input}"))
 
             self.messages.append(Message.create_system_message(e.stderr))
@@ -120,23 +120,7 @@ class Copilot(Agent):
             self._console.new_lines(1)
 
     def _get_code_strings(self) -> dict[str, str]:
-        files_dict = {}
-
-        for path in self.storages.src.path.iterdir():
-            if path.is_file():
-                try:
-                    with open(path, "r", encoding="utf-8") as f:
-                        file_content = f.read()
-                except UnicodeDecodeError:
-                    raise ValueError(
-                        f"Non-text file detected: {path}, datable-interpreter currently only supports utf-8 "
-                        f"decidable text"
-                        f"files."
-                    )
-
-            files_dict[path] = file_content
-
-        return files_dict
+        return self.storages.src.recursive_file_search()
 
     def git_push(self) -> None:
         self.state("Pushing to the repository...")
@@ -204,13 +188,3 @@ class Copilot(Agent):
             self.state(
                 f"Failed to create repository. Status code: {response.status_code}, {response.text}"
             )
-
-
-def format_file_to_input(file_name: str, file_content: str) -> str:
-    file_str = f"""
-    {file_name}
-    ```
-    {file_content}
-    ```
-    """
-    return file_str
