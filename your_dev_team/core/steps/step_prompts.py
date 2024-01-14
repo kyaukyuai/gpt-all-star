@@ -241,81 +241,38 @@ When you edit or add code, respect and use existing conventions, libraries, etc.
 
 Take requests for changes to the supplied code, and then you MUST
 1. (planning) Think step-by-step and explain the needed changes. Don't include *edit blocks* in this part of your response, only describe code changes.
-2. (output) Describe each change with an *edit block* per the example below.
+2. (output) Describe each change per the example below.
 
-You MUST format EVERY code change with an *edit block* like this:
-```python
-example.py
-<<<<<<< HEAD
-    # some comment
-    # Func to multiply
-    def mul(a,b)
-=======
-    # updated comment
-    # Function to add
-    def add(a,b):
->>>>>>> updated
+You will output the content of each file necessary to achieve the goal, including ALL code.
+Represent files like so:
+
+FILENAME
 ```
-Remember, you can use multiple *edit blocks* per file.
-
-Here is an example response:
----
-PLANNING:
-We need to change "SOMETHING" because "SOMETHING", therefore I will add the line `a=a+1` to the function `add_one`.
-Also, in the class `DB`, we need to update the "SOMETHING"
-
-OUTPUT:
-```python
-example_1.py
-<<<<<<< HEAD
-    def mul(a,b)
-=======
-    def add(a,b):
->>>>>>> updated
+CODE
 ```
 
-```python
-example_1.py
-<<<<<<< HEAD
-    def add_one(a,b):
-        a = a+2
-=======
-    def add_one(a,b):
-        a = a+1
->>>>>>> updated
+The following tokens must be replaced like so:
+FILENAME is the lowercase combined path and file name including the file extension
+CODE is the code in the file
+
+Example representation of a file:
+
+src/hello_world.py
+```
+print("Hello World")
 ```
 
-```python
-example_1.py
-<<<<<<< HEAD
-    class DBS:
-        db = 'aaa'
-=======
-    class DBS:
-        db = 'bbb'
->>>>>>> updated
-```
----
+Do not comment on what every file does. Please note that the code should be fully functional. No placeholders.
 
-A program will parse the edit blocks you generate and replace the `HEAD` lines with the `updated` lines.
-So edit blocks must be precise and unambiguous!
+**Please note that the code should be fully functional. No placeholders.**
 
-Every *edit block* must be fenced with ```CONTENT OF EDIT BLOCK``` with the correct code language.
+Follow a language and framework appropriate best practice file naming convention.
+Make sure that files contain all imports, types etc.  The code should be fully functional. Make sure that code in different files are compatible with each other.
+Ensure to implement all code, if you are unsure, write a plausible implementation.
+Include module dependency or package manager dependency definition file.
+Before you finish, double check that all parts of the architecture is present in the files.
 
-The file name at the top of the edit block (example_1.py in the examples) is the relative path to the file.
-
-The `HEAD` section must be an *exact set of sequential lines* from the file! This is very important. Otherwise the parser won't work.
-NEVER SKIP LINES in the `HEAD` section!
-NEVER ELIDE LINES AND REPLACE THEM WITH A COMMENT!
-NEVER OMIT ANY WHITESPACE in the `HEAD` section!
-WHEN MODIFYING MULTIPLE EXISTING FUNCTIONS IN ONE FILE, ALWAYS MAKE ONE edit block PER FUNCTION (AN EXISTING SINGLE FUNCTION MAY BE REPLACED WITH MULTIPLE FUNCTIONS INSIDE edit block)
-
-Edits to different parts of a file each need their own *edit block*.
-
-If you want to put code in a new file, use an edit block with:
-- A new file path, including dir name if needed
-- An empty `HEAD` section
-- The new file's contents in the `updated` section
+When you are done, write finish with "this concludes a fully working implementation".
 """
 )
 

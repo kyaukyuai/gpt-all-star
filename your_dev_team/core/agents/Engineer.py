@@ -87,6 +87,9 @@ class Engineer(Agent):
         self.storages.memory["improve_source_code"] = Message.serialize_messages(
             self.messages
         )
+        files = Message.parse_message(self.latest_message_content())
+        for file_name, file_content in files:
+            self.storages.src[file_name] = file_content
 
     def _get_code_strings(self) -> dict[str, str]:
         return self.storages.src.recursive_file_search()
