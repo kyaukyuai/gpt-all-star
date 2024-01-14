@@ -7,4 +7,7 @@ class Improvement(Step):
         super().__init__(agents)
 
     def run(self) -> None:
-        pass
+        self.agents.copilot.state("Let's move on to the improvement step!")
+        self.console.new_lines(1)
+        self.agents.engineer.improve_source_code()
+        self.console.new_lines(1)

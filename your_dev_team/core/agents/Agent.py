@@ -29,7 +29,7 @@ class Agent(ABC):
         self, role: AgentRole, storages: Storages, name: str = "", profile: str = ""
     ) -> None:
         self._console = ConsoleTerminal()
-        self._llm = _create_llm("gpt-4", 0.1)
+        self._llm = _create_llm("gpt-4-32k", 0.1)
 
         self.role: AgentRole = role
         self.name: str = name
@@ -190,6 +190,7 @@ Your job is to implement **fully working** applications.
 Almost always put different classes in different files.
 Always use the programming language the user asks for.
 For Python, you always create an appropriate requirements.txt file.
+For NodeJS, you always create an appropriate package.json file.
 Always add a comment briefly describing the purpose of the function definition.
 Add comments explaining very complex bits of logic.
 Always follow the best practices for the requested languages for folder/file structure and how to package the project.
