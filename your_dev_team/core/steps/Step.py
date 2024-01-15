@@ -8,8 +8,9 @@ warnings.simplefilter("ignore")
 
 
 class Step(ABC):
-    def __init__(self, agents: Agents) -> None:
+    def __init__(self, agents: Agents, mode: str | None = None) -> None:
         self.agents = agents
+        self.mode = mode
         self.console = ConsoleTerminal()
 
         self.console.section(f"STEP: {self.__class__.__name__}")

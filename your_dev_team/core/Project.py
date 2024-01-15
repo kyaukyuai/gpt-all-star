@@ -50,10 +50,11 @@ class Project:
 
     def start(self) -> None:
         self.agents.copilot.start(self.name)
+        mode = "ja" if self.args["japanese"] else None
         try:
             for step in STEPS[self.step_type]:
                 try:
-                    step(self.agents).run()
+                    step(self.agents, mode).run()
                 except Exception as e:
                     logger.error(f"Failed to execute step {step}. Reason: {str(e)}")
                     raise e
