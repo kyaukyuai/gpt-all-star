@@ -54,7 +54,7 @@ class Storage:
         if files_dict is None:
             files_dict = {}
         for item in (path or self.path).iterdir():
-            if item.is_file():
+            if item.is_file() and item.name != "package-lock.json":
                 try:
                     with open(item, "r", encoding="utf-8") as f:
                         file_content = f.read()

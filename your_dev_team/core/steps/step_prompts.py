@@ -70,7 +70,7 @@ Relevance: Only include technologies that are essential and will be actively use
 Compatibility: Ensure that the listed technologies are compatible with each other. Exclude any technologies that cannot be integrated or used in conjunction with others. For example, Pandas (Python library) and Node.js can't be used together. Another example is MongoDB (NoSQL database) and MySQL (SQL database) shouldn't be used together unless that is specified in project description.
 Technology Preferences: In scenarios where multiple technology options are available for a specific project component, prioritize the following preferred technologies:
 - Node.js
-- SQLite
+- SQLite OR MongoDB
 - Bootstrap
 - HTML
 - CSS3
