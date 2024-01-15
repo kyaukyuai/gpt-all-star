@@ -27,6 +27,13 @@ def get_arguments():
         default=None,
         help="Project name",
     )
+    parser.add_argument(
+        "--japanese",
+        "-j",
+        type=bool,
+        default=False,
+        help="Japanese mode",
+    )
 
     args = parser.parse_args()
     return vars(args)

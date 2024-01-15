@@ -1,4 +1,5 @@
 from rich.table import Table
+from your_dev_team.core.Message import Message
 from your_dev_team.core.agents import Agents
 from your_dev_team.core.agents.Agent import AgentRole
 from your_dev_team.core.steps.Step import Step
@@ -30,6 +31,7 @@ class TeamBuilding(Step):
             require_answer=False,
             default_value=AgentRole.default_profile()[role].format(),
         )
+        agent.messages = [Message.create_system_message(agent.profile)]
 
     def _display_team_members(self) -> None:
         table = Table(show_header=True, header_style="#FFB001", title="Team Members")
