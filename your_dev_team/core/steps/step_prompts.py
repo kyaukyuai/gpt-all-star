@@ -234,6 +234,38 @@ Do not use placeholders, use example values (like . for a folder argument) if ne
 """
 )
 
+generate_readme_template = PromptTemplate.from_template(
+    """
+You will get information about a codebase and documents that are currently on disk in the current folder.
+Please generate README.md file.
+It should contain the following information:
+- A project title
+- A brief description of the project
+- technology stack
+- requirements
+- how to run the project
+
+You will output the content to achieve the goal.
+Represent files like so:
+
+FILENAME
+```
+CONTENT
+```
+
+The following tokens must be replaced like so:
+FILENAME must be `README.md`.
+CONTENT is the content in the file
+
+Example representation of a file:
+
+README.md
+```
+# project title
+```
+"""
+)
+
 improve_source_code_template = PromptTemplate.from_template(
     """
 Always use best practices when coding.

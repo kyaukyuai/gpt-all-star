@@ -50,6 +50,25 @@ class Engineer(Agent):
         matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
         self.storages.origin["run.sh"] = "\n".join(match.group(1) for match in matches)
 
+    def generate_readme(self):
+        self.messages.append(
+            Message.create_system_message(
+                step_prompts.generate_readme_template.format()
+            )
+        )
+
+        self._execute(
+            "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
+                NEXT_COMMAND
+            ),
+        )
+
+        regex = r"```\S*\n(.+?)```"
+        matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
+        self.storages.origin["README.md"] = "\n".join(
+            match.group(1) for match in matches
+        )
+
     def improve_source_code(self):
         self.messages.append(
             Message.create_system_message(
