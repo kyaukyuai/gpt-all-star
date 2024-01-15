@@ -74,6 +74,7 @@ Technology Preferences: In scenarios where multiple technology options are avail
 - Bootstrap
 - HTML
 - CSS3
+- Docker / Docker Compose
 
 **The output should be presented in markdown format.**
 
@@ -230,7 +231,8 @@ a) install dependencies
 b) run all necessary parts of the codebase (in parallel if necessary).
 Do not install globally. Do not use sudo.
 Do not explain the code, just give the commands.
-Do not use placeholders, use example values (like . for a folder argument) if necessary."
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+Do not use docker or docker-compose.
 """
 )
 
