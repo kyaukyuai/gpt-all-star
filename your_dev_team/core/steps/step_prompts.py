@@ -166,7 +166,7 @@ CODE is the code in the file
 
 Example representation of a file:
 
-src/hello_world.py
+hello_world.py
 ```
 print("Hello World")
 ```
@@ -203,7 +203,7 @@ CODE is the code in the file
 
 Example representation of a file:
 
-src/hello_world.py
+hello_world.py
 ```
 print("Hello World")
 ```
@@ -257,7 +257,7 @@ CODE is the code in the file
 
 Example representation of a file:
 
-src/hello_world.py
+hello_world.py
 ```
 print("Hello World")
 ```
