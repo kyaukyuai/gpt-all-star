@@ -83,9 +83,6 @@ class Agent(ABC):
     def latest_message_content(self) -> str:
         return self.messages[-1].content.strip()
 
-    def is_initialized(self) -> bool:
-        return len(self.messages) <= 1
-
     def _execute(
         self, follow_up_message: str, final_message: str | None = None
     ) -> None:
