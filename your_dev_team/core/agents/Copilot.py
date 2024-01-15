@@ -42,7 +42,7 @@ class Copilot(Agent):
         logger.info(f"Completed project: {self.name}")
 
     def execute_code(self) -> None:
-        command = self.storages.src["run.sh"]
+        command = self.storages.origin["run.sh"]
 
         self._console.new_lines()
         print(
@@ -75,7 +75,7 @@ class Copilot(Agent):
             subprocess.run(
                 command,
                 shell=True,
-                cwd=self.storages.src.path,
+                cwd=self.storages.origin.path,
                 check=True,
                 text=True,
                 stderr=subprocess.PIPE,
@@ -104,7 +104,7 @@ class Copilot(Agent):
 
             files = Message.parse_message(self.latest_message_content())
             for file_name, file_content in files:
-                self.storages.src[file_name] = file_content
+                self.storages.origin[file_name] = file_content
 
             self.execute_code()
 
@@ -115,7 +115,7 @@ class Copilot(Agent):
             self._console.new_lines(1)
 
     def _get_code_strings(self) -> dict[str, str]:
-        return self.storages.src.recursive_file_search()
+        return self.storages.origin.recursive_file_search()
 
     def push_to_git_repository(self) -> None:
         git = Git(self.storages.origin.path)

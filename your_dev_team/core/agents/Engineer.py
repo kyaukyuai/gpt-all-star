@@ -31,7 +31,7 @@ class Engineer(Agent):
 
         files = Message.parse_message(self.latest_message_content())
         for file_name, file_content in files:
-            self.storages.src[file_name] = file_content
+            self.storages.origin[file_name] = file_content
 
     def generate_entrypoint(self):
         self.messages.append(
@@ -48,7 +48,7 @@ class Engineer(Agent):
 
         regex = r"```\S*\n(.+?)```"
         matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
-        self.storages.src["run.sh"] = "\n".join(match.group(1) for match in matches)
+        self.storages.origin["run.sh"] = "\n".join(match.group(1) for match in matches)
 
     def improve_source_code(self):
         self.messages.append(
@@ -79,7 +79,7 @@ class Engineer(Agent):
 
         files = Message.parse_message(self.latest_message_content())
         for file_name, file_content in files:
-            self.storages.src[file_name] = file_content
+            self.storages.origin[file_name] = file_content
 
     def _get_code_strings(self) -> dict[str, str]:
-        return self.storages.src.recursive_file_search()
+        return self.storages.origin.recursive_file_search()

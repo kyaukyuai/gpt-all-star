@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 
 import shutil
 from dataclasses import dataclass
@@ -68,6 +69,7 @@ class Storage:
                     item.name != "node_modules"
                     and item.name != ".git"
                     and item.name != ".archive"
+                    and item.name != "docs"
                 ):
                     self.recursive_file_search(item, files_dict)
         return files_dict
@@ -76,18 +78,17 @@ class Storage:
 @dataclass
 class Storages:
     origin: Storage
-    src: Storage
     docs: Storage
     archive: Storage
 
     @staticmethod
     def archive_storage(storages: Storages) -> None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        shutil.move(
-            str(storages.src.path),
-            str(storages.archive.path / timestamp / storages.src.path.name),
-        )
-        shutil.move(
-            str(storages.docs.path),
-            str(storages.archive.path / timestamp / storages.docs.path.name),
-        )
+        destination = os.path.join(storages.archive.path, timestamp)
+
+        if not os.path.exists(destination):
+            os.makedirs(destination)
+
+        for item in os.listdir(storages.origin.path):
+            if item != ".archive":
+                shutil.move(os.path.join(storages.origin.path, item), destination)
