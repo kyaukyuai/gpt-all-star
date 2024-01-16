@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "python-template"
+name = "your-dev-team"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["Yuya Kakui <y.kakui@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.10.0,<3.11"
@@ -17,10 +17,16 @@ termcolor = "^2.4.0"
 gitpython = "^3.1.41"
 requests = "^2.31.0"
 
+[tool.poetry.scripts]
+your-dev-team = 'your_dev_team.main:app'
+
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
 useLibraryCodeForTypes = true
 exclude = [".cache"]
+
+[project.scripts]
+your-dev-team = 'your_dev_team.main:app'
 
 [tool.ruff]
 # https://beta.ruff.rs/docs/configuration/

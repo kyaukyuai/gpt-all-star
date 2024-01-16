@@ -673,19 +673,19 @@ text-helpers = ["chardet (>=5.1.0,<6.0.0)"]
 
 [[package]]
 name = "langchain-community"
-version = "0.0.11"
+version = "0.0.12"
 description = "Community contributed LangChain integrations."
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langchain_community-0.0.11-py3-none-any.whl", hash = "sha256:30ab1d7dbf35d0ebe684d8a1e8964e8dedd3d31a3703790436b39674cfa06f41"},
-    {file = "langchain_community-0.0.11.tar.gz", hash = "sha256:eaeaa8d63427ecf0cb32fe2f1ba4d05ad6d5ef9f7019baf21dc2dde5b1403002"},
+    {file = "langchain_community-0.0.12-py3-none-any.whl", hash = "sha256:13b988afaa24e570d2b9992aecccb2fe36d9c33feafd9804f3066dc2ff042d4d"},
+    {file = "langchain_community-0.0.12.tar.gz", hash = "sha256:7cfe36c52b1fb86c1095d4dec0cf466a1c752a7446104e8b39cf0f70512a4851"},
 ]
 
 [package.dependencies]
 aiohttp = ">=3.8.3,<4.0.0"
 dataclasses-json = ">=0.5.7,<0.7"
-langchain-core = ">=0.1.8,<0.2"
+langchain-core = ">=0.1.9,<0.2"
 langsmith = ">=0.0.63,<0.1.0"
 numpy = ">=1,<2"
 PyYAML = ">=5.3"

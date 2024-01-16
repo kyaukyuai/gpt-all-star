@@ -1,35 +1,46 @@
 import warnings
 from dotenv import load_dotenv
 import typer
-from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
 
+from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
 from your_dev_team.core.Project import Project
-from your_dev_team.cli.arguments import get_arguments
-from your_dev_team.logger.logger import logger
+from your_dev_team.core.steps.Steps import StepType
 
 
 app = typer.Typer()
 warnings.simplefilter("ignore")
 
 
-def init() -> dict:
-    load_dotenv()
-
-    arguments = get_arguments()
-
-    logger.info(f"Starting with args: {arguments}")
-
-    return arguments
-
-
 @app.command()
-def main() -> None:
+def main(
+    step: StepType = typer.Option(
+        StepType.DEFAULT,
+        "--step",
+        "-s",
+        help="Step to be performed",
+        case_sensitive=False,
+        show_choices=True,
+    ),
+    project_name: str = typer.Option(
+        None,
+        "--project_name",
+        "-p",
+        help="Project name",
+        case_sensitive=True,
+        show_choices=True,
+    ),
+    japanese_mode: bool = typer.Option(
+        False,
+        "--japanese_mode",
+        "-j",
+        help="Japanese mode",
+    ),
+) -> None:
+    load_dotenv()
     console = ConsoleTerminal()
     console.panel("your-dev-team")
 
-    args = init()
-
-    project = Project(args)
+    project = Project(step, project_name, japanese_mode)
     project.start()
     project.finish()
 

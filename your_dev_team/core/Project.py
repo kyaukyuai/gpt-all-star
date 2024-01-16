@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os.path
 from pathlib import Path
-from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
 
 from your_dev_team.core.agents.Agents import Agents
 from your_dev_team.core.agents.Architect import Architect
@@ -17,11 +16,13 @@ from your_dev_team.logger.logger import logger
 class Project:
     def __init__(
         self,
-        args: dict,
+        step: StepType = StepType.DEFAULT,
+        project_name: str = None,
+        japanese_mode: bool = False,
     ) -> None:
-        self.args: dict = args
+        self.japanese_mode = japanese_mode
         self.name = (
-            self.args["project_name"]
+            project_name
             or Copilot(
                 storages=None, name="copilot", profile="this is copilot"
             ).ask_project_name()
@@ -43,14 +44,14 @@ class Project:
             architect=Architect(storages=self.storages),
         )
 
-        self.step_type = self.args["step"] or StepType.DEFAULT
+        self.step_type = step or StepType.DEFAULT
         if self.step_type is StepType.DEFAULT:
             logger.info("archive previous storages")
             Storages.archive_storage(self.storages)
 
     def start(self) -> None:
         self.agents.copilot.start(self.name)
-        mode = "ja" if self.args["japanese"] else None
+        mode = "ja" if self.japanese_mode else None
         try:
             for step in STEPS[self.step_type]:
                 try:
