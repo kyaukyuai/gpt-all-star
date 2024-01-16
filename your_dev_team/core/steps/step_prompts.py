@@ -286,7 +286,8 @@ CODE
 ```
 
 The following tokens must be replaced like so:
-FILENAME is the lowercase combined path and file name including the file extension
+FILENAME is the lowercase combined path and file name including the file extension and If the file already exists, please follow its name.
+
 CODE is the code in the file
 
 Example representation of a file:
