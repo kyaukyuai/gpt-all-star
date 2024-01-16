@@ -38,7 +38,7 @@ class Agent(ABC):
         self.messages: list[BaseMessage] = [Message.create_system_message(self.profile)]
         self.storages = storages
 
-    def chat(self, human_input: str | None) -> None:
+    def chat(self, human_input: str | None = None) -> None:
         if human_input is not None:
             self.messages.append(Message.create_human_message(human_input))
 

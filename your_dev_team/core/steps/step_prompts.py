@@ -286,7 +286,7 @@ CODE
 ```
 
 The following tokens must be replaced like so:
-FILENAME is the lowercase combined path and file name including the file extension and If the file already exists, please follow its name.
+FILENAME is the lowercase combined path and file name including the file extension and **if the file already exists, please follow its name**.
 
 CODE is the code in the file
 
@@ -308,6 +308,18 @@ Include module dependency or package manager dependency definition file.
 Before you finish, double check that all parts of the architecture is present in the files.
 
 When you are done, write finish with "this concludes a fully working implementation".
+"""
+)
+
+generate_commit_message_template = PromptTemplate.from_template(
+    """
+Generate an appropriate commit message showing the following diffs.
+The format should follow Conventional Commits.
+
+Here is the diff: {diff}
+```
+{diff}
+```
 """
 )
 

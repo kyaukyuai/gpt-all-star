@@ -136,9 +136,18 @@ class Copilot(Agent):
         if not self._confirm_push():
             return
 
+        self.messages.append(
+            Message.create_system_message(
+                step_prompts.generate_commit_message_template.format(diff=git.diffs())
+            )
+        )
+        self.chat()
+        commit_message = self.latest_message_content()
+
+        self._console.new_lines(1)
         self.state("Pushing to the repository...")
         git.add(files_to_add)
-        git.commit()
+        git.commit(commit_message)
         git.push()
 
     def _confirm_push(self):

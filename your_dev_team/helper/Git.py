@@ -34,8 +34,8 @@ class Git:
     def add(self, files):
         self.repo.index.add(files)
 
-    def commit(self):
-        self.repo.index.commit("Add files via your-dev-team")
+    def commit(self, commit_message: str = "Add files via your-dev-team"):
+        self.repo.index.commit(commit_message)
 
     def push(self):
         try:
