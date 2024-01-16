@@ -36,9 +36,7 @@ class Project:
         )
 
         self.agents = Agents(
-            copilot=Copilot(
-                storages=self.storages, name="copilot", profile="this is copilot"
-            ),
+            copilot=Copilot(storages=self.storages),
             product_owner=ProductOwner(storages=self.storages),
             engineer=Engineer(storages=self.storages),
             architect=Architect(storages=self.storages),

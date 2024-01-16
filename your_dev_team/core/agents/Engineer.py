@@ -9,8 +9,13 @@ from your_dev_team.core.steps import step_prompts
 
 
 class Engineer(Agent):
-    def __init__(self, storages: Storages) -> None:
-        super().__init__(AgentRole.ENGINEER, storages)
+    def __init__(
+        self,
+        storages: Storages,
+        name: str = "engineer",
+        profile: str = AgentRole.default_profile()[AgentRole.ENGINEER].format(),
+    ) -> None:
+        super().__init__(AgentRole.ENGINEER, storages, name, profile)
 
     def generate_source_code(self):
         self.messages.append(

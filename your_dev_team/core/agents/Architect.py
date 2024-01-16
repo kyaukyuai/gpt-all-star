@@ -5,8 +5,13 @@ from your_dev_team.core.steps import step_prompts
 
 
 class Architect(Agent):
-    def __init__(self, storages: Storages) -> None:
-        super().__init__(AgentRole.ARCHITECT, storages)
+    def __init__(
+        self,
+        storages: Storages,
+        name: str = "architect",
+        profile: str = AgentRole.default_profile()[AgentRole.ARCHITECT].format(),
+    ) -> None:
+        super().__init__(AgentRole.ARCHITECT, storages, name, profile)
 
     def plan(self):
         self.messages.append(

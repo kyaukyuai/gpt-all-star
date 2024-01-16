@@ -13,7 +13,12 @@ from your_dev_team.logger.logger import logger
 
 
 class Copilot(Agent):
-    def __init__(self, storages: Storages, name: str, profile: str) -> None:
+    def __init__(
+        self,
+        storages: Storages,
+        name: str = "copilot",
+        profile: str = AgentRole.default_profile()[AgentRole.COPILOT].format(),
+    ) -> None:
         super().__init__(AgentRole.COPILOT, storages, name, profile)
 
     def start(self, project_name: str) -> None:
