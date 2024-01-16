@@ -107,7 +107,9 @@ class Agent(ABC):
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
     endpoint = os.getenv("ENDPOINT")
     if endpoint == "AZURE":
-        return _create_azure_chat_openai_instance(model_name)
+        return _create_azure_chat_openai_instance(
+            os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
+        )
     else:
         return _create_chat_openai_instance(model_name, temperature)
 
@@ -125,7 +127,7 @@ def _create_chat_openai_instance(model_name: str, temperature: float):
 
 def _create_azure_chat_openai_instance(model_name: str):
     return AzureChatOpenAI(
-        openai_api_version=os.getenv("OPENAI_API_VERSION", "2023-05-15"),
+        openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2023-05-15"),
         deployment_name=model_name,
         streaming=True,
     )
