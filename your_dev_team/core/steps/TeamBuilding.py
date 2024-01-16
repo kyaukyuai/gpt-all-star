@@ -6,8 +6,8 @@ from your_dev_team.core.steps.Step import Step
 
 
 class TeamBuilding(Step):
-    def __init__(self, agents: Agents, mode) -> None:
-        super().__init__(agents, mode)
+    def __init__(self, agents: Agents, japanese_mode) -> None:
+        super().__init__(agents, japanese_mode)
 
     def run(self) -> None:
         self.agents.copilot.state("Let's start by building a team!")
@@ -31,7 +31,7 @@ class TeamBuilding(Step):
             require_answer=False,
             default_value=AgentRole.default_profile()[role].format(),
         )
-        if self.mode == "ja":
+        if self.japanese_mode:
             agent.profile = agent.profile + "**必ず日本語で書いて下さい**"
         agent.messages = [Message.create_system_message(agent.profile)]
 

@@ -3,8 +3,8 @@ from your_dev_team.core.steps.Step import Step
 
 
 class Development(Step):
-    def __init__(self, agents: Agents, mode) -> None:
-        super().__init__(agents, mode)
+    def __init__(self, agents: Agents, japanese_mode) -> None:
+        super().__init__(agents, japanese_mode)
 
     def run(self) -> None:
         self.agents.copilot.state("Let's move on to the development step!")
