@@ -6,6 +6,7 @@ from pathlib import Path
 from your_dev_team.core.agents.Agents import Agents
 from your_dev_team.core.agents.Architect import Architect
 from your_dev_team.core.agents.Copilot import Copilot
+from your_dev_team.core.agents.Designer import Designer
 from your_dev_team.core.agents.Engineer import Engineer
 from your_dev_team.core.steps.Steps import StepType, STEPS
 from your_dev_team.core.Storage import Storage, Storages
@@ -40,6 +41,7 @@ class Project:
             product_owner=ProductOwner(storages=self.storages),
             engineer=Engineer(storages=self.storages),
             architect=Architect(storages=self.storages),
+            designer=Designer(storages=self.storages),
         )
 
         self.step_type = step or StepType.DEFAULT

@@ -699,13 +699,13 @@ extended-testing = ["aiosqlite (>=0.19.0,<0.20.0)", "aleph-alpha-client (>=2.15.
 
 [[package]]
 name = "langchain-core"
-version = "0.1.10"
+version = "0.1.11"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langchain_core-0.1.10-py3-none-any.whl", hash = "sha256:d89952f6d0766cfc88d9f1e25b84d56f8d7bd63a45ad8ec1a9a038c9b49df16d"},
-    {file = "langchain_core-0.1.10.tar.gz", hash = "sha256:3c9e1383264c102fcc6f865700dbb9416c4931a25d0ac2195f6311c6b867aa17"},
+    {file = "langchain_core-0.1.11-py3-none-any.whl", hash = "sha256:69bd66e8604863b0eb1fe4fcd05507be52fdd937dd0849d42eaae80141982e6d"},
+    {file = "langchain_core-0.1.11.tar.gz", hash = "sha256:4ad4b596dbfdbc8393c96d40983b97aec165ab0ba66430beae73e3d879c13a0d"},
 ]
 
 [package.dependencies]
@@ -723,13 +723,13 @@ extended-testing = ["jinja2 (>=3,<4)"]
 
 [[package]]
 name = "langsmith"
-version = "0.0.80"
+version = "0.0.81"
 description = "Client library to connect to the LangSmith LLM Tracing and Evaluation Platform."
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langsmith-0.0.80-py3-none-any.whl", hash = "sha256:dee1c6ef9e8241b82a8851926624269954d0ff8e22d82e32e73455f387f4e245"},
-    {file = "langsmith-0.0.80.tar.gz", hash = "sha256:6d22ee07eb41c65b3f5166b20041a026714952497d9e80d5be6879d3a5c14d84"},
+    {file = "langsmith-0.0.81-py3-none-any.whl", hash = "sha256:eb816ad456776ec4c6005ddce8a4c315a1a582ed4d079979888e9f8a1db209b3"},
+    {file = "langsmith-0.0.81.tar.gz", hash = "sha256:5838e5a4bb1939e9794eb3f802f7c390247a847bd603e31442be5be00068e504"},
 ]
 
 [package.dependencies]
