@@ -1,4 +1,5 @@
 from rich.table import Table
+
 from your_dev_team.core.Message import Message
 from your_dev_team.core.agents import Agents
 from your_dev_team.core.agents.Agent import AgentRole
@@ -15,6 +16,7 @@ class TeamBuilding(Step):
         self._introduce_agent(self.agents.product_owner, AgentRole.PRODUCT_OWNER)
         self._introduce_agent(self.agents.engineer, AgentRole.ENGINEER)
         self._introduce_agent(self.agents.architect, AgentRole.ARCHITECT)
+        self._introduce_agent(self.agents.designer, AgentRole.DESIGNER)
         self.console.new_lines(1)
         self.agents.copilot.state("Ok, we have a team now!")
         self._display_team_members()

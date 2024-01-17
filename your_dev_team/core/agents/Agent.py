@@ -147,6 +147,7 @@ class AgentRole(str, Enum):
     PRODUCT_OWNER = "product_owner"
     ENGINEER = "engineer"
     ARCHITECT = "architect"
+    DESIGNER = "designer"
 
     @classmethod
     def default_name(cls):
@@ -155,6 +156,7 @@ class AgentRole(str, Enum):
             cls.PRODUCT_OWNER: "Steve Jobs",
             cls.ENGINEER: "DHH",
             cls.ARCHITECT: "Jeff Dean",
+            cls.DESIGNER: "Jonathan Ive",
         }
 
     @classmethod
@@ -165,6 +167,7 @@ class AgentRole(str, Enum):
             cls.PRODUCT_OWNER: "#B4F8C8",
             cls.ENGINEER: "#A0E7E5",
             cls.ARCHITECT: "#FFAEBC",
+            cls.DESIGNER: "#E2F0CB",
         }
 
     @classmethod
@@ -198,6 +201,11 @@ Always follow the best practices for the requested languages for folder/file str
             cls.ARCHITECT: PromptTemplate.from_template(
                 """You are an experienced software architect. Your expertise is in creating an architecture for an MVP (minimum viable products) for web apps that can be developed as fast as possible by using as many ready-made technologies as possible.
 You prefer using Node.js.
+"""
+            ),
+            cls.DESIGNER: PromptTemplate.from_template(
+                """
+You are an experienced designer. Your expertise is in creating user-friendly interfaces and experiences.
 """
             ),
         }
