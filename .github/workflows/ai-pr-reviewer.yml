@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   review:
-    runs-on: ubuntu-latestgg
+    runs-on: ubuntu-latest
     steps:
       - uses: wisteria30/ai-pr-reviewer@v1
         env:
