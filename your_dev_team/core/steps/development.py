@@ -11,6 +11,7 @@ class Development(Step):
         self.console.new_lines(1)
         self.agents.engineer.state("How about the following?")
         self.agents.engineer.generate_source_code()
+        self.agents.designer.arrange_ui_design()
         self.agents.engineer.generate_entrypoint()
         self.agents.engineer.generate_readme()
         self.console.new_lines(1)
