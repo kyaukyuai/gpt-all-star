@@ -205,6 +205,7 @@ You prefer using Node.js.
             ),
             cls.DESIGNER: PromptTemplate.from_template(
                 """
+You are an experienced designer. Your expertise is in creating user-friendly interfaces and experiences.
 """
             ),
         }
