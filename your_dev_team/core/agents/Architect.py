@@ -1,6 +1,6 @@
-from your_dev_team.core.Message import Message
-from your_dev_team.core.Storage import Storages
-from your_dev_team.core.agents.Agent import Agent, AgentRole, NEXT_COMMAND
+from your_dev_team.core.message import Message
+from your_dev_team.core.storage import Storages
+from your_dev_team.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
 from your_dev_team.core.steps import step_prompts
 
 

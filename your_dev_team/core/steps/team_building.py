@@ -1,13 +1,13 @@
 from rich.table import Table
 
-from your_dev_team.core.Message import Message
-from your_dev_team.core.agents import Agents
-from your_dev_team.core.agents.Agent import AgentRole
-from your_dev_team.core.steps.Step import Step
+from your_dev_team.core.message import Message
+from your_dev_team.core.agents import agents
+from your_dev_team.core.agents.agent import AgentRole
+from your_dev_team.core.steps.step import Step
 
 
 class TeamBuilding(Step):
-    def __init__(self, agents: Agents, japanese_mode) -> None:
+    def __init__(self, agents: agents, japanese_mode) -> None:
         super().__init__(agents, japanese_mode)
 
     def run(self) -> None:

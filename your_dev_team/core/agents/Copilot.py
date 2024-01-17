@@ -4,11 +4,11 @@ import subprocess
 from termcolor import colored
 from rich.syntax import Syntax
 
-from your_dev_team.core.Message import Message
-from your_dev_team.core.Storage import Storages
-from your_dev_team.core.agents.Agent import Agent, AgentRole
+from your_dev_team.core.message import Message
+from your_dev_team.core.storage import Storages
+from your_dev_team.core.agents.agent import Agent, AgentRole
 from your_dev_team.core.steps import step_prompts
-from your_dev_team.helper.Git import Git
+from your_dev_team.helper.git import Git
 from your_dev_team.logger.logger import logger
 
 

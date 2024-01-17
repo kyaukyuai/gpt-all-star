@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
-from your_dev_team.core.agents.Architect import Architect
-from your_dev_team.core.agents.Copilot import Copilot
-from your_dev_team.core.agents.Designer import Designer
-from your_dev_team.core.agents.Engineer import Engineer
-from your_dev_team.core.agents.ProductOwner import ProductOwner
+from your_dev_team.core.agents.architect import Architect
+from your_dev_team.core.agents.copilot import Copilot
+from your_dev_team.core.agents.designer import Designer
+from your_dev_team.core.agents.engineer import Engineer
+from your_dev_team.core.agents.product_owner import ProductOwner
 
 
 @dataclass

@@ -15,9 +15,9 @@ from langchain_core.messages import BaseMessage
 from rich.markdown import Markdown
 from rich.panel import Panel
 
-from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
-from your_dev_team.core.Message import Message
-from your_dev_team.core.Storage import Storages
+from your_dev_team.cli.console_terminal import ConsoleTerminal
+from your_dev_team.core.message import Message
+from your_dev_team.core.storage import Storages
 from your_dev_team.logger.logger import logger
 
 NEXT_COMMAND = "next"

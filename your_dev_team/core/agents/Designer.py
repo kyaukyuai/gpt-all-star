@@ -1,5 +1,5 @@
-from your_dev_team.core.Storage import Storages
-from your_dev_team.core.agents.Agent import Agent, AgentRole
+from your_dev_team.core.storage import Storages
+from your_dev_team.core.agents.agent import Agent, AgentRole
 
 
 class Designer(Agent):

@@ -1,5 +1,5 @@
-from your_dev_team.core.agents.Agents import Agents
-from your_dev_team.core.steps.Step import Step
+from your_dev_team.core.agents.agents import Agents
+from your_dev_team.core.steps.step import Step
 
 
 class Development(Step):

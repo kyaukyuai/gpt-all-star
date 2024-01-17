@@ -3,14 +3,14 @@ from __future__ import annotations
 import os.path
 from pathlib import Path
 
-from your_dev_team.core.agents.Agents import Agents
-from your_dev_team.core.agents.Architect import Architect
-from your_dev_team.core.agents.Copilot import Copilot
-from your_dev_team.core.agents.Designer import Designer
-from your_dev_team.core.agents.Engineer import Engineer
-from your_dev_team.core.steps.Steps import StepType, STEPS
-from your_dev_team.core.Storage import Storage, Storages
-from your_dev_team.core.agents.ProductOwner import ProductOwner
+from your_dev_team.core.agents.agents import Agents
+from your_dev_team.core.agents.architect import Architect
+from your_dev_team.core.agents.copilot import Copilot
+from your_dev_team.core.agents.designer import Designer
+from your_dev_team.core.agents.engineer import Engineer
+from your_dev_team.core.steps.steps import StepType, STEPS
+from your_dev_team.core.storage import Storage, Storages
+from your_dev_team.core.agents.product_owner import ProductOwner
 from your_dev_team.logger.logger import logger
 
 

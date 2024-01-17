@@ -1,6 +1,6 @@
-from your_dev_team.core.agents.Agents import Agents
-from your_dev_team.core.steps.Execution import Execution
-from your_dev_team.core.steps.Step import Step
+from your_dev_team.core.agents.agents import Agents
+from your_dev_team.core.steps.execution import Execution
+from your_dev_team.core.steps.step import Step
 
 
 class Improvement(Step):

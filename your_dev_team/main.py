@@ -2,9 +2,9 @@ import warnings
 from dotenv import load_dotenv
 import typer
 
-from your_dev_team.cli.ConsoleTerminal import ConsoleTerminal
-from your_dev_team.core.Project import Project
-from your_dev_team.core.steps.Steps import StepType
+from your_dev_team.cli.console_terminal import ConsoleTerminal
+from your_dev_team.core.project import Project
+from your_dev_team.core.steps.steps import StepType
 
 
 app = typer.Typer()
