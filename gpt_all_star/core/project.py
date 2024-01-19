@@ -22,7 +22,7 @@ class Project:
         japanese_mode: bool = False,
     ) -> None:
         self.japanese_mode = japanese_mode
-        self.name = project_name or Copilot().ask_project_name()
+        self.project_name = project_name or Copilot().ask_project_name()
 
         project_path = Path(os.path.abspath(f"projects/{self.name}")).absolute()
         self.storages = Storages(
@@ -45,7 +45,7 @@ class Project:
             Storages.archive_storage(self.storages)
 
     def start(self) -> None:
-        self.agents.copilot.start(self.name)
+        self.agents.copilot.start(self.project_name)
         try:
             for step in STEPS[self.step_type]:
                 try:
@@ -55,8 +55,6 @@ class Project:
                     raise e
         except KeyboardInterrupt:
             logger.info("Interrupt received! Stopping...")
-            pass
 
     def finish(self) -> None:
         self.agents.copilot.finish()
-        pass
