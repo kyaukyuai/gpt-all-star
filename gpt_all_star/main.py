@@ -2,7 +2,7 @@ import warnings
 from dotenv import load_dotenv
 import typer
 
-from gpt_all_star.cli.console_terminal import ConsoleTerminal
+from gpt_all_star.cli.console_terminal import MAIN_COLOR, ConsoleTerminal
 from gpt_all_star.core.project import Project
 from gpt_all_star.core.steps.steps import StepType
 
@@ -45,7 +45,8 @@ def main(
     project.finish()
 
     console.print(
-        "Thank you for using gpt-all-star! See you next time!", style="#44EE77 bold"
+        "Thank you for using gpt-all-star! See you next time!:bye:",
+        style=f"{MAIN_COLOR} bold",
     )
 
 

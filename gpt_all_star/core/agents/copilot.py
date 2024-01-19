@@ -8,7 +8,7 @@ from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.steps import step_prompts
-from gpt_all_star.helper.git import Git
+from gpt_all_star.tool.git import Git
 from gpt_all_star.logger.logger import logger
 
 
