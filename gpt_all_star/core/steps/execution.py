@@ -1,5 +1,5 @@
-from your_dev_team.core.agents.agents import Agents
-from your_dev_team.core.steps.step import Step
+from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.steps.step import Step
 
 
 class Execution(Step):
@@ -7,7 +7,7 @@ class Execution(Step):
         super().__init__(agents, japanese_mode)
 
     def run(self) -> None:
-        from your_dev_team.core.steps.improvement import Improvement
+        from gpt_all_star.core.steps.improvement import Improvement
 
         self.agents.copilot.state("Let's move on to the execution step!")
         self.console.new_lines(1)

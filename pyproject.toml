@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "your-dev-team"
+name = "gpt-all-star"
 version = "0.1.0"
 description = ""
 authors = ["Yuya Kakui <y.kakui@gmail.com>"]
@@ -20,7 +20,7 @@ typer = "^0.9.0"
 pyfiglet = "^1.0.2"
 
 [tool.poetry.scripts]
-your-dev-team = 'your_dev_team.main:app'
+gpt-all-star = 'gpt_all_star.main:app'
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
@@ -28,7 +28,7 @@ useLibraryCodeForTypes = true
 exclude = [".cache"]
 
 [project.scripts]
-your-dev-team = 'your_dev_team.main:app'
+gpt-all-star = 'gpt_all_star.main:app'
 
 [tool.ruff]
 # https://beta.ruff.rs/docs/configuration/

@@ -1,5 +1,5 @@
-from your_dev_team.core.agents.agents import Agents
-from your_dev_team.core.steps.step import Step
+from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.steps.step import Step
 
 
 class Deployment(Step):

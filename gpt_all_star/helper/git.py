@@ -3,7 +3,7 @@ from pathlib import Path
 import git
 import requests
 
-from your_dev_team.logger.logger import logger
+from gpt_all_star.logger.logger import logger
 
 
 class Git:
@@ -34,13 +34,13 @@ class Git:
     def add(self, files):
         self.repo.index.add(files)
 
-    def commit(self, commit_message: str = "Add files via your-dev-team"):
+    def commit(self, commit_message: str = "Add files via gpt-all-star"):
         self.repo.index.commit(commit_message)
 
     def push(self):
         try:
             remote_name = "origin"
-            remote_url = f"https://github.com/your-dev-team/{self.repo_path.name}.git"
+            remote_url = f"https://github.com/gpt-all-star/{self.repo_path.name}.git"
             if remote_name in self.repo.remotes:
                 remote = self.repo.remotes[remote_name]
                 if remote.url != remote_url:
@@ -58,7 +58,7 @@ class Git:
             raise e
 
     def _create_new_github_repository(self, repository_name) -> None:
-        url = "https://api.github.com/orgs/your-dev-team/repos"
+        url = "https://api.github.com/orgs/gpt-all-star/repos"
         token = os.getenv("GITHUB_TOKEN")
 
         headers = {

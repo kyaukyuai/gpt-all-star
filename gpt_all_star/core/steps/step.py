@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 import warnings
 
-from your_dev_team.cli.console_terminal import ConsoleTerminal
-from your_dev_team.core.agents.agents import Agents
+from gpt_all_star.cli.console_terminal import ConsoleTerminal
+from gpt_all_star.core.agents.agents import Agents
 
 warnings.simplefilter("ignore")
 

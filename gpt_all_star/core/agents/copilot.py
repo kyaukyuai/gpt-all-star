@@ -4,12 +4,12 @@ import subprocess
 from termcolor import colored
 from rich.syntax import Syntax
 
-from your_dev_team.core.message import Message
-from your_dev_team.core.storage import Storages
-from your_dev_team.core.agents.agent import Agent, AgentRole
-from your_dev_team.core.steps import step_prompts
-from your_dev_team.helper.git import Git
-from your_dev_team.logger.logger import logger
+from gpt_all_star.core.message import Message
+from gpt_all_star.core.storage import Storages
+from gpt_all_star.core.agents.agent import Agent, AgentRole
+from gpt_all_star.core.steps import step_prompts
+from gpt_all_star.helper.git import Git
+from gpt_all_star.logger.logger import logger
 
 
 class Copilot(Agent):

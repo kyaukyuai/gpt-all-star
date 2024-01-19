@@ -15,10 +15,10 @@ from langchain_core.messages import BaseMessage
 from rich.markdown import Markdown
 from rich.panel import Panel
 
-from your_dev_team.cli.console_terminal import ConsoleTerminal
-from your_dev_team.core.message import Message
-from your_dev_team.core.storage import Storages
-from your_dev_team.logger.logger import logger
+from gpt_all_star.cli.console_terminal import ConsoleTerminal
+from gpt_all_star.core.message import Message
+from gpt_all_star.core.storage import Storages
+from gpt_all_star.logger.logger import logger
 
 NEXT_COMMAND = "next"
 warnings.simplefilter("ignore")

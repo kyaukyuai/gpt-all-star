@@ -60,7 +60,7 @@ class Storage:
                         file_content = f.read()
                 except UnicodeDecodeError:
                     raise ValueError(
-                        f"Non-text file detected: {item}, your-dev-team currently only supports utf-8 "
+                        f"Non-text file detected: {item}, currently only supports utf-8 "
                         f"decodable text files."
                     )
                 files_dict[str(item)] = file_content

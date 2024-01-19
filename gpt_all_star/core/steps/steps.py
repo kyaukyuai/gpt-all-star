@@ -1,12 +1,12 @@
 from enum import Enum
 
-from your_dev_team.core.steps.deployment import Deployment
-from your_dev_team.core.steps.development import Development
-from your_dev_team.core.steps.execution import Execution
-from your_dev_team.core.steps.improvement import Improvement
-from your_dev_team.core.steps.specification import Specification
-from your_dev_team.core.steps.system_design import SystemDesign
-from your_dev_team.core.steps.team_building import TeamBuilding
+from gpt_all_star.core.steps.deployment import Deployment
+from gpt_all_star.core.steps.development import Development
+from gpt_all_star.core.steps.execution import Execution
+from gpt_all_star.core.steps.improvement import Improvement
+from gpt_all_star.core.steps.specification import Specification
+from gpt_all_star.core.steps.system_design import SystemDesign
+from gpt_all_star.core.steps.team_building import TeamBuilding
 
 
 class StepType(str, Enum):

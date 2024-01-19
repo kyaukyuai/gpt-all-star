@@ -1,7 +1,7 @@
-from your_dev_team.core.message import Message
-from your_dev_team.core.storage import Storages
-from your_dev_team.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
-from your_dev_team.core.steps import step_prompts
+from gpt_all_star.core.message import Message
+from gpt_all_star.core.storage import Storages
+from gpt_all_star.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
+from gpt_all_star.core.steps import step_prompts
 
 
 class Architect(Agent):

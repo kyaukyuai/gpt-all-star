@@ -3,15 +3,15 @@ from __future__ import annotations
 import os.path
 from pathlib import Path
 
-from your_dev_team.core.agents.agents import Agents
-from your_dev_team.core.agents.architect import Architect
-from your_dev_team.core.agents.copilot import Copilot
-from your_dev_team.core.agents.designer import Designer
-from your_dev_team.core.agents.engineer import Engineer
-from your_dev_team.core.steps.steps import StepType, STEPS
-from your_dev_team.core.storage import Storage, Storages
-from your_dev_team.core.agents.product_owner import ProductOwner
-from your_dev_team.logger.logger import logger
+from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.agents.architect import Architect
+from gpt_all_star.core.agents.copilot import Copilot
+from gpt_all_star.core.agents.designer import Designer
+from gpt_all_star.core.agents.engineer import Engineer
+from gpt_all_star.core.steps.steps import StepType, STEPS
+from gpt_all_star.core.storage import Storage, Storages
+from gpt_all_star.core.agents.product_owner import ProductOwner
+from gpt_all_star.logger.logger import logger
 
 
 class Project:

@@ -2,9 +2,9 @@ import warnings
 from dotenv import load_dotenv
 import typer
 
-from your_dev_team.cli.console_terminal import ConsoleTerminal
-from your_dev_team.core.project import Project
-from your_dev_team.core.steps.steps import StepType
+from gpt_all_star.cli.console_terminal import ConsoleTerminal
+from gpt_all_star.core.project import Project
+from gpt_all_star.core.steps.steps import StepType
 
 
 app = typer.Typer()
@@ -38,14 +38,14 @@ def main(
 ) -> None:
     load_dotenv()
     console = ConsoleTerminal()
-    console.panel("your-dev-team")
+    console.panel("gpt-all-star")
 
     project = Project(step, project_name, japanese_mode)
     project.start()
     project.finish()
 
     console.print(
-        "Thank you for using your-dev-team! See you next time!", style="#44EE77 bold"
+        "Thank you for using gpt-all-star! See you next time!", style="#44EE77 bold"
     )
 
 

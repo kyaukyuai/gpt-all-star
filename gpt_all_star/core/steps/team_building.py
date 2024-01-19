@@ -1,9 +1,9 @@
 from rich.table import Table
 
-from your_dev_team.core.message import Message
-from your_dev_team.core.agents import agents
-from your_dev_team.core.agents.agent import AgentRole
-from your_dev_team.core.steps.step import Step
+from gpt_all_star.core.message import Message
+from gpt_all_star.core.agents import agents
+from gpt_all_star.core.agents.agent import AgentRole
+from gpt_all_star.core.steps.step import Step
 
 
 class TeamBuilding(Step):
