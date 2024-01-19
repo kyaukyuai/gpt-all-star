@@ -26,7 +26,7 @@ class Project:
 
         project_path = Path(os.path.abspath(f"projects/{self.name}")).absolute()
         self.storages = Storages(
-            origin=Storage(project_path),
+            root=Storage(project_path),
             docs=Storage(project_path / "docs"),
             archive=Storage(project_path / ".archive"),
         )

@@ -1,6 +1,6 @@
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
-from gpt_all_star.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
+from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.steps import step_prompts
 
 
@@ -34,7 +34,7 @@ class Designer(Agent):
 
         files = Message.parse_message(self.latest_message_content())
         for file_name, file_content in files:
-            self.storages.origin[file_name] = file_content
+            self.storages.root[file_name] = file_content
 
     def _get_code_strings(self) -> dict[str, str]:
-        return self.storages.origin.recursive_file_search()
+        return self.storages.root.recursive_file_search()

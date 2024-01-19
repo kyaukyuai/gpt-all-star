@@ -34,8 +34,8 @@ class ProductOwner(Agent):
 
     def _get_instructions(self) -> str:
         return (
-            self.storages.origin["instructions"]
-            if self.storages.origin.get("instructions") is not None
+            self.storages.root["instructions"]
+            if self.storages.root.get("instructions") is not None
             else self.ask("What application do you want to generate?", self.role)
         )
 

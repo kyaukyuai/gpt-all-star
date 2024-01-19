@@ -77,7 +77,7 @@ class Storage:
 
 @dataclass
 class Storages:
-    origin: Storage
+    root: Storage
     docs: Storage
     archive: Storage
 
@@ -89,6 +89,6 @@ class Storages:
         if not os.path.exists(destination):
             os.makedirs(destination)
 
-        for item in os.listdir(storages.origin.path):
+        for item in os.listdir(storages.root.path):
             if item != ".archive":
-                shutil.move(os.path.join(storages.origin.path, item), destination)
+                shutil.move(os.path.join(storages.root.path, item), destination)
