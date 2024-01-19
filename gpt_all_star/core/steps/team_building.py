@@ -7,7 +7,7 @@ from gpt_all_star.core.steps.step import Step
 
 
 class TeamBuilding(Step):
-    def __init__(self, agents: agents, japanese_mode) -> None:
+    def __init__(self, agents: agents, japanese_mode: bool) -> None:
         super().__init__(agents, japanese_mode)
 
     def run(self) -> None:

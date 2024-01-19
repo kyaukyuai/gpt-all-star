@@ -24,7 +24,7 @@ class Project:
         self.japanese_mode = japanese_mode
         self.project_name = project_name or Copilot().ask_project_name()
 
-        project_path = Path(os.path.abspath(f"projects/{self.name}")).absolute()
+        project_path = Path(os.path.abspath(f"projects/{self.project_name}")).absolute()
         self.storages = Storages(
             root=Storage(project_path),
             docs=Storage(project_path / "docs"),
