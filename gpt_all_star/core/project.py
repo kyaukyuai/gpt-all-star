@@ -22,12 +22,7 @@ class Project:
         japanese_mode: bool = False,
     ) -> None:
         self.japanese_mode = japanese_mode
-        self.name = (
-            project_name
-            or Copilot(
-                storages=None, name="copilot", profile="this is copilot"
-            ).ask_project_name()
-        )
+        self.name = project_name or Copilot().ask_project_name()
 
         project_path = Path(os.path.abspath(f"projects/{self.name}")).absolute()
         self.storages = Storages(

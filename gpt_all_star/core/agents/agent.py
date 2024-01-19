@@ -26,7 +26,11 @@ warnings.simplefilter("ignore")
 
 class Agent(ABC):
     def __init__(
-        self, role: AgentRole, storages: Storages, name: str = "", profile: str = ""
+        self,
+        role: AgentRole,
+        storages: Storages | None,
+        name: str = "",
+        profile: str = "",
     ) -> None:
         self._console = ConsoleTerminal()
         self._llm = _create_llm("gpt-4-32k", 0.1)
