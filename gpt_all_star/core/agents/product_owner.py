@@ -36,7 +36,9 @@ class ProductOwner(Agent):
         return (
             self.storages.root["instructions"]
             if self.storages.root.get("instructions") is not None
-            else self.ask("What application do you want to generate?", self.role)
+            else self.ask(
+                "What application do you want to generate? Please describe it in as much detail as possible.",
+            )
         )
 
     def summarize_specifications(self) -> None:

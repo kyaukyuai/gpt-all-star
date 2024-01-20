@@ -86,7 +86,7 @@ class Engineer(Agent):
             self.messages.append(Message.create_system_message(f"{code_input}"))
 
         response = self.ask(
-            "What would you like to update?", require_answer=False, default_value=None
+            "What would you like to update?", is_required=False, default_value=None
         )
         if response is not None:
             self.messages.append(Message.create_system_message(response))

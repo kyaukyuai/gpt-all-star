@@ -63,10 +63,10 @@ class Agent(ABC):
         self._console.print(Panel(Markdown(md, style="bold")))
 
     def ask(
-        self, question: str, require_answer: bool = True, default_value: str = None
+        self, question: str, is_required: bool = True, default_value: str = None
     ) -> str:
         while True:
-            default = f" (default: {default_value})" if not require_answer else ""
+            default = f" (default: {default_value})" if default_value else ""
             self._console.print(
                 f"[{AgentRole.color_scheme()[self.role]} bold]{self.name}: {question}[/{AgentRole.color_scheme()[self.role]} bold]{default}"
             )
@@ -76,13 +76,9 @@ class Agent(ABC):
             logger.info("Question: %s", question)
             logger.info("Answer: %s", answer)
 
-            if not answer:
-                if require_answer:
-                    print("No input provided! Please try again.")
-                else:
-                    return
-            else:
+            if answer or not is_required:
                 return answer
+            print("No input provided! Please try again.")
 
     def latest_message_content(self) -> str:
         return self.messages[-1].content.strip()

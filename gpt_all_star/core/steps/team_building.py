@@ -25,12 +25,12 @@ class TeamBuilding(Step):
         self.agents.copilot.state(f"Please introduce the {role.name.lower()}.")
         agent.name = self.agents.copilot.ask(
             f"What is the name of the {role.name.lower()}?",
-            require_answer=False,
+            is_required=False,
             default_value=AgentRole.default_name()[role],
         )
         agent.profile = self.agents.copilot.ask(
             f"What is the profile of the {role.name.lower()}?",
-            require_answer=False,
+            is_required=False,
             default_value=AgentRole.default_profile()[role].format(),
         )
         if self.japanese_mode:
