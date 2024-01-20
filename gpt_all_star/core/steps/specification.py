@@ -10,6 +10,4 @@ class Specification(Step):
         self.agents.copilot.state("Let's move on to the specification step!")
         self.console.new_lines()
         self.agents.product_owner.clarify_instructions()
-        self.agents.product_owner.state("How about the following?")
-        self.agents.product_owner.summarize_specifications()
         self.console.new_lines()

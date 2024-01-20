@@ -62,15 +62,13 @@ class Agent(ABC):
     def output_md(self, md: str) -> None:
         self._console.print(Panel(Markdown(md, style="bold")))
 
-    def ask(
-        self, question: str, is_required: bool = True, default_value: str = None
-    ) -> str:
+    def ask(self, question: str, is_required: bool = True, default: str = None) -> str:
         while True:
-            default = f" (default: {default_value})" if default_value else ""
+            default_value = f" (default: {default})" if default else ""
             self._console.print(
-                f"[{AgentRole.color_scheme()[self.role]} bold]{self.name}: {question}[/{AgentRole.color_scheme()[self.role]} bold]{default}"
+                f"[{AgentRole.color_scheme()[self.role]} bold]{self.name}: {question}[/{AgentRole.color_scheme()[self.role]} bold]{default_value}"
             )
-            answer = self._console._input("project.history").strip() or default_value
+            answer = self._console._input("project.history").strip() or default
             self._console.new_lines(1)
 
             logger.info("Question: %s", question)
@@ -79,6 +77,19 @@ class Agent(ABC):
             if answer or not is_required:
                 return answer
             print("No input provided! Please try again.")
+
+    def present_choices(
+        self,
+        question: str,
+        choices: list[str],
+        default: str,
+    ) -> str:
+        return self._console._choice(
+            f"{self.name}: {question} (default: {default})",
+            choices=choices,
+            default=default,
+            style=f"bold {AgentRole.color_scheme()[self.role]}",
+        )
 
     def latest_message_content(self) -> str:
         return self.messages[-1].content.strip()

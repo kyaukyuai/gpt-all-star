@@ -26,12 +26,12 @@ class TeamBuilding(Step):
         agent.name = self.agents.copilot.ask(
             f"What is the name of the {role.name.lower()}?",
             is_required=False,
-            default_value=AgentRole.default_name()[role],
+            default=AgentRole.default_name()[role],
         )
         agent.profile = self.agents.copilot.ask(
             f"What is the profile of the {role.name.lower()}?",
             is_required=False,
-            default_value=AgentRole.default_profile()[role].format(),
+            default=AgentRole.default_profile()[role].format(),
         )
         if self.japanese_mode:
             agent.profile = agent.profile + "**必ず日本語で書いて下さい**"

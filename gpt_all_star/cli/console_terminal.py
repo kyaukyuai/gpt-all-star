@@ -8,6 +8,7 @@ from prompt_toolkit.styles import Style
 import pyfiglet
 from rich.console import Console
 from rich.style import Style as RichStyle
+from rich.text import Text
 
 MAIN_COLOR = "#44EE77"
 SUB_COLOR = "#FB475E"
@@ -30,6 +31,22 @@ class ConsoleTerminal:
         ascii_art = pyfiglet.figlet_format(title)
         self._console.print(ascii_art, style=f"{MAIN_COLOR} bold")
         self.new_lines(1)
+
+    def _choice(
+        self,
+        question: str,
+        choices: list[str],
+        default: int,
+        style: Union[str, RichStyle] | None = None,
+    ) -> str:
+        text = Text(f"{question}:\n", style=style)
+        for i, option in enumerate(choices, 1):
+            separator = "" if i == len(choices) else "\n"
+            text.append(f"  {i}. {option}{separator}", style=style)
+        self._console.print(text)
+
+        choice = self._input("project.history").strip() or default
+        return choices[int(choice) - 1]
 
     def _input(self, history_file, file_names=None):
         if file_names is None:

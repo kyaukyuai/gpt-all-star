@@ -32,7 +32,7 @@ class Copilot(Agent):
         project_name = self.ask(
             "What is the name of the project?",
             is_required=False,
-            default_value=default_project_name,
+            default=default_project_name,
         )
         return project_name
 
@@ -41,7 +41,7 @@ class Copilot(Agent):
             "Project is finished! Do you want to add any features or changes?"
             " If yes, describe it here and if no, just press ENTER",
             is_required=False,
-            default_value=None,
+            default=None,
         )
 
         logger.info(f"Completed project: {self.name}")
@@ -154,6 +154,6 @@ class Copilot(Agent):
         response = self.ask(
             "Continue with commit and push? (y/n)",
             is_required=False,
-            default_value="y",
+            default="y",
         )
         return response.lower() in ["", "y", "yes"]
