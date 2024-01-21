@@ -20,7 +20,7 @@ class Designer(Agent):
         self.state("Okay, let's arrange the UI design!")
         self._console.new_lines(1)
 
-        for file_name, file_str in self._get_code_strings().items():
+        for file_name, file_str in self.storages.root.recursive_file_search().items():
             self._console.print(
                 f"Adding file {file_name} to the prompt...", style="blue"
             )
@@ -40,6 +40,3 @@ class Designer(Agent):
         files = Message.parse_message(self.latest_message_content())
         for file_name, file_content in files:
             self.storages.root[file_name] = file_content
-
-    def _get_code_strings(self) -> dict[str, str]:
-        return self.storages.root.recursive_file_search()

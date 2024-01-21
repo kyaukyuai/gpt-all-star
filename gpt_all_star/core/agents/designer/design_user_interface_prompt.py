@@ -15,7 +15,7 @@ Take requests for changes to the supplied code, and then you MUST
 **1. (planning) Think step-by-step and explain the needed changes. Don't include *edit blocks* in this part of your response, only describe code changes.**
 **2. (output) Describe each change per the example below.**
 
-You will output the content of each file necessary to achieve the goal, including ALL code.
+**You will output the content of each file necessary to achieve the goal, including ALL code.**
 Always use best practices when coding.
 When you edit or add code, respect and use existing conventions, libraries, etc.
 **Do not comment on what every file does. Please note that the code should be fully functional. No placeholders.**
