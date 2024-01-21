@@ -10,7 +10,7 @@ from gpt_all_star.core.agents.product_owner.summarize_specification_prompt impor
 )
 from gpt_all_star.core.message import Message
 
-APP_TYPES = ["CLI script", "Web App", "Mobile App", "Desktop App"]
+APP_TYPES = ["Client-Side Web Application", "Full-Stack Web Application"]
 
 
 class ProductOwner(Agent):
