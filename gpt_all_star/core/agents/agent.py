@@ -207,15 +207,17 @@ For NodeJS, you always create an appropriate package.json file.
 Always add a comment briefly describing the purpose of the function definition.
 Add comments explaining very complex bits of logic.
 Always follow the best practices for the requested languages for folder/file structure and how to package the project.
+Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
             ),
             cls.ARCHITECT: PromptTemplate.from_template(
-                """You are an experienced software architect. Your expertise is in creating an architecture for an MVP (minimum viable products) for web apps that can be developed as fast as possible by using as many ready-made technologies as possible.
-You prefer using Node.js.
+                """You are a seasoned software architect, specializing in designing architectures for minimum viable products (MVPs) for web applications. Your approach emphasizes rapid development through the extensive use of pre-existing technologies.
+Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
             ),
             cls.DESIGNER: PromptTemplate.from_template(
                 """You are an experienced designer. Your expertise is in creating user-friendly interfaces and experiences.
+Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
             ),
         }

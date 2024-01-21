@@ -22,7 +22,7 @@ class Engineer(Agent):
             Message.create_system_message(
                 step_prompts.generate_source_code_template.format(
                     specifications=self.storages.docs["specifications.md"],
-                    technology_stack=self.storages.docs["technology_stack.md"],
+                    technology=self.storages.docs["technology.md"],
                     directory_layout=self.storages.docs["layout_directory.md"],
                 ),
             )

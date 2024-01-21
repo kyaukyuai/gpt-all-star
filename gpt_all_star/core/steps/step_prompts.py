@@ -15,53 +15,9 @@ Please output them in the order in which they should be implemented.
 """
 )
 
-design_systems_template = PromptTemplate.from_template(
-    """
-Read the specifications.
-
-Here is specifications:
-```
-{specifications}
-```
-
-Think step by step and write up all technologies that will be used by your development team to create the application.
-Do not write any explanations behind your choices but only a list of technologies that will be used.
-You will write a very long answer. Make sure that every detail of the architecture is, in the end, implemented as code.
-
-**Project Technology Guidelines**
-Relevance: Only include technologies that are essential and will be actively used in the project. Avoid mentioning any technologies that are not required.
-Compatibility: Ensure that the listed technologies are compatible with each other. Exclude any technologies that cannot be integrated or used in conjunction with others. For example, Pandas (Python library) and Node.js can't be used together. Another example is MongoDB (NoSQL database) and MySQL (SQL database) shouldn't be used together unless that is specified in project description.
-Technology Preferences: In scenarios where multiple technology options are available for a specific project component, prioritize the following preferred technologies:
-- Node.js
-- SQLite OR MongoDB
-- Bootstrap
-- HTML
-- CSS3
-- Docker / Docker Compose
-
-**The output should be presented in markdown format.**
-
-FILENAME.md
-```
-CONTENT
-```
-
-The following tokens must be replaced like so:
-FILENAME is the lowercase combined path and file name including the file extension
-CONTENT is the text in the file
-
-Example representation of a file:
-
-system_design.md
-```
-# Outline
-```
-"""
-)
-
 layout_directory_template = PromptTemplate.from_template(
     """
-You will read specifications and technology_stack, and then think step by step and reason yourself to the correct decisions to make sure we get it right.
+You will read specifications and technology, and then think step by step and reason yourself to the correct decisions to make sure we get it right.
 Please lay out the names of the core classes, functions, methods that will be necessary, As well as a quick comment on their purpose.
 Follow a language and framework appropriate best practice file naming convention.
 
@@ -72,7 +28,7 @@ Here is the specifications:
 
 Here is the technology stack:
 ```
-{technology_stack}
+{technology}
 ```
 
 **The output should be presented in markdown format.**
@@ -108,7 +64,7 @@ Here is the specifications:
 
 Here is the technology stack:
 ```
-{technology_stack}
+{technology}
 ```
 
 Here is the directory layout:

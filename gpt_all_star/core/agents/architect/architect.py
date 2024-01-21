@@ -1,6 +1,9 @@
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
+from gpt_all_star.core.agents.architect.list_technology_prompt import (
+    list_technology_template,
+)
 from gpt_all_star.core.steps import step_prompts
 
 
@@ -28,10 +31,12 @@ class Architect(Agent):
             ),
         )
 
-    def list_technology_stack(self):
+    def list_technology(self):
+        self.state("How about the following?")
+
         self.messages.append(
             Message.create_system_message(
-                step_prompts.design_systems_template.format(
+                list_technology_template.format(
                     specifications=self.storages.docs["specifications.md"]
                 )
             )
@@ -44,16 +49,18 @@ class Architect(Agent):
         )
 
         file = Message.parse_message(self.latest_message_content())[0]
-        self.storages.docs["technology_stack.md"] = file[1]
+        self.storages.docs["technology.md"] = file[1]
         self.state("Here are the technology stack:")
-        self.output_md(self.storages.docs["technology_stack.md"])
+        self.output_md(self.storages.docs["technology.md"])
 
     def layout_directory(self):
+        self.state("How about the following?")
+
         self.messages.append(
             Message.create_system_message(
                 step_prompts.layout_directory_template.format(
                     specifications=self.storages.docs["specifications.md"],
-                    technology_stack=self.storages.docs["technology_stack.md"],
+                    technology=self.storages.docs["technology.md"],
                 )
             )
         )
