@@ -1,6 +1,9 @@
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole
+from gpt_all_star.core.agents.designer.design_user_interface_prompt import (
+    design_user_interface_template,
+)
 from gpt_all_star.core.steps import step_prompts
 
 
@@ -13,7 +16,7 @@ class Designer(Agent):
     ) -> None:
         super().__init__(AgentRole.DESIGNER, storages, name, profile)
 
-    def arrange_ui_design(self):
+    def design_user_interface(self):
         self.state("Okay, let's arrange the UI design!")
         self._console.new_lines(1)
 
@@ -26,7 +29,9 @@ class Designer(Agent):
 
         self.messages.append(
             Message.create_system_message(
-                step_prompts.arrange_ui_design_template.format()
+                design_user_interface_template.format(
+                    specifications=self.storages.docs["specifications.md"]
+                )
             )
         )
 

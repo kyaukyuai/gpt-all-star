@@ -10,5 +10,5 @@ class Development(Step):
         self.agents.copilot.state("Let's move on to the development step!")
         self.console.new_lines(1)
         self.agents.engineer.create_source_code()
-        self.agents.designer.arrange_ui_design()
+        self.agents.designer.design_user_interface()
         self.console.new_lines(1)
