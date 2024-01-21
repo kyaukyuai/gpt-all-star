@@ -1,7 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 
 list_file_template = PromptTemplate.from_template(
-    """Read and understand the specifications to build the application, technologies used to build the application and pages required by the application.
+    """Read and understand the specifications to build the application, technologies used to build the application and page URLs required by the application.
 
 There are the specifications to build the application:
 ```
@@ -13,7 +13,7 @@ These are the technologies used to build the application
 {technology}
 ```
 
-These are the pages required by the application:
+These are the page URLs required by the application:
 ```
 {page}
 ```

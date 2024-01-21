@@ -5,6 +5,15 @@ import re
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
+from gpt_all_star.core.agents.engineer.create_source_code_prompt import (
+    create_source_code_template,
+)
+from gpt_all_star.core.agents.engineer.create_entrypoint_prompt import (
+    create_entrypoint_template,
+)
+from gpt_all_star.core.agents.engineer.create_readme_prompt import (
+    create_readme_template,
+)
 from gpt_all_star.core.steps import step_prompts
 
 
@@ -17,13 +26,16 @@ class Engineer(Agent):
     ) -> None:
         super().__init__(AgentRole.ENGINEER, storages, name, profile)
 
-    def generate_source_code(self):
+    def create_source_code(self):
+        self.state("How about the following?")
+
         self.messages.append(
             Message.create_system_message(
-                step_prompts.generate_source_code_template.format(
+                create_source_code_template.format(
                     specifications=self.storages.docs["specifications.md"],
                     technology=self.storages.docs["technology.md"],
-                    directory_layout=self.storages.docs["layout_directory.md"],
+                    page=self.storages.docs["page.md"],
+                    file=self.storages.docs["file.md"],
                 ),
             )
         )
@@ -38,11 +50,12 @@ class Engineer(Agent):
         for file_name, file_content in files:
             self.storages.root[file_name] = file_content
 
-    def generate_entrypoint(self):
+        self._create_entrypoint()
+        self._create_readme()
+
+    def _create_entrypoint(self):
         self.messages.append(
-            Message.create_system_message(
-                step_prompts.generate_entrypoint_template.format()
-            )
+            Message.create_system_message(create_entrypoint_template.format())
         )
 
         self._execute(
@@ -55,11 +68,9 @@ class Engineer(Agent):
         matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
         self.storages.root["run.sh"] = "\n".join(match.group(1) for match in matches)
 
-    def generate_readme(self):
+    def _create_readme(self):
         self.messages.append(
-            Message.create_system_message(
-                step_prompts.generate_readme_template.format()
-            )
+            Message.create_system_message(create_readme_template.format())
         )
 
         self._execute(
