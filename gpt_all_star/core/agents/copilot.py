@@ -92,7 +92,10 @@ class Copilot(Agent):
                 f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
                 style="bold red",
             )
-            for file_name, file_str in self._get_code_strings().items():
+            for (
+                file_name,
+                file_str,
+            ) in self.storages.root.recursive_file_search().items():
                 self._console.print(
                     f"Adding file {file_name} to the prompt...", style="blue"
                 )
@@ -118,9 +121,6 @@ class Copilot(Agent):
             self._console.print("Stopping execution.", style="bold yellow")
             self._console.print("Execution stopped.", style="bold red")
             self._console.new_lines(1)
-
-    def _get_code_strings(self) -> dict[str, str]:
-        return self.storages.root.recursive_file_search()
 
     def push_to_git_repository(self) -> None:
         git = Git(self.storages.root.path)
