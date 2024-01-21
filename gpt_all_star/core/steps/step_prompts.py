@@ -1,58 +1,5 @@
 from langchain_core.prompts import PromptTemplate
 
-design_systems_planning_template = PromptTemplate.from_template(
-    """
-Read the specifications.
-
-Here is specifications:
-```
-{specifications}
-```
-
-Create a list of tasks for the architect to do so that developers can get into the implementation of the source code.
-You will write a very long answer. Make sure that every detail of the architecture is, in the end, implemented as code.
-Please output them in the order in which they should be implemented.
-"""
-)
-
-layout_directory_template = PromptTemplate.from_template(
-    """
-You will read specifications and technology, and then think step by step and reason yourself to the correct decisions to make sure we get it right.
-Please lay out the names of the core classes, functions, methods that will be necessary, As well as a quick comment on their purpose.
-Follow a language and framework appropriate best practice file naming convention.
-
-Here is the specifications:
-```
-{specifications}
-```
-
-Here is the technology stack:
-```
-{technology}
-```
-
-**The output should be presented in markdown format.**
-
-FILENAME.md
-```
-CONTENT
-```
-
-The following tokens must be replaced like so:
-FILENAME is the lowercase combined path and file name including the file extension
-CONTENT is the text in the file
-
-Example representation of a file:
-
-layout.md
-```
-# Outline
-```
-
-**Finally, please check again that you have all the necessary files.**
-"""
-)
-
 generate_source_code_template = PromptTemplate.from_template(
     """
 You will read specifications and technology stack and directory layout, and then think step by step and reason yourself to the correct decisions to make sure we get it right.

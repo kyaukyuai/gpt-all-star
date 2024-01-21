@@ -4,7 +4,12 @@ from gpt_all_star.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
 from gpt_all_star.core.agents.architect.list_technology_prompt import (
     list_technology_template,
 )
-from gpt_all_star.core.steps import step_prompts
+from gpt_all_star.core.agents.architect.list_page_prompt import (
+    list_page_template,
+)
+from gpt_all_star.core.agents.architect.list_file_prompt import (
+    list_file_template,
+)
 
 
 class Architect(Agent):
@@ -16,22 +21,12 @@ class Architect(Agent):
     ) -> None:
         super().__init__(AgentRole.ARCHITECT, storages, name, profile)
 
-    def plan(self):
-        self.messages.append(
-            Message.create_system_message(
-                step_prompts.design_systems_planning_template.format(
-                    specifications=self.storages.docs["specifications.md"]
-                )
-            )
-        )
+    def design_system(self):
+        self._list_technology()
+        self._list_page()
+        self._list_file()
 
-        self._execute(
-            "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
-                NEXT_COMMAND
-            ),
-        )
-
-    def list_technology(self):
+    def _list_technology(self):
         self.state("How about the following?")
 
         self.messages.append(
@@ -50,17 +45,16 @@ class Architect(Agent):
 
         file = Message.parse_message(self.latest_message_content())[0]
         self.storages.docs["technology.md"] = file[1]
-        self.state("Here are the technology stack:")
+        self.state("These are the technologies used to build the application:")
         self.output_md(self.storages.docs["technology.md"])
 
-    def layout_directory(self):
+    def _list_page(self):
         self.state("How about the following?")
 
         self.messages.append(
             Message.create_system_message(
-                step_prompts.layout_directory_template.format(
-                    specifications=self.storages.docs["specifications.md"],
-                    technology=self.storages.docs["technology.md"],
+                list_page_template.format(
+                    specifications=self.storages.docs["specifications.md"]
                 )
             )
         )
@@ -72,6 +66,30 @@ class Architect(Agent):
         )
 
         file = Message.parse_message(self.latest_message_content())[0]
-        self.storages.docs["layout_directory.md"] = file[1]
-        self.state("Here are the layout directory:")
-        self.output_md(self.storages.docs["layout_directory.md"])
+        self.storages.docs["page.md"] = file[1]
+        self.state("These are the pages required by the application:")
+        self.output_md(self.storages.docs["page.md"])
+
+    def _list_file(self):
+        self.state("How about the following?")
+
+        self.messages.append(
+            Message.create_system_message(
+                list_file_template.format(
+                    specifications=self.storages.docs["specifications.md"],
+                    technology=self.storages.docs["technology.md"],
+                    page=self.storages.docs["page.md"],
+                )
+            )
+        )
+
+        self._execute(
+            "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
+                NEXT_COMMAND
+            ),
+        )
+
+        file = Message.parse_message(self.latest_message_content())[0]
+        self.storages.docs["file.md"] = file[1]
+        self.state("These are the files required by the application:")
+        self.output_md(self.storages.docs["file.md"])

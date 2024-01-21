@@ -8,8 +8,6 @@ class SystemDesign(Step):
 
     def run(self) -> None:
         self.agents.copilot.state("Let's move on to the system design step!")
-        self.console.new_lines(1)
-        self.agents.architect.list_technology()
-        self.console.new_lines(1)
-        self.agents.architect.layout_directory()
-        self.console.new_lines(1)
+        self.console.new_lines()
+        self.agents.architect.design_system()
+        self.console.new_lines()

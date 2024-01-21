@@ -1,17 +1,16 @@
 from langchain_core.prompts import PromptTemplate
 
 list_technology_template = PromptTemplate.from_template(
-    """
-Read and understand the specifications.
+    """Read and understand the specifications to build the application.
 
-Here is specifications:
+There are the specifications to build the application:
 ```
 {specifications}
 ```
 
-Think step by step and list only the name of technologies that the development team will use to build the application.
-It is not necessary to give a description of each technology.
-Do not give any subjective thoughts or options, give exact technologies.
+Carefully consider and list the exact technologies that will be utilized by the development team to construct the application.
+There is no need to provide a description for each technology.
+Avoid providing personal opinions or alternatives, only provide the exact technologies.
 **Technologies related to source code implementation should be listed, not version control tools, technologies related to automated testing or deployment, or tools related to project management.**
 
 Project Technology Guidelines
@@ -40,7 +39,7 @@ CONTENT is the text in the file
 
 Example representation of a file:
 
-technologies.md
+technology.md
 ```
 - Node.js
 - SQLite OR MongoDB
