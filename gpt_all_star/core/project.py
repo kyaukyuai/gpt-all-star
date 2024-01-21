@@ -20,8 +20,10 @@ class Project:
         step: StepType = StepType.DEFAULT,
         project_name: str = None,
         japanese_mode: bool = False,
+        auto_mode: bool = False,
     ) -> None:
         self.japanese_mode = japanese_mode
+        self.auto_mode = auto_mode
         self.project_name = project_name or Copilot().ask_project_name()
 
         project_path = Path(os.path.abspath(f"projects/{self.project_name}")).absolute()
@@ -49,7 +51,7 @@ class Project:
         try:
             for step in STEPS[self.step_type]:
                 try:
-                    step(self.agents, self.japanese_mode).run()
+                    step(self.agents, self.japanese_mode, self.auto_mode).run()
                 except Exception as e:
                     logger.error(f"Failed to execute step {step}. Reason: {str(e)}")
                     raise e

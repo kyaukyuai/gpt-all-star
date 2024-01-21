@@ -35,12 +35,18 @@ def main(
         "-j",
         help="Japanese mode",
     ),
+    auto_mode: bool = typer.Option(
+        False,
+        "--auto_mode",
+        "-a",
+        help="Auto mode",
+    ),
 ) -> None:
     load_dotenv()
     console = ConsoleTerminal()
     console.panel("gpt-all-star")
 
-    project = Project(step, project_name, japanese_mode)
+    project = Project(step, project_name, japanese_mode, auto_mode)
     project.start()
     project.finish()
 
