@@ -1,17 +1,17 @@
 from __future__ import annotations
-from abc import ABC
 
+from abc import ABC
+from dataclasses import dataclass
 import os
 from enum import Enum
 from functools import lru_cache
 import warnings
-from langchain_core.prompts.prompt import PromptTemplate
-
 import openai
 from langchain_community.chat_models import AzureChatOpenAI, ChatOpenAI
 from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
+from langchain_core.prompts.prompt import PromptTemplate
 from rich.markdown import Markdown
 from rich.panel import Panel
 
@@ -29,15 +29,17 @@ class Agent(ABC):
         self,
         role: AgentRole,
         storages: Storages | None,
-        name: str = "",
-        profile: str = "",
+        name: str | None = None,
+        profile: str | None = None,
+        color: str | None = None,
     ) -> None:
         self._console = ConsoleTerminal()
         self._llm = _create_llm("gpt-4-32k", 0.1)
 
         self.role: AgentRole = role
-        self.name: str = name
-        self.profile: str = profile
+        self.name: str = name or self._get_default_profile().name
+        self.profile: str = profile or self._get_default_profile().prompt.format()
+        self.color: str = color or self._get_default_profile().color
 
         self.messages: list[BaseMessage] = [Message.create_system_message(self.profile)]
         self.storages = storages
@@ -55,9 +57,7 @@ class Agent(ABC):
         logger.info(f"Messages after chat: {self.messages}")
 
     def state(self, text: str) -> None:
-        self._console.print(
-            f"{self.name}: {text}", style=f"bold {AgentRole.color_scheme()[self.role]}"
-        )
+        self._console.print(f"{self.name}: {text}", style=f"bold {self.color}")
 
     def output_md(self, md: str) -> None:
         self._console.print(Panel(Markdown(md, style="bold")))
@@ -66,7 +66,7 @@ class Agent(ABC):
         while True:
             default_value = f" (default: {default})" if default else ""
             self._console.print(
-                f"[{AgentRole.color_scheme()[self.role]} bold]{self.name}: {question}[/{AgentRole.color_scheme()[self.role]} bold]{default_value}"
+                f"[{self.color} bold]{self.name}: {question}[/{self.color} bold]{default_value}"
             )
             answer = self._console._input("project.history").strip() or default
             self._console.new_lines(1)
@@ -88,7 +88,7 @@ class Agent(ABC):
             f"{self.name}: {question} (default: {default})",
             choices=choices,
             default=default,
-            style=f"bold {AgentRole.color_scheme()[self.role]}",
+            style=f"bold {self.color}",
         )
 
     def latest_message_content(self) -> str:
@@ -113,6 +113,9 @@ class Agent(ABC):
 
             self.chat(user_input)
             count += 1
+
+    def _get_default_profile(self) -> AgentProfile:
+        return AGENT_PROFILES[self.role]
 
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
@@ -160,43 +163,36 @@ class AgentRole(str, Enum):
     ARCHITECT = "architect"
     DESIGNER = "designer"
 
-    @classmethod
-    def default_name(cls):
-        return {
-            cls.COPILOT: "copilot",
-            cls.PRODUCT_OWNER: "Steve Jobs",
-            cls.ENGINEER: "DHH",
-            cls.ARCHITECT: "Jeff Dean",
-            cls.DESIGNER: "Jonathan Ive",
-        }
 
-    @classmethod
-    def color_scheme(cls):
-        # Pastel Dreams color combination from https://www.canva.com/colors/color-palettes/pastel-dreams/
-        return {
-            cls.COPILOT: "#FBE7C6",
-            cls.PRODUCT_OWNER: "#B4F8C8",
-            cls.ENGINEER: "#A0E7E5",
-            cls.ARCHITECT: "#FFAEBC",
-            cls.DESIGNER: "#E2F0CB",
-        }
+@dataclass
+class AgentProfile:
+    name: str
+    color: str
+    prompt: PromptTemplate
 
-    @classmethod
-    def default_profile(cls):
-        return {
-            cls.COPILOT: PromptTemplate.from_template(
-                """
-"""
-            ),
-            cls.PRODUCT_OWNER: PromptTemplate.from_template(
-                """You are an experienced product owner who defines specification of a software application.
+
+AGENT_PROFILES = {
+    AgentRole.COPILOT: AgentProfile(
+        name="copilot",
+        color="#FBE7C6",
+        prompt=PromptTemplate.from_template(""),
+    ),
+    AgentRole.PRODUCT_OWNER: AgentProfile(
+        name="Steve Jobs",
+        color="#B4F8C8",
+        prompt=PromptTemplate.from_template(
+            """You are an experienced product owner who defines specification of a software application.
 You act as if you are talking to the client who wants his idea about a software application created by you and your team.
 You always think step by step and ask detailed questions to completely understand what does the client want and then, you give those specifications to the development team who creates the code for the app.
 Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
-            ),
-            cls.ENGINEER: PromptTemplate.from_template(
-                """You are a full stack software developer working for a software development company.
+        ),
+    ),
+    AgentRole.ENGINEER: AgentProfile(
+        name="DHH",
+        color="#A0E7E5",
+        prompt=PromptTemplate.from_template(
+            """You are a full stack software developer working for a software development company.
 You write very modular and clean code.
 Your job is to implement **fully working** applications.
 
@@ -209,15 +205,24 @@ Add comments explaining very complex bits of logic.
 Always follow the best practices for the requested languages for folder/file structure and how to package the project.
 Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
-            ),
-            cls.ARCHITECT: PromptTemplate.from_template(
-                """You are a seasoned software architect, specializing in designing architectures for minimum viable products (MVPs) for web applications. Your approach emphasizes rapid development through the extensive use of pre-existing technologies.
+        ),
+    ),
+    AgentRole.ARCHITECT: AgentProfile(
+        name="Jeff Dean",
+        color="#FFAEBC",
+        prompt=PromptTemplate.from_template(
+            """You are a seasoned software architect, specializing in designing architectures for minimum viable products (MVPs) for web applications. Your approach emphasizes rapid development through the extensive use of pre-existing technologies.
 Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
-            ),
-            cls.DESIGNER: PromptTemplate.from_template(
-                """You are an experienced designer. Your expertise is in creating user-friendly interfaces and experiences.
+        ),
+    ),
+    AgentRole.DESIGNER: AgentProfile(
+        name="Jonathan Ive",
+        color="#E2F0CB",
+        prompt=PromptTemplate.from_template(
+            """You are an experienced designer. Your expertise is in creating user-friendly interfaces and experiences.
 Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
-            ),
-        }
+        ),
+    ),
+}

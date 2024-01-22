@@ -21,8 +21,8 @@ class Engineer(Agent):
     def __init__(
         self,
         storages: Storages,
-        name: str = "engineer",
-        profile: str = AgentRole.default_profile()[AgentRole.ENGINEER].format(),
+        name: str | None = None,
+        profile: str | None = None,
     ) -> None:
         super().__init__(AgentRole.ENGINEER, storages, name, profile)
 
