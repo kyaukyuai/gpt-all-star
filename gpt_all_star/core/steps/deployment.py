@@ -8,6 +8,6 @@ class Deployment(Step):
 
     def run(self) -> None:
         self.agents.copilot.state("Let's move on to the deployment step!")
-        self.console.new_lines(1)
-        self.agents.copilot.push_to_git_repository()
-        self.console.new_lines(1)
+        self.console.new_lines()
+        self.agents.copilot.push_to_git_repository(auto_mode=self.auto_mode)
+        self.console.new_lines()

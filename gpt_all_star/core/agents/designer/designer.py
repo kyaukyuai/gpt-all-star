@@ -16,9 +16,9 @@ class Designer(Agent):
     ) -> None:
         super().__init__(AgentRole.DESIGNER, storages, name, profile)
 
-    def design_user_interface(self):
+    def design_user_interface(self, auto_mode: bool = False):
         self.state("Okay, let's arrange the UI design!")
-        self._console.new_lines(1)
+        self._console.new_lines()
 
         for file_name, file_str in self.storages.root.recursive_file_search().items():
             self._console.print(
@@ -26,6 +26,7 @@ class Designer(Agent):
             )
             code_input = step_prompts.format_file_to_input(file_name, file_str)
             self.messages.append(Message.create_system_message(f"{code_input}"))
+        self._console.new_lines()
 
         self.messages.append(
             Message.create_system_message(

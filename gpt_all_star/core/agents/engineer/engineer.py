@@ -26,7 +26,7 @@ class Engineer(Agent):
     ) -> None:
         super().__init__(AgentRole.ENGINEER, storages, name, profile)
 
-    def create_source_code(self):
+    def create_source_code(self, auto_mode: bool = False):
         self.state("How about the following?")
 
         self.messages.append(
@@ -44,16 +44,17 @@ class Engineer(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
+            auto_mode=auto_mode,
         )
 
         files = Message.parse_message(self.latest_message_content())
         for file_name, file_content in files:
             self.storages.root[file_name] = file_content
 
-        self._create_entrypoint()
-        self._create_readme()
+        self._create_entrypoint(auto_mode)
+        self._create_readme(auto_mode)
 
-    def _create_entrypoint(self):
+    def _create_entrypoint(self, auto_mode: bool = False):
         self.messages.append(
             Message.create_system_message(create_entrypoint_template.format())
         )
@@ -62,13 +63,14 @@ class Engineer(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
+            auto_mode=auto_mode,
         )
 
         regex = r"```\S*\n(.+?)```"
         matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
         self.storages.root["run.sh"] = "\n".join(match.group(1) for match in matches)
 
-    def _create_readme(self):
+    def _create_readme(self, auto_mode: bool = False):
         self.messages.append(
             Message.create_system_message(create_readme_template.format())
         )
@@ -77,13 +79,14 @@ class Engineer(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
+            auto_mode=auto_mode,
         )
 
         regex = r"```\S*\n(.+?)```"
         matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
         self.storages.root["README.md"] = "\n".join(match.group(1) for match in matches)
 
-    def improve_source_code(self):
+    def improve_source_code(self, auto_mode: bool = False):
         self.messages.append(
             Message.create_system_message(
                 step_prompts.improve_source_code_template.format()
@@ -108,6 +111,7 @@ class Engineer(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
+            auto_mode=auto_mode,
         )
 
         files = Message.parse_message(self.latest_message_content())

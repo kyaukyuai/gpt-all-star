@@ -10,11 +10,11 @@ class Execution(Step):
         from gpt_all_star.core.steps.improvement import Improvement
 
         self.agents.copilot.state("Let's move on to the execution step!")
-        self.console.new_lines(1)
-        self.agents.copilot.execute_code()
+        self.console.new_lines()
+        self.agents.copilot.execute_code(auto_mode=self.auto_mode)
 
         response = self.agents.copilot.ask(
             "Do you want to improve your source code again?(y/n)"
         )
         if response.lower() in ["y", "yes"]:
-            Improvement(self.agents, self.japanese_mode).run()
+            Improvement(self.agents, self.japanese_mode, self.auto_mode).run()

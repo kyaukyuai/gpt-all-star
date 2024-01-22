@@ -8,7 +8,7 @@ class Development(Step):
 
     def run(self) -> None:
         self.agents.copilot.state("Let's move on to the development step!")
-        self.console.new_lines(1)
-        self.agents.engineer.create_source_code()
-        self.agents.designer.design_user_interface()
-        self.console.new_lines(1)
+        self.console.new_lines()
+        self.agents.engineer.create_source_code(auto_mode=self.auto_mode)
+        self.agents.designer.design_user_interface(auto_mode=self.auto_mode)
+        self.console.new_lines()

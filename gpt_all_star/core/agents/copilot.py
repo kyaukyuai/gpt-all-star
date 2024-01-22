@@ -46,22 +46,24 @@ class Copilot(Agent):
 
         logger.info(f"Completed project: {self.name}")
 
-    def execute_code(self) -> None:
+    def execute_code(self, auto_mode: bool = False) -> None:
         command = self.storages.root["run.sh"]
 
-        self._console.new_lines()
-        print(
-            colored(
-                "Do you want to execute this code? (y/n)",
-                "red",
+        if not auto_mode:
+            self._console.new_lines()
+            print(
+                colored(
+                    "Do you want to execute this code? (y/n)",
+                    "red",
+                )
             )
-        )
-        self._console.new_lines()
-        print(command)
-        self._console.new_lines()
-        if input().lower() not in ["", "y", "yes"]:
-            print("Ok, not executing the code.")
-            return []
+            self._console.new_lines()
+            print(command)
+            self._console.new_lines()
+            if input().lower() not in ["", "y", "yes"]:
+                print("Ok, not executing the code.")
+                return []
+
         print("Executing the code...")
         self._console.new_lines()
         print(
@@ -117,12 +119,12 @@ class Copilot(Agent):
             self.execute_code()
 
         except KeyboardInterrupt:
-            self._console.new_lines(1)
+            self._console.new_lines()
             self._console.print("Stopping execution.", style="bold yellow")
             self._console.print("Execution stopped.", style="bold red")
-            self._console.new_lines(1)
+            self._console.new_lines()
 
-    def push_to_git_repository(self) -> None:
+    def push_to_git_repository(self, auto_mode: bool = False) -> None:
         git = Git(self.storages.root.path)
         files_to_add = git.files()
         if not files_to_add:
@@ -133,7 +135,7 @@ class Copilot(Agent):
         syntax = Syntax(git.diffs(), "diff", theme="monokai", line_numbers=True)
         self._console.print(syntax)
 
-        if not self._confirm_push():
+        if not (self._confirm_push() or auto_mode):
             return
 
         self.messages.append(
@@ -144,7 +146,7 @@ class Copilot(Agent):
         self.chat()
         commit_message = self.latest_message_content()
 
-        self._console.new_lines(1)
+        self._console.new_lines()
         self.state("Pushing to the repository...")
         git.add(files_to_add)
         git.commit(commit_message)

@@ -12,12 +12,12 @@ class TeamBuilding(Step):
 
     def run(self) -> None:
         self.agents.copilot.state("Let's start by building a team!")
-        self.console.new_lines(1)
+        self.console.new_lines()
         self._introduce_agent(self.agents.product_owner, AgentRole.PRODUCT_OWNER)
         self._introduce_agent(self.agents.engineer, AgentRole.ENGINEER)
         self._introduce_agent(self.agents.architect, AgentRole.ARCHITECT)
         self._introduce_agent(self.agents.designer, AgentRole.DESIGNER)
-        self.console.new_lines(1)
+        self.console.new_lines()
         self.agents.copilot.state("Ok, we have a team now!")
         self._display_team_members()
 
