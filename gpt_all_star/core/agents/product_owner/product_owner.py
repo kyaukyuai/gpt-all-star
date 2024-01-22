@@ -23,14 +23,17 @@ class ProductOwner(Agent):
         super().__init__(AgentRole.PRODUCT_OWNER, storages, name, profile)
 
     def clarify_instructions(self) -> None:
-        self.messages.append(
-            Message.create_system_message(
-                clarify_instructions_template.format(
-                    instructions=self._get_instructions(),
-                    app_type=self._get_app_type(),
-                )
+        instructions = self._get_instructions()
+        app_type = self._get_app_type()
+
+        message = Message.create_system_message(
+            clarify_instructions_template.format(
+                instructions=instructions,
+                app_type=app_type,
             )
         )
+
+        self.messages.append(message)
 
         self._execute(
             "Answer in text, or proceed to the next step, type `{}`".format(
@@ -42,12 +45,8 @@ class ProductOwner(Agent):
         self._summarize_specifications()
 
     def _get_instructions(self) -> str:
-        return (
-            self.storages.root["instructions"]
-            if self.storages.root.get("instructions") is not None
-            else self.ask(
-                "What application do you want to build? Please describe it in as much detail as possible.",
-            )
+        return self.storages.root.get("instructions") or self.ask(
+            "What application do you want to build? Please describe it in as much detail as possible."
         )
 
     def _get_app_type(self) -> str:
@@ -59,9 +58,12 @@ class ProductOwner(Agent):
 
     def _summarize_specifications(self) -> None:
         self.state("How about the following?")
-        self.messages.append(
-            Message.create_system_message(summarize_specifications_template.format())
+
+        message = Message.create_system_message(
+            summarize_specifications_template.format()
         )
+
+        self.messages.append(message)
 
         self._execute(
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
@@ -71,5 +73,6 @@ class ProductOwner(Agent):
 
         file = Message.parse_message(self.latest_message_content())[0]
         self.storages.docs["specifications.md"] = file[1]
-        self.state("Here are the specifications:")
+
+        self.state("There are the specifications to build the application:")
         self.output_md(self.storages.docs["specifications.md"])
