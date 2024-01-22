@@ -59,10 +59,11 @@ class Storage:
                     with open(item, "r", encoding="utf-8") as f:
                         file_content = f.read()
                 except UnicodeDecodeError:
-                    raise ValueError(
-                        f"Non-text file detected: {item}, currently only supports utf-8 "
-                        f"decodable text files."
-                    )
+                    continue
+                    # raise ValueError(
+                    #     f"Non-text file detected: {item}, currently only supports utf-8 "
+                    #     f"decodable text files."
+                    # )
                 files_dict[str(item)] = file_content
             elif item.is_dir():
                 if (
@@ -70,6 +71,7 @@ class Storage:
                     and item.name != ".git"
                     and item.name != ".archive"
                     and item.name != "docs"
+                    and item.name != ".idea"
                 ):
                     self.recursive_file_search(item, files_dict)
         return files_dict

@@ -38,7 +38,8 @@ Example representation of a file:
 
 file.md
 ```
-- hello_world.py
+- ./hello_world.py
+- ./model/user.py
 ```
 """
 )
