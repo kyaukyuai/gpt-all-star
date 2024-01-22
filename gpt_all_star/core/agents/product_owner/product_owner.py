@@ -4,6 +4,7 @@ from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
 from gpt_all_star.core.agents.product_owner.clarify_instruction_prompt import (
     clarify_instructions_template,
+    auto_clarify_instructions_template,
 )
 from gpt_all_star.core.agents.product_owner.summarize_specification_prompt import (
     summarize_specifications_template,
@@ -22,27 +23,36 @@ class ProductOwner(Agent):
     ) -> None:
         super().__init__(AgentRole.PRODUCT_OWNER, storages, name, profile)
 
-    def clarify_instructions(self) -> None:
+    def clarify_instructions(self, auto_mode: bool = False) -> None:
         instructions = self._get_instructions()
         app_type = self._get_app_type()
 
-        message = Message.create_system_message(
-            clarify_instructions_template.format(
-                instructions=instructions,
-                app_type=app_type,
+        if auto_mode:
+            message = Message.create_system_message(
+                auto_clarify_instructions_template.format(
+                    instructions=instructions,
+                    app_type=app_type,
+                )
             )
-        )
+            self.messages.append(message)
+            self.chat()
+            self._console.new_lines(2)
+        else:
+            message = Message.create_system_message(
+                clarify_instructions_template.format(
+                    instructions=instructions,
+                    app_type=app_type,
+                )
+            )
+            self.messages.append(message)
+            self._execute(
+                "Answer in text, or proceed to the next step, type `{}`".format(
+                    NEXT_COMMAND
+                ),
+                "Assume the ambiguity as the simplest possible specification for building the MVP(Minimum Viable Product) and state them clearly.",
+            )
 
-        self.messages.append(message)
-
-        self._execute(
-            "Answer in text, or proceed to the next step, type `{}`".format(
-                NEXT_COMMAND
-            ),
-            "Assume the ambiguity as the simplest possible specification for building the MVP and state them clearly",
-        )
-
-        self._summarize_specifications()
+        self._summarize_specifications(auto_mode=auto_mode)
 
     def _get_instructions(self) -> str:
         return self.storages.root.get("instructions") or self.ask(
@@ -56,7 +66,7 @@ class ProductOwner(Agent):
             default=1,
         )
 
-    def _summarize_specifications(self) -> None:
+    def _summarize_specifications(self, auto_mode: bool = False) -> None:
         self.state("How about the following?")
 
         message = Message.create_system_message(
@@ -69,6 +79,7 @@ class ProductOwner(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
+            auto_mode=auto_mode,
         )
 
         file = Message.parse_message(self.latest_message_content())[0]

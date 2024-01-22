@@ -95,24 +95,34 @@ class Agent(ABC):
         return self.messages[-1].content.strip()
 
     def _execute(
-        self, follow_up_message: str, final_message: str | None = None
+        self,
+        follow_up_message: str,
+        final_message: str | None = None,
+        auto_mode: bool = False,
     ) -> None:
         user_input = None
         count = 0
 
         while True:
             if count > 0:
-                self._console.new_lines(2)
+                if auto_mode:
+                    self._handle_final_message(final_message)
+                    break
+
+                self._console.new_lines(1)
                 user_input = self.ask(follow_up_message)
                 if user_input == NEXT_COMMAND:
-                    if final_message:
-                        self.chat(final_message)
-                        self._console.new_lines(1)
-                    self._console.new_lines(1)
+                    self._handle_final_message(final_message)
                     break
 
             self.chat(user_input)
+            self._console.new_lines(1)
             count += 1
+
+    def _handle_final_message(self, final_message: str | None) -> None:
+        if final_message:
+            self.chat(final_message)
+        self._console.new_lines(1)
 
     def _get_default_profile(self) -> AgentProfile:
         return AGENT_PROFILES[self.role]
