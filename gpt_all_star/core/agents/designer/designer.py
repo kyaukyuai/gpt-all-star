@@ -11,8 +11,8 @@ class Designer(Agent):
     def __init__(
         self,
         storages: Storages,
-        name: str = "designer",
-        profile: str = AgentRole.default_profile()[AgentRole.DESIGNER].format(),
+        name: str | None = None,
+        profile: str | None = None,
     ) -> None:
         super().__init__(AgentRole.DESIGNER, storages, name, profile)
 

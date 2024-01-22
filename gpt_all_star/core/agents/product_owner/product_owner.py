@@ -17,8 +17,8 @@ class ProductOwner(Agent):
     def __init__(
         self,
         storages: Storages,
-        name: str = "product_owner",
-        profile: str = AgentRole.default_profile()[AgentRole.PRODUCT_OWNER].format(),
+        name: str | None = None,
+        profile: str | None = None,
     ) -> None:
         super().__init__(AgentRole.PRODUCT_OWNER, storages, name, profile)
 

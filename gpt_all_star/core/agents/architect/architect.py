@@ -16,8 +16,8 @@ class Architect(Agent):
     def __init__(
         self,
         storages: Storages,
-        name: str = "architect",
-        profile: str = AgentRole.default_profile()[AgentRole.ARCHITECT].format(),
+        name: str | None = None,
+        profile: str | None = None,
     ) -> None:
         super().__init__(AgentRole.ARCHITECT, storages, name, profile)
 

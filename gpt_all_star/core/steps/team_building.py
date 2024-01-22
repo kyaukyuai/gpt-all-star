@@ -2,7 +2,7 @@ from rich.table import Table
 
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.agents import agents
-from gpt_all_star.core.agents.agent import AgentRole
+from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.steps.step import Step
 
 
@@ -21,17 +21,17 @@ class TeamBuilding(Step):
         self.agents.copilot.state("Ok, we have a team now!")
         self._display_team_members()
 
-    def _introduce_agent(self, agent, role: AgentRole) -> None:
+    def _introduce_agent(self, agent: Agent, role: AgentRole) -> None:
         self.agents.copilot.state(f"Please introduce the {role.name.lower()}.")
         agent.name = self.agents.copilot.ask(
             f"What is the name of the {role.name.lower()}?",
             is_required=False,
-            default=AgentRole.default_name()[role],
+            default=agent.name,
         )
         agent.profile = self.agents.copilot.ask(
             f"What is the profile of the {role.name.lower()}?",
             is_required=False,
-            default=AgentRole.default_profile()[role].format(),
+            default=agent.profile,
         )
         if self.japanese_mode:
             agent.profile = agent.profile + "**必ず日本語で書いて下さい**"

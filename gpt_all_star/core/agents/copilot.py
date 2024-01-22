@@ -16,8 +16,8 @@ class Copilot(Agent):
     def __init__(
         self,
         storages: Storages | None = None,
-        name: str = "copilot",
-        profile: str = AgentRole.default_profile()[AgentRole.COPILOT].format(),
+        name: str | None = None,
+        profile: str | None = None,
     ) -> None:
         super().__init__(AgentRole.COPILOT, storages, name, profile)
 
