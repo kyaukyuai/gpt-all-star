@@ -18,6 +18,11 @@ class ConsoleTerminal:
     def __init__(self):
         self._console = Console()
 
+    def title(self, title: str) -> None:
+        ascii_art = pyfiglet.figlet_format(title)
+        self._console.print(ascii_art, style=f"{MAIN_COLOR} bold")
+        self.new_lines(1)
+
     def section(self, title: str) -> None:
         self._console.rule(title, style=f"{MAIN_COLOR} bold")
 
@@ -26,11 +31,6 @@ class ConsoleTerminal:
 
     def print(self, text: str, style: Optional[Union[str, RichStyle]] = None) -> None:
         self._console.print(text, style=style)
-
-    def panel(self, title: str) -> None:
-        ascii_art = pyfiglet.figlet_format(title)
-        self._console.print(ascii_art, style=f"{MAIN_COLOR} bold")
-        self.new_lines(1)
 
     def _choice(
         self,

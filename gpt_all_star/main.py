@@ -44,7 +44,7 @@ def main(
 ) -> None:
     load_dotenv()
     console = ConsoleTerminal()
-    console.panel("gpt-all-star")
+    console.title("gpt-all-star")
 
     project = Project(step, project_name, japanese_mode, auto_mode)
     project.start()
