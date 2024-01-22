@@ -52,7 +52,7 @@ class ProductOwner(Agent):
                 "Assume the ambiguity as the simplest possible specification for building the MVP(Minimum Viable Product) and state them clearly.",
             )
 
-        self._summarize_specifications(auto_mode=auto_mode)
+        self._summarize_specifications(auto_mode)
 
     def _get_instructions(self) -> str:
         return self.storages.root.get("instructions") or self.ask(

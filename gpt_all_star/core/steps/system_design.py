@@ -9,5 +9,5 @@ class SystemDesign(Step):
     def run(self) -> None:
         self.agents.copilot.state("Let's move on to the system design step!")
         self.console.new_lines()
-        self.agents.architect.design_system()
+        self.agents.architect.design_system(auto_mode=self.auto_mode)
         self.console.new_lines()
