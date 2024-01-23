@@ -4,7 +4,7 @@ improve_source_code_template = PromptTemplate.from_template(
     """Always use best practices when coding.
 When you edit or add code, respect and use existing conventions, libraries, etc.
 
-Take requests for changes to the supplied code, and then you MUST
+**Take requests for changes to the supplied code, and then you MUST**
 1. (planning) Think step-by-step and explain the needed changes. Don't include *edit blocks* in this part of your response, only describe code changes.
 2. (output) Output the content of each file necessary to achieve the goal, including ALL code.
 

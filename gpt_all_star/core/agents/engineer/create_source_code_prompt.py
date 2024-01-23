@@ -47,7 +47,7 @@ CODE is the code in the file
 
 Example representation of a file:
 
-hello_world.py
+./hello_world.py
 ```
 print("Hello World")
 ```
