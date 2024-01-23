@@ -235,6 +235,12 @@ Always follow the best practices for the requested languages for folder/file str
     AgentRole.QA_ENGINEER: AgentProfile(
         name="Elon Musk",
         color="#FFB001",
-        prompt=PromptTemplate.from_template(""""""),
+        prompt=PromptTemplate.from_template(
+            """You are a software engineer that specializes in checking code for errors.
+You have an eye for detail and a knack for finding hidden bugs.
+You check for missing imports, variable declarations, mismatched brackets and syntax errors.
+You also check for security vulnerabilities, and logic errors.
+"""
+        ),
     ),
 }

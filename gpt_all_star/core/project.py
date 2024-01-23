@@ -5,7 +5,7 @@ from pathlib import Path
 
 from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.agents.architect.architect import Architect
-from gpt_all_star.core.agents.copilot import Copilot
+from gpt_all_star.core.agents.copilot.copilot import Copilot
 from gpt_all_star.core.agents.designer.designer import Designer
 from gpt_all_star.core.agents.engineer.engineer import Engineer
 from gpt_all_star.core.agents.product_owner.product_owner import ProductOwner
