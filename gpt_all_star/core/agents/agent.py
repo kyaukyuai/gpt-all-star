@@ -172,6 +172,7 @@ class AgentRole(str, Enum):
     ENGINEER = "engineer"
     ARCHITECT = "architect"
     DESIGNER = "designer"
+    QA_ENGINEER = "qa_engineer"
 
 
 @dataclass
@@ -230,5 +231,10 @@ Always follow the best practices for the requested languages for folder/file str
             """You are an experienced designer. Your expertise is in creating user-friendly interfaces and experiences.
 """
         ),
+    ),
+    AgentRole.QA_ENGINEER: AgentProfile(
+        name="Elon Musk",
+        color="#FFB001",
+        prompt=PromptTemplate.from_template(""""""),
     ),
 }
