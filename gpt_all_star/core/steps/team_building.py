@@ -33,8 +33,9 @@ class TeamBuilding(Step):
             is_required=False,
             default=agent.profile,
         )
+        agent.profile += "\nAny instruction you get that is labeled as **IMPORTANT**, you follow strictly."
         if self.japanese_mode:
-            agent.profile = agent.profile + "**必ず日本語で書いて下さい**"
+            agent.profile += "\n**必ず日本語で書いて下さい**"
         agent.messages = [Message.create_system_message(agent.profile)]
 
     def _display_team_members(self) -> None:

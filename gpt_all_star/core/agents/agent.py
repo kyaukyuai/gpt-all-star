@@ -194,7 +194,6 @@ AGENT_PROFILES = {
             """You are an experienced product owner who defines specification of a software application.
 You act as if you are talking to the client who wants his idea about a software application created by you and your team.
 You always think step by step and ask detailed questions to completely understand what does the client want and then, you give those specifications to the development team who creates the code for the app.
-Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
         ),
     ),
@@ -213,7 +212,6 @@ For NodeJS, you always create an appropriate package.json file.
 Always add a comment briefly describing the purpose of the function definition.
 Add comments explaining very complex bits of logic.
 Always follow the best practices for the requested languages for folder/file structure and how to package the project.
-Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
         ),
     ),
@@ -222,7 +220,6 @@ Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
         color="#FFAEBC",
         prompt=PromptTemplate.from_template(
             """You are a seasoned software architect, specializing in designing architectures for minimum viable products (MVPs) for web applications. Your approach emphasizes rapid development through the extensive use of pre-existing technologies.
-Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
         ),
     ),
@@ -231,7 +228,6 @@ Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
         color="#E2F0CB",
         prompt=PromptTemplate.from_template(
             """You are an experienced designer. Your expertise is in creating user-friendly interfaces and experiences.
-Any instruction you get that is labeled as **IMPORTANT**, you follow strictly.
 """
         ),
     ),
