@@ -7,6 +7,12 @@ from rich.syntax import Syntax
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole
+from gpt_all_star.core.agents.copilot.create_commit_message_prompt import (
+    create_commit_message_template,
+)
+from gpt_all_star.core.agents.copilot.fix_source_code_prompt import (
+    fix_source_code_template,
+)
 from gpt_all_star.core.steps import step_prompts
 from gpt_all_star.tool.git import Git
 from gpt_all_star.logger.logger import logger
@@ -106,7 +112,7 @@ class Copilot(Agent):
 
             self.messages.append(Message.create_system_message(e.stderr))
 
-            self.chat(step_prompts.fix_source_code_template.format())
+            self.chat(fix_source_code_template.format())
             response = self.latest_message_content()
             logger.info(f"response: {response}")
             self._console.new_lines(1)
@@ -140,7 +146,7 @@ class Copilot(Agent):
 
         self.messages.append(
             Message.create_system_message(
-                step_prompts.generate_commit_message_template.format(diff=git.diffs())
+                create_commit_message_template.format(diff=git.diffs())
             )
         )
         self.chat()

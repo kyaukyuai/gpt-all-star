@@ -14,6 +14,9 @@ from gpt_all_star.core.agents.engineer.create_entrypoint_prompt import (
 from gpt_all_star.core.agents.engineer.create_readme_prompt import (
     create_readme_template,
 )
+from gpt_all_star.core.agents.engineer.improve_source_code_prompt import (
+    improve_source_code_template,
+)
 from gpt_all_star.core.steps import step_prompts
 
 
@@ -88,9 +91,7 @@ class Engineer(Agent):
 
     def improve_source_code(self, auto_mode: bool = False):
         self.messages.append(
-            Message.create_system_message(
-                step_prompts.improve_source_code_template.format()
-            )
+            Message.create_system_message(improve_source_code_template.format())
         )
         for file_name, file_str in self.storages.root.recursive_file_search().items():
             self._console.print(
