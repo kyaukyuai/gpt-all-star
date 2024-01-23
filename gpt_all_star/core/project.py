@@ -9,6 +9,7 @@ from gpt_all_star.core.agents.copilot.copilot import Copilot
 from gpt_all_star.core.agents.designer.designer import Designer
 from gpt_all_star.core.agents.engineer.engineer import Engineer
 from gpt_all_star.core.agents.product_owner.product_owner import ProductOwner
+from gpt_all_star.core.agents.qa_engineer.qa_engineer import QAEngineer
 from gpt_all_star.core.steps.steps import StepType, STEPS
 from gpt_all_star.core.storage import Storage, Storages
 from gpt_all_star.logger.logger import logger
@@ -39,6 +40,7 @@ class Project:
             engineer=Engineer(storages=self.storages),
             architect=Architect(storages=self.storages),
             designer=Designer(storages=self.storages),
+            qa_engineer=QAEngineer(storages=self.storages),
         )
 
         self.step_type = step or StepType.DEFAULT

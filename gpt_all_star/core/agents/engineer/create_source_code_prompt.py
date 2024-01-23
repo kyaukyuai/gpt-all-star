@@ -43,6 +43,7 @@ CODE
 The following tokens must be replaced like so:
 FILENAME is the lowercase combined path and file name including the file extension
 CODE is the code in the file
+**Be sure to include all codes without omission!**
 
 Example representation of a file:
 

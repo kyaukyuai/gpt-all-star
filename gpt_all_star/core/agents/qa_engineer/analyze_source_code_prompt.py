@@ -1,7 +1,9 @@
 from langchain_core.prompts import PromptTemplate
 
-improve_source_code_template = PromptTemplate.from_template(
-    """Always use best practices when coding.
+analyze_source_code_template = PromptTemplate.from_template(
+    """Your goal is to create perfect source code by the code that is given for errors.
+
+Always use best practices when coding.
 When you edit or add code, respect and use existing conventions, libraries, etc.
 
 Take requests for changes to the supplied code, and then you MUST

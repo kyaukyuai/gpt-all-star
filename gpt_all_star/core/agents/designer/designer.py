@@ -17,7 +17,7 @@ class Designer(Agent):
         super().__init__(AgentRole.DESIGNER, storages, name, profile)
 
     def design_user_interface(self, auto_mode: bool = False):
-        self.state("Okay, let's arrange the UI design!")
+        self.state("Okay, let's improve user interface!")
         self._console.new_lines()
 
         for file_name, file_str in self.storages.root.recursive_file_search().items():

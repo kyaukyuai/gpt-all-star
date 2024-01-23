@@ -17,6 +17,7 @@ class TeamBuilding(Step):
         self._introduce_agent(self.agents.engineer, AgentRole.ENGINEER)
         self._introduce_agent(self.agents.architect, AgentRole.ARCHITECT)
         self._introduce_agent(self.agents.designer, AgentRole.DESIGNER)
+        self._introduce_agent(self.agents.qa_engineer, AgentRole.QA_ENGINEER)
         self.console.new_lines()
         self.agents.copilot.state("Ok, we have a team now!")
         self._display_team_members()
