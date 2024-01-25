@@ -34,7 +34,7 @@ class Agent(ABC):
         color: str | None = None,
     ) -> None:
         self._console = ConsoleTerminal()
-        self._llm = _create_llm("gpt-4-32k", 0.1)
+        self._llm = _create_llm(os.getenv("OPENAI_API_MODEL_NAME"), 0.1)
 
         self.role: AgentRole = role
         self.name: str = name or self._get_default_profile().name
@@ -161,6 +161,7 @@ def _get_supported_models() -> list[str]:
     # cache the models list since it is unlikely to change frequently.
     @lru_cache(maxsize=1)
     def _fetch_supported_models():
+        openai.api_type = "openai"
         return [model.id for model in openai.models.list()]
 
     return _fetch_supported_models()
