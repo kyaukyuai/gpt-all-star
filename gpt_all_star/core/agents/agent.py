@@ -31,7 +31,7 @@ class Agent(ABC):
         profile: str | None = None,
         color: str | None = None,
     ) -> None:
-        self._console = ConsoleTerminal()
+        self.console = ConsoleTerminal()
         self._llm = _create_llm(os.getenv("OPENAI_API_MODEL_NAME"), 0.1)
 
         self.role: AgentRole = role
@@ -55,19 +55,19 @@ class Agent(ABC):
         logger.info(f"Messages after chat: {self.messages}")
 
     def state(self, text: str) -> None:
-        self._console.print(f"{self.name}: {text}", style=f"bold {self.color}")
+        self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
 
     def output_md(self, md: str) -> None:
-        self._console.print(Panel(Markdown(md, style="bold")))
+        self.console.print(Panel(Markdown(md, style="bold")))
 
     def ask(self, question: str, is_required: bool = True, default: str = None) -> str:
         while True:
             default_value = f" (default: {default})" if default else ""
-            self._console.print(
+            self.console.print(
                 f"[{self.color} bold]{self.name}: {question}[/{self.color} bold]{default_value}"
             )
-            answer = self._console.input("project.history").strip() or default
-            self._console.new_lines(1)
+            answer = self.console.input("project.history").strip() or default
+            self.console.new_lines(1)
 
             logger.info("Question: %s", question)
             logger.info("Answer: %s", answer)
@@ -82,7 +82,7 @@ class Agent(ABC):
         choices: list[str],
         default: str,
     ) -> str:
-        return self._console.choice(
+        return self.console.choice(
             f"{self.name}: {question} (default: {default})",
             choices=choices,
             default=default,
@@ -107,20 +107,20 @@ class Agent(ABC):
                     self._handle_final_message(final_message)
                     break
 
-                self._console.new_lines(1)
+                self.console.new_lines(1)
                 user_input = self.ask(follow_up_message)
                 if user_input == NEXT_COMMAND:
                     self._handle_final_message(final_message)
                     break
 
             self.chat(user_input)
-            self._console.new_lines(1)
+            self.console.new_lines(1)
             count += 1
 
     def _handle_final_message(self, final_message: str | None) -> None:
         if final_message:
             self.chat(final_message)
-        self._console.new_lines(1)
+        self.console.new_lines(1)
 
     def _get_default_profile(self) -> AgentProfile:
         return AGENT_PROFILES[self.role]

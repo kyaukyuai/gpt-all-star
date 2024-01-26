@@ -36,7 +36,7 @@ class ProductOwner(Agent):
             )
             self.messages.append(message)
             self.chat()
-            self._console.new_lines(2)
+            self.console.new_lines(2)
         else:
             message = Message.create_system_message(
                 clarify_instructions_template.format(

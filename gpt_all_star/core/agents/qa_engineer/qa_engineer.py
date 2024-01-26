@@ -20,15 +20,15 @@ class QAEngineer(Agent):
 
     def analyze_source_code(self, auto_mode: bool = False):
         self.state("Okay, let's analyze the code!")
-        self._console.new_lines()
+        self.console.new_lines()
 
         for file_name, file_str in self.storages.root.recursive_file_search().items():
-            self._console.print(
+            self.console.print(
                 f"Adding file {file_name} to the prompt...", style="blue"
             )
             code_input = step_prompts.format_file_to_input(file_name, file_str)
             self.messages.append(Message.create_system_message(f"{code_input}"))
-        self._console.new_lines()
+        self.console.new_lines()
 
         self.messages.append(
             Message.create_system_message(analyze_source_code_template.format())

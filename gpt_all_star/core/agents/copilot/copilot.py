@@ -29,7 +29,7 @@ class Copilot(Agent):
 
     def start(self, project_name: str) -> None:
         self.state(f"Let's start the project! ({project_name})")
-        self._console.new_lines(1)
+        self.console.new_lines(1)
 
     def ask_project_name(self) -> str:
         default_project_name = "".join(
@@ -56,22 +56,22 @@ class Copilot(Agent):
         command = self.storages.root["run.sh"]
 
         if not auto_mode:
-            self._console.new_lines()
+            self.console.new_lines()
             print(
                 colored(
                     "Do you want to execute this code? (y/n)",
                     "red",
                 )
             )
-            self._console.new_lines()
+            self.console.new_lines()
             print(command)
-            self._console.new_lines()
+            self.console.new_lines()
             if input().lower() not in ["", "y", "yes"]:
                 print("Ok, not executing the code.")
                 return []
 
         print("Executing the code...")
-        self._console.new_lines()
+        self.console.new_lines()
         print(
             colored(
                 "Note: If it does not work as expected, please consider running the code"
@@ -79,9 +79,9 @@ class Copilot(Agent):
                 "green",
             )
         )
-        self._console.new_lines()
+        self.console.new_lines()
         print("You can press ctrl+c *once* to stop the execution.")
-        self._console.new_lines()
+        self.console.new_lines()
 
         command = "bash run.sh"
         try:
@@ -96,7 +96,7 @@ class Copilot(Agent):
         except subprocess.CalledProcessError as e:
             count = 0
 
-            self._console.print(
+            self.console.print(
                 f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
                 style="bold red",
             )
@@ -104,7 +104,7 @@ class Copilot(Agent):
                 file_name,
                 file_str,
             ) in self.storages.root.recursive_file_search().items():
-                self._console.print(
+                self.console.print(
                     f"Adding file {file_name} to the prompt...", style="blue"
                 )
                 code_input = step_prompts.format_file_to_input(file_name, file_str)
@@ -115,7 +115,7 @@ class Copilot(Agent):
             self.chat(fix_source_code_template.format())
             response = self.latest_message_content()
             logger.info(f"response: {response}")
-            self._console.new_lines(1)
+            self.console.new_lines(1)
             count += 1
 
             files = Message.parse_message(self.latest_message_content())
@@ -125,10 +125,10 @@ class Copilot(Agent):
             self.execute_code()
 
         except KeyboardInterrupt:
-            self._console.new_lines()
-            self._console.print("Stopping execution.", style="bold yellow")
-            self._console.print("Execution stopped.", style="bold red")
-            self._console.new_lines()
+            self.console.new_lines()
+            self.console.print("Stopping execution.", style="bold yellow")
+            self.console.print("Execution stopped.", style="bold red")
+            self.console.new_lines()
 
     def push_to_git_repository(self, auto_mode: bool = False) -> None:
         git = Git(self.storages.root.path)
@@ -139,7 +139,7 @@ class Copilot(Agent):
 
         self.state("The following diff will be pushed to the repository")
         syntax = Syntax(git.diffs(), "diff", theme="monokai", line_numbers=True)
-        self._console.print(syntax)
+        self.console.print(syntax)
 
         if not (self._confirm_push() or auto_mode):
             return
@@ -152,7 +152,7 @@ class Copilot(Agent):
         self.chat()
         commit_message = self.latest_message_content()
 
-        self._console.new_lines()
+        self.console.new_lines()
         self.state("Pushing to the repository...")
         git.add(files_to_add)
         git.commit(commit_message)
