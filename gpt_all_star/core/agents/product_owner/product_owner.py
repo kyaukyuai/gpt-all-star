@@ -45,7 +45,7 @@ class ProductOwner(Agent):
                 )
             )
             self.messages.append(message)
-            self._execute(
+            self.execute(
                 "Answer in text, or proceed to the next step, type `{}`".format(
                     NEXT_COMMAND
                 ),
@@ -75,7 +75,7 @@ class ProductOwner(Agent):
 
         self.messages.append(message)
 
-        self._execute(
+        self.execute(
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),

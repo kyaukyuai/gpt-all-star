@@ -37,7 +37,7 @@ class Architect(Agent):
             )
         )
 
-        self._execute(
+        self.execute(
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
@@ -61,7 +61,7 @@ class Architect(Agent):
             )
         )
 
-        self._execute(
+        self.execute(
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
@@ -87,7 +87,7 @@ class Architect(Agent):
             )
         )
 
-        self._execute(
+        self.execute(
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),

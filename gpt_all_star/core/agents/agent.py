@@ -5,7 +5,6 @@ from dataclasses import dataclass
 import os
 from enum import Enum
 from functools import lru_cache
-import warnings
 import openai
 from langchain_community.chat_models import AzureChatOpenAI, ChatOpenAI
 from langchain_core.callbacks import StreamingStdOutCallbackHandler
@@ -21,7 +20,6 @@ from gpt_all_star.core.storage import Storages
 from gpt_all_star.logger.logger import logger
 
 NEXT_COMMAND = "next"
-warnings.simplefilter("ignore")
 
 
 class Agent(ABC):
@@ -94,7 +92,7 @@ class Agent(ABC):
     def latest_message_content(self) -> str:
         return self.messages[-1].content.strip()
 
-    def _execute(
+    def execute(
         self,
         follow_up_message: str,
         final_message: str | None = None,

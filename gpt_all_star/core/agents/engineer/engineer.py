@@ -43,7 +43,7 @@ class Engineer(Agent):
             )
         )
 
-        self._execute(
+        self.execute(
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
@@ -62,7 +62,7 @@ class Engineer(Agent):
             Message.create_system_message(create_entrypoint_template.format())
         )
 
-        self._execute(
+        self.execute(
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
@@ -78,7 +78,7 @@ class Engineer(Agent):
             Message.create_system_message(create_readme_template.format())
         )
 
-        self._execute(
+        self.execute(
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
@@ -108,7 +108,7 @@ class Engineer(Agent):
         else:
             return
 
-        self._execute(
+        self.execute(
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
