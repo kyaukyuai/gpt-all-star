@@ -155,9 +155,10 @@ class Copilot(Agent):
         git.push()
 
     def _confirm_push(self):
-        response = self.ask(
-            "Continue with commit and push? (y/n)",
-            is_required=False,
-            default="y",
+        CONFIRM_CHOICES = ["y", "n"]
+        choice = self.present_choices(
+            "Proceed with commit and push to repository?",
+            CONFIRM_CHOICES,
+            default=1,
         )
-        return response.lower() in ["", "y", "yes"]
+        return choice == "y"

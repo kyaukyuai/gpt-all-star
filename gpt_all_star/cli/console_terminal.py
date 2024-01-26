@@ -2,9 +2,6 @@ from dataclasses import dataclass
 from typing import Optional, Union
 
 from prompt_toolkit import prompt
-from prompt_toolkit.completion import Completer, Completion
-from prompt_toolkit.document import Document
-from prompt_toolkit.history import FileHistory
 from prompt_toolkit.styles import Style
 import pyfiglet
 from rich.console import Console
@@ -52,7 +49,7 @@ class ConsoleTerminal:
         self.console.print(text)
 
         choice = self.prompt.ask(
-            "[bold cyan]You[/bold cyan]: ",
+            f"[bold {self.main_color}]You[/bold {self.main_color}]: ",
             choices=[str(x) for x in range(1, len(choices) + 1)],
             default=str(int(default)),
         )
