@@ -1,4 +1,5 @@
 from rich.table import Table
+from gpt_all_star.cli.console_terminal import MAIN_COLOR
 
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.agents import agents
@@ -40,7 +41,9 @@ class TeamBuilding(Step):
         agent.messages = [Message.create_system_message(agent.profile)]
 
     def _display_team_members(self) -> None:
-        table = Table(show_header=True, header_style="#FFB001", title="Team Members")
+        table = Table(
+            show_header=True, header_style=f"{MAIN_COLOR}", title="Team Members"
+        )
         table.add_column("Name")
         table.add_column("Role")
         table.add_column("Profile")

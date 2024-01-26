@@ -1,4 +1,3 @@
-import warnings
 from dotenv import load_dotenv
 import typer
 
@@ -7,8 +6,8 @@ from gpt_all_star.core.project import Project
 from gpt_all_star.core.steps.steps import StepType
 
 
+COMMAND_NAME = "gpt-all-star"
 app = typer.Typer()
-warnings.simplefilter("ignore")
 
 
 @app.command()
@@ -44,14 +43,14 @@ def main(
 ) -> None:
     load_dotenv()
     console = ConsoleTerminal()
-    console.title("gpt-all-star")
+    console.title(COMMAND_NAME)
 
     project = Project(step, project_name, japanese_mode, auto_mode)
     project.start()
     project.finish()
 
     console.print(
-        "Thank you for using gpt-all-star! See you next time! :bye:",
+        f"Thank you for using {COMMAND_NAME}! See you next time! :bye:",
         style=f"{MAIN_COLOR} bold",
     )
 

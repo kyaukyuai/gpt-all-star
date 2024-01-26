@@ -3,6 +3,8 @@ from pathlib import Path
 import git
 import requests
 
+from gpt_all_star.main import COMMAND_NAME
+
 
 class Git:
     def __init__(self, repo_path: Path) -> None:
@@ -23,7 +25,9 @@ class Git:
     def diffs(self):
         try:
             if self.repo.head.is_valid() and list(self.repo.iter_commits()):
-                return self.repo.git.diff("HEAD")
+                staged_diffs = self.repo.git.diff("--staged")
+                not_staged_diffs = self.repo.git.diff("--unstaged")
+                return staged_diffs + "\n" + not_staged_diffs
             else:
                 return "No commits in the repository."
         except git.exc.GitCommandError:
@@ -32,7 +36,7 @@ class Git:
     def add(self, files):
         self.repo.index.add(files)
 
-    def commit(self, commit_message: str = "Add files via gpt-all-star"):
+    def commit(self, commit_message: str = f"Add files via {COMMAND_NAME}"):
         self.repo.index.commit(commit_message)
 
     def push(self):
