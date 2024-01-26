@@ -68,7 +68,7 @@ class Agent(ABC):
             self._console.print(
                 f"[{self.color} bold]{self.name}: {question}[/{self.color} bold]{default_value}"
             )
-            answer = self._console._input("project.history").strip() or default
+            answer = self._console.input("project.history").strip() or default
             self._console.new_lines(1)
 
             logger.info("Question: %s", question)
@@ -84,7 +84,7 @@ class Agent(ABC):
         choices: list[str],
         default: str,
     ) -> str:
-        return self._console._choice(
+        return self._console.choice(
             f"{self.name}: {question} (default: {default})",
             choices=choices,
             default=default,

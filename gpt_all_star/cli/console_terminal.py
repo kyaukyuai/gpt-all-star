@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Optional, Union
 
 from prompt_toolkit import prompt
@@ -7,6 +8,7 @@ from prompt_toolkit.history import FileHistory
 from prompt_toolkit.styles import Style
 import pyfiglet
 from rich.console import Console
+from rich.prompt import Prompt
 from rich.style import Style as RichStyle
 from rich.text import Text
 
@@ -14,49 +16,56 @@ MAIN_COLOR = "#44EE77"
 SUB_COLOR = "#FB475E"
 
 
+@dataclass
 class ConsoleTerminal:
-    def __init__(self):
-        self._console = Console()
+    console: Console = Console()
+    prompt: Prompt = Prompt()
+    main_color: str = MAIN_COLOR
+    sub_color: str = SUB_COLOR
 
     def title(self, title: str) -> None:
-        ascii_art = pyfiglet.figlet_format(title)
-        self._console.print(ascii_art, style=f"{MAIN_COLOR} bold")
-        self.new_lines(1)
+        self.console.print(
+            pyfiglet.figlet_format(title), style=f"{self.main_color} bold"
+        )
 
     def section(self, title: str) -> None:
-        self._console.rule(title, style=f"{MAIN_COLOR} bold")
-
-    def new_lines(self, count: int = 1) -> None:
-        self._console.print("\n" * (count - 1))
+        self.console.rule(title, style=f"{self.main_color} bold")
 
     def print(self, text: str, style: Optional[Union[str, RichStyle]] = None) -> None:
-        self._console.print(text, style=style)
+        self.console.print(text, style=style)
 
-    def _choice(
+    def new_lines(self, count: int = 1) -> None:
+        self.console.print("\n" * (count - 1))
+
+    def choice(
         self,
         question: str,
         choices: list[str],
         default: int,
-        style: Union[str, RichStyle] | None = None,
+        style: Optional[Union[str, RichStyle]] = None,
     ) -> str:
         text = Text(f"{question}:\n", style=style)
         for i, option in enumerate(choices, 1):
             separator = "" if i == len(choices) else "\n"
             text.append(f"  {i}. {option}{separator}", style=style)
-        self._console.print(text)
 
-        choice = self._input("project.history").strip() or default
+        self.console.print(text)
+
+        choice = self.prompt.ask(
+            "[bold cyan]You[/bold cyan]: ",
+            choices=[str(x) for x in range(1, len(choices) + 1)],
+            default=str(int(default)),
+        )
         return choices[int(choice) - 1]
 
-    def _input(self, history_file, file_names=None):
+    def input(self, file_names=None):
         if file_names is None:
             file_names = set()
 
         user_input = ""
         multiline_input = False
 
-        style = Style.from_dict({"": f"{SUB_COLOR}"})
-        completer_instance = FileContentCompleter(file_names)
+        style = Style.from_dict({"": f"{self.main_color}"})
 
         while True:
             if multiline_input:
@@ -67,8 +76,8 @@ class ConsoleTerminal:
             try:
                 line = prompt(
                     show,
-                    completer=completer_instance,
-                    history=FileHistory(history_file),
+                    completer=None,
+                    history=None,
                     style=style,
                 )
             except EOFError:
@@ -85,23 +94,3 @@ class ConsoleTerminal:
                 break
 
         return user_input
-
-
-class FileContentCompleter(Completer):
-    def __init__(self, fine_names):
-        self.words = []
-        for file_name in fine_names:
-            with open(file_name, "r") as f:
-                content = f.read()
-            self.words.extend(content.split())
-
-    def get_completions(self, document: Document, complete_event):
-        text = document.text_before_cursor
-        words = text.split()
-        if not words:
-            return
-
-        last_word = words[-1]
-        for word in self.words:
-            if word.startswith(last_word):
-                yield Completion(word, start_position=-len(last_word))
