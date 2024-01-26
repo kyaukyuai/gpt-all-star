@@ -12,7 +12,6 @@ from gpt_all_star.core.agents.product_owner.product_owner import ProductOwner
 from gpt_all_star.core.agents.qa_engineer.qa_engineer import QAEngineer
 from gpt_all_star.core.steps.steps import StepType, STEPS
 from gpt_all_star.core.storage import Storage, Storages
-from gpt_all_star.logger.logger import logger
 
 
 class Project:
@@ -45,7 +44,7 @@ class Project:
 
         self.step_type = step or StepType.DEFAULT
         if self.step_type is StepType.DEFAULT:
-            logger.info("archive previous storages")
+            self.agents.copilot.state("Archiving previous storages...")
             Storages.archive_storage(self.storages)
 
     def start(self) -> None:
@@ -55,10 +54,12 @@ class Project:
                 try:
                     step(self.agents, self.japanese_mode, self.auto_mode).run()
                 except Exception as e:
-                    logger.error(f"Failed to execute step {step}. Reason: {str(e)}")
+                    self.agents.copilot.state(
+                        f"Failed to execute step {step}. Reason: {str(e)}"
+                    )
                     raise e
         except KeyboardInterrupt:
-            logger.info("Interrupt received! Stopping...")
+            self.agents.copilot.state("Interrupt received! Stopping...")
 
     def finish(self) -> None:
         self.agents.copilot.finish()

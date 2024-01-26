@@ -51,7 +51,7 @@ def main(
     project.finish()
 
     console.print(
-        "Thank you for using gpt-all-star! See you next time!:bye:",
+        "Thank you for using gpt-all-star! See you next time! :bye:",
         style=f"{MAIN_COLOR} bold",
     )
 

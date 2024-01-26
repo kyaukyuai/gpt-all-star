@@ -17,7 +17,6 @@ from rich.panel import Panel
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
-from gpt_all_star.logger.logger import logger
 
 NEXT_COMMAND = "next"
 
@@ -46,13 +45,9 @@ class Agent(ABC):
         if human_input is not None:
             self.messages.append(Message.create_human_message(human_input))
 
-        logger.info(f"Messages before chat: {self.messages}")
-
         callbacks = StreamingStdOutCallbackHandler()
         response = self._llm(self.messages, callbacks=[callbacks])
         self.messages.append(response)
-
-        logger.info(f"Messages after chat: {self.messages}")
 
     def state(self, text: str) -> None:
         self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
@@ -68,9 +63,6 @@ class Agent(ABC):
             )
             answer = self.console.input("project.history").strip() or default
             self.console.new_lines(1)
-
-            logger.info("Question: %s", question)
-            logger.info("Answer: %s", answer)
 
             if answer or not is_required:
                 return answer

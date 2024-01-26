@@ -15,7 +15,6 @@ from gpt_all_star.core.agents.copilot.fix_source_code_prompt import (
 )
 from gpt_all_star.core.steps import step_prompts
 from gpt_all_star.tool.git import Git
-from gpt_all_star.logger.logger import logger
 
 
 class Copilot(Agent):
@@ -49,8 +48,7 @@ class Copilot(Agent):
             is_required=False,
             default=None,
         )
-
-        logger.info(f"Completed project: {self.name}")
+        self.state(f"Completed project: {self.name}")
 
     def execute_code(self, auto_mode: bool = False) -> None:
         command = self.storages.root["run.sh"]
@@ -113,8 +111,6 @@ class Copilot(Agent):
             self.messages.append(Message.create_system_message(e.stderr))
 
             self.chat(fix_source_code_template.format())
-            response = self.latest_message_content()
-            logger.info(f"response: {response}")
             self.console.new_lines(1)
             count += 1
 
@@ -134,7 +130,7 @@ class Copilot(Agent):
         git = Git(self.storages.root.path)
         files_to_add = git.files()
         if not files_to_add:
-            logger.info("No files to add to the repository.")
+            self.state("No files to add to the repository.")
             return
 
         self.state("The following diff will be pushed to the repository")

@@ -3,8 +3,6 @@ from pathlib import Path
 import git
 import requests
 
-from gpt_all_star.logger.logger import logger
-
 
 class Git:
     def __init__(self, repo_path: Path) -> None:
@@ -51,10 +49,10 @@ class Git:
             current_branch = self.repo.active_branch.name
             remote.push(refspec=f"{current_branch}:{current_branch}")
         except git.exc.GitCommandError as e:
-            logger.error(f"Failed to push to the repository: {e}")
+            print(f"Failed to push to the repository: {e}")
             raise e
         except Exception as e:
-            logger.error(f"An unexpected error occurred: {e}")
+            print(f"An unexpected error occurred: {e}")
             raise e
 
     def _create_new_github_repository(self, repository_name) -> None:
