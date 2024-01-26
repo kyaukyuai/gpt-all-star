@@ -6,7 +6,7 @@ implement_planning_prompt_template = PromptTemplate.from_template(
 {todo_list}
 ```
 
-You are currently working on TODO {index_of_todo} with the following description:
+You are currently working on TODO{index_of_todo} with the following description:
 ```
 {todo_description}
 ```

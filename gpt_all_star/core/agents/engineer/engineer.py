@@ -12,6 +12,9 @@ from gpt_all_star.core.agents.engineer.planning_development_prompt import (
 from gpt_all_star.core.agents.engineer.implement_planning_prompt import (
     implement_planning_prompt_template,
 )
+from gpt_all_star.core.agents.engineer.review_source_code_prompt import (
+    review_source_code_template,
+)
 from gpt_all_star.core.agents.engineer.create_source_code_prompt import (
     create_source_code_template,
 )
@@ -62,9 +65,13 @@ class Engineer(Agent):
                 "goal": {
                     "type": "string",
                     "description": "Very detailed description of the goals to be achieved for the TODO to be executed to accomplish the entire plan",
+                },
+                "review": {
+                    "type": "string",
+                    "description": "Very detailed description of what needs to be done to ensure that the goal has been achieved",
                 }
             },
-            "required": ["todo", "goal"],
+            "required": ["todo", "goal", "review"],
         },
     }
 }
@@ -76,11 +83,13 @@ class Engineer(Agent):
     "plan": [
         {
             "todo": "",
-            "goal": ""
+            "goal": "",
+            "review": ""
         },
         {
             "todo": "",
-            "goal": ""
+            "goal": "",
+            "review": ""
         }
     ]
 }
@@ -126,7 +135,7 @@ class Engineer(Agent):
 
             previous_finished_task_message = (
                 "All preceding tasks have been completed. No further action is required on them.\n"
-                + "Current codes are as follows:\n"
+                + "All codes implemented so far are listed below. Please include them to ensure that we achieve our goal.\n"
                 + "{current_contents}\n\n"
                 if i == 0
                 else ""
@@ -145,6 +154,33 @@ class Engineer(Agent):
                         todo_description=task["todo"],
                         finished_todo_message=previous_finished_task_message,
                         todo_goal=task["goal"],
+                    )
+                )
+            )
+            self.chat()
+            self.console.new_lines(2)
+            files = Message.parse_message(self.latest_message_content())
+            for file_name, file_content in files:
+                self.storages.root[file_name] = file_content
+
+            self.console.print(f"REVIEW: {task['review']}")
+            self.console.new_lines()
+
+            self.messages.append(
+                Message.create_system_message(
+                    review_source_code_template.format(
+                        num_of_todo=len(todo_list["plan"]),
+                        todo_list="".join(
+                            [
+                                f"{i + 1}: {task['todo']}\n"
+                                for i, task in enumerate(todo_list["plan"])
+                            ]
+                        ),
+                        index_of_todo=i + 1,
+                        todo_description=task["todo"],
+                        finished_todo_message=previous_finished_task_message,
+                        todo_goal=task["goal"],
+                        todo_review=task["review"],
                     )
                 )
             )
