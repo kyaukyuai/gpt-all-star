@@ -5,6 +5,7 @@ from gpt_all_star.core.message import Message
 from gpt_all_star.core.agents import agents
 from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.steps.step import Step
+from gpt_all_star.tool.test_parser import TextParser
 
 
 class TeamBuilding(Step):
@@ -24,20 +25,20 @@ class TeamBuilding(Step):
         self._display_team_members()
 
     def _introduce_agent(self, agent: Agent, role: AgentRole) -> None:
-        self.agents.copilot.state(f"Please introduce the {role.name.lower()}.")
+        self.agents.copilot.state(f"Please introduce the {role.name}.")
         agent.name = self.agents.copilot.ask(
-            f"What is the name of the {role.name.lower()}?",
+            f"What is the name of the {role.name}?",
             is_required=False,
             default=agent.name,
         )
         agent.profile = self.agents.copilot.ask(
-            f"What is the profile of the {role.name.lower()}?",
+            f"What is the profile of the {role.name}?",
             is_required=False,
             default=agent.profile,
         )
         agent.profile += "\nAny instruction you get that is labeled as **IMPORTANT**, you follow strictly."
         if self.japanese_mode:
-            agent.profile += "\n**必ず日本語で書いて下さい**"
+            agent.profile += "\n**IMPORTANT: 必ず日本語で書いて下さい**"
         agent.messages = [Message.create_system_message(agent.profile)]
 
     def _display_team_members(self) -> None:
@@ -47,8 +48,16 @@ class TeamBuilding(Step):
         table.add_column("Name")
         table.add_column("Role")
         table.add_column("Profile")
-        for agent in vars(self.agents).values():
-            if agent.role != AgentRole.COPILOT:
-                table.add_row(agent.name, agent.role.name, agent.profile)
+        team_members = [
+            agent
+            for agent in vars(self.agents).values()
+            if agent.role != AgentRole.COPILOT
+        ]
+        for member in team_members:
+            table.add_row(
+                member.name,
+                member.role.name,
+                TextParser.cut_last_n_lines(member.profile, 2),
+            )
         self.console.print(table)
         self.console.new_lines(1)
