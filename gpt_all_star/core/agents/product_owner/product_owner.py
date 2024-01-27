@@ -25,21 +25,21 @@ class ProductOwner(Agent):
         super().__init__(AgentRole.PRODUCT_OWNER, storages, name, profile)
 
     def create_specifications(self, auto_mode: bool = False) -> None:
-        self._clarify_instructions(auto_mode)
-        self._summarize_specifications(auto_mode)
-
-    def _clarify_instructions(self, auto_mode: bool = False) -> None:
         instructions = self._get_instructions()
         app_type = self._get_app_type()
 
+        self._clarify_instructions(instructions, app_type, auto_mode)
+        self._summarize_specifications(instructions, app_type, auto_mode)
+
+    def _clarify_instructions(
+        self, instructions: str, app_type: str, auto_mode: bool = False
+    ) -> None:
         clarification_method = (
             self._clarify_instructions_auto
             if auto_mode
             else self._clarify_instructions_manual
         )
         clarification_method(instructions, app_type)
-
-        self._summarize_specifications(auto_mode)
 
     def _clarify_instructions_auto(self, instructions: str, app_type: str) -> None:
         message = Message.create_system_message(
@@ -79,11 +79,13 @@ class ProductOwner(Agent):
             default=1,
         )
 
-    def _summarize_specifications(self, auto_mode: bool = False) -> None:
+    def _summarize_specifications(
+        self, instructions: str, app_type: str, auto_mode: bool = False
+    ) -> None:
         self.state("How about the following?")
 
         message = Message.create_system_message(
-            summarize_specifications_template.format()
+            summarize_specifications_template.format(app_type=app_type)
         )
 
         self.messages.append(message)

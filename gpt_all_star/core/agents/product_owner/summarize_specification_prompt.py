@@ -1,9 +1,9 @@
 from langchain_core.prompts import PromptTemplate
 
 summarize_specifications_template = PromptTemplate.from_template(
-    """Based on what we have discussed so far, please summarize the specifications of our software application.
-**Please be as detailed as possible so that engineers will have no difficulty in implementing the software application.**
-**The output should be presented in markdown format.**
+    """Based on what we have discussed so far, please summarize the specifications of a {app_type}.
+**IMPORTANT**: Please be as detailed as possible so that engineers will have no difficulty in implementing a {app_type}.
+**IMPORTANT**: The output should be presented in markdown format.
 
 FILENAME
 ```
