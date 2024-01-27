@@ -142,23 +142,56 @@ class Copilot(Agent):
 
         self.messages.append(
             Message.create_system_message(
-                create_commit_message_template.format(diff=git.diffs())
+                create_commit_message_template.format(
+                    diff=git.diffs(),
+                    json_format="""
+{
+    "commitDetails": {
+        "type": "object",
+        "description": "Details of the commit to be made.",
+        "properties": {
+            "branch": {
+                "type": "string",
+                "description": "Name of the branch to be pushed.",
+            },
+            "message": {
+                "type": "string",
+                "description": "Commit message to be used.",
+            }
+        },
+        "required": ["branch", "message"],
+    }
+}
+""",
+                    example="""
+------------------------example_1---------------------------
+```
+{
+    "branch": "feat/feature-1",
+    "message": "add feature 1",
+}
+```
+------------------------example_1---------------------------
+""",
+                )
             )
         )
         self.chat()
-        commit_message = self.latest_message_content()
+        commit_details = Message.parse_to_json(self.latest_message_content())[
+            "commitDetails"
+        ]
 
         self.console.new_lines()
         self.state("Pushing to the repository...")
         git.add(files_to_add)
-        git.commit(commit_message)
+        git.commit(commit_details["message"])
         git.push()
 
     def _confirm_push(self):
-        CONFIRM_CHOICES = ["y", "n"]
+        CONFIRM_CHOICES = ["yes", "no"]
         choice = self.present_choices(
             "Proceed with commit and push to repository?",
             CONFIRM_CHOICES,
             default=1,
         )
-        return choice == "y"
+        return choice == "yes"

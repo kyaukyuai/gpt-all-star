@@ -3,8 +3,6 @@ from pathlib import Path
 import git
 import requests
 
-from gpt_all_star.main import COMMAND_NAME
-
 
 class Git:
     def __init__(self, repo_path: Path) -> None:
@@ -36,7 +34,7 @@ class Git:
     def add(self, files):
         self.repo.index.add(files)
 
-    def commit(self, commit_message: str = f"Add files via {COMMAND_NAME}"):
+    def commit(self, commit_message: str = f"Add files via gpt-all-star"):
         self.repo.index.commit(commit_message)
 
     def push(self):

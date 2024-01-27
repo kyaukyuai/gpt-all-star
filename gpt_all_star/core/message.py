@@ -1,6 +1,8 @@
 from __future__ import annotations
+import json
 
 import re
+from typing import Any
 import warnings
 
 from langchain_core.messages import (
@@ -51,3 +53,12 @@ class Message:
             files.append((path, specification))
 
         return files
+
+    @staticmethod
+    def parse_to_json(message: str) -> dict[str, Any]:
+        try:
+            return json.loads(message)
+        except:
+            matches = re.finditer(r"```\S*\n(.+?)\n```", message, re.DOTALL)
+            json_str = "\n".join(match.group(1) for match in matches)
+            return json.loads(json_str)
