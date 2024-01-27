@@ -183,9 +183,14 @@ class Copilot(Agent):
 
         self.console.new_lines()
         self.state("Pushing to the repository...")
-        git.add(files_to_add)
-        git.commit(commit_details["message"])
-        git.push()
+        try:
+            git.checkout(commit_details["branch"])
+            git.add(files_to_add)
+            git.commit(commit_details["message"])
+            git.push()
+            self.state("Push successful!")
+        except Exception as e:
+            self.state(f"An error occurred while pushing to the repository: {str(e)}")
 
     def _confirm_push(self):
         CONFIRM_CHOICES = ["yes", "no"]

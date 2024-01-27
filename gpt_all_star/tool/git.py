@@ -31,6 +31,14 @@ class Git:
         except git.exc.GitCommandError:
             return "An error occurred while executing git command."
 
+    def checkout(self, branch_name):
+        try:
+            self.repo.git.checkout("HEAD", b=branch_name)
+            return True
+        except git.exc.GitCommandError as e:
+            print(f"Error creating new branch: {e}")
+            return False
+
     def add(self, files):
         self.repo.index.add(files)
 
