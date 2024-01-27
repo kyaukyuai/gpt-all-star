@@ -7,6 +7,7 @@ from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.agents.qa_engineer.analyze_source_code_prompt import (
     analyze_source_code_template,
 )
+from gpt_all_star.tool.text_parser import TextParser
 
 
 class QAEngineer(Agent):
@@ -36,6 +37,6 @@ class QAEngineer(Agent):
 
         self.chat()
 
-        files = Message.parse_message(self.latest_message_content())
+        files = TextParser.parse_code_from_text(self.latest_message_content())
         for file_name, file_content in files:
             self.storages.root[file_name] = file_content

@@ -10,6 +10,7 @@ from gpt_all_star.core.agents.architect.list_page_prompt import (
 from gpt_all_star.core.agents.architect.list_file_prompt import (
     list_file_template,
 )
+from gpt_all_star.tool.text_parser import TextParser
 
 
 class Architect(Agent):
@@ -44,7 +45,7 @@ class Architect(Agent):
             auto_mode=auto_mode,
         )
 
-        file = Message.parse_message(self.latest_message_content())[0]
+        file = TextParser.parse_code_from_text(self.latest_message_content())[0]
         self.storages.docs["technology.md"] = file[1]
 
         self.state("These are the technologies used to build the application:")
@@ -68,7 +69,7 @@ class Architect(Agent):
             auto_mode=auto_mode,
         )
 
-        file = Message.parse_message(self.latest_message_content())[0]
+        file = TextParser.parse_code_from_text(self.latest_message_content())[0]
         self.storages.docs["page.md"] = file[1]
 
         self.state("These are the pages required by the application:")
@@ -94,7 +95,7 @@ class Architect(Agent):
             auto_mode=auto_mode,
         )
 
-        file = Message.parse_message(self.latest_message_content())[0]
+        file = TextParser.parse_code_from_text(self.latest_message_content())[0]
         self.storages.docs["file.md"] = file[1]
 
         self.state("These are the files required by the application:")

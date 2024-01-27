@@ -28,6 +28,7 @@ from gpt_all_star.core.agents.engineer.improve_source_code_prompt import (
     improve_source_code_template,
 )
 from gpt_all_star.core.steps import step_prompts
+from gpt_all_star.tool.text_parser import TextParser
 
 
 class Engineer(Agent):
@@ -159,7 +160,7 @@ class Engineer(Agent):
             )
             self.chat()
             self.console.new_lines(2)
-            files = Message.parse_message(self.latest_message_content())
+            files = TextParser.parse_code_from_text(self.latest_message_content())
             for file_name, file_content in files:
                 self.storages.root[file_name] = file_content
 
@@ -186,7 +187,7 @@ class Engineer(Agent):
             )
             self.chat()
             self.console.new_lines(2)
-            files = Message.parse_message(self.latest_message_content())
+            files = TextParser.parse_code_from_text(self.latest_message_content())
             for file_name, file_content in files:
                 self.storages.root[file_name] = file_content
 
@@ -208,7 +209,7 @@ class Engineer(Agent):
         #     auto_mode=auto_mode,
         # )
 
-        # files = Message.parse_message(self.latest_message_content())
+        # files = TextParser.parse_code_from_text(self.latest_message_content())
         # for file_name, file_content in files:
         #     self.storages.root[file_name] = file_content
 
@@ -273,6 +274,6 @@ class Engineer(Agent):
             auto_mode=auto_mode,
         )
 
-        files = Message.parse_message(self.latest_message_content())
+        files = TextParser.parse_code_from_text(self.latest_message_content())
         for file_name, file_content in files:
             self.storages.root[file_name] = file_content

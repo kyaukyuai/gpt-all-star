@@ -5,6 +5,7 @@ from gpt_all_star.core.agents.designer.design_user_interface_prompt import (
     design_user_interface_template,
 )
 from gpt_all_star.core.steps import step_prompts
+from gpt_all_star.tool.text_parser import TextParser
 
 
 class Designer(Agent):
@@ -38,6 +39,6 @@ class Designer(Agent):
 
         self.chat()
 
-        files = Message.parse_message(self.latest_message_content())
+        files = TextParser.parse_code_from_text(self.latest_message_content())
         for file_name, file_content in files:
             self.storages.root[file_name] = file_content

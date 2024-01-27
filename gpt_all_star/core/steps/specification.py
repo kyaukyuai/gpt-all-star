@@ -9,5 +9,5 @@ class Specification(Step):
     def run(self) -> None:
         self.agents.copilot.state("Let's move on to the specification step!")
         self.console.new_lines()
-        self.agents.product_owner.clarify_instructions(auto_mode=self.auto_mode)
+        self.agents.product_owner.create_specifications(auto_mode=self.auto_mode)
         self.console.new_lines()

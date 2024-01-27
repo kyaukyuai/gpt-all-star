@@ -5,7 +5,7 @@ from gpt_all_star.core.message import Message
 from gpt_all_star.core.agents import agents
 from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.tool.test_parser import TextParser
+from gpt_all_star.tool.text_parser import TextParser
 
 
 class TeamBuilding(Step):

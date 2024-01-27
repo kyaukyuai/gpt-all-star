@@ -15,6 +15,7 @@ from gpt_all_star.core.agents.copilot.fix_source_code_prompt import (
 )
 from gpt_all_star.core.steps import step_prompts
 from gpt_all_star.tool.git import Git
+from gpt_all_star.tool.text_parser import TextParser
 
 
 class Copilot(Agent):
@@ -114,7 +115,7 @@ class Copilot(Agent):
             self.console.new_lines(1)
             count += 1
 
-            files = Message.parse_message(self.latest_message_content())
+            files = TextParser.parse_code_from_text(self.latest_message_content())
             for file_name, file_content in files:
                 self.storages.root[file_name] = file_content
 
@@ -177,7 +178,7 @@ class Copilot(Agent):
             )
         )
         self.chat()
-        commit_details = Message.parse_to_json(self.latest_message_content())[
+        commit_details = TextParser.to_json(self.latest_message_content())[
             "commitDetails"
         ]
 
