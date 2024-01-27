@@ -10,17 +10,17 @@ There are the specifications to build the application:
 
 These are the technologies used to build the application
 ```
-{technology}
+{technologies}
 ```
 
 These are the page URLs required by the application:
 ```
-{page}
+{pages}
 ```
 
 These are the files required by the application:
 ```
-{file}
+{files}
 ```
 
 You will output the content of each file necessary to achieve the goal, including ALL code.

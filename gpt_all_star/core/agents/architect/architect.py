@@ -10,7 +10,6 @@ from gpt_all_star.core.agents.architect.list_page_prompt import (
 from gpt_all_star.core.agents.architect.list_file_prompt import (
     list_file_template,
 )
-from gpt_all_star.tool.text_parser import TextParser
 
 
 class Architect(Agent):
@@ -22,7 +21,7 @@ class Architect(Agent):
     ) -> None:
         super().__init__(AgentRole.ARCHITECT, storages, name, profile)
 
-    def design_system(self, auto_mode: bool = False) -> None:
+    def create_system_design(self, auto_mode: bool = False) -> None:
         self._list_technology(auto_mode)
         self._list_page(auto_mode)
         self._list_file(auto_mode)
@@ -45,11 +44,7 @@ class Architect(Agent):
             auto_mode=auto_mode,
         )
 
-        file = TextParser.parse_code_from_text(self.latest_message_content())[0]
-        self.storages.docs["technology.md"] = file[1]
-
-        self.state("These are the technologies used to build the application:")
-        self.output_md(self.storages.docs["technology.md"])
+        self.store_md("technologies", self.latest_message_content())
 
     def _list_page(self, auto_mode: bool = False):
         self.state("How about the following?")
@@ -69,11 +64,7 @@ class Architect(Agent):
             auto_mode=auto_mode,
         )
 
-        file = TextParser.parse_code_from_text(self.latest_message_content())[0]
-        self.storages.docs["page.md"] = file[1]
-
-        self.state("These are the pages required by the application:")
-        self.output_md(self.storages.docs["page.md"])
+        self.store_md("pages", self.latest_message_content())
 
     def _list_file(self, auto_mode: bool = False):
         self.state("How about the following?")
@@ -82,8 +73,8 @@ class Architect(Agent):
             Message.create_system_message(
                 list_file_template.format(
                     specifications=self.storages.docs["specifications.md"],
-                    technology=self.storages.docs["technology.md"],
-                    page=self.storages.docs["page.md"],
+                    technologies=self.storages.docs["technologies.md"],
+                    pages=self.storages.docs["pages.md"],
                 )
             )
         )
@@ -95,8 +86,4 @@ class Architect(Agent):
             auto_mode=auto_mode,
         )
 
-        file = TextParser.parse_code_from_text(self.latest_message_content())[0]
-        self.storages.docs["file.md"] = file[1]
-
-        self.state("These are the files required by the application:")
-        self.output_md(self.storages.docs["file.md"])
+        self.store_md("files", self.latest_message_content())

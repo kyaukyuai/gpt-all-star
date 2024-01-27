@@ -24,7 +24,7 @@ CONTENT is the text in the file
 
 Example representation of a file:
 
-page.md
+pages.md
 ```
 - localhost:3000/
 ```

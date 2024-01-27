@@ -10,7 +10,6 @@ from gpt_all_star.core.agents.product_owner.summarize_specification_prompt impor
     summarize_specifications_template,
 )
 from gpt_all_star.core.message import Message
-from gpt_all_star.tool.text_parser import TextParser
 
 APP_TYPES = ["Client-Side Web Application", "Full-Stack Web Application"]
 
@@ -97,8 +96,4 @@ class ProductOwner(Agent):
             auto_mode=auto_mode,
         )
 
-        file = TextParser.parse_code_from_text(self.latest_message_content())[0]
-        self.storages.docs["specifications.md"] = file[1]
-
-        self.state("There are the specifications to build the application:")
-        self.output_md(self.storages.docs["specifications.md"])
+        self.store_md("specifications", self.latest_message_content())

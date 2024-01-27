@@ -10,12 +10,12 @@ There are the specifications to build the application:
 
 These are the technologies used to build the application
 ```
-{technology}
+{technologies}
 ```
 
 These are the page URLs required by the application:
 ```
-{page}
+{pages}
 ```
 
 Thoughtfully determine and list the exact file names that the development team will create for the application.

@@ -47,9 +47,9 @@ class Engineer(Agent):
             Message.create_system_message(
                 planning_development_prompt_template.format(
                     specifications=self.storages.docs["specifications.md"],
-                    technology=self.storages.docs["technology.md"],
-                    page=self.storages.docs["page.md"],
-                    file=self.storages.docs["file.md"],
+                    technologies=self.storages.docs["technologies.md"],
+                    pages=self.storages.docs["pages.md"],
+                    files=self.storages.docs["files.md"],
                     json_format="""
 {
     "plan": {
@@ -195,9 +195,9 @@ class Engineer(Agent):
         #     Message.create_system_message(
         #         create_source_code_template.format(
         #             specifications=self.storages.docs["specifications.md"],
-        #             technology=self.storages.docs["technology.md"],
-        #             page=self.storages.docs["page.md"],
-        #             file=self.storages.docs["file.md"],
+        #             technologies=self.storages.docs["technologies.md"],
+        #             pages=self.storages.docs["pages.md"],
+        #             files=self.storages.docs["files.md"],
         #         ),
         #     )
         # )

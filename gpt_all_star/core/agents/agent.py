@@ -18,6 +18,7 @@ from rich.panel import Panel
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
+from gpt_all_star.tool.text_parser import TextParser
 
 NEXT_COMMAND = "next"
 
@@ -53,7 +54,14 @@ class Agent(ABC):
     def state(self, text: str) -> None:
         self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
 
-    def output_md(self, md: str) -> None:
+    def store_md(self, file_name_prefix: str, message: str) -> None:
+        file = TextParser.parse_code_from_text(message)[0]
+        self.storages.docs[f"{file_name_prefix}.md"] = file[1]
+
+        self.state(f"These are the {file_name_prefix} used to build the application:")
+        self._output_md(self.storages.docs[f"{file_name_prefix}.md"])
+
+    def _output_md(self, md: str) -> None:
         self.console.print(Panel(Markdown(md, style="bold")))
 
     def ask(self, question: str, is_required: bool = True, default: str = None) -> str:
@@ -212,7 +220,7 @@ Always follow the best practices for the requested languages for folder/file str
         name="Jeff Dean",
         color="#FFAEBC",
         prompt=PromptTemplate.from_template(
-            """You are a seasoned software architect, specializing in designing architectures for minimum viable products (MVPs) for web applications. Your approach emphasizes rapid development through the extensive use of pre-existing technologies.
+            """You are a seasoned software architect, specializing in designing architectures for minimum viable products (MVPs) for web applications.
 """
         ),
     ),
