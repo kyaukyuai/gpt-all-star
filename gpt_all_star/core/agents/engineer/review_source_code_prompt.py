@@ -15,7 +15,7 @@ goal: {todo_goal}
 {finished_todo_message}
 Your task is to review that {todo_review} to make sure it is correct and meets the goal.
 If there are no problems after reviewing, exit without outputting anything.
-Your Final answer must be the full python code, only the python code and nothing else.
+Your Final answer must be the full code, only the python code and nothing else.
 
 Represent files like so:
 
