@@ -108,13 +108,7 @@ class Engineer(Agent):
             auto_mode=auto_mode,
         )
 
-        todo_list = {}
-        try:
-            todo_list = json.loads(self.latest_message_content())
-        except:
-            regex = r"```\S*\n(.+?)```"
-            matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
-            todo_list = json.loads("\n".join(match.group(1) for match in matches))
+        todo_list = TextParser.to_json(self.latest_message_content())
         self.console.print(todo_list)
 
         for i, task in enumerate(todo_list["plan"]):
@@ -131,7 +125,6 @@ class Engineer(Agent):
                     f"Adding file {file_name} to the prompt...", style="blue"
                 )
                 code_input = step_prompts.format_file_to_input(file_name, file_str)
-                Message.create_system_message(f"{code_input}")
                 current_contents += f"{code_input}\n"
 
             previous_finished_task_message = (
