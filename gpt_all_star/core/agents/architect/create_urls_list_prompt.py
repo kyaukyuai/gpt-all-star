@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 
-list_page_template = PromptTemplate.from_template(
+create_urls_list_template = PromptTemplate.from_template(
     """Read and understand the specifications to build the application.
 
 There are the specifications to build the application:

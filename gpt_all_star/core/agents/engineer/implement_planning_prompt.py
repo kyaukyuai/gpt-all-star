@@ -16,8 +16,10 @@ After a TODO is finished, please make sure you meet the goal: {todo_goal}.
 If you have already implemented a TODO that you need to do, exit without outputting anything.
 
 You will output the content of each file necessary to achieve the goal, including ALL code.
-**Do not comment on what every file does. Please note that the code should be fully functional. No placeholders.**
-**Please note that the code should be fully functional. No placeholders.**
+**IMPORTANT**: Final answer must be the full codes, only the codes and nothing else.
+**IMPORTANT**: Never use placeholders!
+For Python, you always create an appropriate requirements.txt file.
+For NodeJS, you always create an appropriate package.json file.
 
 Follow a language and framework appropriate best practice file naming convention.
 Make sure that files contain all imports, types etc. The code should be fully functional. Make sure that code in different files are compatible with each other.
@@ -35,7 +37,6 @@ CODE
 The following tokens must be replaced like so:
 FILENAME is the lowercase combined path and file name including the file extension and **if the file already exists, please follow its name**.
 CODE is the code in the file
-**Be sure to include all codes without omission!**
 
 Example representation of a file:
 
