@@ -1,10 +1,10 @@
 from langchain_core.prompts import PromptTemplate
 
 create_technologies_list_template = PromptTemplate.from_template(
-    """Your task is to list the exact techniques for building an application with the following specifications.
-Only technologies related to source code implementation should be listed, not version control tools, technologies related to automated testing or deployment, or tools related to project management.
-There is no need to provide a description for each technology.
-Avoid providing personal opinions or alternatives, only provide the exact technologies.
+    """Your task is to consider carefully and list the exact techniques for building an application with the following specifications.
+**IMPORTANT**: Only technologies related to source code implementation should be listed, not version control tools, technologies related to automated testing or deployment, or tools related to project management.
+**IMPORTANT**: Descriptions for each technology are not required.
+**IMPORTANT**: Avoid providing personal opinions or alternatives.
 
 There are the specifications to build the application:
 ```
@@ -25,16 +25,7 @@ Preferences: In scenarios where multiple technology options are available for a 
 - Docker / Docker Compose
 ```
 
-**IMPORTANT**: The output should be presented in markdown format.
-
-FILENAME.md
-```
-CONTENT
-```
-
-The following tokens must be replaced like so:
-FILENAME is the lowercase combined path and file name including the file extension
-CONTENT is the text in the file
+{format}
 
 Example representation of a file:
 

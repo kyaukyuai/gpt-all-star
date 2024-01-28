@@ -1,3 +1,4 @@
+from gpt_all_star.core.agents.architect.output_format import output_format
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
@@ -31,7 +32,8 @@ class Architect(Agent):
 
         message = Message.create_system_message(
             create_technologies_list_template.format(
-                specifications=self.storages.docs["specifications.md"]
+                specifications=self.storages.docs["specifications.md"],
+                format=output_format,
             )
         )
         self.messages.append(message)
@@ -50,7 +52,8 @@ class Architect(Agent):
 
         message = Message.create_system_message(
             create_urls_list_template.format(
-                specifications=self.storages.docs["specifications.md"]
+                specifications=self.storages.docs["specifications.md"],
+                format=output_format,
             )
         )
         self.messages.append(message)
@@ -72,6 +75,7 @@ class Architect(Agent):
                 specifications=self.storages.docs["specifications.md"],
                 technologies=self.storages.docs["technologies.md"],
                 pages=self.storages.docs["pages.md"],
+                format=output_format,
             )
         )
         self.messages.append(message)
