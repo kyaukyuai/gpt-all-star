@@ -1,17 +1,16 @@
 from langchain_core.prompts import PromptTemplate
 
 create_urls_list_template = PromptTemplate.from_template(
-    """Read and understand the specifications to build the application.
+    """Your task is to list only the page URLs that are needed for the application.
+There is no need to provide a description for each page URL.
+Avoid providing personal opinions or alternatives, only provide the exact page URLs.
 
 There are the specifications to build the application:
 ```
 {specifications}
 ```
 
-Carefully consider and list only the page URLs that the development team needs to construct.
-Avoid providing personal opinions or alternatives, only provide the exact URLs.
-
-**The output should be presented in markdown format.**
+**IMPORTANT**: The output should be presented in markdown format.
 
 FILENAME.md
 ```
