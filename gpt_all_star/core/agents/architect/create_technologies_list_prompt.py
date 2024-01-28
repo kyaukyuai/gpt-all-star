@@ -3,7 +3,8 @@ from langchain_core.prompts import PromptTemplate
 create_technologies_list_template = PromptTemplate.from_template(
     """Your task is to consider carefully and list the exact techniques for building an application with the following specifications.
 **IMPORTANT**: Only technologies related to source code implementation should be listed, not version control tools, technologies related to automated testing or deployment, or tools related to project management.
-**IMPORTANT**: Descriptions for each technology are not required.
+**IMPORTANT**: List only the minimum required technology.
+**IMPORTANT**: Descriptions for each technology are not required, only provide the exact technology name.
 **IMPORTANT**: Avoid providing personal opinions or alternatives.
 
 There are the specifications to build the application:
