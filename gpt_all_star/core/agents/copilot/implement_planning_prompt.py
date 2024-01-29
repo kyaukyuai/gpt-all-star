@@ -27,6 +27,9 @@ Ensure that code in different files is compatible.
 Include module dependencies or package manager dependency definition files.
     For Python, you always create an appropriate requirements.txt file.
     For NodeJS, you always create an appropriate package.json file.
+        please set NODE_OPTIONS=--openssl-legacy-provider like so:
+            "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start"
+            "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build"
 
 Represent files like so:
 

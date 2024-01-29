@@ -98,15 +98,14 @@ class Copilot(Agent):
             self.console.print(result.stdout, style="green")
             self.console.print(result.stderr, style="red")
             if result.returncode != 0:
-                self._handle_error({"out": result.stdout, "err": result.stderr})
+                self._handle_error({"stdout": result.stdout, "stderr": result.stderr})
         except KeyboardInterrupt:
             self._handle_keyboard_interrupt()
 
     def _handle_error(self, e: dict) -> None:
         count = 0
 
-        error_message = f"The following error occurred:\n{e['out']}\n{e['err']}.\n Attempt to correct the source codes.\n"
-        self.console.print(error_message, style="red")
+        self.state("Initiating source code correction process.")
 
         current_codes = ""
         for (
