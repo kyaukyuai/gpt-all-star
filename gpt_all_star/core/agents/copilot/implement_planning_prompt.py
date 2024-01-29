@@ -18,14 +18,15 @@ If you have already implemented a TODO that you need to do, exit without outputt
 You will output the content of each file necessary to achieve the goal, including ALL code.
 **IMPORTANT**: Final answer must be the full codes, only the codes and nothing else.
 **IMPORTANT**: Never use placeholders!
-For Python, you always create an appropriate requirements.txt file.
-For NodeJS, you always create an appropriate package.json file.
 
-Follow a language and framework appropriate best practice file naming convention.
-Make sure that files contain all imports, types etc. The code should be fully functional. Make sure that code in different files are compatible with each other.
-Ensure to implement all code, if you are unsure, write a plausible implementation.
-Include module dependency or package manager dependency definition file.
-Before you finish, double check that all parts of the architecture is present in the files.
+Follow best practice file naming conventions appropriate for your language and framework.
+Use the most up-to-date libraries.
+Make sure files contain all imports, types, etc.
+Make sure code is fully functional.
+Ensure that code in different files is compatible.
+Include module dependencies or package manager dependency definition files.
+    For Python, you always create an appropriate requirements.txt file.
+    For NodeJS, you always create an appropriate package.json file.
 
 Represent files like so:
 

@@ -15,9 +15,6 @@ from gpt_all_star.core.agents.copilot.implement_planning_prompt import (
 from gpt_all_star.core.agents.copilot.create_commit_message_prompt import (
     create_commit_message_template,
 )
-from gpt_all_star.core.agents.copilot.fix_source_code_prompt import (
-    fix_source_code_template,
-)
 from gpt_all_star.core.steps import step_prompts
 from gpt_all_star.tool.git import Git
 from gpt_all_star.tool.text_parser import TextParser
@@ -220,31 +217,7 @@ class Copilot(Agent):
             for file_name, file_content in files:
                 self.storages.root[file_name] = file_content
 
-        # self.console.print(
-        #     f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
-        #     style="bold red",
-        # )
-        # for (
-        #     file_name,
-        #     file_str,
-        # ) in self.storages.root.recursive_file_search().items():
-        #     self.console.print(
-        #         f"Adding file {file_name} to the prompt...", style="blue"
-        #     )
-        #     code_input = step_prompts.format_file_to_input(file_name, file_str)
-        #     self.messages.append(Message.create_system_message(f"{code_input}"))
-
-        # self.messages.append(Message.create_system_message(e.stderr))
-
-        # self.chat(fix_source_code_template.format())
-        # self.console.new_lines(1)
-        # count += 1
-
-        # files = TextParser.parse_code_from_text(self.latest_message_content())
-        # for file_name, file_content in files:
-        #     self.storages.root[file_name] = file_content
-
-        # self.execute_code()
+        self.execute_code()
 
     def _handle_keyboard_interrupt(self) -> None:
         self.console.new_lines()

@@ -19,11 +19,9 @@ Compatibility: Ensure that the listed technologies are compatible with each othe
 Preferences: In scenarios where multiple technology options are available for a specific project component, prioritize the following preferred technologies.
 
 - React
-- Node.js
-- SQLite OR MongoDB
-- Bootstrap
-- HTML
-- CSS3
+- JavaScript
+- Chakra UI
+    - @chakra-ui/react @emotion/react @emotion/styled framer-motion
 - Docker / Docker Compose
 ```
 
@@ -34,11 +32,8 @@ Example representation of a file:
 technologies.md
 ```
 - React
-- Node.js
-- SQLite OR MongoDB
-- Bootstrap
-- HTML
-- CSS3
+- JavaScript
+- Chakra UI
 - Docker / Docker Compose
 ```
 """

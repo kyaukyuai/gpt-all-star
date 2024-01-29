@@ -1,5 +1,4 @@
 from __future__ import annotations
-import json
 
 import re
 
@@ -11,12 +10,6 @@ from gpt_all_star.core.agents.engineer.planning_development_prompt import (
 )
 from gpt_all_star.core.agents.engineer.implement_planning_prompt import (
     implement_planning_prompt_template,
-)
-from gpt_all_star.core.agents.engineer.review_source_code_prompt import (
-    review_source_code_template,
-)
-from gpt_all_star.core.agents.engineer.create_source_code_prompt import (
-    create_source_code_template,
 )
 from gpt_all_star.core.agents.engineer.create_entrypoint_prompt import (
     create_entrypoint_template,
@@ -66,13 +59,9 @@ class Engineer(Agent):
                 "goal": {
                     "type": "string",
                     "description": "Very detailed description of the goals to be achieved for the TODO to be executed to accomplish the entire plan",
-                },
-                "review": {
-                    "type": "string",
-                    "description": "Very detailed description of what needs to be done to ensure that the goal has been achieved",
                 }
             },
-            "required": ["todo", "goal", "review"],
+            "required": ["todo", "goal"],
         },
     }
 }
@@ -84,13 +73,11 @@ class Engineer(Agent):
     "plan": [
         {
             "todo": "",
-            "goal": "",
-            "review": ""
+            "goal": ""
         },
         {
             "todo": "",
-            "goal": "",
-            "review": ""
+            "goal": ""
         }
     ]
 }
@@ -156,55 +143,6 @@ class Engineer(Agent):
             files = TextParser.parse_code_from_text(self.latest_message_content())
             for file_name, file_content in files:
                 self.storages.root[file_name] = file_content
-
-            self.console.print(f"REVIEW: {task['review']}")
-            self.console.new_lines()
-
-            self.messages.append(
-                Message.create_system_message(
-                    review_source_code_template.format(
-                        num_of_todo=len(todo_list["plan"]),
-                        todo_list="".join(
-                            [
-                                f"{i + 1}: {task['todo']}\n"
-                                for i, task in enumerate(todo_list["plan"])
-                            ]
-                        ),
-                        index_of_todo=i + 1,
-                        todo_description=task["todo"],
-                        finished_todo_message=previous_finished_task_message,
-                        todo_goal=task["goal"],
-                        todo_review=task["review"],
-                    )
-                )
-            )
-            self.chat()
-            self.console.new_lines(2)
-            files = TextParser.parse_code_from_text(self.latest_message_content())
-            for file_name, file_content in files:
-                self.storages.root[file_name] = file_content
-
-        # self.messages.append(
-        #     Message.create_system_message(
-        #         create_source_code_template.format(
-        #             specifications=self.storages.docs["specifications.md"],
-        #             technologies=self.storages.docs["technologies.md"],
-        #             pages=self.storages.docs["pages.md"],
-        #             files=self.storages.docs["files.md"],
-        #         ),
-        #     )
-        # )
-
-        # self.execute(
-        #     "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
-        #         NEXT_COMMAND
-        #     ),
-        #     auto_mode=auto_mode,
-        # )
-
-        # files = TextParser.parse_code_from_text(self.latest_message_content())
-        # for file_name, file_content in files:
-        #     self.storages.root[file_name] = file_content
 
         self._create_entrypoint(auto_mode)
         self._create_readme(auto_mode)
