@@ -13,8 +13,11 @@ class Execution(Step):
         self.console.new_lines()
         self.agents.copilot.execute_code(auto_mode=self.auto_mode)
 
-        response = self.agents.copilot.ask(
-            "Do you want to improve your source code again?(y/n)"
+        CONFIRM_CHOICES = ["yes", "no"]
+        choice = self.agents.copilot.present_choices(
+            "Do you want to improve your source code again?",
+            CONFIRM_CHOICES,
+            default=1,
         )
-        if response.lower() in ["y", "yes"]:
+        if choice == CONFIRM_CHOICES[0]:
             Improvement(self.agents, self.japanese_mode, self.auto_mode).run()

@@ -46,10 +46,10 @@ class QAEngineer(Agent):
 {
     "plan": {
         "type": "array",
-        "description": "List of tasks to review the source code ensuring its completeness and functionality.",
+        "description": "List of tasks to evaluate the source code ensuring its completeness and functionality.",
         "items": {
             "type": "object",
-            "description": "Task to review the source code ensuring its completeness and functionality.that needs to be done to implement the entire plan.",
+            "description": "Task to evaluate the source code ensuring its completeness and functionality.that needs to be done to implement the entire plan.",
             "properties": {
                 "todo": {
                     "type": "string",

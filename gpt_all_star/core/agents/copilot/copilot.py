@@ -1,12 +1,17 @@
 import random
 import string
 import subprocess
-from termcolor import colored
 from rich.syntax import Syntax
 
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole
+from gpt_all_star.core.agents.copilot.planning_healing_prompt import (
+    planning_healing_template,
+)
+from gpt_all_star.core.agents.copilot.implement_planning_prompt import (
+    implement_planning_prompt_template,
+)
 from gpt_all_star.core.agents.copilot.create_commit_message_prompt import (
     create_commit_message_template,
 )
@@ -59,76 +64,187 @@ class Copilot(Agent):
     def _confirm_execution(self, auto_mode: bool, command: str) -> None:
         if not auto_mode:
             self.console.new_lines()
-            print(
-                colored(
-                    "Do you want to execute this code? (y/n)",
-                    "red",
-                )
+            CONFIRM_CHOICES = ["yes", "no"]
+            choice = self.present_choices(
+                "Do you want to execute this code?",
+                CONFIRM_CHOICES,
+                default=1,
             )
             self.console.new_lines()
-            print(command)
+            self.console.print(command)
             self.console.new_lines()
-            if input().lower() not in ["", "y", "yes"]:
+            if choice == CONFIRM_CHOICES[1]:
                 print("Ok, not executing the code.")
                 return []
 
-        print("Executing the code...")
+        self.state("Executing the code...")
         self.console.new_lines()
-        print(
-            colored(
-                "Note: If it does not work as expected, please consider running the code"
-                + " in another way than above.",
-                "green",
-            )
+        self.state(
+            "If it does not work as expected, please consider running the code"
+            + " in another way than above."
         )
         self.console.new_lines()
-        print("You can press ctrl+c *once* to stop the execution.")
+        self.state("You can press ctrl+c *once* to stop the execution.")
         self.console.new_lines()
 
     def _run_command(self) -> None:
         command = "bash run.sh"
         try:
-            subprocess.run(
+            result = subprocess.run(
                 command,
                 shell=True,
                 cwd=self.storages.root.path,
-                check=True,
                 text=True,
+                stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
             )
-        except subprocess.CalledProcessError as e:
-            self._handle_error(e)
+            self.console.print(result.stdout, style="green")
+            self.console.print(result.stderr, style="red")
+            if result.returncode != 0:
+                self._handle_error({"out": result.stdout, "err": result.stderr})
         except KeyboardInterrupt:
             self._handle_keyboard_interrupt()
 
-    def _handle_error(self, e: subprocess.CalledProcessError) -> None:
+    def _handle_error(self, e: dict) -> None:
         count = 0
 
-        self.console.print(
-            f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
-            style="bold red",
-        )
+        error_message = f"The following error occurred:\n{e['out']}\n{e['err']}.\n Attempt to correct the source codes.\n"
+        self.console.print(error_message, style="red")
+
+        current_codes = ""
         for (
             file_name,
             file_str,
         ) in self.storages.root.recursive_file_search().items():
-            self.console.print(
-                f"Adding file {file_name} to the prompt...", style="blue"
-            )
             code_input = step_prompts.format_file_to_input(file_name, file_str)
-            self.messages.append(Message.create_system_message(f"{code_input}"))
+            current_codes += f"{code_input}\n"
 
-        self.messages.append(Message.create_system_message(e.stderr))
+        self.messages.append(
+            Message.create_system_message(
+                planning_healing_template.format(
+                    errors=e,
+                    codes=current_codes,
+                    json_format="""
+{
+    "plan": {
+        "type": "array",
+        "description": "List of tasks to fix the errors.",
+        "items": {
+            "type": "object",
+            "description": "Task to fix the errors.",
+            "properties": {
+                "todo": {
+                    "type": "string",
+                    "description": "Very detailed description of the actual TODO to be performed to accomplish the entire plan.",
+                },
+                "goal": {
+                    "type": "string",
+                    "description": "Very detailed description of the goals to be achieved for the TODO to be executed to accomplish the entire plan",
+                }
+            },
+            "required": ["todo", "goal", "review"],
+        },
+    }
+}
+""",
+                    example="""
+------------------------example_1---------------------------
+```
+{
+    "plan": [
+        {
+            "todo": "",
+            "goal": "",
+        },
+        {
+            "todo": "",
+            "goal": "",
+        }
+    ]
+}
+```
+------------------------example_1---------------------------
+""",
+                )
+            )
+        )
+        self.chat()
+        self.console.new_lines(2)
 
-        self.chat(fix_source_code_template.format())
-        self.console.new_lines(1)
-        count += 1
+        todo_list = TextParser.to_json(self.latest_message_content())
+        self.console.print(todo_list)
 
-        files = TextParser.parse_code_from_text(self.latest_message_content())
-        for file_name, file_content in files:
-            self.storages.root[file_name] = file_content
+        for i, task in enumerate(todo_list["plan"]):
+            self.console.print(f"TODO {i + 1}: {task['todo']}")
+            self.console.print(f"GOAL: {task['goal']}")
+            self.console.new_lines()
 
-        self.execute_code()
+            current_contents = ""
+            for (
+                file_name,
+                file_str,
+            ) in self.storages.root.recursive_file_search().items():
+                self.console.print(
+                    f"Adding file {file_name} to the prompt...", style="blue"
+                )
+                code_input = step_prompts.format_file_to_input(file_name, file_str)
+                current_contents += f"{code_input}\n"
+
+            previous_finished_task_message = (
+                "All preceding tasks have been completed. No further action is required on them.\n"
+                + "All codes implemented so far are listed below. Please include them to ensure that we achieve our goal.\n"
+                + "{current_contents}\n\n"
+                if i == 0
+                else ""
+            )
+            self.messages.append(
+                Message.create_system_message(
+                    implement_planning_prompt_template.format(
+                        num_of_todo=len(todo_list["plan"]),
+                        todo_list="".join(
+                            [
+                                f"{i + 1}: {task['todo']}\n"
+                                for i, task in enumerate(todo_list["plan"])
+                            ]
+                        ),
+                        index_of_todo=i + 1,
+                        todo_description=task["todo"],
+                        finished_todo_message=previous_finished_task_message,
+                        todo_goal=task["goal"],
+                    )
+                )
+            )
+            self.chat()
+            self.console.new_lines(2)
+            files = TextParser.parse_code_from_text(self.latest_message_content())
+            for file_name, file_content in files:
+                self.storages.root[file_name] = file_content
+
+        # self.console.print(
+        #     f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
+        #     style="bold red",
+        # )
+        # for (
+        #     file_name,
+        #     file_str,
+        # ) in self.storages.root.recursive_file_search().items():
+        #     self.console.print(
+        #         f"Adding file {file_name} to the prompt...", style="blue"
+        #     )
+        #     code_input = step_prompts.format_file_to_input(file_name, file_str)
+        #     self.messages.append(Message.create_system_message(f"{code_input}"))
+
+        # self.messages.append(Message.create_system_message(e.stderr))
+
+        # self.chat(fix_source_code_template.format())
+        # self.console.new_lines(1)
+        # count += 1
+
+        # files = TextParser.parse_code_from_text(self.latest_message_content())
+        # for file_name, file_content in files:
+        #     self.storages.root[file_name] = file_content
+
+        # self.execute_code()
 
     def _handle_keyboard_interrupt(self) -> None:
         self.console.new_lines()
@@ -209,4 +325,4 @@ class Copilot(Agent):
             CONFIRM_CHOICES,
             default=1,
         )
-        return choice == "yes"
+        return choice == CONFIRM_CHOICES[0]
