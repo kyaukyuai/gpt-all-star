@@ -53,7 +53,10 @@ class Copilot(Agent):
 
     def execute_code(self, auto_mode: bool = False) -> None:
         command = self.storages.root["run.sh"]
+        self._confirm_execution(auto_mode, command)
+        self._run_command()
 
+    def _confirm_execution(self, auto_mode: bool, command: str) -> None:
         if not auto_mode:
             self.console.new_lines()
             print(
@@ -82,6 +85,7 @@ class Copilot(Agent):
         print("You can press ctrl+c *once* to stop the execution.")
         self.console.new_lines()
 
+    def _run_command(self) -> None:
         command = "bash run.sh"
         try:
             subprocess.run(
@@ -93,39 +97,44 @@ class Copilot(Agent):
                 stderr=subprocess.PIPE,
             )
         except subprocess.CalledProcessError as e:
-            count = 0
-
-            self.console.print(
-                f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
-                style="bold red",
-            )
-            for (
-                file_name,
-                file_str,
-            ) in self.storages.root.recursive_file_search().items():
-                self.console.print(
-                    f"Adding file {file_name} to the prompt...", style="blue"
-                )
-                code_input = step_prompts.format_file_to_input(file_name, file_str)
-                self.messages.append(Message.create_system_message(f"{code_input}"))
-
-            self.messages.append(Message.create_system_message(e.stderr))
-
-            self.chat(fix_source_code_template.format())
-            self.console.new_lines(1)
-            count += 1
-
-            files = TextParser.parse_code_from_text(self.latest_message_content())
-            for file_name, file_content in files:
-                self.storages.root[file_name] = file_content
-
-            self.execute_code()
-
+            self._handle_error(e)
         except KeyboardInterrupt:
-            self.console.new_lines()
-            self.console.print("Stopping execution.", style="bold yellow")
-            self.console.print("Execution stopped.", style="bold red")
-            self.console.new_lines()
+            self._handle_keyboard_interrupt()
+
+    def _handle_error(self, e: subprocess.CalledProcessError) -> None:
+        count = 0
+
+        self.console.print(
+            f"The following error occurred:\n{e.stderr}.\n Attempt to correct the source codes.\n",
+            style="bold red",
+        )
+        for (
+            file_name,
+            file_str,
+        ) in self.storages.root.recursive_file_search().items():
+            self.console.print(
+                f"Adding file {file_name} to the prompt...", style="blue"
+            )
+            code_input = step_prompts.format_file_to_input(file_name, file_str)
+            self.messages.append(Message.create_system_message(f"{code_input}"))
+
+        self.messages.append(Message.create_system_message(e.stderr))
+
+        self.chat(fix_source_code_template.format())
+        self.console.new_lines(1)
+        count += 1
+
+        files = TextParser.parse_code_from_text(self.latest_message_content())
+        for file_name, file_content in files:
+            self.storages.root[file_name] = file_content
+
+        self.execute_code()
+
+    def _handle_keyboard_interrupt(self) -> None:
+        self.console.new_lines()
+        self.console.print("Stopping execution.", style="bold yellow")
+        self.console.print("Execution stopped.", style="bold red")
+        self.console.new_lines()
 
     def push_to_git_repository(self, auto_mode: bool = False) -> None:
         git = Git(self.storages.root.path)
