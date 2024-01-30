@@ -86,25 +86,31 @@ class Copilot(Agent):
 
     def _run_command(self) -> None:
         command = "bash run.sh"
-        try:
-            result = subprocess.run(
-                command,
-                shell=True,
-                cwd=self.storages.root.path,
-                text=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-            )
-            self.console.print(result.stdout, style="green")
-            self.console.print(result.stderr, style="red")
-            if result.returncode != 0:
-                self._handle_error({"stdout": result.stdout, "stderr": result.stderr})
-        except KeyboardInterrupt:
-            self._handle_keyboard_interrupt()
+        MAX_ATTEMPTS = 5
+        for attempt in range(MAX_ATTEMPTS):
+            self.state(f"Attempt {attempt + 1}/{MAX_ATTEMPTS}")
+            try:
+                result = subprocess.run(
+                    command,
+                    shell=True,
+                    cwd=self.storages.root.path,
+                    text=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                )
+                self.console.print(result.stdout, style="green")
+                self.console.print(result.stderr, style="red")
+                if result.returncode == 0:
+                    break
+                else:
+                    self._handle_error(
+                        {"stdout": result.stdout, "stderr": result.stderr}
+                    )
+            except KeyboardInterrupt:
+                self._handle_keyboard_interrupt()
+                break
 
     def _handle_error(self, e: dict) -> None:
-        count = 0
-
         self.state("Initiating source code correction process.")
 
         current_codes = ""
@@ -215,8 +221,6 @@ class Copilot(Agent):
             files = TextParser.parse_code_from_text(self.latest_message_content())
             for file_name, file_content in files:
                 self.storages.root[file_name] = file_content
-
-        self.execute_code()
 
     def _handle_keyboard_interrupt(self) -> None:
         self.console.new_lines()
