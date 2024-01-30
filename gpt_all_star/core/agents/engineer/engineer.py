@@ -20,6 +20,9 @@ from gpt_all_star.core.agents.engineer.create_readme_prompt import (
 from gpt_all_star.core.agents.engineer.improve_source_code_prompt import (
     improve_source_code_template,
 )
+from gpt_all_star.core.agents.engineer.complete_source_code_prompt import (
+    complete_source_code_template,
+)
 from gpt_all_star.core.steps import step_prompts
 from gpt_all_star.tool.text_parser import TextParser
 
@@ -204,6 +207,30 @@ class Engineer(Agent):
             ),
             auto_mode=auto_mode,
         )
+
+        files = TextParser.parse_code_from_text(self.latest_message_content())
+        for file_name, file_content in files:
+            self.storages.root[file_name] = file_content
+
+    def complete_source_code(self, auto_mode: bool = False):
+        current_codes = ""
+        for (
+            file_name,
+            file_str,
+        ) in self.storages.root.recursive_file_search().items():
+            code_input = step_prompts.format_file_to_input(file_name, file_str)
+            current_codes += f"{code_input}\n"
+
+        self.messages.append(
+            Message.create_system_message(
+                complete_source_code_template.format(
+                    codes=current_codes,
+                )
+            )
+        )
+
+        self.chat()
+        self.console.new_lines(2)
 
         files = TextParser.parse_code_from_text(self.latest_message_content())
         for file_name, file_content in files:
