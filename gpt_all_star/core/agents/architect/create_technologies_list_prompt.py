@@ -20,7 +20,7 @@ Preferences: In scenarios where multiple technology options are available for a 
 
 - React
 - JavaScript
-- styled-components
+- CSS3
 - HTML
 - Docker / Docker Compose
 ```
@@ -33,7 +33,7 @@ technologies.md
 ```
 - React
 - JavaScript
-- styled-components
+- CSS3
 - HTML
 - Docker / Docker Compose
 ```
