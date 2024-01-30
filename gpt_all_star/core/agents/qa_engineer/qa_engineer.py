@@ -10,9 +10,6 @@ from gpt_all_star.core.agents.qa_engineer.planning_evaluation_prompt import (
 from gpt_all_star.core.agents.qa_engineer.implement_planning_prompt import (
     implement_planning_prompt_template,
 )
-from gpt_all_star.core.agents.qa_engineer.analyze_source_code_prompt import (
-    analyze_source_code_template,
-)
 from gpt_all_star.tool.text_parser import TextParser
 
 
@@ -137,21 +134,3 @@ class QAEngineer(Agent):
             files = TextParser.parse_code_from_text(self.latest_message_content())
             for file_name, file_content in files:
                 self.storages.root[file_name] = file_content
-
-        # for file_name, file_str in self.storages.root.recursive_file_search().items():
-        #     self.console.print(
-        #         f"Adding file {file_name} to the prompt...", style="blue"
-        #     )
-        #     code_input = step_prompts.format_file_to_input(file_name, file_str)
-        #     self.messages.append(Message.create_system_message(f"{code_input}"))
-        # self.console.new_lines()
-
-        # self.messages.append(
-        #     Message.create_system_message(analyze_source_code_template.format())
-        # )
-
-        # self.chat()
-
-        # files = TextParser.parse_code_from_text(self.latest_message_content())
-        # for file_name, file_content in files:
-        #     self.storages.root[file_name] = file_content
