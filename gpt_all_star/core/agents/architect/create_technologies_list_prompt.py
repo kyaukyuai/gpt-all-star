@@ -21,7 +21,8 @@ Preferences: In scenarios where multiple technology options are available for a 
 - React
 - JavaScript
 - Chakra UI
-    - @chakra-ui/react @emotion/react @emotion/styled framer-motion
+- HTML
+- CSS3
 - Docker / Docker Compose
 ```
 
@@ -34,6 +35,8 @@ technologies.md
 - React
 - JavaScript
 - Chakra UI
+- HTML
+- CSS3
 - Docker / Docker Compose
 ```
 """

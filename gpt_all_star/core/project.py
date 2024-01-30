@@ -21,11 +21,23 @@ class Project:
         project_name: str = None,
         japanese_mode: bool = False,
         auto_mode: bool = False,
+        debug_mode: bool = False,
     ) -> None:
+        self.set_modes(japanese_mode, auto_mode, debug_mode)
+        self.set_project_name(project_name)
+        self.set_storages()
+        self.set_agents()
+        self.set_step_type(step)
+
+    def set_modes(self, japanese_mode: bool, auto_mode: bool, debug_mode: bool) -> None:
         self.japanese_mode = japanese_mode
         self.auto_mode = auto_mode
+        self.debug_mode = debug_mode
+
+    def set_project_name(self, project_name: str) -> None:
         self.project_name = project_name or Copilot().ask_project_name()
 
+    def set_storages(self) -> None:
         project_path = Path(os.path.abspath(f"projects/{self.project_name}")).absolute()
         self.storages = Storages(
             root=Storage(project_path),
@@ -33,6 +45,7 @@ class Project:
             archive=Storage(project_path / ".archive"),
         )
 
+    def set_agents(self) -> None:
         self.agents = Agents(
             copilot=Copilot(storages=self.storages),
             product_owner=ProductOwner(storages=self.storages),
@@ -42,6 +55,7 @@ class Project:
             qa_engineer=QAEngineer(storages=self.storages),
         )
 
+    def set_step_type(self, step: StepType) -> None:
         self.step_type = step or StepType.DEFAULT
         if self.step_type is StepType.DEFAULT:
             self.agents.copilot.state("Archiving previous storages...")
@@ -49,17 +63,23 @@ class Project:
 
     def start(self) -> None:
         self.agents.copilot.start(self.project_name)
+        self.execute_steps()
+
+    def execute_steps(self) -> None:
         try:
             for step in STEPS[self.step_type]:
-                try:
-                    step(self.agents, self.japanese_mode, self.auto_mode).run()
-                except Exception as e:
-                    self.agents.copilot.state(
-                        f"Failed to execute step {step}. Reason: {str(e)}"
-                    )
-                    raise e
+                self.execute_step(step)
         except KeyboardInterrupt:
             self.agents.copilot.state("Interrupt received! Stopping...")
+
+    def execute_step(self, step) -> None:
+        try:
+            step(self.agents, self.japanese_mode, self.auto_mode).run()
+        except Exception as e:
+            self.agents.copilot.state(
+                f"Failed to execute step {step}. Reason: {str(e)}"
+            )
+            raise e
 
     def finish(self) -> None:
         self.agents.copilot.finish()

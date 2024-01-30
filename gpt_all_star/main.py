@@ -40,12 +40,18 @@ def main(
         "-a",
         help="Auto mode",
     ),
+    debug_mode: bool = typer.Option(
+        False,
+        "--debug_mode",
+        "-d",
+        help="Debug mode",
+    ),
 ) -> None:
     load_dotenv()
     console = ConsoleTerminal()
     console.title(COMMAND_NAME)
 
-    project = Project(step, project_name, japanese_mode, auto_mode)
+    project = Project(step, project_name, japanese_mode, auto_mode, debug_mode)
     project.start()
     project.finish()
 
