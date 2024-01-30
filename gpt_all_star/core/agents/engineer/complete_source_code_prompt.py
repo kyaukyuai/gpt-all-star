@@ -3,7 +3,8 @@ from langchain_core.prompts import PromptTemplate
 complete_source_code_template = PromptTemplate.from_template(
     """Your task is to find the file with implementation omissions and correct them to a complete implementation.
 In particular, if any of the following wording is found in the file, it needs to be corrected.
-- Components will go here
+- will go here
+- will be added here
 - PlaceHolder
 - TODO
 
