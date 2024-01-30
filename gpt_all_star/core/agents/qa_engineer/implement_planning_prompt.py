@@ -20,7 +20,6 @@ You will output the content of each file necessary to achieve the goal, includin
 **IMPORTANT**: Never use placeholders!
 
 Follow best practice file naming conventions appropriate for your language and framework.
-Use the most up-to-date libraries.
 Make sure files contain all imports, types, etc.
 Make sure code is fully functional.
 Ensure that code in different files is compatible.
