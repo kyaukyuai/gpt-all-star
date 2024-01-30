@@ -10,6 +10,11 @@ There are the specifications to build the application:
 {specifications}
 ```
 
+These are the technologies used to build the application
+```
+{technologies}
+```
+
 {format}
 
 Example representation of a file:

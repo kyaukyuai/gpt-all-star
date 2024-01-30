@@ -60,7 +60,7 @@ class QAEngineer(Agent):
                     "description": "Very detailed description of the goals to be achieved for the TODO to be executed to accomplish the entire plan",
                 }
             },
-            "required": ["todo", "goal", "review"],
+            "required": ["todo", "goal"],
         },
     }
 }

@@ -74,7 +74,7 @@ class Project:
 
     def execute_step(self, step) -> None:
         try:
-            step(self.agents, self.japanese_mode, self.auto_mode).run()
+            step(self.agents, self.japanese_mode, self.auto_mode, self.debug_mode).run()
         except Exception as e:
             self.agents.copilot.state(
                 f"Failed to execute step {step}. Reason: {str(e)}"

@@ -20,9 +20,8 @@ Preferences: In scenarios where multiple technology options are available for a 
 
 - React
 - JavaScript
-- Chakra UI
+- styled-components
 - HTML
-- CSS3
 - Docker / Docker Compose
 ```
 
@@ -34,9 +33,8 @@ technologies.md
 ```
 - React
 - JavaScript
-- Chakra UI
+- styled-components
 - HTML
-- CSS3
 - Docker / Docker Compose
 ```
 """
