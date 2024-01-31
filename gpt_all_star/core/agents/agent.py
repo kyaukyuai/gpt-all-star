@@ -210,6 +210,7 @@ For NodeJS, you always create an appropriate package.json file.
     please set NODE_OPTIONS=--openssl-legacy-provider like so:
         "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start"
         "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build"
+    Do not include the homepage item in package.json.
 """
         ),
     ),
@@ -228,6 +229,7 @@ On the front-end side, you excel in React.js design.
         prompt=PromptTemplate.from_template(
             """You are an experienced designer at Apple, specializing in creating user-friendly interfaces and experiences that follow the Human Interface Guidelines.
 Also skilled in understanding and using chakra-ui specifications.
+If you use `react-icons`, include it in dependencies in package.json.
 """
         ),
     ),
