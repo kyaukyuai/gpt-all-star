@@ -1,7 +1,12 @@
 import random
+import time
+import requests
 import string
 import subprocess
+import threading
 from rich.syntax import Syntax
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
@@ -81,7 +86,9 @@ class Copilot(Agent):
             + " in another way than above."
         )
         self.console.new_lines()
-        self.state("You can press ctrl+c *once* to stop the execution.")
+        self.console.print(
+            "You can press ctrl+c *once* to stop the execution.", style="red"
+        )
         self.console.new_lines()
 
     def _run_command(self) -> None:
@@ -90,7 +97,7 @@ class Copilot(Agent):
         for attempt in range(MAX_ATTEMPTS):
             self.state(f"Attempt {attempt + 1}/{MAX_ATTEMPTS}")
             try:
-                result = subprocess.run(
+                process = subprocess.Popen(
                     command,
                     shell=True,
                     cwd=self.storages.root.path,
@@ -98,17 +105,72 @@ class Copilot(Agent):
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                 )
-                self.console.print(result.stdout, style="green")
-                self.console.print(result.stderr, style="red")
-                if result.returncode == 0:
-                    break
-                else:
+
+                stdout_lines = []
+                stderr_lines = []
+
+                def read_stdout():
+                    for line in iter(process.stdout.readline, ""):
+                        stdout_lines.append(line.strip())
+                        self.console.print(f"{line.strip()}", style="green")
+
+                def read_stderr():
+                    for line in iter(process.stderr.readline, ""):
+                        stderr_lines.append(line.strip())
+                        self.console.print(f"{line.strip()}", style="red")
+
+                stdout_thread = threading.Thread(target=read_stdout)
+                stderr_thread = threading.Thread(target=read_stderr)
+                stdout_thread.start()
+                stderr_thread.start()
+
+                self.wait_for_server()
+                self.check_browser_errors()
+
+                stdout_thread.join()
+                stderr_thread.join()
+
+                return_code = process.wait()
+                if return_code != 0:
                     self._handle_error(
-                        {"stdout": result.stdout, "stderr": result.stderr}
+                        {
+                            "stdout": "\n".join(stdout_lines),
+                            "stderr": "\n".join(stderr_lines),
+                        }
                     )
+                process.terminate()
             except KeyboardInterrupt:
                 self._handle_keyboard_interrupt()
                 break
+
+    def wait_for_server(self):
+        MAX_ATTEMPTS = 20
+        for attempt in range(MAX_ATTEMPTS):
+            try:
+                response = requests.get("http://localhost:3000")
+                if response.status_code == 200:
+                    return
+            except requests.ConnectionError:
+                pass
+            time.sleep(1)
+        self.state("Unable to confirm server startup")
+        pass
+
+    def check_browser_errors(self):
+        """Access the site with a headless browser and catch console errors"""
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        driver = webdriver.Chrome(options=chrome_options)
+        driver.get("http://localhost:3000")
+
+        errors = ""
+        for entry in driver.get_log("browser"):
+            if entry["level"] == "SEVERE":
+                self.console.print(f"Error: {entry['message']}", style="red")
+                errors += f"{entry['message']}\n"
+        driver.quit()
+        if errors:
+            self._handle_error({"browser errors": errors})
 
     def _handle_error(self, e: dict) -> None:
         self.state("Initiating source code correction process.")
