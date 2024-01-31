@@ -124,8 +124,8 @@ class Copilot(Agent):
                 stdout_thread.start()
                 stderr_thread.start()
 
-                self.wait_for_server()
-                self.check_browser_errors()
+                if self.wait_for_server():
+                    self.check_browser_errors()
 
                 stdout_thread.join()
                 stderr_thread.join()
@@ -143,18 +143,18 @@ class Copilot(Agent):
                 self._handle_keyboard_interrupt()
                 break
 
-    def wait_for_server(self):
+    def wait_for_server(self) -> bool:
         MAX_ATTEMPTS = 20
         for attempt in range(MAX_ATTEMPTS):
             try:
                 response = requests.get("http://localhost:3000")
                 if response.status_code == 200:
-                    return
+                    return True
             except requests.ConnectionError:
                 pass
             time.sleep(1)
         self.state("Unable to confirm server startup")
-        pass
+        return False
 
     def check_browser_errors(self):
         """Access the site with a headless browser and catch console errors"""

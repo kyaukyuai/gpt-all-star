@@ -225,7 +225,7 @@ For NodeJS, you always create an appropriate package.json file.
         name="Jonathan Ive",
         color="#E2F0CB",
         prompt=PromptTemplate.from_template(
-            """You are an experienced designer. Your expertise is in creating user-friendly interfaces and experiences.
+            """You are an experienced designer at Apple, specializing in creating user-friendly interfaces and experiences that follow the Human Interface Guidelines.
 """
         ),
     ),
