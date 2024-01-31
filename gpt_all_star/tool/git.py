@@ -24,12 +24,12 @@ class Git:
         try:
             if self.repo.head.is_valid() and list(self.repo.iter_commits()):
                 staged_diffs = self.repo.git.diff("--staged")
-                not_staged_diffs = self.repo.git.diff("--unstaged")
+                not_staged_diffs = self.repo.git.diff()
                 return staged_diffs + "\n" + not_staged_diffs
             else:
                 return "No commits in the repository."
-        except git.exc.GitCommandError:
-            return "An error occurred while executing git command."
+        except git.exc.GitCommandError as e:
+            return f"An error occurred while executing git command.: {e}"
 
     def checkout(self, branch_name):
         try:
