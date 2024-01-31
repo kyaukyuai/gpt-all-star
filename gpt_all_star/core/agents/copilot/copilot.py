@@ -16,10 +16,11 @@ class Copilot(Agent):
     def __init__(
         self,
         storages: Storages | None = None,
+        debug_mode: bool = False,
         name: str | None = None,
         profile: str | None = None,
     ) -> None:
-        super().__init__(AgentRole.COPILOT, storages, name, profile)
+        super().__init__(AgentRole.COPILOT, storages, debug_mode, name, profile)
 
     def start(self, project_name: str) -> None:
         self.state(f"Let's start the project! ({project_name})")

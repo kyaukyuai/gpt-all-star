@@ -18,10 +18,11 @@ class ProductOwner(Agent):
     def __init__(
         self,
         storages: Storages,
+        debug_mode: bool = False,
         name: str | None = None,
         profile: str | None = None,
     ) -> None:
-        super().__init__(AgentRole.PRODUCT_OWNER, storages, name, profile)
+        super().__init__(AgentRole.PRODUCT_OWNER, storages, debug_mode, name, profile)
 
     def create_specifications(self, auto_mode: bool = False) -> None:
         instructions = self._get_instructions()

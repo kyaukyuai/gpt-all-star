@@ -26,10 +26,11 @@ class QAEngineer(Agent):
     def __init__(
         self,
         storages: Storages,
+        debug_mode: bool = False,
         name: str | None = None,
         profile: str | None = None,
     ) -> None:
-        super().__init__(AgentRole.QA_ENGINEER, storages, name, profile)
+        super().__init__(AgentRole.QA_ENGINEER, storages, debug_mode, name, profile)
 
     def evaluate_source_code(self, auto_mode: bool = False):
         self.state("Okay, let's analyze the code!")

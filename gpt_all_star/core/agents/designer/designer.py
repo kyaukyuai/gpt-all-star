@@ -15,10 +15,11 @@ class Designer(Agent):
     def __init__(
         self,
         storages: Storages,
+        debug_mode: bool = False,
         name: str | None = None,
         profile: str | None = None,
     ) -> None:
-        super().__init__(AgentRole.DESIGNER, storages, name, profile)
+        super().__init__(AgentRole.DESIGNER, storages, debug_mode, name, profile)
 
     def design_user_interface(self, auto_mode: bool = False):
         self.state("Okay, let's improve user interface!")

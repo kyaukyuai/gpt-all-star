@@ -47,12 +47,14 @@ class Project:
 
     def set_agents(self) -> None:
         self.agents = Agents(
-            copilot=Copilot(storages=self.storages),
-            product_owner=ProductOwner(storages=self.storages),
-            engineer=Engineer(storages=self.storages),
-            architect=Architect(storages=self.storages),
-            designer=Designer(storages=self.storages),
-            qa_engineer=QAEngineer(storages=self.storages),
+            copilot=Copilot(storages=self.storages, debug_mode=self.debug_mode),
+            product_owner=ProductOwner(
+                storages=self.storages, debug_mode=self.debug_mode
+            ),
+            engineer=Engineer(storages=self.storages, debug_mode=self.debug_mode),
+            architect=Architect(storages=self.storages, debug_mode=self.debug_mode),
+            designer=Designer(storages=self.storages, debug_mode=self.debug_mode),
+            qa_engineer=QAEngineer(storages=self.storages, debug_mode=self.debug_mode),
         )
 
     def set_step_type(self, step: StepType) -> None:

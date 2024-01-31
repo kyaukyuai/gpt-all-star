@@ -31,10 +31,11 @@ class Engineer(Agent):
     def __init__(
         self,
         storages: Storages,
+        debug_mode: bool = False,
         name: str | None = None,
         profile: str | None = None,
     ) -> None:
-        super().__init__(AgentRole.ENGINEER, storages, name, profile)
+        super().__init__(AgentRole.ENGINEER, storages, debug_mode, name, profile)
 
     def create_source_code(self, auto_mode: bool = False):
         self.state("How about the following?")

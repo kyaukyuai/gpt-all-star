@@ -17,10 +17,11 @@ class Architect(Agent):
     def __init__(
         self,
         storages: Storages,
+        debug_mode: bool = False,
         name: str | None = None,
         profile: str | None = None,
     ) -> None:
-        super().__init__(AgentRole.ARCHITECT, storages, name, profile)
+        super().__init__(AgentRole.ARCHITECT, storages, debug_mode, name, profile)
 
     def create_system_design(self, auto_mode: bool = False) -> None:
         self._create_technologies_list(auto_mode)

@@ -28,6 +28,7 @@ class Agent(ABC):
         self,
         role: AgentRole,
         storages: Storages | None,
+        debug_mode: bool = False,
         name: str | None = None,
         profile: str | None = None,
         color: str | None = None,
@@ -42,13 +43,14 @@ class Agent(ABC):
 
         self.messages: list[BaseMessage] = [Message.create_system_message(self.profile)]
         self.storages = storages
+        self.debug_mode = debug_mode
 
     def chat(self, human_input: str | None = None) -> None:
         if human_input is not None:
             self.messages.append(Message.create_human_message(human_input))
 
-        callbacks = StreamingStdOutCallbackHandler()
-        response = self._llm(self.messages, callbacks=[callbacks])
+        callbacks = [StreamingStdOutCallbackHandler()] if self.debug_mode else []
+        response = self._llm(self.messages, callbacks=callbacks)
         self.messages.append(response)
 
     def state(self, text: str) -> None:
