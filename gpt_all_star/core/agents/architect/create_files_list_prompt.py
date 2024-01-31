@@ -6,21 +6,6 @@ create_files_list_template = PromptTemplate.from_template(
 **IMPORTANT**: Descriptions for each file name are not required, only provide the exact file path and file name.
 **IMPORTANT**: Avoid providing personal opinions or alternatives.
 
-There are the specifications to build the application:
-```
-{specifications}
-```
-
-These are the technologies used to build the application
-```
-{technologies}
-```
-
-These are the page URLs required by the application:
-```
-{pages}
-```
-
 {format}
 
 Example representation of a file:

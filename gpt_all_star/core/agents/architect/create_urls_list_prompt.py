@@ -5,16 +5,6 @@ create_urls_list_template = PromptTemplate.from_template(
 **IMPORTANT**: Descriptions for each page URL are not required, only provide the exact page URL.
 **IMPORTANT**: Avoid providing personal opinions or alternatives.
 
-There are the specifications to build the application:
-```
-{specifications}
-```
-
-These are the technologies used to build the application
-```
-{technologies}
-```
-
 {format}
 
 Example representation of a file:

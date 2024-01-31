@@ -18,4 +18,6 @@ class Improvement(Step):
             "Do you want to check the execution again?(y/n)"
         )
         if response.lower() in ["y", "yes"]:
-            Execution(self.agents, self.japanese_mode, self.auto_mode).run()
+            Execution(
+                self.agents, self.japanese_mode, self.auto_mode, self.debug_mode
+            ).run()

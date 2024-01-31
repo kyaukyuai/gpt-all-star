@@ -51,11 +51,7 @@ class Architect(Agent):
         self.state("How about the following?")
 
         message = Message.create_system_message(
-            create_urls_list_template.format(
-                specifications=self.storages.docs["specifications.md"],
-                technologies=self.storages.docs["technologies.md"],
-                format=output_format,
-            )
+            create_urls_list_template.format(format=output_format)
         )
         self.messages.append(message)
 
@@ -72,12 +68,7 @@ class Architect(Agent):
         self.state("How about the following?")
 
         message = Message.create_system_message(
-            create_files_list_template.format(
-                specifications=self.storages.docs["specifications.md"],
-                technologies=self.storages.docs["technologies.md"],
-                pages=self.storages.docs["pages.md"],
-                format=output_format,
-            )
+            create_files_list_template.format(format=output_format)
         )
         self.messages.append(message)
 

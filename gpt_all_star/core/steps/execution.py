@@ -22,4 +22,6 @@ class Execution(Step):
             default=1,
         )
         if choice == CONFIRM_CHOICES[0]:
-            Improvement(self.agents, self.japanese_mode, self.auto_mode).run()
+            Improvement(
+                self.agents, self.japanese_mode, self.auto_mode, self.debug_mode
+            ).run()
