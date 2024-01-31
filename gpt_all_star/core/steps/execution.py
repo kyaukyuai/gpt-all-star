@@ -13,7 +13,7 @@ class Execution(Step):
 
         self.agents.copilot.state("Let's move on to the execution step!")
         self.console.new_lines()
-        self.agents.copilot.execute_code(auto_mode=self.auto_mode)
+        self.agents.qa_engineer.execute_code(auto_mode=self.auto_mode)
 
         CONFIRM_CHOICES = ["yes", "no"]
         choice = self.agents.copilot.present_choices(

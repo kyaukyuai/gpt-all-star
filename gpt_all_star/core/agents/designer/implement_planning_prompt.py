@@ -13,11 +13,10 @@ You are currently working on TODO{index_of_todo} with the following description:
 
 {finished_todo_message}
 After a TODO is finished, please make sure you meet the goal: {todo_goal}.
-If you have already implemented a TODO that you need to do, exit without outputting anything.
 
-You will output the content of each file necessary to achieve the goal, including ALL code.
-**IMPORTANT**: Final answer must be the full codes, only the codes and nothing else.
-**IMPORTANT**: Never use placeholders!
+**IMPORTANT**: If you have already implemented a TODO that you need to do, exit without outputting anything.
+**IMPORTANT**: Output only files with modifications
+**IMPORTANT**: Output full code base without omitting files to be output
 
 Represent files like so:
 
