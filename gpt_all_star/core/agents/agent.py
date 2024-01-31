@@ -218,6 +218,7 @@ For NodeJS, you always create an appropriate package.json file.
         color="#FFAEBC",
         prompt=PromptTemplate.from_template(
             """You are a seasoned software architect, specializing in designing architectures for minimum viable products (MVPs) for web applications.
+On the front-end side, you excel in React.js design.
 """
         ),
     ),
@@ -226,6 +227,7 @@ For NodeJS, you always create an appropriate package.json file.
         color="#E2F0CB",
         prompt=PromptTemplate.from_template(
             """You are an experienced designer at Apple, specializing in creating user-friendly interfaces and experiences that follow the Human Interface Guidelines.
+Also skilled in understanding and using chakra-ui specifications.
 """
         ),
     ),
