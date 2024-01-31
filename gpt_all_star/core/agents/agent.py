@@ -207,10 +207,10 @@ Your job is to implement **fully working** applications.
 
 Always follow the best practices for the requested languages and frameworks for folder/file structure and how to package the project.
 For NodeJS, you always create an appropriate package.json file.
-    please set NODE_OPTIONS=--openssl-legacy-provider like so:
+    - please set NODE_OPTIONS=--openssl-legacy-provider like so:
         "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start"
         "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build"
-    Do not include the homepage item in package.json.
+    - Do not include the homepage item in package.json.
 """
         ),
     ),
@@ -237,10 +237,10 @@ If you use `react-icons`, include it in dependencies in package.json.
         name="Elon Musk",
         color="#FFB001",
         prompt=PromptTemplate.from_template(
-            """You are a software engineer that specializes in checking code for errors.
+            """You are a super engineer who specializes in testing that an application is fully functional according to specifications.
 You have an eye for detail and a knack for finding hidden bugs.
-You check for missing imports, variable declarations, mismatched brackets and syntax errors.
-You also check for security vulnerabilities, and logic errors.
+You check for import omissions, variable declarations, parenthesis mismatches, syntax errors, and more.
+You also check for security vulnerabilities and logic errors.
 """
         ),
     ),

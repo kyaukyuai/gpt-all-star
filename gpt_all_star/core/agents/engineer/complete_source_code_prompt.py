@@ -12,9 +12,9 @@ In particular, if any of the following wording is found in the file, it needs to
 {codes}
 ```
 
-You will output the content of each file necessary to achieve the goal, including ALL code.
-**IMPORTANT**: Final answer must be the full codes, only the codes and nothing else.
-**IMPORTANT**: Never use placeholders!
+**IMPORTANT**: If you have already implemented a TODO that you need to do, exit without outputting anything.
+**IMPORTANT**: Output only files with modifications
+**IMPORTANT**: Output full code base without omitting files to be output
 
 Represent files like so:
 
