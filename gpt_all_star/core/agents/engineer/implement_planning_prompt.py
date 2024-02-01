@@ -16,8 +16,7 @@ After a TODO is finished, please make sure you meet the goal: {todo_goal}.
 If you have already implemented a TODO that you need to do, exit without outputting anything.
 
 You will output the content of each file necessary to achieve the goal, including ALL code.
-**IMPORTANT**: Final answer must be the full codes, only the codes and nothing else.
-**IMPORTANT**: Never use placeholders!
+**IMPORTANT**: Make sure to use the full code when outputting the code.
 
 Represent files like so:
 

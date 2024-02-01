@@ -11,6 +11,9 @@ from gpt_all_star.core.agents.engineer.planning_development_prompt import (
 from gpt_all_star.core.agents.engineer.implement_planning_prompt import (
     implement_planning_template,
 )
+from gpt_all_star.core.agents.engineer.implement_improvement_prompt import (
+    implement_improvement_template,
+)
 from gpt_all_star.core.agents.engineer.create_entrypoint_prompt import (
     create_entrypoint_template,
 )
@@ -279,7 +282,7 @@ class Engineer(Agent):
             )
             self.messages.append(
                 Message.create_system_message(
-                    implement_planning_template.format(
+                    implement_improvement_template.format(
                         num_of_todo=len(todo_list["plan"]),
                         todo_list="".join(
                             [

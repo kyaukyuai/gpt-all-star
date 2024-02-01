@@ -233,8 +233,8 @@ On the front-end side, you excel in React.js design.
         color="#E2F0CB",
         prompt=PromptTemplate.from_template(
             """You are an experienced designer at Apple, specializing in creating user-friendly interfaces and experiences that follow the Human Interface Guidelines.
-Also skilled in understanding and using chakra-ui specifications.
-If you use `react-icons`, include it in dependencies in package.json.
+Also skilled in understanding and using `chakra-ui` specifications.
+Proactively use `react-icons`, and if you do, don't forget to include them in dependencies in package.json.
 """
         ),
     ),

@@ -15,8 +15,8 @@ You are currently working on TODO{index_of_todo} with the following description:
 After a TODO is finished, please make sure you meet the goal: {todo_goal}.
 
 **IMPORTANT**: If you have already implemented a TODO that you need to do, exit without outputting anything.
+**IMPORTANT**: Make sure to use the full code when outputting the code.
 **IMPORTANT**: Output only files with modifications
-**IMPORTANT**: Output full code base without omitting files to be output
 
 Represent files like so:
 

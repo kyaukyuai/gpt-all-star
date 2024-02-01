@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 
-implement_planning_template = PromptTemplate.from_template(
+implement_improvement_template = PromptTemplate.from_template(
     """We've broken down the plan into {num_of_todo} TODOs.
 ```
 {todo_list}
@@ -13,10 +13,9 @@ You are currently working on TODO{index_of_todo} with the following description:
 
 {finished_todo_message}
 After a TODO is finished, please make sure you meet the goal: {todo_goal}.
+If you have already implemented a TODO that you need to do, exit without outputting anything.
 
-**IMPORTANT**: If you have already implemented a TODO that you need to do, exit without outputting anything.
 **IMPORTANT**: Make sure to use the full code when outputting the code.
-**IMPORTANT**: Output only files with modifications
 
 Represent files like so:
 
