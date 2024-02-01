@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 
-implement_planning_prompt_template = PromptTemplate.from_template(
+implement_planning_template = PromptTemplate.from_template(
     """We've broken down the plan into {num_of_todo} TODOs.
 ```
 {todo_list}

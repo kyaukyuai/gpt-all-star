@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 
-planning_development_prompt_template = PromptTemplate.from_template(
+planning_development_template = PromptTemplate.from_template(
     """Your task is to devise a comprehensive plan for generating complete code to construct the application.
 
 Analyze the specifications, technologies, pages, and files required to build the application.

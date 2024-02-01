@@ -17,7 +17,7 @@ from gpt_all_star.core.agents.qa_engineer.planning_healing_prompt import (
     planning_healing_template,
 )
 from gpt_all_star.core.agents.qa_engineer.implement_planning_prompt import (
-    implement_planning_prompt_template,
+    implement_planning_template,
 )
 from gpt_all_star.tool.text_parser import TextParser
 
@@ -33,9 +33,6 @@ class QAEngineer(Agent):
         super().__init__(AgentRole.QA_ENGINEER, storages, debug_mode, name, profile)
 
     def evaluate_source_code(self, auto_mode: bool = False):
-        self.state("Okay, let's analyze the code!")
-        self.console.new_lines()
-
         current_codes = ""
         for (
             file_name,
@@ -124,7 +121,7 @@ class QAEngineer(Agent):
             )
             self.messages.append(
                 Message.create_system_message(
-                    implement_planning_prompt_template.format(
+                    implement_planning_template.format(
                         num_of_todo=len(todo_list["plan"]),
                         todo_list="".join(
                             [
@@ -232,7 +229,7 @@ class QAEngineer(Agent):
                 break
 
     def wait_for_server(self) -> bool:
-        MAX_ATTEMPTS = 120
+        MAX_ATTEMPTS = 300
         for attempt in range(MAX_ATTEMPTS):
             try:
                 response = requests.get("http://localhost:3000")
@@ -352,7 +349,7 @@ class QAEngineer(Agent):
             )
             self.messages.append(
                 Message.create_system_message(
-                    implement_planning_prompt_template.format(
+                    implement_planning_template.format(
                         num_of_todo=len(todo_list["plan"]),
                         todo_list="".join(
                             [

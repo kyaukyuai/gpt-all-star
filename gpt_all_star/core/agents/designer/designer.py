@@ -5,7 +5,7 @@ from gpt_all_star.core.agents.designer.planning_ui_design_prompt import (
     planning_ui_design_template,
 )
 from gpt_all_star.core.agents.designer.implement_planning_prompt import (
-    implement_planning_prompt_template,
+    implement_planning_template,
 )
 from gpt_all_star.core.steps import step_prompts
 from gpt_all_star.tool.text_parser import TextParser
@@ -110,7 +110,7 @@ class Designer(Agent):
             )
             self.messages.append(
                 Message.create_system_message(
-                    implement_planning_prompt_template.format(
+                    implement_planning_template.format(
                         num_of_todo=len(todo_list["plan"]),
                         todo_list="".join(
                             [
