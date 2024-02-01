@@ -213,6 +213,7 @@ class QAEngineer(Agent):
 
                 if self.wait_for_server():
                     self.check_browser_errors()
+                    return
 
                 stdout_thread.join()
                 stderr_thread.join()
@@ -231,7 +232,7 @@ class QAEngineer(Agent):
                 break
 
     def wait_for_server(self) -> bool:
-        MAX_ATTEMPTS = 20
+        MAX_ATTEMPTS = 120
         for attempt in range(MAX_ATTEMPTS):
             try:
                 response = requests.get("http://localhost:3000")
