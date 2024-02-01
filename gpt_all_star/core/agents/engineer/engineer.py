@@ -109,9 +109,10 @@ class Engineer(Agent):
                 file_name,
                 file_str,
             ) in self.storages.root.recursive_file_search().items():
-                self.console.print(
-                    f"Adding file {file_name} to the prompt...", style="blue"
-                )
+                if self.debug_mode:
+                    self.console.print(
+                        f"Adding file {file_name} to the prompt...", style="blue"
+                    )
                 code_input = step_prompts.format_file_to_input(file_name, file_str)
                 current_contents += f"{code_input}\n"
 
@@ -185,9 +186,10 @@ class Engineer(Agent):
             Message.create_system_message(improve_source_code_template.format())
         )
         for file_name, file_str in self.storages.root.recursive_file_search().items():
-            self.console.print(
-                f"Adding file {file_name} to the prompt...", style="blue"
-            )
+            if self.debug_mode:
+                self.console.print(
+                    f"Adding file {file_name} to the prompt...", style="blue"
+                )
             code_input = step_prompts.format_file_to_input(file_name, file_str)
             self.messages.append(Message.create_system_message(f"{code_input}"))
 

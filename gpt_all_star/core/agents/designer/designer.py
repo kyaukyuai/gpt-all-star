@@ -22,9 +22,6 @@ class Designer(Agent):
         super().__init__(AgentRole.DESIGNER, storages, debug_mode, name, profile)
 
     def design_user_interface(self, auto_mode: bool = False):
-        self.state("Okay, let's improve user interface!")
-        self.console.new_lines()
-
         current_codes = ""
         for (
             file_name,
@@ -97,9 +94,10 @@ class Designer(Agent):
                 file_name,
                 file_str,
             ) in self.storages.root.recursive_file_search().items():
-                self.console.print(
-                    f"Adding file {file_name} to the prompt...", style="blue"
-                )
+                if self.debug_mode:
+                    self.console.print(
+                        f"Adding file {file_name} to the prompt...", style="blue"
+                    )
                 code_input = step_prompts.format_file_to_input(file_name, file_str)
                 current_contents += f"{code_input}\n"
 
