@@ -1,7 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 
 planning_ui_design_template = PromptTemplate.from_template(
-    """Your task is to develop a detailed strategy for enhancing the UI and UX.
+    """Your task is to create a detailed and specific plan to enhance the UI and UX in accordance with human interface guideline, using the information provided.
 
 There are the specifications to build the application:
 ```

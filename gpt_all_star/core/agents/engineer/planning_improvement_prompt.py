@@ -1,7 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 
 planning_improvement_template = PromptTemplate.from_template(
-    """Your job is to create a detailed and specific plan to fully meet the user's requirements based on the current application specifications and source code.
+    """Your task is to create a detailed and specific plan to fully meet the user's requirements, using the information provided.
 
 Here is the request:
 ```

@@ -1,7 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 
 planning_evaluation_template = PromptTemplate.from_template(
-    """Your task is to create a detailed plan to looking over the code to insure that it is complete and does the job that it is supposed to do.
+    """Your task is to create a detailed and specific plan to looking over the code to insure that it is complete and does the job that it is supposed to do, using the information provided .
 
 There are the specifications to build the application:
 ```

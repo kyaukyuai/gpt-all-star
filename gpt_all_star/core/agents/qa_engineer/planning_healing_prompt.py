@@ -1,7 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 
 planning_healing_template = PromptTemplate.from_template(
-    """Your task is to formulate a detailed plan to rectify the following errors.
+    """Your task is to create a detailed and specific plan to rectify the following errors, using the information provided.
 Only critical errors should be resolved, ignore warnings.
 
 There are the errors occurred when run the application:
