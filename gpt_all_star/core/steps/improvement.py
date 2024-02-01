@@ -12,10 +12,13 @@ class Improvement(Step):
     def run(self) -> None:
         self.agents.engineer.improve_source_code(auto_mode=self.auto_mode)
 
-        response = self.agents.copilot.ask(
-            "Do you want to check the execution again?(y/n)"
+        CONFIRM_CHOICES = ["yes", "no"]
+        choice = self.agents.copilot.present_choices(
+            "Do you want to check the execution again?",
+            CONFIRM_CHOICES,
+            default=1,
         )
-        if response.lower() in ["y", "yes"]:
+        if choice == CONFIRM_CHOICES[0]:
             Execution(
                 self.agents, self.japanese_mode, self.auto_mode, self.debug_mode
             ).run()
