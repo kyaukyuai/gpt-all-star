@@ -5,6 +5,7 @@ from dataclasses import dataclass
 import os
 from enum import Enum
 from functools import lru_cache
+import re
 import openai
 from langchain_openai import AzureChatOpenAI
 from langchain_openai import ChatOpenAI
@@ -68,9 +69,11 @@ class Agent(ABC):
 
     def ask(self, question: str, is_required: bool = True, default: str = None) -> str:
         while True:
-            default_value = f" (default: {default})" if default else ""
+            if default and default.endswith("\n"):
+                default = re.sub(r"\n$", "", default)
+            default_value = f"\n(default: {default})" if default else ""
             self.console.print(
-                f"[{self.color} bold]{self.name}: {question}[/{self.color} bold]{default_value}"
+                f"[{self.color} bold]{self.name}: {question}[/{self.color} bold][black]{default_value}[/black]"
             )
             answer = self.console.input("project.history").strip() or default
             self.console.new_lines(1)
@@ -187,7 +190,7 @@ class AgentProfile:
 AGENT_PROFILES = {
     AgentRole.COPILOT: AgentProfile(
         name="copilot",
-        color="#FBE7C6",
+        color="#9D86E9",
         prompt=PromptTemplate.from_template(""),
     ),
     AgentRole.PRODUCT_OWNER: AgentProfile(
