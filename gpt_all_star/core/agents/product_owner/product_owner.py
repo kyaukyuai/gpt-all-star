@@ -82,8 +82,6 @@ class ProductOwner(Agent):
     def _summarize_specifications(
         self, instructions: str, app_type: str, auto_mode: bool = False
     ) -> None:
-        self.state("How about the following?")
-
         message = Message.create_system_message(
             summarize_specifications_template.format(app_type=app_type)
         )

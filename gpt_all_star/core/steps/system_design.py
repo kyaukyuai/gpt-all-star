@@ -9,7 +9,5 @@ class SystemDesign(Step):
         super().__init__(agents, japanese_mode, auto_mode, debug_mode)
 
     def run(self) -> None:
-        self.agents.copilot.state("Let's move on to the system design step!")
-        self.console.new_lines()
         self.agents.architect.create_system_design(auto_mode=self.auto_mode)
         self.console.new_lines()

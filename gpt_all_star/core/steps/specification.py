@@ -9,7 +9,5 @@ class Specification(Step):
         super().__init__(agents, japanese_mode, auto_mode, debug_mode)
 
     def run(self) -> None:
-        self.agents.copilot.state("Let's move on to the specification step!")
-        self.console.new_lines()
         self.agents.product_owner.create_specifications(auto_mode=self.auto_mode)
         self.console.new_lines()

@@ -9,8 +9,6 @@ class Development(Step):
         super().__init__(agents, japanese_mode, auto_mode, debug_mode)
 
     def run(self) -> None:
-        self.agents.copilot.state("Let's move on to the development step!")
-        self.console.new_lines()
         self.agents.engineer.create_source_code(auto_mode=self.auto_mode)
         self.agents.engineer.complete_source_code(auto_mode=self.auto_mode)
         self.console.new_lines()

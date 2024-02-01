@@ -9,7 +9,5 @@ class UIDesign(Step):
         super().__init__(agents, japanese_mode, auto_mode, debug_mode)
 
     def run(self) -> None:
-        self.agents.copilot.state("Let's move on to the ui/ux design step!")
-        self.console.new_lines()
         self.agents.designer.design_user_interface(auto_mode=self.auto_mode)
         self.console.new_lines()

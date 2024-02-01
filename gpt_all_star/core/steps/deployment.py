@@ -9,7 +9,5 @@ class Deployment(Step):
         super().__init__(agents, japanese_mode, auto_mode, debug_mode)
 
     def run(self) -> None:
-        self.agents.copilot.state("Let's move on to the deployment step!")
-        self.console.new_lines()
         self.agents.copilot.push_to_git_repository(auto_mode=self.auto_mode)
         self.console.new_lines()

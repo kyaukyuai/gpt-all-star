@@ -29,8 +29,6 @@ class Architect(Agent):
         self._create_files_list(auto_mode)
 
     def _create_technologies_list(self, auto_mode: bool = False):
-        self.state("How about the following?")
-
         message = Message.create_system_message(
             create_technologies_list_template.format(
                 specifications=self.storages.docs["specifications.md"],
@@ -49,8 +47,6 @@ class Architect(Agent):
         self.store_md("technologies", self.latest_message_content())
 
     def _create_urls_list(self, auto_mode: bool = False):
-        self.state("How about the following?")
-
         message = Message.create_system_message(
             create_urls_list_template.format(format=output_format)
         )
@@ -66,8 +62,6 @@ class Architect(Agent):
         self.store_md("pages", self.latest_message_content())
 
     def _create_files_list(self, auto_mode: bool = False):
-        self.state("How about the following?")
-
         message = Message.create_system_message(
             create_files_list_template.format(format=output_format)
         )

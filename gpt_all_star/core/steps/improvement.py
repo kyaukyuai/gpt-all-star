@@ -10,8 +10,6 @@ class Improvement(Step):
         super().__init__(agents, japanese_mode, auto_mode, debug_mode)
 
     def run(self) -> None:
-        self.agents.copilot.state("Let's move on to the improvement step!")
-        self.console.new_lines(1)
         self.agents.engineer.improve_source_code(auto_mode=self.auto_mode)
 
         response = self.agents.copilot.ask(

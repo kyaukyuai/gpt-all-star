@@ -38,8 +38,6 @@ class Engineer(Agent):
         super().__init__(AgentRole.ENGINEER, storages, debug_mode, name, profile)
 
     def create_source_code(self, auto_mode: bool = False):
-        self.state("How about the following?")
-
         self.messages.append(
             Message.create_system_message(
                 planning_development_prompt_template.format(
@@ -100,7 +98,6 @@ class Engineer(Agent):
         )
 
         todo_list = TextParser.to_json(self.latest_message_content())
-        self.console.print(todo_list)
 
         for i, task in enumerate(todo_list["plan"]):
             self.console.print(f"TODO {i + 1}: {task['todo']}")
