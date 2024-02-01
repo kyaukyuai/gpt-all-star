@@ -1,7 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 
 planning_ui_design_template = PromptTemplate.from_template(
-    """Your task is to develop a detailed strategy for enhancing the UI and UX, taking full advantage of chakra-ui's features.
+    """Your task is to develop a detailed strategy for enhancing the UI and UX.
 
 There are the specifications to build the application:
 ```
