@@ -229,7 +229,7 @@ class QAEngineer(Agent):
                 break
 
     def wait_for_server(self) -> bool:
-        MAX_ATTEMPTS = 300
+        MAX_ATTEMPTS = 30
         for attempt in range(MAX_ATTEMPTS):
             try:
                 response = requests.get("http://localhost:3000")
@@ -321,7 +321,6 @@ class QAEngineer(Agent):
         self.console.new_lines(2)
 
         todo_list = TextParser.to_json(self.latest_message_content())
-        self.console.print(todo_list)
 
         for i, task in enumerate(todo_list["plan"]):
             self.console.print(f"TODO {i + 1}: {task['todo']}")
