@@ -16,7 +16,6 @@ After a TODO is finished, please make sure you meet the goal: {todo_goal}.
 
 **IMPORTANT**: If you have already implemented a TODO that you need to do, exit without outputting anything.
 **IMPORTANT**: Make sure to use the full code when outputting the code.
-**IMPORTANT**: Output only files with modifications
 
 Represent files like so:
 
