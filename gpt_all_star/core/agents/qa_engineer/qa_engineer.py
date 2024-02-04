@@ -7,7 +7,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from gpt_all_star.core.message import Message
-from gpt_all_star.core.steps import step_prompts
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.agents.qa_engineer.planning_healing_prompt import (
@@ -147,19 +146,11 @@ class QAEngineer(Agent):
     def _handle_error(self, e: dict) -> None:
         self.state("Initiating source code correction process.")
 
-        current_codes = ""
-        for (
-            file_name,
-            file_str,
-        ) in self.storages.root.recursive_file_search().items():
-            code_input = step_prompts.format_file_to_input(file_name, file_str)
-            current_codes += f"{code_input}\n"
-
         self.messages.append(
             Message.create_system_message(
                 planning_healing_template.format(
                     errors=e,
-                    codes=current_codes,
+                    codes=self.current_source_code(),
                     json_format="""
 {
     "plan": {
@@ -214,22 +205,10 @@ class QAEngineer(Agent):
             self.console.print(f"GOAL: {task['goal']}")
             self.console.new_lines()
 
-            current_contents = ""
-            for (
-                file_name,
-                file_str,
-            ) in self.storages.root.recursive_file_search().items():
-                if self.debug_mode:
-                    self.console.print(
-                        f"Adding file {file_name} to the prompt...", style="blue"
-                    )
-                code_input = step_prompts.format_file_to_input(file_name, file_str)
-                current_contents += f"{code_input}\n"
-
             previous_finished_task_message = (
                 "All preceding tasks have been completed. No further action is required on them.\n"
                 + "All codes implemented so far are listed below. Please include them to ensure that we achieve our goal.\n"
-                + "{current_contents}\n\n"
+                + f"{self.current_source_code()}\n\n"
                 if i == 0
                 else ""
             )

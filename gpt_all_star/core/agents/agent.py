@@ -23,6 +23,7 @@ from rich.panel import Panel
 
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
+from gpt_all_star.core.steps import step_prompts
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.tool.text_parser import TextParser
 
@@ -197,6 +198,20 @@ class Agent(ABC):
             | self._llm.bind_functions(functions=[function_def], function_call="route")
             | JsonOutputFunctionsParser()
         )
+
+    def current_source_code(self) -> str:
+        source_code_contents = []
+        for (
+            filename,
+            file_content,
+        ) in self.storages.root.recursive_file_search().items():
+            if self.debug_mode:
+                self.console.print(
+                    f"Adding file {filename} to the prompt...", style="blue"
+                )
+            formatted_code = step_prompts.format_file_to_input(filename, file_content)
+            source_code_contents.append(formatted_code)
+        return "\n".join(source_code_contents)
 
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
