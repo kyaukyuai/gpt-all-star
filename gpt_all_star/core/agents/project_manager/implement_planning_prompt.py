@@ -26,7 +26,7 @@ CODE is the code in the file
 Example representation of a file:
 
 ./src/index.js
-```
+```jsx
 ReactDOM.render(
     <React.StrictMode>
         <ChakraProvider>
