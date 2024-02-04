@@ -1,4 +1,5 @@
 import functools
+from langchain.agents.agent import AgentExecutor
 from langgraph.graph import StateGraph, END
 from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.agents.agent_state import AgentState
@@ -65,6 +66,6 @@ class Team:
                         self.supervisor.storages.root[file_name] = file_content
 
     @staticmethod
-    def _agent_node(state, agent, name):
+    def _agent_node(state, agent: AgentExecutor, name):
         result = agent.invoke(state)
         return {"messages": [Message.create_human_message(result["output"], name=name)]}

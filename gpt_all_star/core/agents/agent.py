@@ -9,6 +9,7 @@ import re
 import openai
 from langchain.agents.agent import AgentExecutor
 from langchain.agents.openai_tools.base import create_openai_tools_agent
+from langchain_community.tools.shell import ShellTool
 from langchain_openai import AzureChatOpenAI
 from langchain_openai import ChatOpenAI
 from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
@@ -17,7 +18,6 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts.prompt import PromptTemplate
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
-from langchain_experimental.tools import PythonREPLTool
 from rich.markdown import Markdown
 from rich.panel import Panel
 
@@ -52,7 +52,7 @@ class Agent(ABC):
         self.storages = storages
         self.debug_mode = debug_mode
 
-        self.tools = tools + [PythonREPLTool()]
+        self.tools = tools + [ShellTool()]
         self.executor = self._create_executor(self.tools)
 
     def chat(self, human_input: str | None = None) -> None:
