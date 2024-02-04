@@ -20,6 +20,8 @@ typer = "^0.9.0"
 pyfiglet = "^1.0.2"
 langchain-openai = "^0.0.5"
 selenium = "^4.17.2"
+langgraph = "^0.0.21"
+langchain-experimental = "^0.0.50"
 
 [tool.poetry.scripts]
 gpt-all-star = 'gpt_all_star.main:app'

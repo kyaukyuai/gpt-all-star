@@ -1,38 +1,40 @@
 from langchain_core.prompts import PromptTemplate
 
 implement_planning_template = PromptTemplate.from_template(
-    """We've broken down the plan into {num_of_todo} TODOs.
+    """Your task is as follows.
+**IMPORTANT**: Your answer must be the full source code, only the source code and nothing else.
 ```
-{todo_list}
-```
-
-You are currently working on TODO{index_of_todo} with the following description:
-```
-{todo_description}
+TODO: {todo_description}
+GOAL: {todo_goal}
 ```
 
 {finished_todo_message}
-After a TODO is finished, please make sure you meet the goal: {todo_goal}.
-If you have already implemented a TODO that you need to do, exit without outputting anything.
 
-**IMPORTANT**: Make sure to use the full code when outputting the code.
-
+---
 Represent files like so:
 
-FILENAME
+./PATH/FILENAME
 ```
 CODE
 ```
 
 The following tokens must be replaced like so:
+PATh is a relative path to the file from the root directory of the project.
 FILENAME is the lowercase combined path and file name including the file extension and **if the file already exists, please follow its name**.
 CODE is the code in the file
 
 Example representation of a file:
 
-./hello_world.py
+./src/index.js
 ```
-print("Hello World")
+ReactDOM.render(
+    <React.StrictMode>
+        <ChakraProvider>
+            <App />
+        </ChakraProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
 ```
 """
 )

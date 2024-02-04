@@ -44,3 +44,13 @@ class TextParser:
             matches = re.finditer(r"```\S*\n(.+?)\n```", text, re.DOTALL)
             json_str = "\n".join(match.group(1) for match in matches)
             return json.loads(json_str)
+
+
+def format_file_to_input(file_name: str, file_content: str) -> str:
+    file_str = f"""
+    {file_name}
+    ```
+    {file_content}
+    ```
+    """
+    return file_str

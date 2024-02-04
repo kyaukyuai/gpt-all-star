@@ -8,9 +8,6 @@ from gpt_all_star.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
 from gpt_all_star.core.agents.engineer.planning_development_prompt import (
     planning_development_template,
 )
-from gpt_all_star.core.agents.engineer.implement_planning_prompt import (
-    implement_planning_template,
-)
 from gpt_all_star.core.agents.engineer.implement_improvement_prompt import (
     implement_improvement_template,
 )
@@ -26,7 +23,6 @@ from gpt_all_star.core.agents.engineer.planning_improvement_prompt import (
 from gpt_all_star.core.agents.engineer.complete_source_code_prompt import (
     complete_source_code_template,
 )
-from gpt_all_star.core.steps import step_prompts
 from gpt_all_star.tool.text_parser import TextParser
 
 
@@ -40,7 +36,7 @@ class Engineer(Agent):
     ) -> None:
         super().__init__(AgentRole.ENGINEER, storages, debug_mode, name, profile)
 
-    def create_source_code(self, auto_mode: bool = False):
+    def plan_development(self, auto_mode: bool = False):
         self.messages.append(
             Message.create_system_message(
                 planning_development_template.format(
@@ -100,55 +96,9 @@ class Engineer(Agent):
             auto_mode=auto_mode,
         )
 
-        todo_list = TextParser.to_json(self.latest_message_content())
+        return TextParser.to_json(self.latest_message_content())
 
-        for i, task in enumerate(todo_list["plan"]):
-            self.console.print(f"TODO {i + 1}: {task['todo']}")
-            self.console.print(f"GOAL: {task['goal']}")
-            self.console.new_lines()
-
-            current_contents = ""
-            for (
-                file_name,
-                file_str,
-            ) in self.storages.root.recursive_file_search().items():
-                if self.debug_mode:
-                    self.console.print(
-                        f"Adding file {file_name} to the prompt...", style="blue"
-                    )
-                code_input = step_prompts.format_file_to_input(file_name, file_str)
-                current_contents += f"{code_input}\n"
-
-            previous_finished_task_message = (
-                "All preceding tasks have been completed. No further action is required on them.\n"
-                + "All codes implemented so far are listed below. Please include them to ensure that we achieve our goal.\n"
-                + "{current_contents}\n\n"
-                if i == 0
-                else ""
-            )
-            self.messages.append(
-                Message.create_system_message(
-                    implement_planning_template.format(
-                        num_of_todo=len(todo_list["plan"]),
-                        todo_list="".join(
-                            [
-                                f"{i + 1}: {task['todo']}\n"
-                                for i, task in enumerate(todo_list["plan"])
-                            ]
-                        ),
-                        index_of_todo=i + 1,
-                        todo_description=task["todo"],
-                        finished_todo_message=previous_finished_task_message,
-                        todo_goal=task["goal"],
-                    )
-                )
-            )
-            self.chat()
-            self.console.new_lines(2)
-            files = TextParser.parse_code_from_text(self.latest_message_content())
-            for file_name, file_content in files:
-                self.storages.root[file_name] = file_content
-
+    def create_source_code(self, auto_mode: bool = False):
         self._create_entrypoint(auto_mode)
         self._create_readme(auto_mode)
 
@@ -185,18 +135,6 @@ class Engineer(Agent):
         self.storages.root["README.md"] = "\n".join(match.group(1) for match in matches)
 
     def improve_source_code(self, auto_mode: bool = False):
-        current_codes = ""
-        for (
-            file_name,
-            file_str,
-        ) in self.storages.root.recursive_file_search().items():
-            if self.debug_mode:
-                self.console.print(
-                    f"Adding file {file_name} to the prompt...", style="blue"
-                )
-            code_input = step_prompts.format_file_to_input(file_name, file_str)
-            current_codes += f"{code_input}\n"
-
         request = self.ask(
             "What would you like to update?", is_required=True, default=None
         )
@@ -206,7 +144,7 @@ class Engineer(Agent):
                 planning_improvement_template.format(
                     request=request,
                     specifications=self.storages.docs["specifications.md"],
-                    codes=current_codes,
+                    codes=self.current_source_code(),
                     json_format="""
 {
     "plan": {
@@ -261,22 +199,10 @@ class Engineer(Agent):
             self.console.print(f"GOAL: {task['goal']}")
             self.console.new_lines()
 
-            current_contents = ""
-            for (
-                file_name,
-                file_str,
-            ) in self.storages.root.recursive_file_search().items():
-                if self.debug_mode:
-                    self.console.print(
-                        f"Adding file {file_name} to the prompt...", style="blue"
-                    )
-                code_input = step_prompts.format_file_to_input(file_name, file_str)
-                current_contents += f"{code_input}\n"
-
             previous_finished_task_message = (
                 "All preceding tasks have been completed. No further action is required on them.\n"
                 + "All codes implemented so far are listed below. Please include them to ensure that we achieve our goal.\n"
-                + "{current_contents}\n\n"
+                + f"{self.current_source_code()}\n\n"
                 if i == 0
                 else ""
             )
@@ -311,18 +237,10 @@ class Engineer(Agent):
         )
 
     def complete_source_code(self, auto_mode: bool = False):
-        current_codes = ""
-        for (
-            file_name,
-            file_str,
-        ) in self.storages.root.recursive_file_search().items():
-            code_input = step_prompts.format_file_to_input(file_name, file_str)
-            current_codes += f"{code_input}\n"
-
         self.messages.append(
             Message.create_system_message(
                 complete_source_code_template.format(
-                    codes=current_codes,
+                    codes=self.current_source_code(),
                 )
             )
         )
