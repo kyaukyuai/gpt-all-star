@@ -1,12 +1,8 @@
 from langchain_core.prompts import PromptTemplate
 
 implement_planning_template = PromptTemplate.from_template(
-    """We've broken down the plan into {num_of_todo} TODOs.
-```
-{todo_list}
-```
-
-You are currently working on TODO{index_of_todo} with the following description:
+    """
+You are currently working on the following TODO:
 ```
 {todo_description}
 ```

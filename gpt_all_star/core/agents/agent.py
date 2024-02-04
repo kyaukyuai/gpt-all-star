@@ -7,12 +7,17 @@ from enum import Enum
 from functools import lru_cache
 import re
 import openai
+from langchain.agents.agent import AgentExecutor
+from langchain.agents.openai_tools.base import create_openai_tools_agent
 from langchain_openai import AzureChatOpenAI
 from langchain_openai import ChatOpenAI
+from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
 from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts.prompt import PromptTemplate
+from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
+from langchain_experimental.tools import PythonREPLTool
 from rich.markdown import Markdown
 from rich.panel import Panel
 
@@ -33,6 +38,7 @@ class Agent(ABC):
         name: str | None = None,
         profile: str | None = None,
         color: str | None = None,
+        tools: list = [],
     ) -> None:
         self.console = ConsoleTerminal()
         self._llm = _create_llm(os.getenv("OPENAI_API_MODEL_NAME"), 0.1)
@@ -45,6 +51,9 @@ class Agent(ABC):
         self.messages: list[BaseMessage] = [Message.create_system_message(self.profile)]
         self.storages = storages
         self.debug_mode = debug_mode
+
+        self.tools = tools + [PythonREPLTool()]
+        self.executor = self._create_executor(self.tools)
 
     def chat(self, human_input: str | None = None) -> None:
         if human_input is not None:
@@ -131,6 +140,64 @@ class Agent(ABC):
     def _get_default_profile(self) -> AgentProfile:
         return AGENT_PROFILES[self.role]
 
+    def _create_executor(self, tools: list) -> AgentExecutor:
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                (
+                    "system",
+                    self.profile,
+                ),
+                MessagesPlaceholder(variable_name="messages"),
+                MessagesPlaceholder(variable_name="agent_scratchpad"),
+            ]
+        )
+        agent = create_openai_tools_agent(self._llm, tools, prompt)
+        return AgentExecutor(agent=agent, tools=tools, verbose=self.debug_mode)
+
+    def create_chain(self, members: list = []):
+        options = ["FINISH"] + members
+        system_prompt = (
+            "You are a supervisor tasked with managing a conversation between the"
+            " following workers:  {members}. Given the following user request,"
+            " respond with the worker to act next. Each worker will perform a"
+            " task and respond with their results and status. When finished,"
+            " respond with FINISH."
+        )
+        function_def = {
+            "name": "route",
+            "description": "Select the next role.",
+            "parameters": {
+                "title": "routeSchema",
+                "type": "object",
+                "properties": {
+                    "next": {
+                        "title": "Next",
+                        "anyOf": [
+                            {"enum": options},
+                        ],
+                    }
+                },
+                "required": ["next"],
+            },
+        }
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", system_prompt),
+                MessagesPlaceholder(variable_name="messages"),
+                (
+                    "system",
+                    "Given the conversation above, who should act next?"
+                    " Or should we FINISH? Select one of: {options}",
+                ),
+            ]
+        ).partial(options=str(options), members=", ".join(members))
+
+        return (
+            prompt
+            | self._llm.bind_functions(functions=[function_def], function_call="route")
+            | JsonOutputFunctionsParser()
+        )
+
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
     endpoint = os.getenv("ENDPOINT")
@@ -155,7 +222,7 @@ def _create_chat_openai_instance(model_name: str, temperature: float):
 
 def _create_azure_chat_openai_instance(model_name: str):
     return AzureChatOpenAI(
-        openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2023-05-15"),
+        openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2023-07-01-preview"),
         deployment_name=model_name,
         streaming=True,
     )
