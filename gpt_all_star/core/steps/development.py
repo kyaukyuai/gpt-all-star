@@ -75,6 +75,4 @@ class Development(Step):
 
         self.agents.engineer.create_source_code(auto_mode=self.auto_mode)
         self.agents.engineer.complete_source_code(auto_mode=self.auto_mode)
-        # self.console.new_lines()
-        # self.agents.qa_engineer.evaluate_source_code(auto_mode=self.auto_mode)
-        # self.console.new_lines()
+        self.console.new_lines()
