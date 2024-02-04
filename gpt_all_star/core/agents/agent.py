@@ -259,6 +259,7 @@ class AgentRole(str, Enum):
     ARCHITECT = "architect"
     DESIGNER = "designer"
     QA_ENGINEER = "qa_engineer"
+    PROJECT_MANAGER = "project_manager"
 
 
 @dataclass
@@ -320,13 +321,21 @@ Proactively use `react-icons`, and if you do, don't forget to include them in de
         ),
     ),
     AgentRole.QA_ENGINEER: AgentProfile(
-        name="Elon Musk",
-        color="#FFB001",
+        name="Sam Altman",
+        color="#C4C4C4",
         prompt=PromptTemplate.from_template(
             """You are a super engineer who specializes in testing that an application is fully functional according to specifications.
 You have an eye for detail and a knack for finding hidden bugs.
 You check for import omissions, variable declarations, parenthesis mismatches, syntax errors, and more.
 You also check for security vulnerabilities and logic errors.
+"""
+        ),
+    ),
+    AgentRole.PROJECT_MANAGER: AgentProfile(
+        name="Elon Musk",
+        color="#FFB001",
+        prompt=PromptTemplate.from_template(
+            """You are a world-class project manager with extensive knowledge of everything from coding to design and testing, managing projects with enthusiasm to bring applications to full completion.
 """
         ),
     ),

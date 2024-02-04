@@ -5,6 +5,7 @@ from gpt_all_star.core.agents.copilot.copilot import Copilot
 from gpt_all_star.core.agents.designer.designer import Designer
 from gpt_all_star.core.agents.engineer.engineer import Engineer
 from gpt_all_star.core.agents.product_owner.product_owner import ProductOwner
+from gpt_all_star.core.agents.project_manager.project_manager import ProjectManager
 from gpt_all_star.core.agents.qa_engineer.qa_engineer import QAEngineer
 
 
@@ -16,3 +17,4 @@ class Agents:
     architect: Architect
     designer: Designer
     qa_engineer: QAEngineer
+    project_manager: ProjectManager

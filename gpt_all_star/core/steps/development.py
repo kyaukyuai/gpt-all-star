@@ -2,7 +2,7 @@ from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.team import Team
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.core.agents.engineer.implement_planning_prompt import (
+from gpt_all_star.core.agents.project_manager.implement_planning_prompt import (
     implement_planning_template,
 )
 
@@ -15,7 +15,7 @@ class Development(Step):
 
     def run(self) -> None:
         team = Team(
-            supervisor=self.agents.copilot,
+            supervisor=self.agents.project_manager,
             members=[
                 self.agents.engineer,
                 self.agents.designer,
@@ -23,7 +23,9 @@ class Development(Step):
             ],
         )
 
-        todo_list = self.agents.engineer.plan_development(auto_mode=self.auto_mode)
+        todo_list = self.agents.project_manager.plan_development(
+            auto_mode=self.auto_mode
+        )
         for i, task in enumerate(todo_list["plan"]):
             self.console.print(f"TODO {i + 1}: {task['todo']}")
             self.console.print(f"GOAL: {task['goal']}")

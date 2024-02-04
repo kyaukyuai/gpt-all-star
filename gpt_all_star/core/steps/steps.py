@@ -28,7 +28,6 @@ STEPS = {
         Specification,
         SystemDesign,
         Development,
-        UIDesign,
         Execution,
         Deployment,
     ],

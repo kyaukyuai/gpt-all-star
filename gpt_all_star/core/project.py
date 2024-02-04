@@ -9,6 +9,7 @@ from gpt_all_star.core.agents.copilot.copilot import Copilot
 from gpt_all_star.core.agents.designer.designer import Designer
 from gpt_all_star.core.agents.engineer.engineer import Engineer
 from gpt_all_star.core.agents.product_owner.product_owner import ProductOwner
+from gpt_all_star.core.agents.project_manager.project_manager import ProjectManager
 from gpt_all_star.core.agents.qa_engineer.qa_engineer import QAEngineer
 from gpt_all_star.core.steps.steps import StepType, STEPS
 from gpt_all_star.core.storage import Storage, Storages
@@ -55,6 +56,9 @@ class Project:
             architect=Architect(storages=self.storages, debug_mode=self.debug_mode),
             designer=Designer(storages=self.storages, debug_mode=self.debug_mode),
             qa_engineer=QAEngineer(storages=self.storages, debug_mode=self.debug_mode),
+            project_manager=ProjectManager(
+                storages=self.storages, debug_mode=self.debug_mode
+            ),
         )
 
     def set_step_type(self, step: StepType) -> None:

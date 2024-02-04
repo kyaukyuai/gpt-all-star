@@ -22,6 +22,7 @@ class TeamBuilding(Step):
         self._introduce_agent(self.agents.architect, AgentRole.ARCHITECT)
         self._introduce_agent(self.agents.designer, AgentRole.DESIGNER)
         self._introduce_agent(self.agents.qa_engineer, AgentRole.QA_ENGINEER)
+        self._introduce_agent(self.agents.project_manager, AgentRole.PROJECT_MANAGER)
         self.console.new_lines()
         self.agents.copilot.state("Ok, we have a team now!")
         self._display_team_members()
@@ -59,7 +60,9 @@ class TeamBuilding(Step):
             table.add_row(
                 member.name,
                 member.role.name,
-                TextParser.cut_last_n_lines(member.profile, 2),
+                TextParser.cut_last_n_lines(
+                    member.profile, 2 if self.japanese_mode else 1
+                ),
             )
         self.console.print(table)
         self.console.new_lines(1)
