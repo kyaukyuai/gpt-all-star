@@ -23,9 +23,8 @@ from rich.panel import Panel
 
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
-from gpt_all_star.core.steps import step_prompts
 from gpt_all_star.core.storage import Storages
-from gpt_all_star.tool.text_parser import TextParser
+from gpt_all_star.tool.text_parser import TextParser, format_file_to_input
 
 NEXT_COMMAND = "next"
 
@@ -209,7 +208,7 @@ class Agent(ABC):
                 self.console.print(
                     f"Adding file {filename} to the prompt...", style="blue"
                 )
-            formatted_code = step_prompts.format_file_to_input(filename, file_content)
+            formatted_code = format_file_to_input(filename, file_content)
             source_code_contents.append(formatted_code)
         return "\n".join(source_code_contents)
 
