@@ -152,7 +152,7 @@ class Agent(ABC):
             ]
         )
         agent = create_openai_tools_agent(self._llm, tools, prompt)
-        return AgentExecutor(agent=agent, tools=tools, verbose=self.debug_mode)
+        return AgentExecutor(agent=agent, tools=tools, verbose=False)
 
     def create_chain(self, members: list = []):
         options = ["FINISH"] + members
@@ -305,7 +305,7 @@ For NodeJS, you always create an appropriate package.json file.
         color="#FFAEBC",
         prompt=PromptTemplate.from_template(
             """You are a seasoned software architect, specializing in designing architectures for minimum viable products (MVPs) for web applications.
-On the front-end side, you excel in React.js design.
+On the front-end side, you excel in React.js best practice.
 """
         ),
     ),

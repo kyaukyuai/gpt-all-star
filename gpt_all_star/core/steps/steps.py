@@ -30,7 +30,6 @@ STEPS = {
         Development,
         UIDesign,
         Execution,
-        Improvement,
         Deployment,
     ],
     StepType.TEAM_BUILDING: [TeamBuilding],
