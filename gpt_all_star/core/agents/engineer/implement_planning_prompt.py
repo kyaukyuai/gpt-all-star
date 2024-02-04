@@ -1,18 +1,17 @@
 from langchain_core.prompts import PromptTemplate
 
 implement_planning_template = PromptTemplate.from_template(
-    """
-You are currently working on the following TODO:
+    """Your task is as follows.
+If you have already completed a TODO that you need to do, exit without outputting anything.
+**IMPORTANT**: Make sure to use the full code when outputting the code.
 ```
-{todo_description}
+TODO: {todo_description}
+GOAL: {todo_goal}
 ```
 
 {finished_todo_message}
-After a TODO is finished, please make sure you meet the goal: {todo_goal}.
-If you have already implemented a TODO that you need to do, exit without outputting anything.
 
-**IMPORTANT**: Make sure to use the full code when outputting the code.
-
+---
 Represent files like so:
 
 FILENAME
@@ -26,9 +25,21 @@ CODE is the code in the file
 
 Example representation of a file:
 
-./hello_world.py
+./src/index.js
 ```
-print("Hello World")
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ChakraProvider } from '@chakra-ui/react';
+import App from './App';
+
+ReactDOM.render(
+    <React.StrictMode>
+        <ChakraProvider>
+            <App />
+        </ChakraProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
 ```
 """
 )

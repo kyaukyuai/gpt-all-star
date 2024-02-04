@@ -16,7 +16,7 @@ SPECIFICATION is the text in the file.
 
 Example representation of a file:
 
-specification.md
+specifications.md
 ```
 # Outline
 ```

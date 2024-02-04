@@ -30,13 +30,17 @@ class Development(Step):
             self.console.print(f"GOAL: {task['goal']}")
             self.console.print("---")
 
-            previous_finished_task_message = (
-                "All preceding tasks have been completed. No further action is required on them.\n"
-                + "All codes implemented so far are listed below. Please include them to ensure that we achieve our goal.\n"
-                + f"{self.agents.copilot.current_source_code()}\n\n"
-                if i == 0
-                else ""
-            )
+            previous_finished_task_message = f"""The information given to you is as follows.
+There are the specifications to build the application:
+```
+{self.agents.copilot.storages.docs["specifications.md"]}
+```
+
+There are the source codes generated so far:
+```
+{self.agents.copilot.current_source_code()}
+```
+"""
             message = Message.create_human_message(
                 implement_planning_template.format(
                     todo_description=task["todo"],
