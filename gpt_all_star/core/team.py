@@ -3,6 +3,7 @@ from langgraph.graph import StateGraph, END
 from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.agents.agent_state import AgentState
 from gpt_all_star.core.message import Message
+from gpt_all_star.tool.text_parser import TextParser
 
 
 class Team:
@@ -11,6 +12,7 @@ class Team:
         self.members = members
         self.supervisor_chain = self._create_supervisor_chain()
         self.state_graph = self._initialize_state_graph()
+        self._team = self.state_graph.compile()
 
     def _create_supervisor_chain(self):
         return self.supervisor.create_chain(
@@ -47,6 +49,20 @@ class Team:
 
     def compile(self):
         return self.state_graph.compile()
+
+    def run(self, messages: list[Message]):
+        for output in self._team.stream({"messages": messages}):
+            for key, value in output.items():
+                if key == self.supervisor.name or key == "__end__":
+                    # self.supervisor.state(value)
+                    pass
+                else:
+                    latest_message = value.get("messages")[-1].content.strip()
+                    self.supervisor.state(f"Output from node '{key}':")
+                    self.supervisor.state(latest_message)
+                    files = TextParser.parse_code_from_text(latest_message)
+                    for file_name, file_content in files:
+                        self.supervisor.storages.root[file_name] = file_content
 
     @staticmethod
     def _agent_node(state, agent, name):

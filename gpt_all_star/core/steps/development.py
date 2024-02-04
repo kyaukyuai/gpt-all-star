@@ -5,7 +5,6 @@ from gpt_all_star.core.steps.step import Step
 from gpt_all_star.core.agents.engineer.implement_planning_prompt import (
     implement_planning_template,
 )
-from gpt_all_star.tool.text_parser import TextParser
 
 
 class Development(Step):
@@ -22,7 +21,7 @@ class Development(Step):
                 self.agents.designer,
                 self.agents.qa_engineer,
             ],
-        ).compile()
+        )
 
         todo_list = self.agents.engineer.plan_development(auto_mode=self.auto_mode)
         for i, task in enumerate(todo_list["plan"]):
@@ -48,20 +47,7 @@ There are the source codes generated so far:
                     todo_goal=task["goal"],
                 )
             )
-            for output in team.stream({"messages": [message]}):
-                for key, value in output.items():
-                    self.console.print(f"Output from node '{key}':")
-                    self.console.print("---")
-                    if key == "copilot":
-                        self.console.print(value)
-                    else:
-                        self.console.print(value.get("messages")[-1].content.strip())
-                        files = TextParser.parse_code_from_text(
-                            value.get("messages")[-1].content.strip()
-                        )
-                        for file_name, file_content in files:
-                            self.agents.copilot.storages.root[file_name] = file_content
-                print("\n---\n")
+            team.run([message])
 
         self.agents.engineer.create_source_code(auto_mode=self.auto_mode)
         self.agents.engineer.complete_source_code(auto_mode=self.auto_mode)
