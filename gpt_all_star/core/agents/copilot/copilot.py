@@ -46,7 +46,7 @@ class Copilot(Agent):
         )
         self.state(f"Completed project: {self.name}")
 
-    def push_to_git_repository(self, auto_mode: bool = False) -> None:
+    def push_to_git_repository(self, review_mode: bool = False) -> None:
         git = Git(self.storages.root.path)
         files_to_add = git.files()
         if not files_to_add:
@@ -57,7 +57,7 @@ class Copilot(Agent):
         syntax = Syntax(git.diffs(), "diff", theme="monokai", line_numbers=True)
         self.console.print(syntax)
 
-        if not (self._confirm_push() or auto_mode):
+        if not self._confirm_push() and review_mode:
             return
 
         self.messages.append(

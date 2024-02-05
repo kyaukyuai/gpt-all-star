@@ -4,14 +4,18 @@ from gpt_all_star.core.steps.step import Step
 
 class Execution(Step):
     def __init__(
-        self, agents: Agents, japanese_mode: bool, auto_mode: bool, debug_mode: bool
+        self,
+        agents: Agents,
+        japanese_mode: bool,
+        review_mode: bool,
+        debug_mode: bool,
     ) -> None:
-        super().__init__(agents, japanese_mode, auto_mode, debug_mode)
+        super().__init__(agents, japanese_mode, review_mode, debug_mode)
 
     def run(self) -> None:
         from gpt_all_star.core.steps.improvement import Improvement
 
-        self.agents.qa_engineer.execute_code(auto_mode=self.auto_mode)
+        self.agents.qa_engineer.execute_code(review_mode=self.review_mode)
 
         CONFIRM_CHOICES = ["yes", "no"]
         choice = self.agents.copilot.present_choices(
@@ -21,5 +25,5 @@ class Execution(Step):
         )
         if choice == CONFIRM_CHOICES[0]:
             Improvement(
-                self.agents, self.japanese_mode, self.auto_mode, self.debug_mode
+                self.agents, self.japanese_mode, self.review_mode, self.debug_mode
             ).run()

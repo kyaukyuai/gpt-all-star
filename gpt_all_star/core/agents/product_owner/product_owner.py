@@ -24,19 +24,19 @@ class ProductOwner(Agent):
     ) -> None:
         super().__init__(AgentRole.PRODUCT_OWNER, storages, debug_mode, name, profile)
 
-    def create_specifications(self, auto_mode: bool = False) -> None:
+    def create_specifications(self, review_mode: bool = False) -> None:
         instructions = self._get_instructions()
         app_type = self._get_app_type()
 
-        self._clarify_instructions(instructions, app_type, auto_mode)
-        self._summarize_specifications(instructions, app_type, auto_mode)
+        self._clarify_instructions(instructions, app_type, review_mode)
+        self._summarize_specifications(instructions, app_type, review_mode)
 
     def _clarify_instructions(
-        self, instructions: str, app_type: str, auto_mode: bool = False
+        self, instructions: str, app_type: str, review_mode: bool = False
     ) -> None:
         clarification_method = (
             self._clarify_instructions_auto
-            if auto_mode
+            if not review_mode
             else self._clarify_instructions_manual
         )
         clarification_method(instructions, app_type)
@@ -80,7 +80,7 @@ class ProductOwner(Agent):
         )
 
     def _summarize_specifications(
-        self, instructions: str, app_type: str, auto_mode: bool = False
+        self, instructions: str, app_type: str, review_mode: bool = False
     ) -> None:
         message = Message.create_system_message(
             summarize_specifications_template.format(app_type=app_type)
@@ -92,7 +92,7 @@ class ProductOwner(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
-            auto_mode=auto_mode,
+            review_mode=review_mode,
         )
 
         self.store_md("specifications", self.latest_message_content())

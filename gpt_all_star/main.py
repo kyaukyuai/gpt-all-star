@@ -34,11 +34,11 @@ def main(
         "-j",
         help="Japanese mode",
     ),
-    auto_mode: bool = typer.Option(
+    review_mode: bool = typer.Option(
         False,
-        "--auto_mode",
-        "-a",
-        help="Auto mode",
+        "--review_mode",
+        "-r",
+        help="Review mode",
     ),
     debug_mode: bool = typer.Option(
         False,
@@ -51,7 +51,7 @@ def main(
     console = ConsoleTerminal()
     console.title(COMMAND_NAME)
 
-    project = Project(step, project_name, japanese_mode, auto_mode, debug_mode)
+    project = Project(step, project_name, japanese_mode, review_mode, debug_mode)
     project.start()
     project.finish()
 

@@ -21,18 +21,20 @@ class Project:
         step: StepType = StepType.DEFAULT,
         project_name: str = None,
         japanese_mode: bool = False,
-        auto_mode: bool = False,
+        review_mode: bool = False,
         debug_mode: bool = False,
     ) -> None:
-        self.set_modes(japanese_mode, auto_mode, debug_mode)
+        self.set_modes(japanese_mode, review_mode, debug_mode)
         self.set_project_name(project_name)
         self.set_storages()
         self.set_agents()
         self.set_step_type(step)
 
-    def set_modes(self, japanese_mode: bool, auto_mode: bool, debug_mode: bool) -> None:
+    def set_modes(
+        self, japanese_mode: bool, review_mode: bool, debug_mode: bool
+    ) -> None:
         self.japanese_mode = japanese_mode
-        self.auto_mode = auto_mode
+        self.review_mode = review_mode
         self.debug_mode = debug_mode
 
     def set_project_name(self, project_name: str) -> None:
@@ -80,7 +82,12 @@ class Project:
 
     def execute_step(self, step) -> None:
         try:
-            step(self.agents, self.japanese_mode, self.auto_mode, self.debug_mode).run()
+            step(
+                self.agents,
+                self.japanese_mode,
+                self.review_mode,
+                self.debug_mode,
+            ).run()
         except Exception as e:
             self.agents.copilot.state(
                 f"Failed to execute step {step}. Reason: {str(e)}"

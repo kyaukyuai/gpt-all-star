@@ -28,13 +28,13 @@ class QAEngineer(Agent):
     ) -> None:
         super().__init__(AgentRole.QA_ENGINEER, storages, debug_mode, name, profile)
 
-    def execute_code(self, auto_mode: bool = False) -> None:
+    def execute_code(self, review_mode: bool = False) -> None:
         command = self.storages.root["run.sh"]
-        self._confirm_execution(auto_mode, command)
+        self._confirm_execution(review_mode, command)
         self._run_command()
 
-    def _confirm_execution(self, auto_mode: bool, command: str) -> None:
-        if not auto_mode:
+    def _confirm_execution(self, review_mode: bool, command: str) -> None:
+        if review_mode:
             self.console.new_lines()
             CONFIRM_CHOICES = ["yes", "no"]
             choice = self.present_choices(

@@ -9,12 +9,12 @@ class Step(ABC):
         self,
         agents: Agents,
         japanese_mode: bool = False,
-        auto_mode: bool = False,
+        review_mode: bool = False,
         debug_mode: bool = False,
     ) -> None:
         self.agents = agents
         self.japanese_mode = japanese_mode
-        self.auto_mode = auto_mode
+        self.review_mode = review_mode
         self.debug_mode = debug_mode
         self.console = ConsoleTerminal()
 

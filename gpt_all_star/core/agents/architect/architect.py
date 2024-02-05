@@ -23,12 +23,12 @@ class Architect(Agent):
     ) -> None:
         super().__init__(AgentRole.ARCHITECT, storages, debug_mode, name, profile)
 
-    def create_system_design(self, auto_mode: bool = False) -> None:
-        self._create_technologies_list(auto_mode)
-        self._create_urls_list(auto_mode)
-        self._create_files_list(auto_mode)
+    def create_system_design(self, review_mode: bool = False) -> None:
+        self._create_technologies_list(review_mode)
+        self._create_urls_list(review_mode)
+        self._create_files_list(review_mode)
 
-    def _create_technologies_list(self, auto_mode: bool = False):
+    def _create_technologies_list(self, review_mode: bool = False):
         message = Message.create_system_message(
             create_technologies_list_template.format(
                 specifications=self.storages.docs["specifications.md"],
@@ -41,12 +41,12 @@ class Architect(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
-            auto_mode=auto_mode,
+            review_mode=review_mode,
         )
 
         self.store_md("technologies", self.latest_message_content())
 
-    def _create_urls_list(self, auto_mode: bool = False):
+    def _create_urls_list(self, review_mode: bool = False):
         message = Message.create_system_message(
             create_urls_list_template.format(format=output_format)
         )
@@ -56,12 +56,12 @@ class Architect(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
-            auto_mode=auto_mode,
+            review_mode=review_mode,
         )
 
         self.store_md("pages", self.latest_message_content())
 
-    def _create_files_list(self, auto_mode: bool = False):
+    def _create_files_list(self, review_mode: bool = False):
         message = Message.create_system_message(
             create_files_list_template.format(format=output_format)
         )
@@ -71,7 +71,7 @@ class Architect(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
-            auto_mode=auto_mode,
+            review_mode=review_mode,
         )
 
         self.store_md("files", self.latest_message_content())

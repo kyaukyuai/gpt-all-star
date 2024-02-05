@@ -20,7 +20,7 @@ class Designer(Agent):
     ) -> None:
         super().__init__(AgentRole.DESIGNER, storages, debug_mode, name, profile)
 
-    def design_user_interface(self, auto_mode: bool = False):
+    def design_user_interface(self, review_mode: bool = False):
         self.messages.append(
             Message.create_system_message(
                 planning_ui_design_template.format(

@@ -19,7 +19,7 @@ class ProjectManager(Agent):
     ) -> None:
         super().__init__(AgentRole.PROJECT_MANAGER, storages, debug_mode, name, profile)
 
-    def plan_development(self, auto_mode: bool = False):
+    def plan_development(self, review_mode: bool = False):
         self.messages.append(
             Message.create_system_message(
                 planning_development_template.format(
@@ -76,7 +76,7 @@ class ProjectManager(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
-            auto_mode=auto_mode,
+            review_mode=review_mode,
         )
 
         return TextParser.to_json(self.latest_message_content())

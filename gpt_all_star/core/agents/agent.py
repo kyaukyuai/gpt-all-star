@@ -114,14 +114,14 @@ class Agent(ABC):
         self,
         follow_up_message: str,
         final_message: str | None = None,
-        auto_mode: bool = False,
+        review_mode: bool = False,
     ) -> None:
         user_input = None
         count = 0
 
         while True:
             if count > 0:
-                if auto_mode:
+                if not review_mode:
                     self._handle_final_message(final_message)
                     break
 

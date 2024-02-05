@@ -33,11 +33,11 @@ class Engineer(Agent):
     ) -> None:
         super().__init__(AgentRole.ENGINEER, storages, debug_mode, name, profile)
 
-    def create_source_code(self, auto_mode: bool = False):
-        self._create_entrypoint(auto_mode)
-        self._create_readme(auto_mode)
+    def create_source_code(self, review_mode: bool = False):
+        self._create_entrypoint(review_mode)
+        self._create_readme(review_mode)
 
-    def _create_entrypoint(self, auto_mode: bool = False):
+    def _create_entrypoint(self, review_mode: bool = False):
         self.messages.append(
             Message.create_system_message(create_entrypoint_template.format())
         )
@@ -46,14 +46,14 @@ class Engineer(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
-            auto_mode=auto_mode,
+            review_mode=review_mode,
         )
 
         regex = r"```\S*\n(.+?)```"
         matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
         self.storages.root["run.sh"] = "\n".join(match.group(1) for match in matches)
 
-    def _create_readme(self, auto_mode: bool = False):
+    def _create_readme(self, review_mode: bool = False):
         self.messages.append(
             Message.create_system_message(create_readme_template.format())
         )
@@ -62,14 +62,14 @@ class Engineer(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
-            auto_mode=auto_mode,
+            review_mode=review_mode,
         )
 
         regex = r"```\S*\n(.+?)```"
         matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
         self.storages.root["README.md"] = "\n".join(match.group(1) for match in matches)
 
-    def improve_source_code(self, auto_mode: bool = False):
+    def improve_source_code(self, review_mode: bool = False):
         request = self.ask(
             "What would you like to update?", is_required=True, default=None
         )
@@ -168,10 +168,10 @@ class Engineer(Agent):
             "Do you want to add any features or changes? If yes, describe it here and if no, just type `{}`".format(
                 NEXT_COMMAND
             ),
-            auto_mode=auto_mode,
+            review_mode=review_mode,
         )
 
-    def complete_source_code(self, auto_mode: bool = False):
+    def complete_source_code(self, review_mode: bool = False):
         self.messages.append(
             Message.create_system_message(
                 complete_source_code_template.format(
