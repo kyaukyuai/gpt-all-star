@@ -70,7 +70,7 @@ class Designer(Agent):
                 )
             )
         )
-        self.chat()
+        self.invoke()
         self.console.new_lines(2)
 
         todo_list = TextParser.to_json(self.latest_message_content())
@@ -104,7 +104,7 @@ class Designer(Agent):
                     )
                 )
             )
-            self.chat()
+            self.invoke()
             self.console.new_lines(2)
             files = TextParser.parse_code_from_text(self.latest_message_content())
             for file_name, file_content in files:

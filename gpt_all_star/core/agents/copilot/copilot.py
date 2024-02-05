@@ -96,7 +96,7 @@ class Copilot(Agent):
                 )
             )
         )
-        self.chat()
+        self.invoke()
         commit_details = TextParser.to_json(self.latest_message_content())[
             "commitDetails"
         ]

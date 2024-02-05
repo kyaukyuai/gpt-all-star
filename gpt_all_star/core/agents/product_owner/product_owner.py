@@ -49,7 +49,7 @@ class ProductOwner(Agent):
             )
         )
         self.messages.append(message)
-        self.chat()
+        self.invoke()
         self.console.new_lines(2)
 
     def _clarify_instructions_manual(self, instructions: str, app_type: str) -> None:

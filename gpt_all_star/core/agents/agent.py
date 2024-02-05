@@ -6,6 +6,7 @@ import os
 from enum import Enum
 from functools import lru_cache
 import re
+from typing import Optional
 import openai
 from langchain.agents.agent import AgentExecutor
 from langchain.agents.openai_tools.base import create_openai_tools_agent
@@ -55,13 +56,15 @@ class Agent(ABC):
         self.tools = tools + [ShellTool()]
         self.executor = self._create_executor(self.tools)
 
-    def chat(self, human_input: str | None = None) -> None:
-        if human_input is not None:
-            self.messages.append(Message.create_human_message(human_input))
+    def invoke(self, input: Optional[str] = None) -> None:
+        if input is not None:
+            self.messages.append(Message.create_human_message(input))
 
         callbacks = [StreamingStdOutCallbackHandler()] if self.debug_mode else []
-        response = self._llm(self.messages, callbacks=callbacks)
-        self.messages.append(response)
+        result = self.executor.invoke(
+            {"messages": self.messages}, config={"callbacks": callbacks}
+        )
+        self.messages.append(Message.create_ai_message(result["output"]))
 
     def state(self, text: str) -> None:
         self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
@@ -128,13 +131,13 @@ class Agent(ABC):
                     self._handle_final_message(final_message)
                     break
 
-            self.chat(user_input)
+            self.invoke(user_input)
             self.console.new_lines(1)
             count += 1
 
     def _handle_final_message(self, final_message: str | None) -> None:
         if final_message:
-            self.chat(final_message)
+            self.invoke(final_message)
         self.console.new_lines(1)
 
     def _get_default_profile(self) -> AgentProfile:
