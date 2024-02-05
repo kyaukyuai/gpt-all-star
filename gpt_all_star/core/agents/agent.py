@@ -85,7 +85,7 @@ class Agent(ABC):
                 default = re.sub(r"\n$", "", default)
             default_value = f"\n(default: {default})" if default else ""
             self.console.print(
-                f"[{self.color} bold]{self.name}: {question}[/{self.color} bold][black]{default_value}[/black]"
+                f"[{self.color} bold]{self.name}: {question}[/{self.color} bold]{default_value}"
             )
             answer = self.console.input("project.history").strip() or default
             self.console.new_lines(1)

@@ -3,7 +3,7 @@ services:
   gpt-all-star:
     container_name: gpt-all-star
     volumes:
-      - ~/workspace:/usr/src/app/workspace
+      - ./projects:/usr/src/app/projects
     build:
       context: .
       dockerfile: Dockerfile
