@@ -1,6 +1,7 @@
 version: '3'
 services:
   gpt-all-star:
+    container_name: gpt-all-star
     volumes:
       - ~/workspace:/usr/src/app/workspace
     build:
