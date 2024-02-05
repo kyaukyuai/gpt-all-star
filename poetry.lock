@@ -910,13 +910,13 @@ tiktoken = ">=0.5.2,<0.6.0"
 
 [[package]]
 name = "langgraph"
-version = "0.0.22"
+version = "0.0.23"
 description = "langgraph"
 optional = false
 python-versions = ">=3.9.0,<4.0"
 files = [
-    {file = "langgraph-0.0.22-py3-none-any.whl", hash = "sha256:f85c533ea9e9820e605aea06827c3f896f9d963514faf4a0dc3452da01929209"},
-    {file = "langgraph-0.0.22.tar.gz", hash = "sha256:e4ad8a647228447d14db9ba3cdafa213080ad74b9a51c22d1fe4f4458a105bbb"},
+    {file = "langgraph-0.0.23-py3-none-any.whl", hash = "sha256:00d76fdedd0ca4c13be139fed63613c832729bba3af4248dd5c8af1b67f6e1da"},
+    {file = "langgraph-0.0.23.tar.gz", hash = "sha256:cd174b38013d4e13eac8aaee279423c282a3fb266bd217e95182bdf562b09599"},
 ]
 
 [package.dependencies]
@@ -1672,6 +1672,7 @@ files = [
     {file = "PyYAML-6.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:bf07ee2fef7014951eeb99f56f39c9bb4af143d8aa3c21b1677805985307da34"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:855fb52b0dc35af121542a76b9a84f8d1cd886ea97c84703eaa6d88e37a2ad28"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:40df9b996c2b73138957fe23a16a4f0ba614f4c0efce1e9406a184b6d07fa3a9"},
+    {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a08c6f0fe150303c1c6b71ebcd7213c2858041a7e01975da3a99aed1e7a378ef"},
     {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c22bec3fbe2524cde73d7ada88f6566758a8f7227bfbf93a408a9d86bcc12a0"},
     {file = "PyYAML-6.0.1-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:8d4e9c88387b0f5c7d5f281e55304de64cf7f9c0021a3525bd3b1c542da3b0e4"},
     {file = "PyYAML-6.0.1-cp312-cp312-win32.whl", hash = "sha256:d483d2cdf104e7c9fa60c544d92981f12ad66a457afae824d146093b8c294c54"},
@@ -2419,4 +2420,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "0df06761433813b4fefcc13bf54142a4b813779ffe9459c36af4fd82c3052a1c"
+content-hash = "be05405dfa115d2fe99080727ba2e1278dc6a65654549fc9b211e3e187d348b8"
