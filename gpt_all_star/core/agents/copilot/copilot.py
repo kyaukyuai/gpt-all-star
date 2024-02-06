@@ -38,12 +38,12 @@ class Copilot(Agent):
         return project_name
 
     def finish(self) -> None:
-        self.ask(
-            "Project is finished! Do you want to add any features or changes?"
-            " If yes, describe it here and if no, just press ENTER",
-            is_required=False,
-            default=None,
-        )
+        # self.ask(
+        #     "Project is finished! Do you want to add any features or changes?"
+        #     " If yes, describe it here and if no, just press ENTER",
+        #     is_required=False,
+        #     default=None,
+        # )
         self.state(f"Completed project: {self.name}")
 
     def push_to_git_repository(self, review_mode: bool = False) -> None:
