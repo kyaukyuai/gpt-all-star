@@ -23,6 +23,7 @@ selenium = "^4.17.2"
 langgraph = "^0.0.23"
 langchain-experimental = "^0.0.50"
 llama-index = "^0.9.43"
+tree-sitter-languages = "^1.10.2"
 
 [tool.poetry.scripts]
 gpt-all-star = 'gpt_all_star.main:app'
