@@ -10,6 +10,7 @@ from typing import Optional
 import openai
 from langchain.agents.agent import AgentExecutor
 from langchain.agents.openai_tools.base import create_openai_tools_agent
+from langchain_community.tools.shell import ShellTool
 from langchain_openai import AzureChatOpenAI
 from langchain_openai import ChatOpenAI
 from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
@@ -24,7 +25,8 @@ from rich.panel import Panel
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
-from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
+
+# from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
 from gpt_all_star.helper.text_parser import TextParser, format_file_to_input
 
 NEXT_COMMAND = "next"
@@ -53,7 +55,7 @@ class Agent(ABC):
         self.storages = storages
         self.debug_mode = debug_mode
 
-        self.tools = tools + [llama_index_tool(path=self.storages.root.path)]
+        self.tools = tools + [ShellTool()]
         self.executor = self._create_executor(self.tools)
 
     def invoke(self, input: Optional[str] = None) -> None:
