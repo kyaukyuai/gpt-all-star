@@ -4,7 +4,7 @@ from langgraph.graph import StateGraph, END
 from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.agents.agent_state import AgentState
 from gpt_all_star.core.message import Message
-from gpt_all_star.tool.text_parser import TextParser
+from gpt_all_star.helper.text_parser import TextParser
 
 
 class Team:

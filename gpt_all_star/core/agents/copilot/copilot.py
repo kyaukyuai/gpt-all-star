@@ -8,8 +8,8 @@ from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.agents.copilot.create_commit_message_prompt import (
     create_commit_message_template,
 )
-from gpt_all_star.tool.git import Git
-from gpt_all_star.tool.text_parser import TextParser
+from gpt_all_star.helper.git import Git
+from gpt_all_star.helper.text_parser import TextParser
 
 
 class Copilot(Agent):

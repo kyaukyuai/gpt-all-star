@@ -25,7 +25,7 @@ from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
-from gpt_all_star.tool.text_parser import TextParser, format_file_to_input
+from gpt_all_star.helper.text_parser import TextParser, format_file_to_input
 
 NEXT_COMMAND = "next"
 

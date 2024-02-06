@@ -20,7 +20,7 @@ from gpt_all_star.core.agents.engineer.planning_improvement_prompt import (
 from gpt_all_star.core.agents.engineer.complete_source_code_prompt import (
     complete_source_code_template,
 )
-from gpt_all_star.tool.text_parser import TextParser
+from gpt_all_star.helper.text_parser import TextParser
 
 
 class Engineer(Agent):

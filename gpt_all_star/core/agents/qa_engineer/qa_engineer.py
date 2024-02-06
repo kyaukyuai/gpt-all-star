@@ -15,7 +15,7 @@ from gpt_all_star.core.agents.qa_engineer.planning_healing_prompt import (
 from gpt_all_star.core.agents.qa_engineer.implement_planning_prompt import (
     implement_planning_template,
 )
-from gpt_all_star.tool.text_parser import TextParser
+from gpt_all_star.helper.text_parser import TextParser
 
 
 class QAEngineer(Agent):

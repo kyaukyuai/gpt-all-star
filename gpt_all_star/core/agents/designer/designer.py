@@ -7,7 +7,7 @@ from gpt_all_star.core.agents.designer.planning_ui_design_prompt import (
 from gpt_all_star.core.agents.designer.implement_planning_prompt import (
     implement_planning_template,
 )
-from gpt_all_star.tool.text_parser import TextParser
+from gpt_all_star.helper.text_parser import TextParser
 
 
 class Designer(Agent):

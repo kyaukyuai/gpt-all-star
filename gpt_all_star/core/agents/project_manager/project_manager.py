@@ -6,7 +6,7 @@ from gpt_all_star.core.agents.agent import Agent, AgentRole, NEXT_COMMAND
 from gpt_all_star.core.agents.project_manager.planning_development_prompt import (
     planning_development_template,
 )
-from gpt_all_star.tool.text_parser import TextParser
+from gpt_all_star.helper.text_parser import TextParser
 
 
 class ProjectManager(Agent):
