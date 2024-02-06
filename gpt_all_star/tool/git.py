@@ -42,7 +42,7 @@ class Git:
     def add(self, files):
         self.repo.index.add(files)
 
-    def commit(self, commit_message: str = f"Add files via gpt-all-star"):
+    def commit(self, commit_message: str = "Add files via gpt-all-star"):
         self.repo.index.commit(commit_message)
 
     def push(self):

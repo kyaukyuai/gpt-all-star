@@ -1,0 +1,30 @@
+[flake8]
+max-line-length = 220
+
+exclude =
+    .git,
+    __pycache__,
+    build,
+    dist,
+    venv,
+    .venv,
+    projects
+
+ignore =
+    E203,
+    E231,
+    W503,
+
+# エラーと警告の詳細レベル
+# H = mccabe (複雑度) 警告
+# C = 複雑度エラー
+# E = エラー
+# W = 警告
+# F = 致命的なエラー
+# B = バグの可能性がある
+# N = pep8-namingプラグインの警告
+select = E,W,F,N,B,C,H
+
+max-complexity = 10
+
+per-file-ignores = __init__.py:F401

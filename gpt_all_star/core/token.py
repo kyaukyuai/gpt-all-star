@@ -1,6 +1,5 @@
 import tiktoken
 from langchain_core.messages import BaseMessage
-from tiktoken import Encoding
 
 
 class Tokenizer:

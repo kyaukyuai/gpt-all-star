@@ -40,7 +40,7 @@ class TextParser:
     def to_json(text: str) -> dict[str, Any]:
         try:
             return json.loads(text)
-        except:
+        except BaseException:
             matches = re.finditer(r"```\S*\n(.+?)\n```", text, re.DOTALL)
             json_str = "\n".join(match.group(1) for match in matches)
             return json.loads(json_str)
