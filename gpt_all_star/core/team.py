@@ -59,7 +59,7 @@ class Team:
                     pass
                 else:
                     latest_message = value.get("messages")[-1].content.strip()
-                    self.supervisor.state(
+                    self.supervisor.console.print(
                         f"""
 {key}:
 ---
