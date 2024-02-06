@@ -201,28 +201,27 @@ class QAEngineer(Agent):
         todo_list = TextParser.to_json(self.latest_message_content())
 
         for i, task in enumerate(todo_list["plan"]):
-            self.console.print(f"TODO {i + 1}: {task['todo']}")
-            self.console.print(f"GOAL: {task['goal']}")
-            self.console.new_lines()
-
-            previous_finished_task_message = (
-                "All preceding tasks have been completed. No further action is required on them.\n"
-                + "All codes implemented so far are listed below. Please include them to ensure that we achieve our goal.\n"
-                + f"{self.current_source_code()}\n\n"
-                if i == 0
-                else ""
+            self.state(
+                f"""TODO {i + 1}: {task['todo']}")
+GOAL: {task['goal']}
+---
+"""
             )
+
+            previous_finished_task_message = f"""The information given to you is as follows.
+There are the specifications to build the application:
+```
+{self.storages.docs["specifications.md"]}
+```
+
+There are the source codes generated so far:
+```
+{self.current_source_code()}
+```
+"""
             self.messages.append(
                 Message.create_system_message(
                     implement_planning_template.format(
-                        num_of_todo=len(todo_list["plan"]),
-                        todo_list="".join(
-                            [
-                                f"{i + 1}: {task['todo']}\n"
-                                for i, task in enumerate(todo_list["plan"])
-                            ]
-                        ),
-                        index_of_todo=i + 1,
                         todo_description=task["todo"],
                         finished_todo_message=previous_finished_task_message,
                         todo_goal=task["goal"],
