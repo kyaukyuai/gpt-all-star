@@ -1,3 +1,6 @@
+SERVICE_NAME = gpt-all-star
+CODE_DIR = gpt_all_star
+
 build:
 	docker-compose build
 
@@ -11,6 +14,14 @@ logs:
 	docker-compose logs
 
 shell:
-	docker-compose exec gpt-all-star /bin/sh
+	docker-compose exec $(SERVICE_NAME) /bin/sh
+
+flake8-check:
+	poetry run flake8 $(CODE_DIR)
+
+black-check:
+	poetry run black --check $(CODE_DIR)
+
+code-check: flake8-check black-check
 
 .PHONY: build up down logs shell
