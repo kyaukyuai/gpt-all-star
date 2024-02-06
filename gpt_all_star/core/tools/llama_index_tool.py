@@ -33,6 +33,6 @@ def llama_index_tool(path: Path) -> Tool:
     return Tool(
         name="LlamaIndex",
         func=update_documents_and_query,
-        description="Helpful for querying and retrieving information from existing source code.",
+        description="Should be used when you want to reference existing source code.",
         return_direct=False,
     )
