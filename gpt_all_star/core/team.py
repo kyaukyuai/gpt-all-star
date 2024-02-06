@@ -59,8 +59,14 @@ class Team:
                     pass
                 else:
                     latest_message = value.get("messages")[-1].content.strip()
-                    self.supervisor.state(f"Output from node '{key}':")
-                    self.supervisor.state(latest_message)
+                    self.supervisor.state(
+                        f"""
+{key}:
+---
+{latest_message}
+---\n\n
+"""
+                    )
                     files = TextParser.parse_code_from_text(latest_message)
                     for file_name, file_content in files:
                         self.supervisor.storages.root[file_name] = file_content

@@ -202,7 +202,8 @@ class QAEngineer(Agent):
 
         for i, task in enumerate(todo_list["plan"]):
             self.state(
-                f"""TODO {i + 1}: {task['todo']}")
+                f"""
+TODO {i + 1}: {task['todo']}")
 GOAL: {task['goal']}
 ---
 """
