@@ -64,7 +64,7 @@ class Team:
 {key}:
 ---
 {latest_message}
----\n\n
+---\n
 """
                     )
                     files = TextParser.parse_code_from_text(latest_message)
