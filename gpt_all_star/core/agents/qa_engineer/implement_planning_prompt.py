@@ -1,15 +1,25 @@
 from langchain_core.prompts import PromptTemplate
 
 implement_planning_template = PromptTemplate.from_template(
-    """Your task is as follows.
-**IMPORTANT**: Your answer must be the full source code, only the source code and nothing else.
+    """
+# Instruction
+---
+Your task is as follows.
 ```
 TODO: {todo_description}
 GOAL: {todo_goal}
 ```
 
+# Constraint
+---
+**IMPORTANT**: Your answer must be the full source code, only the source code and nothing else.
+**IMPORTANT**: Only output files that need to be modified.
+
+# Advance Information
+---
 {finished_todo_message}
 
+# Output format
 ---
 Represent files like so:
 
@@ -23,6 +33,8 @@ PATh is a relative path to the file from the root directory of the project.
 FILENAME is the lowercase combined path and file name including the file extension and **if the file already exists, please follow its name**.
 CODE is the code in the file
 
+# Example
+---
 Example representation of a file:
 
 ./src/index.js

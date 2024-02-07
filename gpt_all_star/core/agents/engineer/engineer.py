@@ -17,9 +17,6 @@ from gpt_all_star.core.agents.engineer.create_readme_prompt import (
 from gpt_all_star.core.agents.engineer.planning_improvement_prompt import (
     planning_improvement_template,
 )
-from gpt_all_star.core.agents.engineer.complete_source_code_prompt import (
-    complete_source_code_template,
-)
 from gpt_all_star.helper.text_parser import TextParser
 
 
@@ -33,11 +30,7 @@ class Engineer(Agent):
     ) -> None:
         super().__init__(AgentRole.ENGINEER, storages, debug_mode, name, profile)
 
-    def create_source_code(self, review_mode: bool = False):
-        self._create_entrypoint(review_mode)
-        self._create_readme(review_mode)
-
-    def _create_entrypoint(self, review_mode: bool = False):
+    def create_entrypoint(self, review_mode: bool = False):
         self.messages.append(
             Message.create_system_message(create_entrypoint_template.format())
         )
@@ -53,7 +46,7 @@ class Engineer(Agent):
         matches = re.finditer(regex, self.latest_message_content(), re.DOTALL)
         self.storages.root["run.sh"] = "\n".join(match.group(1) for match in matches)
 
-    def _create_readme(self, review_mode: bool = False):
+    def create_readme(self, review_mode: bool = False):
         self.messages.append(
             Message.create_system_message(create_readme_template.format())
         )
@@ -170,19 +163,3 @@ class Engineer(Agent):
             ),
             review_mode=review_mode,
         )
-
-    def complete_source_code(self, review_mode: bool = False):
-        self.messages.append(
-            Message.create_system_message(
-                complete_source_code_template.format(
-                    codes=self.current_source_code(),
-                )
-            )
-        )
-
-        self.invoke()
-        self.console.new_lines(2)
-
-        files = TextParser.parse_code_from_text(self.latest_message_content())
-        for file_name, file_content in files:
-            self.storages.root[file_name] = file_content

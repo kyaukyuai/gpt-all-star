@@ -5,6 +5,7 @@ import subprocess
 import threading
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import yaml
 
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
@@ -32,6 +33,41 @@ class QAEngineer(Agent):
         command = self.storages.root["run.sh"]
         self._confirm_execution(review_mode, command)
         self._run_command()
+
+    def check_code(self, review_mode: bool = False) -> None:
+        with open(
+            "./gpt_all_star/core/agents/qa_engineer/quality_check_list.yml", "r"
+        ) as file:
+            check_list = yaml.safe_load(file)
+        for i, check in enumerate(check_list["plan"]):
+            self.state(
+                f"""
+TODO {i + 1}: {check['todo']}
+GOAL: {check['goal']}
+---
+"""
+            )
+            previous_finished_task_message = f"""The information given to you is as follows.
+There are the specifications to build the application:
+```
+{self.storages.docs["specifications.md"]}
+```
+
+There are the source codes generated so far:
+```
+{self.current_source_code()}
+```
+"""
+            message = implement_planning_template.format(
+                todo_description=check["todo"],
+                finished_todo_message=previous_finished_task_message,
+                todo_goal=check["goal"],
+            )
+            self.invoke(message)
+            self.console.new_lines(2)
+            files = TextParser.parse_code_from_text(self.latest_message_content())
+            for file_name, file_content in files:
+                self.storages.root[file_name] = file_content
 
     def _confirm_execution(self, review_mode: bool, command: str) -> None:
         if review_mode:
@@ -94,8 +130,8 @@ class QAEngineer(Agent):
                 stdout_thread.start()
                 stderr_thread.start()
 
-                if self.wait_for_server():
-                    self.check_browser_errors()
+                if self._wait_for_server():
+                    self._check_browser_errors()
                     return
 
                 stdout_thread.join()
@@ -114,7 +150,7 @@ class QAEngineer(Agent):
                 self._handle_keyboard_interrupt()
                 break
 
-    def wait_for_server(self) -> bool:
+    def _wait_for_server(self) -> bool:
         MAX_ATTEMPTS = 30
         for attempt in range(MAX_ATTEMPTS):
             try:
@@ -127,7 +163,7 @@ class QAEngineer(Agent):
         self.state("Unable to confirm server startup")
         return False
 
-    def check_browser_errors(self):
+    def _check_browser_errors(self):
         """Access the site with a headless browser and catch console errors"""
         chrome_options = Options()
         chrome_options.add_argument("--headless")

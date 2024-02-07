@@ -59,5 +59,6 @@ There are the source codes generated so far:
             )
             team.run([message])
 
-        self.agents.engineer.create_source_code(review_mode=self.review_mode)
-        self.agents.engineer.complete_source_code(review_mode=self.review_mode)
+        self.agents.engineer.create_entrypoint(review_mode=self.review_mode)
+        self.agents.engineer.create_readme(review_mode=self.review_mode)
+        self.agents.qa_engineer.check_code(review_mode=self.review_mode)

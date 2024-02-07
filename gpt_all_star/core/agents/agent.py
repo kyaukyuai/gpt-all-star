@@ -296,13 +296,7 @@ You always think step by step and ask detailed questions to completely understan
         prompt=PromptTemplate.from_template(
             """You are a super engineer with excellent command of React, JavaScript, and chakra-ui.
 Your job is to implement **fully working** applications.
-
 Always follow the best practices for the requested languages and frameworks for folder/file structure and how to package the project.
-For NodeJS, you always create an appropriate package.json file.
-    - please set NODE_OPTIONS=--openssl-legacy-provider like so:
-        "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start"
-        "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build"
-    - Do not include the homepage item in package.json.
 """
         ),
     ),
