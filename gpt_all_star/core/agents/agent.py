@@ -159,7 +159,62 @@ class Agent(ABC):
         agent = create_openai_tools_agent(self._llm, tools, prompt)
         return AgentExecutor(agent=agent, tools=tools, verbose=False)
 
-    def create_chain(self, members: list = []):
+    def create_planning_chain(self):
+        system_prompt = (
+            "You are a task manager to create a detail and specific plan."
+            " Given the following user request,"
+            " respond with the plan to fully meet the user's requirements."
+        )
+        function_def = {
+            "name": "planning",
+            "description": "Create the plan.",
+            "parameters": {
+                "title": "planSchema",
+                "type": "object",
+                "properties": {
+                    "plan": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "description": "Task to fix the errors.",
+                            "properties": {
+                                "todo": {
+                                    "type": "string",
+                                    "description": "Very detailed description of the actual TODO to be performed to accomplish the entire plan.",
+                                },
+                                "goal": {
+                                    "type": "string",
+                                    "description": "Very detailed description of the goals to be achieved for the TODO to be executed to accomplish the entire plan",
+                                },
+                            },
+                        },
+                    }
+                },
+                "required": ["plan"],
+            },
+        }
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", system_prompt),
+                MessagesPlaceholder(variable_name="messages"),
+                (
+                    "system",
+                    """
+Given the conversation above, create a detailed and specific plan to fully meet the user's requirements, using the information provided."
+""",
+                ),
+            ]
+        ).partial()
+
+        return (
+            prompt
+            | self._llm.bind_functions(
+                functions=[function_def], function_call="planning"
+            )
+            | JsonOutputFunctionsParser()
+        )
+
+    def create_supervisor_chain(self, members: list = []):
         options = ["FINISH"] + members
         system_prompt = (
             "You are a supervisor tasked with managing a conversation between the"

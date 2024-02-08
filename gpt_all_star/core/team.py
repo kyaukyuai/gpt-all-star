@@ -16,7 +16,7 @@ class Team:
         self._team = self.state_graph.compile()
 
     def _create_supervisor_chain(self):
-        return self.supervisor.create_chain(
+        return self.supervisor.create_supervisor_chain(
             members=[member.name for member in self.members]
         )
 

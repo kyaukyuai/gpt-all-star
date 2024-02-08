@@ -1,3 +1,4 @@
+import json
 from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.team import Team
@@ -27,9 +28,45 @@ class Development(Step):
             ],
         )
 
-        todo_list = self.agents.project_manager.plan_development(
-            review_mode=self.review_mode
+        todo_list = self.agents.project_manager.create_planning_chain().invoke(
+            {
+                "messages": [
+                    Message.create_human_message(
+                        f"""
+# Instructions
+Create a development plan according to the following requirements.
+
+# Constraints
+Follow the development plan and make it detailed and concrete so that engineers, QA, and designers can collaborate to implement the complete application.
+
+# Requirements
+
+## Application Specifications
+```
+{self.agents.project_manager.storages.docs["specifications.md"]}
+```
+
+## Technology stack
+```
+{self.agents.project_manager.storages.docs["technologies.md"]}
+```
+
+## Page URL
+```
+{self.agents.project_manager.storages.docs["pages.md"]}
+```
+
+## County of files to be implemented
+```
+{self.agents.project_manager.storages.docs["files.md"]}
+```
+"""
+                    )
+                ],
+            },
         )
+        print(json.dumps(todo_list, indent=4))
+
         for i, task in enumerate(todo_list["plan"]):
             team.supervisor.state(
                 f"""
