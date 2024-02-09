@@ -987,13 +987,13 @@ tiktoken = ">=0.5.2,<0.6.0"
 
 [[package]]
 name = "langgraph"
-version = "0.0.23"
+version = "0.0.24"
 description = "langgraph"
 optional = false
 python-versions = ">=3.9.0,<4.0"
 files = [
-    {file = "langgraph-0.0.23-py3-none-any.whl", hash = "sha256:00d76fdedd0ca4c13be139fed63613c832729bba3af4248dd5c8af1b67f6e1da"},
-    {file = "langgraph-0.0.23.tar.gz", hash = "sha256:cd174b38013d4e13eac8aaee279423c282a3fb266bd217e95182bdf562b09599"},
+    {file = "langgraph-0.0.24-py3-none-any.whl", hash = "sha256:746edf4c16cde724802b072a5cec6b0341b762d7e7e2cd5f240fb7bb6a38d9a9"},
+    {file = "langgraph-0.0.24.tar.gz", hash = "sha256:9e3c1b05b7716c141615080f73cb189dca6d773d6a13bf95c73098f42305f465"},
 ]
 
 [package.dependencies]
@@ -2723,4 +2723,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "8569dfbb88bdf0ae4d5b424a07db50087289191e75ea0615a9b0800919959710"
+content-hash = "9cf410b51fc744973cabd5c0e68dc36fa2ef5c294b238ed2a243f9743bc93fdb"
