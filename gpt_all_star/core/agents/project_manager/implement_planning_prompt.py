@@ -1,40 +1,28 @@
 from langchain_core.prompts import PromptTemplate
 
 implement_planning_template = PromptTemplate.from_template(
-    """Your task is as follows.
-**IMPORTANT**: Your answer must be the full source code, only the source code and nothing else.
-```
-TODO: {todo_description}
-GOAL: {todo_goal}
-```
-
-{finished_todo_message}
-
+    """
+# Instructions
 ---
-Represent files like so:
 
-./PATH/FILENAME
+While keeping track of the current status in the working directory, follow the TODO/DETAIL/WORKING_DIRECTORY to execute commands, add new files, or modify or delete existing files.
+Check to see if the last GOAL has been met, and if so, exit; if not, continue working to meet it.
+
 ```
-CODE
+TODO: {todo}
+DETAIL: {detail}
+WORKING_DIRECTORY: {directory}
+GOAL: {goal}
 ```
 
-The following tokens must be replaced like so:
-PATh is a relative path to the file from the root directory of the project.
-FILENAME is the lowercase combined path and file name including the file extension and **if the file already exists, please follow its name**.
-CODE is the code in the file
+# Constraints
+---
+Must meet application specifications
 
-Example representation of a file:
-
-./src/index.js
-```jsx
-ReactDOM.render(
-    <React.StrictMode>
-        <ChakraProvider>
-            <App />
-        </ChakraProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
-);
+# Specifications
+---
+```
+{specifications}
 ```
 """
 )

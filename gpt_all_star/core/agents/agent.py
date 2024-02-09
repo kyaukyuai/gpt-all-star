@@ -10,7 +10,6 @@ from typing import Optional
 import openai
 from langchain.agents.agent import AgentExecutor
 from langchain.agents.openai_tools.base import create_openai_tools_agent
-from langchain_community.tools.shell import ShellTool
 from langchain_openai import AzureChatOpenAI
 from langchain_openai import ChatOpenAI
 from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
@@ -19,12 +18,16 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts.prompt import PromptTemplate
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
+from langchain.agents.agent_toolkits.file_management.toolkit import (
+    FileManagementToolkit,
+)
 from rich.markdown import Markdown
 from rich.panel import Panel
 
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
+from gpt_all_star.core.tools.shell_tool import ShellTool
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
 from gpt_all_star.helper.text_parser import TextParser, format_file_to_input
@@ -55,7 +58,18 @@ class Agent(ABC):
         self.storages = storages
         self.debug_mode = debug_mode
 
-        self.tools = tools + [ShellTool()]
+        working_directory = (
+            self.storages.root.path.absolute() if self.storages else os.getcwd()
+        )
+        file_tools = FileManagementToolkit(
+            root_dir=str(working_directory),
+            selected_tools=["read_file", "write_file", "list_directory", "file_delete"],
+        ).get_tools()
+        self.tools = (
+            tools
+            + file_tools
+            + [ShellTool(verbose=True, root_dir=str(working_directory))]
+        )
         self.executor = self._create_executor(self.tools)
 
     def invoke(self, input: Optional[str] = None) -> None:
@@ -157,7 +171,7 @@ class Agent(ABC):
             ]
         )
         agent = create_openai_tools_agent(self._llm, tools, prompt)
-        return AgentExecutor(agent=agent, tools=tools, verbose=False)
+        return AgentExecutor(agent=agent, tools=tools, verbose=True)
 
     def create_planning_chain(self):
         system_prompt = (
@@ -180,7 +194,25 @@ class Agent(ABC):
                             "properties": {
                                 "todo": {
                                     "type": "string",
-                                    "description": "Very detailed description of the actual TODO to be performed to accomplish the entire plan.",
+                                    "description": "TODO",
+                                    "anyOf": [
+                                        {
+                                            "enum": [
+                                                "Execute a command",
+                                                "Add a new file",
+                                                "Modify an existing file",
+                                                "Delete an existing file",
+                                            ]
+                                        },
+                                    ],
+                                },
+                                "detail": {
+                                    "type": "string",
+                                    "description": "Command to be executed or contents of file to be added or modified",
+                                },
+                                "working_directory": {
+                                    "type": "string",
+                                    "description": "Directory where the command is to be executed or the file is to be located",
                                 },
                                 "goal": {
                                     "type": "string",

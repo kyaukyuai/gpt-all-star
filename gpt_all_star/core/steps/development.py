@@ -34,12 +34,15 @@ class Development(Step):
                     Message.create_human_message(
                         f"""
 # Instructions
+---
 Create a development plan according to the following requirements.
 
 # Constraints
-Follow the development plan and make it detailed and concrete so that engineers, QA, and designers can collaborate to implement the complete application.
+---
+The TODO must be one of executing a command, adding a new file, modifying an existing file, or deleting an existing file.
 
 # Requirements
+---
 
 ## Application Specifications
 ```
@@ -56,7 +59,7 @@ Follow the development plan and make it detailed and concrete so that engineers,
 {self.agents.project_manager.storages.docs["pages.md"]}
 ```
 
-## County of files to be implemented
+## Files
 ```
 {self.agents.project_manager.storages.docs["files.md"]}
 ```
@@ -69,29 +72,24 @@ Follow the development plan and make it detailed and concrete so that engineers,
 
         for i, task in enumerate(todo_list["plan"]):
             team.supervisor.state(
-                f"""
+                f"""\n
 TODO {i + 1}: {task['todo']}
+DETAIL: {task['detail']}
+DIRECTORY: {task['working_directory']}
 GOAL: {task['goal']}
 ---
 """
             )
 
-            previous_finished_task_message = f"""The information given to you is as follows.
-There are the specifications to build the application:
-```
-{team.supervisor.storages.docs["specifications.md"]}
-```
-
-There are the source codes generated so far:
-```
-{team.supervisor.current_source_code()}
-```
-"""
             message = Message.create_human_message(
                 implement_planning_template.format(
-                    todo_description=task["todo"],
-                    finished_todo_message=previous_finished_task_message,
-                    todo_goal=task["goal"],
+                    todo=task["todo"],
+                    detail=task["detail"],
+                    directory=task["working_directory"],
+                    goal=task["goal"],
+                    specifications=self.agents.project_manager.storages.docs[
+                        "specifications.md"
+                    ],
                 )
             )
             team.run([message])
