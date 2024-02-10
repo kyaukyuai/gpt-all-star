@@ -5,19 +5,17 @@ implement_planning_template = PromptTemplate.from_template(
 # Instructions
 ---
 
-While keeping track of the current status in the working directory, follow the TODO/DETAIL/WORKING_DIRECTORY to execute commands, add new files, or modify or delete existing files.
-Check to see if the last GOAL has been met, and if so, exit; if not, continue working to meet it.
-
-```
-TODO: {todo}
-DETAIL: {detail}
-WORKING_DIRECTORY: {directory}
-GOAL: {goal}
-```
+Follow the task: `{task}`
 
 # Constraints
 ---
-Must meet application specifications
+Understand exactly why you should do: `{justification}` it and make sure you meet the status to be achieved: `{objective}`.
+
+# Current implementation
+---
+```
+{implementation}
+```
 
 # Specifications
 ---

@@ -35,31 +35,37 @@ class Development(Step):
                         f"""
 # Instructions
 ---
-Create a development plan according to the following requirements.
+Create your execution plan based on your current implementation and application requirements.
 
 # Constraints
 ---
-The TODO must be one of executing a command, adding a new file, modifying an existing file, or deleting an existing file.
+- The `task` must be one of executing a command, adding a new file, reading and overwriting an existing file, or deleting an existing file.
+
+# Current implementation
+---
+```
+{self.agents.project_manager.current_source_code()}
+```
 
 # Requirements
 ---
 
-## Application Specifications
+## Application Specifications to be met
 ```
 {self.agents.project_manager.storages.docs["specifications.md"]}
 ```
 
-## Technology stack
+## Technology stack to be used
 ```
 {self.agents.project_manager.storages.docs["technologies.md"]}
 ```
 
-## Page URL
+## Page URL to be implemented
 ```
 {self.agents.project_manager.storages.docs["pages.md"]}
 ```
 
-## Files
+## Files to be implemented
 ```
 {self.agents.project_manager.storages.docs["files.md"]}
 ```
@@ -73,20 +79,23 @@ The TODO must be one of executing a command, adding a new file, modifying an exi
         for i, task in enumerate(todo_list["plan"]):
             team.supervisor.state(
                 f"""\n
-TODO {i + 1}: {task['todo']}
-DETAIL: {task['detail']}
-DIRECTORY: {task['working_directory']}
-GOAL: {task['goal']}
+Task {i + 1}: {task['task']}
+Objective: {task['objective']}
+Justification: {task['justification']}
 ---
 """
             )
 
+            if task["task"] == "executing a command":
+                todo = f"{task['task']}: {task['command']} in the directory {task['working_directory']}"
+            else:
+                todo = f"{task['task']}: {task['working_directory']}/{task['filename']}"
             message = Message.create_human_message(
                 implement_planning_template.format(
-                    todo=task["todo"],
-                    detail=task["detail"],
-                    directory=task["working_directory"],
-                    goal=task["goal"],
+                    task=todo,
+                    objective=task["objective"],
+                    justification=task["justification"],
+                    implementation=self.agents.project_manager.current_source_code(),
                     specifications=self.agents.project_manager.storages.docs[
                         "specifications.md"
                     ],

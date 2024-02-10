@@ -174,11 +174,16 @@ class Agent(ABC):
         return AgentExecutor(agent=agent, tools=tools, verbose=True)
 
     def create_planning_chain(self):
-        system_prompt = (
-            "You are a task manager to create a detail and specific plan."
-            " Given the following user request,"
-            " respond with the plan to fully meet the user's requirements."
-        )
+        system_prompt = f"""{self.profile}
+Based on the user request provided, your task is to generate a plan that includes following items:
+- tasks: it must be one of executing a command, adding a new file, reading and overwriting an existing file, or deleting an existing file
+- working_directory: directory where the command is to be executed or the file is to be located
+- filename: name of file to be added or modified if necessary
+- command: command to be executed if necessary
+- context: all contextual information that should be communicated to the person performing the task
+- objectives: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
+- justifications: clear reasons why the task should be performed
+"""
         function_def = {
             "name": "planning",
             "description": "Create the plan.",
@@ -190,33 +195,45 @@ class Agent(ABC):
                         "type": "array",
                         "items": {
                             "type": "object",
-                            "description": "Task to fix the errors.",
+                            "description": "Task to do.",
                             "properties": {
-                                "todo": {
+                                "task": {
                                     "type": "string",
-                                    "description": "TODO",
+                                    "description": "Task",
                                     "anyOf": [
                                         {
                                             "enum": [
                                                 "Execute a command",
                                                 "Add a new file",
-                                                "Modify an existing file",
+                                                "Reading and Overwrite an existing file",
                                                 "Delete an existing file",
                                             ]
                                         },
                                     ],
                                 },
-                                "detail": {
-                                    "type": "string",
-                                    "description": "Command to be executed or contents of file to be added or modified",
-                                },
                                 "working_directory": {
                                     "type": "string",
                                     "description": "Directory where the command is to be executed or the file is to be located",
                                 },
-                                "goal": {
+                                "filename": {
                                     "type": "string",
-                                    "description": "Very detailed description of the goals to be achieved for the TODO to be executed to accomplish the entire plan",
+                                    "description": "Name of file to be added or modified if necessary",
+                                },
+                                "filename": {
+                                    "type": "string",
+                                    "description": "Command to be executed if necessary",
+                                },
+                                "context": {
+                                    "type": "string",
+                                    "description": "All contextual information that should be communicated to the person performing the task",
+                                },
+                                "objective": {
+                                    "type": "string",
+                                    "description": "Very detailed description of the goals to be achieved for the task to be executed to accomplish the entire plan",
+                                },
+                                "justification": {
+                                    "type": "string",
+                                    "description": "Clear reasons why the task should be performed",
                                 },
                             },
                         },
@@ -232,7 +249,7 @@ class Agent(ABC):
                 (
                     "system",
                     """
-Given the conversation above, create a detailed and specific plan to fully meet the user's requirements, using the information provided."
+Given the conversation above, create a detailed and specific plan to fully meet the user's requirements."
 """,
                 ),
             ]
@@ -250,7 +267,7 @@ Given the conversation above, create a detailed and specific plan to fully meet 
         options = ["FINISH"] + members
         system_prompt = (
             "You are a supervisor tasked with managing a conversation between the"
-            " following workers:  {members}. Given the following user request,"
+            " following workers: {members}. Given the following user request,"
             " respond with the worker to act next. Each worker will perform a"
             " task and respond with their results and status. When finished,"
             " respond with FINISH."
