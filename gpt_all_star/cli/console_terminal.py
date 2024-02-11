@@ -9,8 +9,8 @@ from rich.prompt import Prompt
 from rich.style import Style as RichStyle
 from rich.text import Text
 
-MAIN_COLOR = "#44EE77"
-SUB_COLOR = "#FB475E"
+MAIN_COLOR = "#392AE2"
+SUB_COLOR = "#262626"
 
 
 @dataclass
