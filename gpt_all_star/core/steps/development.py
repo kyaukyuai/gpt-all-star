@@ -39,7 +39,7 @@ Create a detailed and specific development plan to meet the application requirem
 
 # Constraints
 ---
-- The `task` must be one of "Execute a command", "Add a new file", "Read and Overwrite an existing file", or "Delete an existing file".
+The application specifications must be carefully understood and accurately reflect the specifications.
 
 # Requirements
 ---

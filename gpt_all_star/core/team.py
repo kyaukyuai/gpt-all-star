@@ -55,7 +55,7 @@ class Team:
         try:
             for output in self._team.stream(
                 {"messages": messages},
-                config={"recursion_limit": 10},
+                config={"recursion_limit": 25},
             ):
                 for key, value in output.items():
                     if key == self.supervisor.name or key == "__end__":
