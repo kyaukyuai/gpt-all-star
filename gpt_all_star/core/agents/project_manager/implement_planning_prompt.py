@@ -9,7 +9,7 @@ Follow the task: `{task}`
 
 # Constraints
 ---
-Understand exactly why you should do: `{justification}` it and make sure you meet the status to be achieved: `{objective}`.
+Understand exactly why you should do: `{reason}` it and make sure you meet the status to be achieved: `{objective}`.
 
 # Current implementation
 ---

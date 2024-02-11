@@ -35,17 +35,11 @@ class Development(Step):
                         f"""
 # Instructions
 ---
-Create your execution plan based on your current implementation and application requirements.
+Create a detailed and specific development plan to meet the application requirements and build a complete application.
 
 # Constraints
 ---
-- The `task` must be one of executing a command, adding a new file, reading and overwriting an existing file, or deleting an existing file.
-
-# Current implementation
----
-```
-{self.agents.project_manager.current_source_code()}
-```
+- The `task` must be one of "Execute a command", "Add a new file", "Read and Overwrite an existing file", or "Delete an existing file".
 
 # Requirements
 ---
@@ -81,7 +75,7 @@ Create your execution plan based on your current implementation and application 
                 f"""\n
 Task {i + 1}: {task['task']}
 Objective: {task['objective']}
-Justification: {task['justification']}
+Reason: {task['reason']}
 ---
 """
             )
@@ -94,7 +88,7 @@ Justification: {task['justification']}
                 implement_planning_template.format(
                     task=todo,
                     objective=task["objective"],
-                    justification=task["justification"],
+                    reason=task["reason"],
                     implementation=self.agents.project_manager.current_source_code(),
                     specifications=self.agents.project_manager.storages.docs[
                         "specifications.md"
