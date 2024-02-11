@@ -35,7 +35,7 @@ class Development(Step):
                         f"""
 # Instructions
 ---
-Create a detailed and specific development plan to meet the application requirements and build a complete application.
+Create a detailed and specific development plan from project creation to source code implementation, testing, and operation verification in order to build a correctly working application.
 
 # Constraints
 ---

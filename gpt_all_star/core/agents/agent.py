@@ -175,14 +175,14 @@ class Agent(ABC):
 
     def create_planning_chain(self):
         system_prompt = f"""{self.profile}
-Based on the user request provided, your task is to generate a plan that includes following items:
-- task: it must be one of "Execute a command", "Add a new file", "Read and Overwrite an existing file", or "Delete an existing file"
-- working_directory: The directory where the command is to be executed or the file is to be placed
-- filename: name of file to be added or modified if necessary
-- command: command to be executed if necessary
-- context: all contextual information that should be communicated to the person performing the task
-- objective: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
-- reason: clear reasons why the task should be performed
+Based on the user request provided, your task is to generate a detail and specific plan that includes following items:
+    - task: it must be one of "Execute a command", "Add a new file", "Read and Overwrite an existing file", or "Delete an existing file"
+    - working_directory: The directory where the command is to be executed or the file is to be placed
+    - filename: name of file to be added or modified if necessary
+    - command: command to be executed if necessary
+    - context: all contextual information that should be communicated to the person performing the task
+    - objective: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
+    - reason: clear reasons why the task should be performed
 """
         function_def = {
             "name": "planning",
