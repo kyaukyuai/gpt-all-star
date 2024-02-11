@@ -6,7 +6,7 @@ from gpt_all_star.core.project import Project
 from gpt_all_star.core.steps.steps import StepType
 
 
-COMMAND_NAME = "gpt-all-star"
+COMMAND_NAME = "GPT ALL STAR"
 app = typer.Typer()
 
 
