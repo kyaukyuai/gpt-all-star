@@ -219,7 +219,7 @@ Based on the user request provided, your task is to generate a plan that include
                                     "type": "string",
                                     "description": "Name of file to be added or modified if necessary",
                                 },
-                                "filename": {
+                                "command": {
                                     "type": "string",
                                     "description": "Command to be executed if necessary",
                                 },
