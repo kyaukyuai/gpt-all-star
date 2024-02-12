@@ -5,7 +5,7 @@ implement_planning_template = PromptTemplate.from_template(
 # Instructions
 ---
 
-Follow the task: `{task}`
+Conduct task: `{task}` with horizontal thinking according to context: `{context}`
 
 # Constraints
 ---
