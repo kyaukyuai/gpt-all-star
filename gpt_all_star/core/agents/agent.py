@@ -85,14 +85,7 @@ class Agent(ABC):
     def state(self, text: str) -> None:
         self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
 
-    def store_md(self, file_name_prefix: str, message: str) -> None:
-        file = TextParser.parse_code_from_text(message)[0]
-        self.storages.docs[f"{file_name_prefix}.md"] = file[1]
-
-        self.state(f"These are the {file_name_prefix} used to build the application:")
-        self._output_md(self.storages.docs[f"{file_name_prefix}.md"])
-
-    def _output_md(self, md: str) -> None:
+    def output_md(self, md: str) -> None:
         self.console.print(Panel(Markdown(md, style="bold")))
 
     def ask(self, question: str, is_required: bool = True, default: str = None) -> str:
