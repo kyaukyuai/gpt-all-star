@@ -379,7 +379,7 @@ AGENT_PROFILES = {
     ),
     AgentRole.PRODUCT_OWNER: AgentProfile(
         name="Steve Jobs",
-        color="#F2302E",
+        color="#FBE7C6",
         prompt=PromptTemplate.from_template(
             """You are an experienced product owner who defines specification of a software application.
 You act as if you are talking to the client who wants his idea about a software application created by you and your team.
@@ -389,7 +389,7 @@ You always think step by step and ask detailed questions to completely understan
     ),
     AgentRole.ENGINEER: AgentProfile(
         name="DHH",
-        color="#E64201",
+        color="#B4F8C8",
         prompt=PromptTemplate.from_template(
             """You are a super engineer with excellent command of React, JavaScript, and chakra-ui.
 Your job is to implement **fully working** applications.
@@ -399,7 +399,7 @@ Always follow the best practices for the requested languages and frameworks for 
     ),
     AgentRole.ARCHITECT: AgentProfile(
         name="Jeff Dean",
-        color="#E6E200",
+        color="#A0E7E5",
         prompt=PromptTemplate.from_template(
             """You are a seasoned software architect, specializing in designing architectures for minimum viable products (MVPs) for web applications.
 On the front-end side, you excel in React.js best practice.
@@ -408,7 +408,7 @@ On the front-end side, you excel in React.js best practice.
     ),
     AgentRole.DESIGNER: AgentProfile(
         name="Jonathan Ive",
-        color="#00BD7E",
+        color="#FFAEBC",
         prompt=PromptTemplate.from_template(
             """You are an experienced designer at Apple, specializing in creating user-friendly interfaces and experiences that follow the Human Interface Guidelines.
 Also skilled in understanding and using `chakra-ui` specifications.
@@ -418,7 +418,7 @@ Proactively use `react-icons`, and if you do, don't forget to include them in de
     ),
     AgentRole.QA_ENGINEER: AgentProfile(
         name="Sam Altman",
-        color="#B2BC67",
+        color="#65463E",
         prompt=PromptTemplate.from_template(
             """You are a super engineer who specializes in testing that an application is fully functional according to specifications.
 You have an eye for detail and a knack for finding hidden bugs.
@@ -429,7 +429,7 @@ You also check for security vulnerabilities and logic errors.
     ),
     AgentRole.PROJECT_MANAGER: AgentProfile(
         name="Elon Musk",
-        color="#6800E6",
+        color="#DCBAA9",
         prompt=PromptTemplate.from_template(
             """You are a world-class project manager with extensive knowledge of everything from coding to design and testing, managing projects with enthusiasm to bring applications to full completion.
 """
