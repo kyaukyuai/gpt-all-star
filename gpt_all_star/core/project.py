@@ -4,13 +4,13 @@ import os.path
 from pathlib import Path
 
 from gpt_all_star.core.agents.agents import Agents
-from gpt_all_star.core.agents.architect.architect import Architect
+from gpt_all_star.core.agents.architect import Architect
 from gpt_all_star.core.agents.copilot.copilot import Copilot
-from gpt_all_star.core.agents.designer.designer import Designer
-from gpt_all_star.core.agents.engineer.engineer import Engineer
-from gpt_all_star.core.agents.product_owner.product_owner import ProductOwner
-from gpt_all_star.core.agents.project_manager.project_manager import ProjectManager
-from gpt_all_star.core.agents.qa_engineer.qa_engineer import QAEngineer
+from gpt_all_star.core.agents.designer import Designer
+from gpt_all_star.core.agents.engineer import Engineer
+from gpt_all_star.core.agents.product_owner import ProductOwner
+from gpt_all_star.core.agents.project_manager import ProjectManager
+from gpt_all_star.core.agents.qa_engineer import QAEngineer
 from gpt_all_star.core.steps.steps import StepType, STEPS
 from gpt_all_star.core.storage import Storage, Storages
 
