@@ -3,7 +3,7 @@ from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.step import Step
 from gpt_all_star.core.team import Team
-from gpt_all_star.core.agents.project_manager.implement_planning_prompt import (
+from gpt_all_star.core.implement_planning_prompt import (
     implement_planning_template,
 )
 
