@@ -30,7 +30,7 @@ from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.tools.shell_tool import ShellTool
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
-from gpt_all_star.helper.text_parser import TextParser, format_file_to_input
+from gpt_all_star.helper.text_parser import format_file_to_input
 
 NEXT_COMMAND = "next"
 
