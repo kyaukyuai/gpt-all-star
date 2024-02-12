@@ -198,6 +198,7 @@ Reason: {task['reason']}
                 implement_planning_template.format(
                     task=todo,
                     objective=task["objective"],
+                    context=task["context"],
                     reason=task["reason"],
                     implementation=self.agents.project_manager.current_source_code(),
                     specifications=self.agents.project_manager.storages.docs[
