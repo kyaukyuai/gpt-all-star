@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole
+from gpt_all_star.core.storage import Storages
 
 APP_TYPES = ["Client-Side Web Application", "Full-Stack Web Application"]
 

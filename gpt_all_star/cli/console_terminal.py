@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from typing import Optional, Union
 
+import pyfiglet
 from prompt_toolkit import prompt
 from prompt_toolkit.styles import Style
-import pyfiglet
 from rich.console import Console
 from rich.prompt import Prompt
 from rich.style import Style as RichStyle

@@ -1,13 +1,15 @@
 from __future__ import annotations
-import time
-import requests
+
 import subprocess
 import threading
+import time
+
+import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole
+from gpt_all_star.core.storage import Storages
 
 
 class QAEngineer(Agent):

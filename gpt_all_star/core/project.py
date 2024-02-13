@@ -11,7 +11,7 @@ from gpt_all_star.core.agents.engineer import Engineer
 from gpt_all_star.core.agents.product_owner import ProductOwner
 from gpt_all_star.core.agents.project_manager import ProjectManager
 from gpt_all_star.core.agents.qa_engineer import QAEngineer
-from gpt_all_star.core.steps.steps import StepType, STEPS
+from gpt_all_star.core.steps.steps import STEPS, StepType
 from gpt_all_star.core.storage import Storage, Storages
 
 

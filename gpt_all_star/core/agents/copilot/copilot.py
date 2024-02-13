@@ -1,13 +1,14 @@
 import random
 import string
+
 from rich.syntax import Syntax
 
-from gpt_all_star.core.message import Message
-from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.agents.copilot.create_commit_message_prompt import (
     create_commit_message_template,
 )
+from gpt_all_star.core.message import Message
+from gpt_all_star.core.storage import Storages
 from gpt_all_star.helper.git import Git
 from gpt_all_star.helper.text_parser import TextParser
 

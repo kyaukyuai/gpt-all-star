@@ -1,10 +1,8 @@
 from gpt_all_star.core.agents import agents
+from gpt_all_star.core.implement_planning_prompt import implement_planning_template
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.step import Step
 from gpt_all_star.core.team import Team
-from gpt_all_star.core.implement_planning_prompt import (
-    implement_planning_template,
-)
 
 
 class Specification(Step):

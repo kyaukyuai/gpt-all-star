@@ -1,26 +1,26 @@
 from __future__ import annotations
 
+import os
+import re
 from abc import ABC
 from dataclasses import dataclass
-import os
 from enum import Enum
 from functools import lru_cache
-import re
 from typing import Optional
+
 import openai
 from langchain.agents.agent import AgentExecutor
+from langchain.agents.agent_toolkits.file_management.toolkit import (
+    FileManagementToolkit,
+)
 from langchain.agents.openai_tools.base import create_openai_tools_agent
-from langchain_openai import AzureChatOpenAI
-from langchain_openai import ChatOpenAI
 from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
 from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
-from langchain_core.prompts.prompt import PromptTemplate
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
-from langchain.agents.agent_toolkits.file_management.toolkit import (
-    FileManagementToolkit,
-)
+from langchain_core.prompts.prompt import PromptTemplate
+from langchain_openai import AzureChatOpenAI, ChatOpenAI
 from rich.markdown import Markdown
 from rich.panel import Panel
 

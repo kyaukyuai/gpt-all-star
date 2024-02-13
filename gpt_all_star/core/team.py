@@ -1,7 +1,9 @@
 import functools
+
 from langchain.agents.agent import AgentExecutor
-from langgraph.graph import StateGraph, END
+from langgraph.graph import END, StateGraph
 from langgraph.pregel import GraphRecursionError
+
 from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.agents.agent_state import AgentState
 from gpt_all_star.core.message import Message
@@ -73,7 +75,6 @@ class Team:
                         )
         except GraphRecursionError:
             print("Recursion limit reached")
-            pass
 
     @staticmethod
     def _agent_node(state, agent: AgentExecutor, name):

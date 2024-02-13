@@ -1,5 +1,5 @@
-from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.agents.agent import Agent, AgentRole
+from gpt_all_star.core.storage import Storages
 
 
 class Architect(Agent):
