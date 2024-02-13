@@ -12,6 +12,7 @@ from gpt_all_star.core.steps.ui_design import UIDesign
 
 class StepType(str, Enum):
     DEFAULT = "default"
+    BUILD = "build"
     TEAM_BUILDING = "team_building"
     SPECIFICATION = "specification"
     SYSTEM_DESIGN = "system_design"
@@ -28,6 +29,13 @@ STEPS = {
         Specification,
         SystemDesign,
         Development,
+        UIDesign,
+        Execution,
+        Deployment,
+    ],
+    StepType.BUILD: [
+        Development,
+        UIDesign,
         Execution,
         Deployment,
     ],
