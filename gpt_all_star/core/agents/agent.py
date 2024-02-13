@@ -171,7 +171,7 @@ class Agent(ABC):
 Based on the user request provided, your task is to generate a detail and specific plan that includes following items:
     - task: it must be one of "Execute a command", "Add a new file", "Read and Overwrite an existing file", or "Delete an existing file"
     - working_directory: The directory where the command is to be executed or the file is to be placed
-    - filename: name of file to be added or modified if necessary
+    - filename: Specify only if the name of the file to be added or changed is specifically determined
     - command: command to be executed if necessary
     - context: all contextual information that should be communicated to the person performing the task
     - objective: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
@@ -210,7 +210,7 @@ Based on the user request provided, your task is to generate a detail and specif
                                 },
                                 "filename": {
                                     "type": "string",
-                                    "description": "Name of file to be added or modified if necessary",
+                                    "description": "Specify only if the name of the file to be added or changed is specifically determined",
                                 },
                                 "command": {
                                     "type": "string",
