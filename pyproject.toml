@@ -22,7 +22,7 @@ langchain-openai = "^0.0.5"
 selenium = "^4.17.2"
 langgraph = "^0.0.24"
 langchain-experimental = "^0.0.50"
-llama-index = "^0.9.43"
+llama-index = "^0.10.0"
 tree-sitter-languages = "^1.10.2"
 
 [tool.poetry.scripts]
