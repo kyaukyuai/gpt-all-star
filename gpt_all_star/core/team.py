@@ -1,10 +1,12 @@
 import functools
+
 from langchain.agents.agent import AgentExecutor
-from langgraph.graph import StateGraph, END
+from langgraph.graph import END, StateGraph
+from langgraph.pregel import GraphRecursionError
+
 from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.agents.agent_state import AgentState
 from gpt_all_star.core.message import Message
-from gpt_all_star.helper.text_parser import TextParser
 
 
 class Team:
@@ -52,24 +54,27 @@ class Team:
         return self.state_graph.compile()
 
     def run(self, messages: list[Message]):
-        for output in self._team.stream({"messages": messages}):
-            for key, value in output.items():
-                if key == self.supervisor.name or key == "__end__":
-                    # self.supervisor.state(value)
-                    pass
-                else:
-                    latest_message = value.get("messages")[-1].content.strip()
-                    self.supervisor.console.print(
-                        f"""
-{key}:
----
-{latest_message}
----\n
-"""
-                    )
-                    files = TextParser.parse_code_from_text(latest_message)
-                    for file_name, file_content in files:
-                        self.supervisor.storages.root[file_name] = file_content
+        try:
+            for output in self._team.stream(
+                {"messages": messages},
+                config={"recursion_limit": 25},
+            ):
+                for key, value in output.items():
+                    if key == self.supervisor.name or key == "__end__":
+                        # self.supervisor.state(value)
+                        pass
+                    else:
+                        latest_message = value.get("messages")[-1].content.strip()
+                        self.supervisor.console.print(
+                            f"""
+    {key}:
+    ---
+    {latest_message}
+    ---\n
+    """
+                        )
+        except GraphRecursionError:
+            print("Recursion limit reached")
 
     @staticmethod
     def _agent_node(state, agent: AgentExecutor, name):

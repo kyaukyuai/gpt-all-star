@@ -1,33 +1,36 @@
 from __future__ import annotations
 
+import os
+import re
 from abc import ABC
 from dataclasses import dataclass
-import os
 from enum import Enum
 from functools import lru_cache
-import re
 from typing import Optional
+
 import openai
 from langchain.agents.agent import AgentExecutor
+from langchain.agents.agent_toolkits.file_management.toolkit import (
+    FileManagementToolkit,
+)
 from langchain.agents.openai_tools.base import create_openai_tools_agent
-from langchain_community.tools.shell import ShellTool
-from langchain_openai import AzureChatOpenAI
-from langchain_openai import ChatOpenAI
 from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
 from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
-from langchain_core.prompts.prompt import PromptTemplate
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.prompts.prompt import PromptTemplate
+from langchain_openai import AzureChatOpenAI, ChatOpenAI
 from rich.markdown import Markdown
 from rich.panel import Panel
 
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
+from gpt_all_star.core.tools.shell_tool import ShellTool
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
-from gpt_all_star.helper.text_parser import TextParser, format_file_to_input
+from gpt_all_star.helper.text_parser import format_file_to_input
 
 NEXT_COMMAND = "next"
 
@@ -55,7 +58,18 @@ class Agent(ABC):
         self.storages = storages
         self.debug_mode = debug_mode
 
-        self.tools = tools + [ShellTool()]
+        working_directory = (
+            self.storages.root.path.absolute() if self.storages else os.getcwd()
+        )
+        file_tools = FileManagementToolkit(
+            root_dir=str(working_directory),
+            selected_tools=["read_file", "write_file", "list_directory", "file_delete"],
+        ).get_tools()
+        self.tools = (
+            tools
+            + file_tools
+            + [ShellTool(verbose=True, root_dir=str(working_directory))]
+        )
         self.executor = self._create_executor(self.tools)
 
     def invoke(self, input: Optional[str] = None) -> None:
@@ -71,14 +85,7 @@ class Agent(ABC):
     def state(self, text: str) -> None:
         self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
 
-    def store_md(self, file_name_prefix: str, message: str) -> None:
-        file = TextParser.parse_code_from_text(message)[0]
-        self.storages.docs[f"{file_name_prefix}.md"] = file[1]
-
-        self.state(f"These are the {file_name_prefix} used to build the application:")
-        self._output_md(self.storages.docs[f"{file_name_prefix}.md"])
-
-    def _output_md(self, md: str) -> None:
+    def output_md(self, md: str) -> None:
         self.console.print(Panel(Markdown(md, style="bold")))
 
     def ask(self, question: str, is_required: bool = True, default: str = None) -> str:
@@ -157,14 +164,19 @@ class Agent(ABC):
             ]
         )
         agent = create_openai_tools_agent(self._llm, tools, prompt)
-        return AgentExecutor(agent=agent, tools=tools, verbose=False)
+        return AgentExecutor(agent=agent, tools=tools, verbose=True)
 
     def create_planning_chain(self):
-        system_prompt = (
-            "You are a task manager to create a detail and specific plan."
-            " Given the following user request,"
-            " respond with the plan to fully meet the user's requirements."
-        )
+        system_prompt = f"""{self.profile}
+Based on the user request provided, your task is to generate a detail and specific plan that includes following items:
+    - task: it must be one of "Execute a command", "Add a new file", "Read and Overwrite an existing file", or "Delete an existing file"
+    - working_directory: The directory where the command is to be executed or the file is to be placed
+    - filename: Specify only if the name of the file to be added or changed is specifically determined
+    - command: command to be executed if necessary
+    - context: all contextual information that should be communicated to the person performing the task
+    - objective: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
+    - reason: clear reasons why the task should be performed
+"""
         function_def = {
             "name": "planning",
             "description": "Create the plan.",
@@ -176,15 +188,45 @@ class Agent(ABC):
                         "type": "array",
                         "items": {
                             "type": "object",
-                            "description": "Task to fix the errors.",
+                            "description": "Task to do.",
                             "properties": {
-                                "todo": {
+                                "task": {
                                     "type": "string",
-                                    "description": "Very detailed description of the actual TODO to be performed to accomplish the entire plan.",
+                                    "description": "Task",
+                                    "anyOf": [
+                                        {
+                                            "enum": [
+                                                "Execute a command",
+                                                "Add a new file",
+                                                "Read and Overwrite an existing file",
+                                                "Delete an existing file",
+                                            ]
+                                        },
+                                    ],
                                 },
-                                "goal": {
+                                "working_directory": {
                                     "type": "string",
-                                    "description": "Very detailed description of the goals to be achieved for the TODO to be executed to accomplish the entire plan",
+                                    "description": "Directory where the command is to be executed or the file is to be located",
+                                },
+                                "filename": {
+                                    "type": "string",
+                                    "description": "Specify only if the name of the file to be added or changed is specifically determined",
+                                },
+                                "command": {
+                                    "type": "string",
+                                    "description": "Command to be executed if necessary",
+                                },
+                                "context": {
+                                    "type": "string",
+                                    "description": "All contextual information that should be communicated to the person performing the task",
+                                },
+                                "objective": {
+                                    "type": "string",
+                                    "description": "Very detailed description of the goals to be achieved for the task to be executed to accomplish the entire plan",
+                                },
+                                "reason": {
+                                    "type": "string",
+                                    "reason": "Clear reasons why the task should be performed",
                                 },
                             },
                         },
@@ -200,7 +242,7 @@ class Agent(ABC):
                 (
                     "system",
                     """
-Given the conversation above, create a detailed and specific plan to fully meet the user's requirements, using the information provided."
+Given the conversation above, create a detailed and specific plan to fully meet the user's requirements."
 """,
                 ),
             ]
@@ -218,7 +260,7 @@ Given the conversation above, create a detailed and specific plan to fully meet 
         options = ["FINISH"] + members
         system_prompt = (
             "You are a supervisor tasked with managing a conversation between the"
-            " following workers:  {members}. Given the following user request,"
+            " following workers: {members}. Given the following user request,"
             " respond with the worker to act next. Each worker will perform a"
             " task and respond with their results and status. When finished,"
             " respond with FINISH."
@@ -255,6 +297,46 @@ Given the conversation above, create a detailed and specific plan to fully meet 
         return (
             prompt
             | self._llm.bind_functions(functions=[function_def], function_call="route")
+            | JsonOutputFunctionsParser()
+        )
+
+    def create_git_commit_message_chain(self, members: list = []):
+        system_prompt = "You are an excellent engineer. Given the diff information of the source code, please respond with the appropriate branch name and commit message for making the change."
+        function_def = {
+            "name": "commit_message",
+            "description": "Information of the commit to be made.",
+            "parameters": {
+                "title": "commitMessageSchema",
+                "type": "object",
+                "properties": {
+                    "branch": {
+                        "type": "string",
+                        "description": "Name of the branch to be pushed.",
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Commit message to be used.",
+                    },
+                },
+                "required": ["branch", "message"],
+            },
+        }
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", system_prompt),
+                MessagesPlaceholder(variable_name="messages"),
+                (
+                    "system",
+                    "Given the conversation above, generate the appropriate branch name and commit message for making the change.",
+                ),
+            ]
+        )
+
+        return (
+            prompt
+            | self._llm.bind_functions(
+                functions=[function_def], function_call="commit_message"
+            )
             | JsonOutputFunctionsParser()
         )
 
@@ -332,12 +414,12 @@ class AgentProfile:
 AGENT_PROFILES = {
     AgentRole.COPILOT: AgentProfile(
         name="copilot",
-        color="#9D86E9",
+        color="#C4C4C4",
         prompt=PromptTemplate.from_template(""),
     ),
     AgentRole.PRODUCT_OWNER: AgentProfile(
         name="Steve Jobs",
-        color="#B4F8C8",
+        color="#FBE7C6",
         prompt=PromptTemplate.from_template(
             """You are an experienced product owner who defines specification of a software application.
 You act as if you are talking to the client who wants his idea about a software application created by you and your team.
@@ -347,7 +429,7 @@ You always think step by step and ask detailed questions to completely understan
     ),
     AgentRole.ENGINEER: AgentProfile(
         name="DHH",
-        color="#A0E7E5",
+        color="#B4F8C8",
         prompt=PromptTemplate.from_template(
             """You are a super engineer with excellent command of React, JavaScript, and chakra-ui.
 Your job is to implement **fully working** applications.
@@ -357,7 +439,7 @@ Always follow the best practices for the requested languages and frameworks for 
     ),
     AgentRole.ARCHITECT: AgentProfile(
         name="Jeff Dean",
-        color="#FFAEBC",
+        color="#A0E7E5",
         prompt=PromptTemplate.from_template(
             """You are a seasoned software architect, specializing in designing architectures for minimum viable products (MVPs) for web applications.
 On the front-end side, you excel in React.js best practice.
@@ -366,7 +448,7 @@ On the front-end side, you excel in React.js best practice.
     ),
     AgentRole.DESIGNER: AgentProfile(
         name="Jonathan Ive",
-        color="#E2F0CB",
+        color="#FFAEBC",
         prompt=PromptTemplate.from_template(
             """You are an experienced designer at Apple, specializing in creating user-friendly interfaces and experiences that follow the Human Interface Guidelines.
 Also skilled in understanding and using `chakra-ui` specifications.
@@ -376,7 +458,7 @@ Proactively use `react-icons`, and if you do, don't forget to include them in de
     ),
     AgentRole.QA_ENGINEER: AgentProfile(
         name="Sam Altman",
-        color="#C4C4C4",
+        color="#65463E",
         prompt=PromptTemplate.from_template(
             """You are a super engineer who specializes in testing that an application is fully functional according to specifications.
 You have an eye for detail and a knack for finding hidden bugs.
@@ -387,7 +469,7 @@ You also check for security vulnerabilities and logic errors.
     ),
     AgentRole.PROJECT_MANAGER: AgentProfile(
         name="Elon Musk",
-        color="#FFB001",
+        color="#DCBAA9",
         prompt=PromptTemplate.from_template(
             """You are a world-class project manager with extensive knowledge of everything from coding to design and testing, managing projects with enthusiasm to bring applications to full completion.
 """

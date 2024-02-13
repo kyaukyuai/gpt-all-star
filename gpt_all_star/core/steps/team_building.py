@@ -1,11 +1,12 @@
-import yaml
 import os
+
+import yaml
 from rich.table import Table
 
 from gpt_all_star.cli.console_terminal import MAIN_COLOR
-from gpt_all_star.core.message import Message
 from gpt_all_star.core.agents import agents
 from gpt_all_star.core.agents.agent import Agent, AgentRole
+from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.step import Step
 from gpt_all_star.helper.text_parser import TextParser
 

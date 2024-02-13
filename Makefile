@@ -22,6 +22,9 @@ flake8-check:
 black-check:
 	poetry run black --check $(CODE_DIR)
 
-code-check: flake8-check black-check
+pre-commit-run:
+	poetry run pre-commit run --all-files
 
-.PHONY: build up down logs shell
+code-check: flake8-check black-check pre-commit-run
+
+.PHONY: build up down logs shell code-check

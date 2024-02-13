@@ -21,8 +21,8 @@ pyfiglet = "^1.0.2"
 langchain-openai = "^0.0.5"
 selenium = "^4.17.2"
 langgraph = "^0.0.24"
-langchain-experimental = "^0.0.50"
-llama-index = "^0.9.43"
+langchain-experimental = "^0.0.51"
+llama-index = "^0.10.0"
 tree-sitter-languages = "^1.10.2"
 
 [tool.poetry.scripts]
@@ -32,6 +32,7 @@ gpt-all-star = 'gpt_all_star.main:app'
 black = "^24.1.1"
 flake8 = "^7.0.0"
 autopep8 = "^2.0.4"
+pre-commit = "^3.6.1"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md

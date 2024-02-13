@@ -1,11 +1,8 @@
 from __future__ import annotations
+
 from typing import Optional
 
-from langchain_core.messages import (
-    AIMessage,
-    HumanMessage,
-    SystemMessage,
-)
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 
 
 class Message:

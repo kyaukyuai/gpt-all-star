@@ -1,12 +1,11 @@
-from dotenv import load_dotenv
 import typer
+from dotenv import load_dotenv
 
 from gpt_all_star.cli.console_terminal import MAIN_COLOR, ConsoleTerminal
 from gpt_all_star.core.project import Project
 from gpt_all_star.core.steps.steps import StepType
 
-
-COMMAND_NAME = "gpt-all-star"
+COMMAND_NAME = "GPT ALL STAR"
 app = typer.Typer()
 
 
