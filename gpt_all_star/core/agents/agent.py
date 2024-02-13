@@ -300,6 +300,46 @@ Given the conversation above, create a detailed and specific plan to fully meet 
             | JsonOutputFunctionsParser()
         )
 
+    def create_git_commit_message_chain(self, members: list = []):
+        system_prompt = "You are an excellent engineer. Given the diff information of the source code, please respond with the appropriate branch name and commit message for making the change."
+        function_def = {
+            "name": "commit_message",
+            "description": "Information of the commit to be made.",
+            "parameters": {
+                "title": "commitMessageSchema",
+                "type": "object",
+                "properties": {
+                    "branch": {
+                        "type": "string",
+                        "description": "Name of the branch to be pushed.",
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Commit message to be used.",
+                    },
+                },
+                "required": ["branch", "message"],
+            },
+        }
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", system_prompt),
+                MessagesPlaceholder(variable_name="messages"),
+                (
+                    "system",
+                    "Given the conversation above, generate the appropriate branch name and commit message for making the change.",
+                ),
+            ]
+        )
+
+        return (
+            prompt
+            | self._llm.bind_functions(
+                functions=[function_def], function_call="commit_message"
+            )
+            | JsonOutputFunctionsParser()
+        )
+
     def current_source_code(self) -> str:
         source_code_contents = []
         for (
