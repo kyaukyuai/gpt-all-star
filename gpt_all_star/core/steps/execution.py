@@ -72,19 +72,21 @@ class Execution(Step):
             print(json.dumps(todo_list, indent=4))
 
             for i, task in enumerate(todo_list["plan"]):
+                if task["task"] == "Execute a command":
+                    todo = f"{task['task']}: {task['command']} in the directory {task['working_directory']}"
+                else:
+                    todo = f"{task['task']}: {task['working_directory']}/{task['filename']}"
+
                 team.supervisor.state(
                     f"""\n
-    Task {i + 1}: {task['task']}
+    Task {i + 1}: {todo}
+    Context: {task['context']}
     Objective: {task['objective']}
     Reason: {task['reason']}
     ---
     """
                 )
 
-                if task["task"] == "executing a command":
-                    todo = f"{task['task']}: {task['command']} in the directory {task['working_directory']}"
-                else:
-                    todo = f"{task['task']}: {task['working_directory']}/{task['filename']}"
                 message = Message.create_human_message(
                     implement_planning_template.format(
                         task=todo,
