@@ -64,7 +64,10 @@ class ShellTool(BaseTool):
     verbose: bool = False
     """If True, print the stdout."""
 
-    def _run(
+    """Run commands and return final output."""
+    def _run(commands: Union[str, list[str]],
+         run_manager: Optional[CallbackManagerForToolRun] = None) -> str:
+    """Run commands and return final output."""
         self,
         commands: Union[str, list[str]],
         run_manager: Optional[CallbackManagerForToolRun] = None,
