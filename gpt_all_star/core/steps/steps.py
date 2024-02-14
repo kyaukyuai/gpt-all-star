@@ -7,7 +7,7 @@ from gpt_all_star.core.steps.improvement import Improvement
 from gpt_all_star.core.steps.specification import Specification
 from gpt_all_star.core.steps.system_design import SystemDesign
 from gpt_all_star.core.steps.team_building import TeamBuilding
-from gpt_all_star.core.steps.ui_design import UIDesign
+from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
 
 
 class StepType(str, Enum):
