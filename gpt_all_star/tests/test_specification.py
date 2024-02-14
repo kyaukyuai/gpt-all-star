@@ -1,4 +1,4 @@
-from gpt_all_star.core.steps.specification.specification import SpecificationNew
+from gpt_all_star.core.steps.specification.specification import Specification
 from gpt_all_star.core.team import Team
 
 import unittest
