@@ -31,7 +31,7 @@ class Copilot(Agent):
         return project_name
 
     def finish(self) -> None:
-        self.state(f"Completed project: {self.name}")
+        self.state("Completed project")
 
     def confirm_push(self):
         CONFIRM_CHOICES = ["yes", "no"]
