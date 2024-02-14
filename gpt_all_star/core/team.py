@@ -1,5 +1,6 @@
 import functools
 import json
+from typing import Optional
 
 from langchain.agents.agent import AgentExecutor
 from langgraph.graph import END, StateGraph
@@ -75,11 +76,17 @@ class Team:
         except GraphRecursionError:
             print("Recursion limit reached")
 
-    def drive(self, planning_prompt: str, additional_tasks: list[str] = []):
-        tasks = self.supervisor.create_planning_chain().invoke(
-            {
-                "messages": [Message.create_human_message(planning_prompt)],
-            }
+    def drive(
+        self, planning_prompt: Optional[str] = None, additional_tasks: list[str] = []
+    ):
+        tasks = (
+            self.supervisor.create_planning_chain().invoke(
+                {
+                    "messages": [Message.create_human_message(planning_prompt)],
+                }
+            )
+            if planning_prompt
+            else {"plan": []}
         )
         for task in additional_tasks:
             tasks["plan"].append(task)
