@@ -1,3 +1,6 @@
+from gpt_all_star.core.steps.specification.specification import Specification
+from gpt_all_star.core.team import Team
+
 import unittest
 from unittest.mock import MagicMock
 
