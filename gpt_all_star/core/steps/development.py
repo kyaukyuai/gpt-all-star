@@ -39,7 +39,6 @@ Create a detailed and specific development plan from project creation to source 
 # Constraints
 ---
 The application specifications must be carefully understood and accurately reflect the specifications.
-"Execute a command" allows you to execute project generation commands such as `npx create-react-app` and unit tests, but not to start the application itself such as `npm start`.
 
 # Requirements
 ---
