@@ -5,6 +5,16 @@ from gpt_all_star.core.team import Team
 
 
 class UIDesign(Step):
+    '''This class represents the UI Design step in the project workflow.
+
+    The UIDesign step involves creating a detailed and specific development plan to enhance the UI and UX in accordance with human interface guidelines.
+
+    Attributes:
+        agents (Agents): The agents involved in the project.
+        japanese_mode (bool): Flag indicating whether the project is in Japanese mode.
+        review_mode (bool): Flag indicating whether the project is in review mode.
+        debug_mode (bool): Flag indicating whether the project is in debug mode.
+    '''
     def __init__(
         self,
         agents: Agents,
