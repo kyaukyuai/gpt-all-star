@@ -11,6 +11,9 @@ from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
 
 
 class StepType(str, Enum):
+    """
+    Enum representing the different types of workflow steps.
+    """
     DEFAULT = "default"
     BUILD = "build"
     TEAM_BUILDING = "team_building"
