@@ -12,16 +12,28 @@ from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
 
 class StepType(str, Enum):
     DEFAULT = "default"
+    """Represents the default step type."""
     BUILD = "build"
+    """Represents the build step type."""
     TEAM_BUILDING = "team_building"
+    """Represents the team building step type."""
     SPECIFICATION = "specification"
+    """Represents the specification step type."""
     SYSTEM_DESIGN = "system_design"
+    """Represents the system design step type."""
     DEVELOPMENT = "development"
+    """Represents the development step type."""
     UI_DESIGN = "ui_design"
+    """Represents the UI design step type."""
     EXECUTION = "execution"
+    """Represents the execution step type."""
     IMPROVEMENT = "improvement"
+    """Represents the improvement step type."""
     DEPLOYMENT = "deployment"
+    """Represents the deployment step type."""
 
+
+"""Enum representing different step types."""
 
 STEPS = {
     StepType.DEFAULT: [
