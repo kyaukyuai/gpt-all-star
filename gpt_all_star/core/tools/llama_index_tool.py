@@ -6,9 +6,25 @@ from llama_index.core.readers import SimpleDirectoryReader
 from llama_index.core.schema import Document
 
 from gpt_all_star.core.tools.document_chunker import DocumentChunker
+from typing import List, Union, Any
 
 
 def llama_index_tool(path: Path) -> Tool:
+    """
+    This file contains the implementation of the LlamaIndexTool, which is used for indexing and querying existing source code.
+
+    The LlamaIndexTool provides functionality to load documents, chunk them into smaller pieces, create an index, and perform queries on the index.
+
+    Usage:
+        - Instantiate the LlamaIndexTool with a path to the source code directory.
+        - Call the `update_documents_and_query` method with a query string to perform a search.
+
+    Example:
+        tool = llama_index_tool(Path('/path/to/source/code'))
+        result = tool.update_documents_and_query('search query')
+
+    Note: The LlamaIndexTool excludes certain file globs from indexing, such as files in the .archive and node_modules directories.
+    """
     def name_metadata_store(filename: str) -> dict:
         return {"filename": filename}
 
