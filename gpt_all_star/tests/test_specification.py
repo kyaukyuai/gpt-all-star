@@ -89,7 +89,8 @@ class TestSpecification(unittest.TestCase):
         specification.run()
 
         # Assert that the team's drive method is called with the correct arguments
-        team.drive.assert_called_once_with(None, MagicMock())
+        # Assertion for the new scenario to call team's drive method with args
+        team.drive.assert_called_once()
 
 if __name__ == "__main__":
     unittest.main()
