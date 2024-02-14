@@ -27,6 +27,18 @@ def llama_index_tool(path: Path) -> Tool:
     Note: The LlamaIndexTool excludes certain file globs from indexing, such as files in the .archive and node_modules directories.
     """
     def name_metadata_store(filename: str) -> dict:
+        """
+        Create metadata for a given filename.
+
+        Args:
+            filename (str): The name of the file.
+
+        Returns:
+            dict: The metadata dictionary containing the filename.
+
+        Raises:
+            None
+        """
         return {"filename": filename}
 
     def update_documents_and_query(query: str) -> str:
