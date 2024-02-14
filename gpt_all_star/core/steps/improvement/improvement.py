@@ -16,6 +16,7 @@ class Improvement(Step):
         super().__init__(agents, japanese_mode, review_mode, debug_mode)
 
     def run(self) -> None:
+        """Run the Improvement step."""
         team = Team(
             supervisor=self.agents.project_manager,
             members=[
@@ -44,4 +45,5 @@ class Improvement(Step):
         if choice == CONFIRM_CHOICES[0]:
             Execution(
                 self.agents, self.japanese_mode, self.review_mode, self.debug_mode
+            ).run()
             ).run()
