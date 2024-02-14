@@ -1,4 +1,5 @@
 import functools
+import json
 
 from langchain.agents.agent import AgentExecutor
 from langgraph.graph import END, StateGraph
@@ -6,6 +7,7 @@ from langgraph.pregel import GraphRecursionError
 
 from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.agents.agent_state import AgentState
+from gpt_all_star.core.implement_planning_prompt import implement_planning_template
 from gpt_all_star.core.message import Message
 
 
@@ -50,9 +52,6 @@ class Team:
         )
         state_graph.set_entry_point(self.supervisor.name)
 
-    def compile(self):
-        return self.state_graph.compile()
-
     def run(self, messages: list[Message]):
         try:
             for output in self._team.stream(
@@ -75,6 +74,46 @@ class Team:
                         )
         except GraphRecursionError:
             print("Recursion limit reached")
+
+    def drive(self, planning_prompt: str, additional_tasks: list[str] = []):
+        tasks = self.supervisor.create_planning_chain().invoke(
+            {
+                "messages": [Message.create_human_message(planning_prompt)],
+            }
+        )
+        for task in additional_tasks:
+            tasks["plan"].append(task)
+        self.supervisor.console.print(json.dumps(tasks, indent=4, ensure_ascii=False))
+
+        for i, task in enumerate(tasks["plan"]):
+            if task["task"] == "Execute a command":
+                todo = f"{task['task']}: {task['command']} in the directory {task['working_directory']}"
+            else:
+                todo = f"{task['task']}: {task['working_directory']}/{task['filename']}"
+
+            self.supervisor.state(
+                f"""\n
+Task {i + 1}: {todo}
+Context: {task['context']}
+Objective: {task['objective']}
+Reason: {task['reason']}
+---
+"""
+            )
+
+            message = Message.create_human_message(
+                implement_planning_template.format(
+                    task=todo,
+                    objective=task["objective"],
+                    context=task["context"],
+                    reason=task["reason"],
+                    implementation=self.supervisor.current_source_code(),
+                    specifications=self.supervisor.storages.docs.get(
+                        "specifications.md", None
+                    ),
+                )
+            )
+            self.run([message])
 
     @staticmethod
     def _agent_node(state, agent: AgentExecutor, name):
