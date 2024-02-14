@@ -71,6 +71,12 @@ class ShellTool(BaseTool):
     ) -> str:
         """Run commands and return final output."""
 
+        if commands in ["npm start", "yarn start"]:
+            warnings.warn(
+                "The command 'npm start' or 'yarn start' is not allowed to be executed."
+            )
+            return None
+
         print(f"Executing command:\n {commands}")
 
         try:
