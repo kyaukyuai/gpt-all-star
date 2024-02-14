@@ -7,6 +7,7 @@ from llama_index.core.schema import Document
 
 from gpt_all_star.core.tools.document_chunker import DocumentChunker
 from typing import List, Union, Any
+from pathlib import Path
 
 
 def llama_index_tool(path: Path) -> Tool:
