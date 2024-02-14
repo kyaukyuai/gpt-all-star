@@ -1,5 +1,8 @@
 from enum import Enum
 
+
+# Add docstrings to all step classes
+
 from gpt_all_star.core.steps.deployment.deployment import Deployment
 from gpt_all_star.core.steps.development.development import Development
 from gpt_all_star.core.steps.execution import Execution
@@ -26,6 +29,15 @@ class StepType(str, Enum):
     DEPLOYMENT = "deployment"
 
 
+"""
+Definition of different types of workflow steps.
+
+The STEPS dictionary contains the mapping of StepType to their respective Step classes.
+"""
+
+"""
+Mapping of StepType to their respective Step classes.
+"""
 STEPS = {
     StepType.DEFAULT: [
         TeamBuilding,
