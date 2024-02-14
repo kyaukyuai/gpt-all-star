@@ -3,8 +3,14 @@ from gpt_all_star.core.steps.step import Step
 from gpt_all_star.core.steps.ui_design.planning_prompt import planning_prompt_template
 from gpt_all_star.core.team import Team
 
+# Class being tested
+import unittest
+
 
 class UIDesign(Step):
+    """
+    The UIDesign class defines the functionality for creating UI designs.
+    """
     def __init__(
         self,
         agents: Agents,
