@@ -38,6 +38,8 @@ The STEPS dictionary contains the mapping of StepType to their respective Step c
 """
 Mapping of StepType to their respective Step classes.
 """
+"""Dictionary mapping StepType to their respective Step classes."""
+
 STEPS = {
     StepType.DEFAULT: [
         TeamBuilding,
