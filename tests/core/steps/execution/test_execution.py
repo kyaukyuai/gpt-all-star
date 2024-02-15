@@ -42,6 +42,41 @@ class TestExecution(unittest.TestCase):
             )
 
             # Assert that run_command is called
+        # Test interaction between Execution and Agents classes
+        def test_execution_agents_interaction(self):
+            # Mock confirm_execution method
+            self.agents.qa_engineer.confirm_execution = MagicMock()
+
+            # Mock run_command method
+            self.agents.qa_engineer.run_command = MagicMock()
+
+            # Mock present_choices method
+            self.agents.copilot.present_choices = MagicMock(return_value="yes")
+
+            # Mock Improvement class
+            with patch("gpt_all_star.core.steps.execution.execution.Improvement") as mock_improvement:
+                self.execution.run()
+
+                # Assert that confirm_execution is called with the correct arguments
+                self.agents.qa_engineer.confirm_execution.assert_called_with(
+                    review_mode=False,
+                    command=self.agents.qa_engineer.storages.root["run.sh"],
+                )
+
+            # Assert that run_command is called
+            self.agents.qa_engineer.run_command.assert_called()
+            self.assertEqual(self.agents.qa_engineer.run_command.call_count, 1)
+
+                # Assert that present_choices is called with the correct arguments
+                self.agents.copilot.present_choices.assert_called_with(
+                    "Do you want to improve your source code again?",
+                    ["yes", "no"],
+                    default=1,
+                )
+
+                # Assert that Improvement class is instantiated and run method is called
+                mock_improvement.assert_called_with(self.agents, False, False, False)
+                mock_improvement.return_value.run.assert_called()
             self.agents.qa_engineer.run_command.assert_called()
 
             # Assert that present_choices is called with the correct arguments
