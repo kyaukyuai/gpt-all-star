@@ -20,7 +20,9 @@ def test_system_design_run(system_design):
     pass
 
 
-# Add more test functions here to cover other methods or functionalities of the SystemDesign class
+class TestSystemDesign:
+    def test_some_method(self):
+        pass
 
 
 if __name__ == "__main__":
