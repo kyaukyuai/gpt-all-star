@@ -94,7 +94,7 @@ class TestExecution(unittest.TestCase):
             )
             mock_improvement.return_value.run.assert_called()
 
-    def test_run_exception_handling(self):
+    def test_run_exception_handling_new_case(self):
         # Mock confirm_execution method
         self.agents.qa_engineer.confirm_execution = MagicMock()
 
