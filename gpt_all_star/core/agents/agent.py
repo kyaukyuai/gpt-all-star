@@ -207,6 +207,10 @@ Based on the user request provided, your task is to generate a detail and specif
                                     ],
                                 },
                                 "working_directory": {
+                                "type": "string",
+                                "description": "Directory where the command is to be executed or the file is to be located, e.g. './src/'",
+                                    "type": "string",
+                                    "description": "Directory where the command is to be executed or the file is to be located, e.g. './src/'",
                                     "type": "string",
                                     "description": "Directory where the command is to be executed or the file is to be located, e.g. './src/'",
                                 },
