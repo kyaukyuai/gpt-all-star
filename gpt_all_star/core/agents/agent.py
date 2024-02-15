@@ -27,6 +27,7 @@ from rich.panel import Panel
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
+from gpt_all_star.core.tools.file_tool import UpdateFileTool
 from gpt_all_star.core.tools.shell_tool import ShellTool
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
@@ -68,6 +69,7 @@ class Agent(ABC):
         self.tools = (
             tools
             + file_tools
+            + [UpdateFileTool(root_dir=str(working_directory))]
             + [ShellTool(verbose=True, root_dir=str(working_directory))]
         )
         self.executor = self._create_executor(self.tools)
@@ -172,7 +174,7 @@ class Agent(ABC):
         system_prompt = f"""{self.profile}
 Based on the user request provided, your task is to generate a detail and specific plan that includes following items:
     - task: it must be one of "Execute a command", "Add a new file", "Read and Overwrite an existing file", or "Delete an existing file"
-    - working_directory: The directory where the command is to be executed or the file is to be placed
+    - working_directory: The directory where the command is to be executed or the file is to be placed, it should be started from '.', e.g. './src/'
     - filename: Specify only if the name of the file to be added or changed is specifically determined
     - command: command to be executed if necessary
     - context: all contextual information that should be communicated to the person performing the task
@@ -208,7 +210,7 @@ Based on the user request provided, your task is to generate a detail and specif
                                 },
                                 "working_directory": {
                                     "type": "string",
-                                    "description": "Directory where the command is to be executed or the file is to be located, e.g. './src/'",
+                                    "description": "Directory where the command is to be executed or the file is to be located, it should be started from '.', e.g. './src/'",
                                 },
                                 "filename": {
                                     "type": "string",
