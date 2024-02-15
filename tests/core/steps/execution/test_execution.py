@@ -52,6 +52,8 @@ class TestExecution(unittest.TestCase):
             )
 
             # Assert that Improvement class is instantiated and run method is called
+            mock_improvement.assert_called_with(self.agents, False, False, False)
+            mock_improvement.return_value.run.assert_called()
             mock_improvement.assert_called_with(
                 self.agents, False, False, False
             )
