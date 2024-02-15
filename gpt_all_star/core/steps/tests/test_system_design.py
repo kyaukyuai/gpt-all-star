@@ -14,9 +14,9 @@ def system_design():
     return SystemDesign(agents, japanese_mode, review_mode, debug_mode)
 
 
-def test_system_design_run(system_design):
-    # Test the run method of SystemDesign class
-    # Add test cases here to cover different scenarios and edge cases
+def test_system_design_run_with_parameters(system_design):
+    # Test the run method of SystemDesign class with parameters
+    # Add test cases here to cover different scenarios and edge cases with the given parameters
     pass
 
 
