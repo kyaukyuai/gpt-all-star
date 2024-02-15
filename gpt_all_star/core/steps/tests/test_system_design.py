@@ -21,6 +21,7 @@ def test_system_design_run_with_parameters(system_design):
     assert expected_output == system_design.run()
 
 
+@pytest.mark.parametrize('japanese_mode, review_mode, debug_mode', [(True, True, True), (False, False, True), (True, False, False)])
 class TestSystemDesign:
     def test_some_method(self):
         pass
