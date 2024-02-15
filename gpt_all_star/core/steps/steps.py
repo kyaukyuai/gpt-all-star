@@ -2,7 +2,7 @@ from enum import Enum
 
 from gpt_all_star.core.steps.deployment.deployment import Deployment
 from gpt_all_star.core.steps.development.development import Development
-from gpt_all_star.core.steps.execution import Execution
+from gpt_all_star.core.steps.execution.execution import Execution
 from gpt_all_star.core.steps.improvement.improvement import Improvement
 from gpt_all_star.core.steps.specification.specification import Specification
 from gpt_all_star.core.steps.system_design.system_design import SystemDesign
