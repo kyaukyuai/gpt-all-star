@@ -5,6 +5,17 @@ from gpt_all_star.core.team import Team
 
 
 class Execution(Step):
+    """
+    Represents the execution step of the development process.
+
+    This class is responsible for executing the development plan and handling any errors that occur during execution.
+
+    Attributes:
+        agents (Agents): The collection of autonomous AI agents involved in the development process.
+        japanese_mode (bool): Flag indicating whether the execution is in Japanese mode.
+        review_mode (bool): Flag indicating whether the execution is in review mode.
+        debug_mode (bool): Flag indicating whether the execution is in debug mode.
+    """
     def __init__(
         self,
         agents: Agents,
