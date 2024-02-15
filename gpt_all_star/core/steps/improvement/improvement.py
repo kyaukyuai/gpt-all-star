@@ -1,5 +1,5 @@
 from gpt_all_star.core.agents.agents import Agents
-from gpt_all_star.core.steps.execution import Execution
+from gpt_all_star.core.steps.execution.execution import Execution
 from gpt_all_star.core.steps.improvement.planning_prompt import planning_prompt_template
 from gpt_all_star.core.steps.step import Step
 from gpt_all_star.core.team import Team
@@ -31,7 +31,7 @@ class Improvement(Step):
 
         planning_prompt = planning_prompt_template.format(
             request=request,
-            current_source_code=team.supervisor.current_source_code(),
+            current_source_code=team.current_source_code(),
         )
         team.drive(planning_prompt)
 
