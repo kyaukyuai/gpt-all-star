@@ -164,7 +164,9 @@ class Agent(ABC):
             ]
         )
         agent = create_openai_tools_agent(self._llm, tools, prompt)
-        return AgentExecutor(agent=agent, tools=tools, verbose=True)
+        return AgentExecutor(
+            agent=agent, tools=tools, verbose=True, handle_parsing_errors=True
+        )
 
     def create_planning_chain(self):
         system_prompt = f"""{self.profile}
@@ -206,7 +208,7 @@ Based on the user request provided, your task is to generate a detail and specif
                                 },
                                 "working_directory": {
                                     "type": "string",
-                                    "description": "Directory where the command is to be executed or the file is to be located",
+                                    "description": "Directory where the command is to be executed or the file is to be located, e.g. './src/'",
                                 },
                                 "filename": {
                                     "type": "string",
