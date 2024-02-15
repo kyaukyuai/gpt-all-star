@@ -23,13 +23,14 @@ class UpdateFileInput(BaseModel):
 
 
 class UpdateFileTool(BaseFileToolMixin, BaseTool):
+    """Tool for updating a file by inserting text at specific line numbers."""
     name: str = "update_file"
     """Name of tool."""
 
     args_schema: Type[BaseModel] = UpdateFileInput
     """Schema for input arguments."""
 
-    description: str = "Update a file by inserting text at specific line numbers."
+    description: str = "Tool for updating a file by inserting text at specific line numbers."
     """Description of tool."""
 
     def _run(
