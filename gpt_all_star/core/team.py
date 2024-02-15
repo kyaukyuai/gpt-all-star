@@ -8,7 +8,7 @@ from langgraph.pregel import GraphRecursionError
 
 from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.agents.agent_state import AgentState
-from gpt_all_star.core.implement_planning_prompt import implement_planning_template
+from gpt_all_star.core.implement_prompt import implement_planning_template
 from gpt_all_star.core.message import Message
 
 
