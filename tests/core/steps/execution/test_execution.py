@@ -65,7 +65,7 @@ class TestExecution(unittest.TestCase):
         self.agents.qa_engineer.run_command = MagicMock(side_effect=Exception("Something went wrong"))
 
         # Mock Team class
-        with patch("gpt_all_star.core.steps.execution.execution.Team") as mock_team:
+        with patch("gpt_all_star.core.steps.execution.team.Team") as mock_team:
             self.execution.run()
 
             # Assert that confirm_execution is called with the correct arguments
