@@ -17,7 +17,8 @@ def system_design():
 def test_system_design_run_with_parameters(system_design):
     # Test the run method of SystemDesign class with parameters
     # Add test cases here to cover different scenarios and edge cases with the given parameters
-    pass
+    expected_output = None
+    assert expected_output == system_design.run()
 
 
 class TestSystemDesign:
