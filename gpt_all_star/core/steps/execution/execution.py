@@ -32,6 +32,16 @@ class Execution(Step):
             review_mode=self.review_mode,
             command=self.agents.qa_engineer.storages.root["run.sh"],
         )
+        """
+        Executes the development plan.
+
+        This method runs the command specified by the QA engineer and handles any exceptions that occur during execution.
+        If an exception occurs, it notifies the team and provides the error details and the current source code.
+
+        Raises:
+            KeyboardInterrupt: If the execution is interrupted by the user.
+            Exception: If any other exception occurs during execution.
+        """
         MAX_ATTEMPTS = 5
         for attempt in range(MAX_ATTEMPTS):
             self.agents.qa_engineer.state(f"Attempt {attempt + 1}/{MAX_ATTEMPTS}")
