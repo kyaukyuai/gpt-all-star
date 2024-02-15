@@ -53,6 +53,9 @@ class Team:
         )
         state_graph.set_entry_point(self.supervisor.name)
 
+    def current_source_code(self):
+        return self.supervisor.current_source_code()
+
     def run(self, messages: list[Message]):
         try:
             for output in self._team.stream(
@@ -114,7 +117,7 @@ Reason: {task['reason']}
                     objective=task["objective"],
                     context=task["context"],
                     reason=task["reason"],
-                    implementation=self.supervisor.current_source_code(),
+                    implementation=self.current_source_code(),
                     specifications=self.supervisor.storages.docs.get(
                         "specifications.md", None
                     ),

@@ -25,7 +25,7 @@ class UIDesign(Step):
         )
 
         planning_prompt = planning_prompt_template.format(
-            current_source_code=team.supervisor.current_source_code(),
+            current_source_code=team.current_source_code(),
             specifications=team.supervisor.storages.docs["specifications.md"],
         )
 
