@@ -54,6 +54,13 @@ class Team:
         state_graph.set_entry_point(self.supervisor.name)
 
     def current_source_code(self):
+        """
+        Returns the current source code of the supervisor.
+        
+        Returns:
+            str: The current source code of the supervisor.
+        """
+        
         return self.supervisor.current_source_code()
 
     def run(self, messages: list[Message]):
