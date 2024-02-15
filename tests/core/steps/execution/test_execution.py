@@ -3,7 +3,9 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
+from unittest.mock import MagicMock, patch
 from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.steps.execution.execution import Execution
 from gpt_all_star.core.steps.execution.execution import Execution
 
 
@@ -11,6 +13,13 @@ class TestExecution(unittest.TestCase):
     def setUp(self):
         self.agents = Agents()
         self.execution = Execution(self.agents, False, False, False)
+
+    def test_init_execution(self):
+        execution = Execution(self.agents, False, False, False)
+        self.assertEqual(execution.agents, self.agents)
+        self.assertFalse(execution.japanese_mode)
+        self.assertFalse(execution.review_mode)
+        self.assertFalse(execution.debug_mode)
 
     def test_run_successful_execution(self):
         # Mock confirm_execution method
