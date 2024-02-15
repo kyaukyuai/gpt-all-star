@@ -192,7 +192,7 @@ Based on the user request provided, your task is to generate a detail and specif
                             "type": "object",
                             "description": "Task to do.",
                             "properties": {
-                                "task": {
+                                "description": "Task to do.","task": {
                                     "type": "string",
                                     "description": "Task",
                                     "anyOf": [
@@ -214,7 +214,7 @@ Based on the user request provided, your task is to generate a detail and specif
                                     "type": "string",
                                     "description": "Specify only if the name of the file to be added or changed is specifically determined",
                                 },
-                                "command": {
+                                "description": "Clear reasons why the task should be performed","command": {
                                     "type": "string",
                                     "description": "Command to be executed if necessary",
                                 },
