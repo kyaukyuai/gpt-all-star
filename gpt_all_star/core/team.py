@@ -128,7 +128,7 @@ Reason: {task['reason']}
                     context=task["context"],
                     reason=task["reason"],
                     implementation=self.current_source_code(),
-                    specifications=self.storages.docs.get("specifications.md", None),
+                    specifications=self.storages().docs.get("specifications.md", None),
                 )
             )
             self.run([message])
