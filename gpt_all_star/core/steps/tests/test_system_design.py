@@ -1,6 +1,8 @@
 import pytest
 from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.steps.system_design.system_design import SystemDesign
+from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.steps.system_design.system_design import SystemDesign
 
 
 @pytest.fixture
