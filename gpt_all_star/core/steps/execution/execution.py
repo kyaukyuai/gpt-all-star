@@ -40,7 +40,7 @@ class Execution(Step):
                 team.drive(
                     planning_prompt_template.format(
                         error=e,
-                        current_source_code=team.supervisor.current_source_code(),
+                        current_source_code=team.current_source_code(),
                     )
                 )
 

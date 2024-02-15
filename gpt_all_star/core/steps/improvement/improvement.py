@@ -31,7 +31,7 @@ class Improvement(Step):
 
         planning_prompt = planning_prompt_template.format(
             request=request,
-            current_source_code=team.supervisor.current_source_code(),
+            current_source_code=team.current_source_code(),
         )
         team.drive(planning_prompt)
 
