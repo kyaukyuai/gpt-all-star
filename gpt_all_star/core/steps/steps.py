@@ -11,6 +11,15 @@ from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
 
 
 class StepType(str, Enum):
+    """
+    Represents the type of step in the development process.
+
+    This enum class specifies the different types of steps available in the development process.
+    It provides a clear and concise enumeration of the step types, which can be used to categorize and identify different steps.
+
+    Usage:
+    Use this enum to define the step type for each phase of the development process.
+    """
     DEFAULT = "default"
     BUILD = "build"
     TEAM_BUILDING = "team_building"
