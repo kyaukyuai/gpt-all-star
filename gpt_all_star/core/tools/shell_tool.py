@@ -71,7 +71,12 @@ class ShellTool(BaseTool):
     ) -> str:
         """Run commands and return final output."""
 
-        if commands in ["npm start", "yarn start"]:
+        not_allowed_commands = ["npm start", "yarn start"]
+
+        if isinstance(commands, (str, list)) and any(
+            cmd in (commands if isinstance(commands, list) else [commands])
+            for cmd in not_allowed_commands
+        ):
             warnings.warn(
                 "The command 'npm start' or 'yarn start' is not allowed to be executed."
             )

@@ -15,7 +15,7 @@ class Execution(Step):
         super().__init__(agents, japanese_mode, review_mode, debug_mode)
 
     def run(self) -> None:
-        from gpt_all_star.core.steps.improvement import Improvement
+        from gpt_all_star.core.steps.improvement.improvement import Improvement
 
         self.agents.qa_engineer.confirm_execution(
             review_mode=self.review_mode,
