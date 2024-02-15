@@ -63,6 +63,9 @@ class Team:
         
         return self.supervisor.current_source_code()
 
+    def storages(self):
+        return self.supervisor.storages
+
     def run(self, messages: list[Message]):
         try:
             for output in self._team.stream(
@@ -125,9 +128,7 @@ Reason: {task['reason']}
                     context=task["context"],
                     reason=task["reason"],
                     implementation=self.current_source_code(),
-                    specifications=self.supervisor.storages.docs.get(
-                        "specifications.md", None
-                    ),
+                    specifications=self.storages.docs.get("specifications.md", None),
                 )
             )
             self.run([message])
