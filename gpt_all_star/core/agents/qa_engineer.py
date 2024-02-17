@@ -56,7 +56,7 @@ class QAEngineer(Agent):
             process = subprocess.Popen(
                 command,
                 shell=True,
-                cwd=self.storages.root.path,
+                cwd=self.storages.app.path,
                 text=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
