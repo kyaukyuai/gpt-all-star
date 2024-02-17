@@ -80,7 +80,6 @@ class Storage:
 @dataclass
 class Storages:
     root: Storage
-    app: Storage
     docs: Storage
     archive: Storage
 
@@ -95,6 +94,3 @@ class Storages:
         for item in os.listdir(storages.root.path):
             if item != ".archive":
                 shutil.move(os.path.join(storages.root.path, item), destination)
-
-        os.makedirs(storages.app.path, exist_ok=True)
-        os.makedirs(storages.docs.path, exist_ok=True)

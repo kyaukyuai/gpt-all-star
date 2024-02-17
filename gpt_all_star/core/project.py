@@ -44,7 +44,6 @@ class Project:
         project_path = Path(os.path.abspath(f"projects/{self.project_name}")).absolute()
         self.storages = Storages(
             root=Storage(project_path),
-            app=Storage(project_path / "app"),
             docs=Storage(project_path / "docs"),
             archive=Storage(project_path / ".archive"),
         )

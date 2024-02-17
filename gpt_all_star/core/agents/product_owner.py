@@ -17,7 +17,7 @@ class ProductOwner(Agent):
         super().__init__(AgentRole.PRODUCT_OWNER, storages, debug_mode, name, profile)
 
     def get_instructions(self) -> str:
-        return self.storages.docs.get("instructions") or self.ask(
+        return self.storages.root.get("instructions") or self.ask(
             "What application do you want to build? Please describe it in as much detail as possible."
         )
 
