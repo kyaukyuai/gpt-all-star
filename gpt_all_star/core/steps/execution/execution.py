@@ -30,12 +30,8 @@ class Execution(Step):
                 break
             except Exception as e:
                 team = Team(
-                    supervisor=self.agents.project_manager,
-                    members=[
-                        self.agents.engineer,
-                        self.agents.designer,
-                        self.agents.qa_engineer,
-                    ],
+                    supervisor=self.agents.qa_engineer,
+                    members=self.agents.members(),
                 )
                 team.drive(
                     planning_prompt_template.format(

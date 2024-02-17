@@ -15,13 +15,6 @@ class SystemDesign(Step):
         super().__init__(agents, japanese_mode, review_mode, debug_mode)
 
     def run(self) -> None:
-        team = Team(
-            supervisor=self.agents.project_manager,
-            members=[
-                self.agents.architect,
-                self.agents.designer,
-                self.agents.engineer,
-            ],
-        )
+        team = Team(supervisor=self.agents.architect, members=self.agents.members())
 
         team.drive(None, additional_tasks)

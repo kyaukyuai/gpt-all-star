@@ -41,17 +41,17 @@ class Team:
 
     def _add_edges_to_graph(self, state_graph):
         for member in self.members:
-            state_graph.add_edge(member.name, self.supervisor.name)
+            state_graph.add_edge(member.name, "supervisor")
 
     def _add_entry_point_to_graph(self, state_graph):
-        state_graph.add_node(self.supervisor.name, self.supervisor_chain)
+        state_graph.add_node("supervisor", self.supervisor_chain)
         member_names = [member.name for member in self.members]
         conditional_map = {k: k for k in member_names}
         conditional_map["FINISH"] = END
         state_graph.add_conditional_edges(
-            self.supervisor.name, lambda x: x["next"], conditional_map
+            "supervisor", lambda x: x["next"], conditional_map
         )
-        state_graph.set_entry_point(self.supervisor.name)
+        state_graph.set_entry_point("supervisor")
 
     def current_source_code(self):
         return self.supervisor.current_source_code()
@@ -66,7 +66,7 @@ class Team:
                 config={"recursion_limit": 25},
             ):
                 for key, value in output.items():
-                    if key == self.supervisor.name or key == "__end__":
+                    if key == "supervisor" or key == "__end__":
                         # self.supervisor.state(value)
                         pass
                     else:

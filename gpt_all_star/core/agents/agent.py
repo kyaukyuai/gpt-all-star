@@ -27,7 +27,6 @@ from rich.panel import Panel
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
-from gpt_all_star.core.tools.file_tool import UpdateFileTool
 from gpt_all_star.core.tools.shell_tool import ShellTool
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
@@ -76,7 +75,6 @@ class Agent(ABC):
         self.tools = (
             tools
             + file_tools
-            + [UpdateFileTool(root_dir=str(working_directory))]
             + [ShellTool(verbose=True, root_dir=str(working_directory))]
         )
         self.executor = self._create_executor(self.tools)
