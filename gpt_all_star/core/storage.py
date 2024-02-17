@@ -75,6 +75,16 @@ class Storage:
     def recursive_file_search(
         self, path: Path | None = None, files_dict=None
     ) -> dict[str, str]:
+        """
+        Recursively search for files in the storage system and return a dictionary of file paths and their contents.
+    
+        Args:
+            path (Path | None, optional): The path to start the search from. If None, the search starts from the root path. Defaults to None.
+            files_dict (dict[str, str], optional): A dictionary to store the file paths and their contents. Defaults to None.
+    
+        Returns:
+            dict[str, str]: A dictionary of file paths and their contents.
+        """
         if files_dict is None:
             files_dict = {}
         for item in (path or self.path).iterdir():
