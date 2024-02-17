@@ -1103,12 +1103,13 @@ requests = ">=2,<3"
 
 [[package]]
 name = "llama-index"
-version = "0.10.4"
+version = "0.10.5"
 description = "Interface between LLMs and your data"
 optional = false
-python-versions = ">=3.8.1,<3.12"
+python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "llama_index-0.10.4-py3-none-any.whl", hash = "sha256:d145befb1476ff633f82fe62e5e8798b352c9b962041452710b6edc9d4982aa4"},
+    {file = "llama_index-0.10.5-py3-none-any.whl", hash = "sha256:f116a57feb386ef875f73b6fdf77375b520c13ec64b45570aa4411942fc2045d"},
+    {file = "llama_index-0.10.5.tar.gz", hash = "sha256:08f07d1d2db9f2ea9b2b0dc27ca2bcc6fa56a95d81a99f913e0e753c8693dbd7"},
 ]
 
 [package.dependencies]
