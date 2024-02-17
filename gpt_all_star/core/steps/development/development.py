@@ -22,10 +22,10 @@ class Development(Step):
         )
 
         planning_prompt = planning_prompt_template.format(
-            specifications=team.storages().docs["specifications.md"],
-            technologies=team.storages().docs["technologies.md"],
-            pages=team.storages().docs["pages.md"],
-            files=team.storages().docs["files.md"],
+            specifications=team.storages().docs.get("specifications.md", None),
+            technologies=team.storages().docs.get("technologies.md", None),
+            pages=team.storages().docs.get("pages.md", None),
+            files=team.storages().docs.get("files.md", None),
         )
 
         team.drive(planning_prompt, additional_tasks + nodejs_tasks)
