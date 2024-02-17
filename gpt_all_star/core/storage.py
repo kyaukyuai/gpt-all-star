@@ -30,8 +30,7 @@ class Storage:
             return f.read()
 
     def __setitem__(self, key: str, value: str):
-        if key.startswith("../"):
-            raise ValueError(f"File name '{key}' attempted to access parent path.")
+        """Add a docstring to describe what this method does."""
 
         full_path = self.path / key
         full_path.parent.mkdir(parents=True, exist_ok=True)
