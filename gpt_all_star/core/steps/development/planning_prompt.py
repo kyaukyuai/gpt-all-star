@@ -8,7 +8,8 @@ Create a detailed and specific development plan from project creation to source 
 
 # Constraints
 ---
-The application specifications must be carefully understood and accurately reflect the specifications.
+- The application specifications must be carefully understood and accurately reflect the specifications.
+- Start from `npx create-react-app .` and finally create the shell script named `run.sh` for starting the application in your plan.
 
 # Requirements
 ---

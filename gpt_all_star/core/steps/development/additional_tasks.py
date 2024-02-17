@@ -1,9 +1,9 @@
 additional_tasks = [
     {
-        "task": "Add a new file",
+        "action": "Add a new file",
         "working_directory": "./",
-        "filename": "N/A",
-        "command": "N/A",
+        "filename": "",
+        "command": "",
         "context": """This task involves actively implementing any files identified as missing or incomplete from the docs/files.md review, in accordance with the project specifications.
 The focus is on directly addressing and filling in the gaps in the codebase to ensure completeness and functionality.
 """,
@@ -16,10 +16,10 @@ This approach guarantees that the application functions as intended and fulfills
 """,
     },
     {
-        "task": "Add a new file",
+        "action": "Add a new file",
         "working_directory": "./",
         "filename": "run.sh",
-        "command": "N/A",
+        "command": "",
         "context": """The run.sh script is created to automate the setup and execution processes within the project without needing global installations or superuser privileges.
 It encapsulates commands for locally installing dependencies, setting environment variables,
 and starting necessary parts of the codebase in parallel, adhering to security best practices and project-specific requirements.
@@ -33,10 +33,10 @@ This approach not only safeguards the system's integrity but also enhances the p
 """,
     },
     {
-        "task": "Add a new file",
+        "action": "Add a new file",
         "working_directory": "./",
         "filename": "README.md",
-        "command": "N/A",
+        "command": "",
         "context": """The README.md file is the gateway to understanding the project,
 providing essential details such as the project title, a brief description, the technology stack used, requirements for running the project, and instructions on how to run it.
 This comprehensive overview ensures that anyone looking at the project for the first time can quickly grasp its purpose, setup, and usage.

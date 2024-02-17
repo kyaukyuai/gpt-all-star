@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 
-implement_planning_template = PromptTemplate.from_template(
+implement_template = PromptTemplate.from_template(
     """
 # Instructions
 ---

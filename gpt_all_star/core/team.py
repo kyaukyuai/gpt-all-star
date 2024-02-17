@@ -6,9 +6,9 @@ from langchain.agents.agent import AgentExecutor
 from langgraph.graph import END, StateGraph
 from langgraph.pregel import GraphRecursionError
 
-from gpt_all_star.core.agents.agent import Agent
+from gpt_all_star.core.agents.agent import ACTIONS, Agent
 from gpt_all_star.core.agents.agent_state import AgentState
-from gpt_all_star.core.implement_prompt import implement_planning_template
+from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
 
 
@@ -83,7 +83,9 @@ class Team:
             print("Recursion limit reached")
 
     def drive(
-        self, planning_prompt: Optional[str] = None, additional_tasks: list[str] = []
+        self,
+        planning_prompt: Optional[str] = None,
+        additional_tasks: list[str] = [],
     ):
         tasks = (
             self.supervisor.create_planning_chain().invoke(
@@ -99,10 +101,12 @@ class Team:
         self.supervisor.console.print(json.dumps(tasks, indent=4, ensure_ascii=False))
 
         for i, task in enumerate(tasks["plan"]):
-            if task["task"] == "Execute a command":
-                todo = f"{task['task']}: {task['command']} in the directory {task['working_directory']}"
+            if task["action"] == ACTIONS[0]:
+                todo = f"{task['action']}: {task['command']} in the directory {task['working_directory']}"
             else:
-                todo = f"{task['task']}: {task['working_directory']}/{task['filename']}"
+                todo = (
+                    f"{task['action']}: {task['working_directory']}{task['filename']}"
+                )
 
             self.supervisor.state(
                 f"""\n
@@ -115,7 +119,7 @@ Reason: {task['reason']}
             )
 
             message = Message.create_human_message(
-                implement_planning_template.format(
+                implement_template.format(
                     task=todo,
                     objective=task["objective"],
                     context=task["context"],
