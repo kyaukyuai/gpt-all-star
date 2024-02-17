@@ -66,7 +66,7 @@ class Agent(ABC):
         self.debug_mode = debug_mode
 
         working_directory = (
-            self.storages.root.path.absolute() if self.storages else os.getcwd()
+            self.storages.app.path.absolute() if self.storages else os.getcwd()
         )
         file_tools = FileManagementToolkit(
             root_dir=str(working_directory),
@@ -349,7 +349,7 @@ Given the conversation above, create a detailed and specific plan to fully meet 
         for (
             filename,
             file_content,
-        ) in self.storages.root.recursive_file_search().items():
+        ) in self.storages.app.recursive_file_search().items():
             if self.debug_mode:
                 self.console.print(
                     f"Adding file {filename} to the prompt...", style="blue"
