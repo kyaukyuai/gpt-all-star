@@ -1,6 +1,6 @@
 from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.core.steps.system_design import additional_tasks
+from gpt_all_star.core.steps.system_design.additional_tasks import additional_tasks
 from gpt_all_star.core.team import Team
 
 
