@@ -20,6 +20,15 @@ class Storage:
         return (self.path / item).is_file()
 
     def get_path(self, item: str):
+        """
+        Get the path of a file in the storage system.
+
+        Args:
+            item (str): The file name.
+
+        Returns:
+            Path: The path of the specified file.
+        """
         item_path = self.path / item
         if not item_path.is_file():
             raise KeyError(f"File '{item}' could not be found in '{self.path}'")
