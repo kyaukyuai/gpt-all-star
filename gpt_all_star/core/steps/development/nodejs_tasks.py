@@ -1,9 +1,9 @@
 nodejs_tasks = [
     {
-        "task": "Read and Overwrite an existing file",
+        "action": "Read and Overwrite an existing file",
         "working_directory": "./",
         "filename": "the specific file with placeholders",
-        "command": "N/A",
+        "command": "",
         "context": """The task involves identifying a file within the project that has incomplete implementation,
 indicated by placeholders such as 'will go here', 'will be added here', 'PlaceHolder', 'TODO', etc.
 Once identified, these placeholders are to be addressed and corrected with complete and functional code to ensure that the implementation is fully realized.
@@ -17,10 +17,10 @@ This task directly impacts the project's effectiveness and its ability to meet i
 """,
     },
     {
-        "task": "Read and Overwrite an existing file",
+        "action": "Read and Overwrite an existing file",
         "working_directory": "./",
         "filename": "package.json",
-        "command": "N/A",
+        "command": "",
         "context": """The task requires setting the NODE_OPTIONS environment variable to '--openssl-legacy-provider' within the package.json file for a NodeJS project.
 This is done by adding specific lines to the 'start' and 'build' scripts, enabling the application to use the OpenSSL legacy provider mode.
 """,
@@ -32,10 +32,10 @@ This change mitigates potential issues related to the newer OpenSSL library vers
 """,
     },
     {
-        "task": "Read and Overwrite an existing file",
+        "action": "Read and Overwrite an existing file",
         "working_directory": "./",
         "filename": "package.json",
-        "command": "N/A",
+        "command": "",
         "context": """The task involves modifying the package.json file of a NodeJS project by removing the 'homepage' item.
 This item may have been previously set for deployment or documentation purposes, but is now required to be omitted.
 """,
@@ -46,10 +46,10 @@ It streamlines the project's configuration, making it more straightforward and a
 """,
     },
     {
-        "task": "Read and Overwrite an existing file",
+        "action": "Read and Overwrite an existing file",
         "working_directory": "./",
         "filename": "package.json",
-        "command": "N/A",
+        "command": "",
         "context": """This task involves a thorough review of the package.json file within a NodeJS project to ensure that all library dependencies listed are currently in use,
 adequately up-to-date, and that no necessary libraries are missing.
 This process includes validating each dependency to match the project's requirements, removing unused or deprecated libraries, and adding any missing libraries essential for the project's functionality.

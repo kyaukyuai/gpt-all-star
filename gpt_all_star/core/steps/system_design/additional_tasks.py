@@ -1,6 +1,6 @@
 additional_tasks = [
     {
-        "task": "Add a new file",
+        "action": "Add a new file",
         "working_directory": "./docs/",
         "filename": "technologies.md",
         "command": "",
@@ -18,7 +18,7 @@ This approach minimizes integration issues, optimizes development efforts, and e
 """,
     },
     {
-        "task": "Add a new file",
+        "action": "Add a new file",
         "working_directory": "./docs/",
         "filename": "pages.md",
         "command": "",
@@ -36,7 +36,7 @@ By providing a direct and unambiguous list of page URLs, the project supports a 
 """,
     },
     {
-        "task": "Add a new file",
+        "action": "Add a new file",
         "working_directory": "./docs/",
         "filename": "files.md",
         "command": "",

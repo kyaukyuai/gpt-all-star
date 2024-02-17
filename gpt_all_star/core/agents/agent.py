@@ -35,6 +35,13 @@ from gpt_all_star.helper.text_parser import format_file_to_input
 
 NEXT_COMMAND = "next"
 
+ACTIONS = [
+    "Execute a command",
+    "Add a new file",
+    "Read and Overwrite an existing file",
+    "Delete an existing file",
+]
+
 
 class Agent(ABC):
     def __init__(
@@ -173,13 +180,15 @@ class Agent(ABC):
     def create_planning_chain(self):
         system_prompt = f"""{self.profile}
 Based on the user request provided, your task is to generate a detail and specific plan that includes following items:
-    - task: it must be one of "Execute a command", "Add a new file", "Read and Overwrite an existing file", or "Delete an existing file"
-    - working_directory: The directory where the command is to be executed or the file is to be placed, it should be started from '.', e.g. './src/'
-    - filename: Specify only if the name of the file to be added or changed is specifically determined
+    - action: it must be one of {", ".join(ACTIONS)}
+    - working_directory: a directory where the command is to be executed or the file is to be placed, it should be started from '.', e.g. './src/'
+    - filename: specify only if the name of the file to be added or changed is specifically determined
     - command: command to be executed if necessary
     - context: all contextual information that should be communicated to the person performing the task
     - objective: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
     - reason: clear reasons why the task should be performed
+
+Make sure that each step has all the information needed - do not skip steps.
 """
         function_def = {
             "name": "planning",
@@ -194,18 +203,11 @@ Based on the user request provided, your task is to generate a detail and specif
                             "type": "object",
                             "description": "Task to do.",
                             "properties": {
-                                "task": {
+                                "action": {
                                     "type": "string",
                                     "description": "Task",
                                     "anyOf": [
-                                        {
-                                            "enum": [
-                                                "Execute a command",
-                                                "Add a new file",
-                                                "Read and Overwrite an existing file",
-                                                "Delete an existing file",
-                                            ]
-                                        },
+                                        {"enum": ACTIONS},
                                     ],
                                 },
                                 "working_directory": {
