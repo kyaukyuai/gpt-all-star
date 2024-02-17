@@ -73,8 +73,12 @@ class ShellTool(BaseTool):
 
         not_allowed_commands = ["npm start", "yarn start"]
 
+        import re
+
         if isinstance(commands, (str, list)) and any(
-            cmd in (commands if isinstance(commands, list) else [commands])
+            re.search(
+                cmd, " ".join(commands if isinstance(commands, list) else [commands])
+            )
             for cmd in not_allowed_commands
         ):
             warnings.warn(
