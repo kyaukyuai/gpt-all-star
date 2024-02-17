@@ -9,6 +9,9 @@ from typing import Any
 
 
 class Storage:
+    """
+    This class represents a storage system for managing files. It provides methods for file manipulation and retrieval.
+    """
     def __init__(self, path: str | Path):
         self.path = Path(path).absolute()
         self.path.mkdir(parents=True, exist_ok=True)
