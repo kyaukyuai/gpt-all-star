@@ -56,7 +56,10 @@ class Storage:
         full_path.write_text(value, encoding="utf-8")
 
     def __delitem__(self, item: str):
-        item_path = self.get_path(item)
+        """
+        Delete a file or directory from the storage system.
+        """
+        item_path = self.path / item
 
         if item_path.is_file():
             item_path.unlink()
