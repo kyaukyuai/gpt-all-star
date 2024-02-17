@@ -39,6 +39,16 @@ class Storage:
             return f.read()
 
     def __setitem__(self, key: str, value: str):
+        """
+        Set the content of a file in the storage system.
+
+        Args:
+            key (str): The file name.
+            value (str): The content to be written to the file.
+
+        Returns:
+            None
+        """
         """Add a docstring to describe what this method does."""
 
         full_path = self.path / key
