@@ -105,7 +105,7 @@ class Team:
                 todo = f"{task['action']}: {task['command']} in the directory {task['working_directory']}"
             else:
                 todo = (
-                    f"{task['action']}: {task['working_directory']}{task['filename']}"
+                    f"{task['action']}: {task['working_directory']}/{task['filename']}"
                 )
 
             self.supervisor.state(
