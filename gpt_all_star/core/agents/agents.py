@@ -18,3 +18,13 @@ class Agents:
     designer: Designer
     qa_engineer: QAEngineer
     project_manager: ProjectManager
+
+    def members(self):
+        return [
+            self.product_owner,
+            self.engineer,
+            self.architect,
+            self.designer,
+            self.qa_engineer,
+            self.project_manager,
+        ]

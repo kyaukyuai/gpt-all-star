@@ -163,5 +163,4 @@ cython_debug/
 
 *.history
 
-projects/*
-node_modules
+projects/

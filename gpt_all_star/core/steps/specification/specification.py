@@ -20,13 +20,6 @@ class Specification(Step):
         instructions = self.agents.product_owner.get_instructions()
         app_type = self.agents.product_owner.get_app_type()
 
-        team = Team(
-            supervisor=self.agents.project_manager,
-            members=[
-                self.agents.product_owner,
-                self.agents.designer,
-                self.agents.engineer,
-            ],
-        )
+        team = Team(supervisor=self.agents.product_owner, members=self.agents.members())
 
         team.drive(None, create_additional_tasks(app_type, instructions))

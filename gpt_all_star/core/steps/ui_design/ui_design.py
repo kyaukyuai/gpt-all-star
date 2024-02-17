@@ -15,14 +15,7 @@ class UIDesign(Step):
         super().__init__(agents, japanese_mode, review_mode, debug_mode)
 
     def run(self) -> None:
-        team = Team(
-            supervisor=self.agents.project_manager,
-            members=[
-                self.agents.engineer,
-                self.agents.designer,
-                self.agents.qa_engineer,
-            ],
-        )
+        team = Team(supervisor=self.agents.designer, members=self.agents.members())
 
         planning_prompt = planning_prompt_template.format(
             current_source_code=team.current_source_code(),

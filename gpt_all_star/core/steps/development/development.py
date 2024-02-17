@@ -18,12 +18,7 @@ class Development(Step):
 
     def run(self) -> None:
         team = Team(
-            supervisor=self.agents.project_manager,
-            members=[
-                self.agents.engineer,
-                self.agents.designer,
-                self.agents.qa_engineer,
-            ],
+            supervisor=self.agents.project_manager, members=self.agents.members()
         )
 
         planning_prompt = planning_prompt_template.format(
