@@ -49,7 +49,7 @@ class Storage:
         Returns:
             None
         """
-        """Add a docstring to describe what this method does."""
+        """Delete a file or directory from the storage system."""
 
         full_path = self.path / key
         full_path.parent.mkdir(parents=True, exist_ok=True)
