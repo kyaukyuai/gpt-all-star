@@ -19,6 +19,18 @@ class Specification(Step):
     def run(self) -> None:
         instructions = self.agents.product_owner.get_instructions()
         app_type = self.agents.product_owner.get_app_type()
+        self.agents.copilot.state("Ok, we have a instruction and app type now!")
+        self.agents.copilot.console.print(
+            f"""
+---
+instruction:
+{instructions}
+app_type:
+{app_type}
+---
+""",
+            style="bold",
+        )
 
         team = Team(supervisor=self.agents.product_owner, members=self.agents.members())
 

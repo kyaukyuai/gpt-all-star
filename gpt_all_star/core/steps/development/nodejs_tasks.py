@@ -1,7 +1,7 @@
 nodejs_tasks = [
     {
         "action": "Read and Overwrite an existing file",
-        "working_directory": "./",
+        "working_directory": "./app/",
         "filename": "the specific file with placeholders",
         "command": "",
         "context": """The task involves identifying a file within the project that has incomplete implementation,
@@ -18,7 +18,7 @@ This task directly impacts the project's effectiveness and its ability to meet i
     },
     {
         "action": "Read and Overwrite an existing file",
-        "working_directory": "./",
+        "working_directory": "./app/",
         "filename": "package.json",
         "command": "",
         "context": """The task requires setting the NODE_OPTIONS environment variable to '--openssl-legacy-provider' within the package.json file for a NodeJS project.
@@ -33,7 +33,7 @@ This change mitigates potential issues related to the newer OpenSSL library vers
     },
     {
         "action": "Read and Overwrite an existing file",
-        "working_directory": "./",
+        "working_directory": "./app/",
         "filename": "package.json",
         "command": "",
         "context": """The task involves modifying the package.json file of a NodeJS project by removing the 'homepage' item.
@@ -47,7 +47,7 @@ It streamlines the project's configuration, making it more straightforward and a
     },
     {
         "action": "Read and Overwrite an existing file",
-        "working_directory": "./",
+        "working_directory": "./app/",
         "filename": "package.json",
         "command": "",
         "context": """This task involves a thorough review of the package.json file within a NodeJS project to ensure that all library dependencies listed are currently in use,

@@ -1,6 +1,3 @@
-import os
-
-import yaml
 from rich.table import Table
 
 from gpt_all_star.cli.console_terminal import MAIN_COLOR
@@ -8,6 +5,7 @@ from gpt_all_star.core.agents import agents
 from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.step import Step
+from gpt_all_star.helper.config_loader import load_configuration
 from gpt_all_star.helper.text_parser import TextParser
 
 
@@ -30,16 +28,12 @@ class TeamBuilding(Step):
         self._display_team_members()
 
     def _introduce_agents(self) -> None:
-        if os.path.exists("./gpt_all_star/agents.yml"):
-            self._introduce_agents_from_file()
+        agents_list = load_configuration("./gpt_all_star/agents.yml")
+        if agents_list:
+            for agent_info in agents_list:
+                self._set_agent_attributes(agent_info)
         else:
             self._introduce_agents_manually()
-
-    def _introduce_agents_from_file(self) -> None:
-        with open("./gpt_all_star/agents.yml", "r") as file:
-            agents_list = yaml.safe_load(file)
-        for agent_info in agents_list:
-            self._set_agent_attributes(agent_info)
 
     def _set_agent_attributes(self, agent_info: dict) -> None:
         agent = getattr(self.agents, agent_info["role"])
