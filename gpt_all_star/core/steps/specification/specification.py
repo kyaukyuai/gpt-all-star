@@ -35,3 +35,4 @@ app_type:
         team = Team(supervisor=self.agents.product_owner, members=self.agents.members())
 
         team.drive(None, create_additional_tasks(app_type, instructions))
+        team.supervisor.output_md(team.storages().docs.get("specifications.md", ""))
