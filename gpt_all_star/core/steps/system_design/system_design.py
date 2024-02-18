@@ -18,3 +18,6 @@ class SystemDesign(Step):
         team = Team(supervisor=self.agents.architect, members=self.agents.members())
 
         team.drive(None, additional_tasks)
+        team.supervisor.output_md(team.storages().docs.get("technologies.md", ""))
+        team.supervisor.output_md(team.storages().docs.get("pages.md", ""))
+        team.supervisor.output_md(team.storages().docs.get("files.md", ""))
