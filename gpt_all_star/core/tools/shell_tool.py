@@ -117,7 +117,7 @@ class ShellTool(BaseTool):
         user_input = input("Proceed with command execution? (y/n): ").lower()
         return user_input == "y"
 
-    def _execute_commands(
+    def _execute_commands(\n        self, commands: Union[str, list[str]], timeout: int\n    ) -> Optional[str]:\n        """Execute commands and return the output.\n\n        Args:\n            commands (Union[str, list[str]]): The command(s) to execute.\n            timeout (int): The timeout in seconds.\n        Returns:\n            Optional[str]: The output of the executed commands, or None if there was an error."""
         self, commands: Union[str, list[str]], timeout: int
     ) -> Optional[str]:
         """Execute commands and return the output."""
