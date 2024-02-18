@@ -79,7 +79,8 @@ class Team:
 """
                             )
         except GraphRecursionError:
-            print("Recursion limit reached")
+            if self.supervisor.debug_mode:
+                print("Recursion limit reached")
 
     def drive(
         self,

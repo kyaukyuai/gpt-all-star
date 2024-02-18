@@ -28,9 +28,9 @@ class ShellInput(BaseModel):
         if not isinstance(commands, list):
             values["commands"] = [commands]
         # Warn that the bash tool is not safe
-        warnings.warn(
-            "The shell tool has no safeguards by default. Use at your own risk."
-        )
+        # warnings.warn(
+        #     "The shell tool has no safeguards by default. Use at your own risk."
+        # )
         return values
 
 
@@ -81,12 +81,18 @@ class ShellTool(BaseTool):
             )
             for cmd in not_allowed_commands
         ):
-            warnings.warn(
-                "The command 'npm start' or 'yarn start' is not allowed to be executed."
-            )
+            if self.verbose:
+                warnings.warn(
+                    "The command 'npm start' or 'yarn start' is not allowed to be executed."
+                )
             return None
 
-        print(f"Executing command:\n {commands}")
+        if self.verbose:
+            print(f"Executing command:\n {commands}")
+
+        import time
+
+        timeout = 300  # Timeout in seconds
 
         try:
             if self.ask_human_input:
@@ -100,13 +106,25 @@ class ShellTool(BaseTool):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE,
                     )
-                    stdout, stderr = process.communicate()
-                    if process.returncode != 0:
-                        logger.error(f"Error during command execution: {stderr}")
-                        return None
-                    if self.verbose:
-                        print(stdout)
-                    return stdout
+                    start_time = time.time()
+                    while True:
+                        if process.poll() is not None:
+                            stdout, stderr = process.communicate()
+                            if process.returncode != 0:
+                                if self.verbose:
+                                    logger.error(
+                                        f"Error during command execution: {stdout}"
+                                    )
+                                return None
+                            if self.verbose:
+                                print(stdout)
+                            time_count = time.time() - start_time
+                            print(f"Time count: {time_count}")
+                            return stdout
+                        if time.time() - start_time > timeout:
+                            process.terminate()
+                            logger.info("Command execution timed out.")
+                            return None
                 else:
                     logger.info("Invalid input. User aborted command execution.")
                     return None
@@ -119,13 +137,25 @@ class ShellTool(BaseTool):
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                 )
-                stdout, stderr = process.communicate()
-                if process.returncode != 0:
-                    logger.error(f"Error during command execution: {stderr}")
-                    return None
-                if self.verbose:
-                    print(stdout)
-                return stdout
+                start_time = time.time()
+                while True:
+                    if process.poll() is not None:
+                        stdout, stderr = process.communicate()
+                        if process.returncode != 0:
+                            if self.verbose:
+                                logger.error(
+                                    f"Error during command execution: {stdout}"
+                                )
+                            return None
+                        if self.verbose:
+                            print(stdout)
+                        time_count = time.time() - start_time
+                        print(f"Time count: {time_count}")
+                        return stdout
+                    if time.time() - start_time > timeout:
+                        process.terminate()
+                        logger.info("Command execution timed out.")
+                        return None
 
         except Exception as e:
             logger.error(f"Error during command execution: {e}")
