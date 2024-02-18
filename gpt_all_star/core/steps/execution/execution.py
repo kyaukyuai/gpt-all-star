@@ -19,7 +19,7 @@ class Execution(Step):
 
         self.agents.qa_engineer.confirm_execution(
             review_mode=self.review_mode,
-            command=self.agents.qa_engineer.storages.root["run.sh"],
+            command=self.agents.qa_engineer.storages.root["./app/run.sh"],
         )
         MAX_ATTEMPTS = 5
         for attempt in range(MAX_ATTEMPTS):

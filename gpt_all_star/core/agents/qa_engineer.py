@@ -51,7 +51,7 @@ class QAEngineer(Agent):
         self.console.new_lines()
 
     def run_command(self) -> None:
-        command = "bash ./app/run.sh"
+        command = "cd ./app && bash ./run.sh"
         try:
             process = subprocess.Popen(
                 command,

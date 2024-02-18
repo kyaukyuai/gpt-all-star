@@ -263,15 +263,21 @@ Given the conversation above, create a detailed and specific plan to fully meet 
             | JsonOutputFunctionsParser()
         )
 
-    def create_supervisor_chain(self, members: list = []):
-        options = ["FINISH"] + members
-        system_prompt = (
-            "You are a supervisor tasked with managing a conversation between the"
-            " following workers: {members}. Given the following user request,"
-            " respond with the worker to act next. Each worker will perform a"
-            " task and respond with their results and status. When finished,"
-            " respond with FINISH."
+    def create_supervisor_chain(self, members: list[Agent] = []):
+        options = ["FINISH"]
+        options.extend(member.name for member in members)
+        members_profile = "\n".join(
+            f"{member.name}: {member.profile}" for member in members
         )
+        system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {", ".join([member.name for member in members])}.
+# members
+---
+```
+{members_profile}
+```
+Given the following user request, respond with the worker to act next. Each worker will perform a task and respond with their results and status.
+When finished, respond with FINISH.
+"""
         function_def = {
             "name": "route",
             "description": "Select the next role.",
@@ -299,7 +305,7 @@ Given the conversation above, create a detailed and specific plan to fully meet 
                     " Or should we FINISH? Select one of: {options}",
                 ),
             ]
-        ).partial(options=str(options), members=", ".join(members))
+        ).partial(options=str(options))
 
         return (
             prompt
@@ -307,7 +313,7 @@ Given the conversation above, create a detailed and specific plan to fully meet 
             | JsonOutputFunctionsParser()
         )
 
-    def create_git_commit_message_chain(self, members: list = []):
+    def create_git_commit_message_chain(self):
         system_prompt = "You are an excellent engineer. Given the diff information of the source code, please respond with the appropriate branch name and commit message for making the change."
         function_def = {
             "name": "commit_message",
