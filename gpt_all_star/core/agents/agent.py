@@ -75,7 +75,7 @@ class Agent(ABC):
         self.tools = (
             tools
             + file_tools
-            + [ShellTool(verbose=True, root_dir=str(working_directory))]
+            + [ShellTool(verbose=self.debug_mode, root_dir=str(working_directory))]
         )
         self.executor = self._create_executor(self.tools)
 
@@ -172,7 +172,10 @@ class Agent(ABC):
         )
         agent = create_openai_tools_agent(self._llm, tools, prompt)
         return AgentExecutor(
-            agent=agent, tools=tools, verbose=True, handle_parsing_errors=True
+            agent=agent,
+            tools=tools,
+            verbose=self.debug_mode,
+            handle_parsing_errors=True,
         )
 
     def create_planning_chain(self):
