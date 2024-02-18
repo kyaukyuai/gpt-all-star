@@ -67,18 +67,19 @@ class Team:
             ):
                 for key, value in output.items():
                     if key == "supervisor" or key == "__end__":
-                        # self.supervisor.state(value)
-                        pass
+                        if self.supervisor.debug_mode:
+                            self.supervisor.state(value)
                     else:
-                        latest_message = value.get("messages")[-1].content.strip()
-                        self.supervisor.console.print(
-                            f"""
-    {key}:
-    ---
-    {latest_message}
-    ---\n
-    """
-                        )
+                        if self.supervisor.debug_mode:
+                            latest_message = value.get("messages")[-1].content.strip()
+                            self.supervisor.console.print(
+                                f"""
+{key}:
+---
+{latest_message}
+---
+"""
+                            )
         except GraphRecursionError:
             print("Recursion limit reached")
 
@@ -98,7 +99,11 @@ class Team:
         )
         for task in additional_tasks:
             tasks["plan"].append(task)
-        self.supervisor.console.print(json.dumps(tasks, indent=4, ensure_ascii=False))
+
+        if self.supervisor.debug_mode:
+            self.supervisor.console.print(
+                json.dumps(tasks, indent=4, ensure_ascii=False)
+            )
 
         for i, task in enumerate(tasks["plan"]):
             if task["action"] == ACTIONS[0]:
@@ -108,15 +113,16 @@ class Team:
                     f"{task['action']}: {task['working_directory']}/{task['filename']}"
                 )
 
-            self.supervisor.state(
-                f"""\n
-Task {i + 1}: {todo}
-Context: {task['context']}
-Objective: {task['objective']}
-Reason: {task['reason']}
----
-"""
-            )
+            if self.supervisor.debug_mode:
+                self.supervisor.state(
+                    f"""\n
+    Task {i + 1}: {todo}
+    Context: {task['context']}
+    Objective: {task['objective']}
+    Reason: {task['reason']}
+    ---
+    """
+                )
 
             message = Message.create_human_message(
                 implement_template.format(
