@@ -21,9 +21,7 @@ class Team:
         self._team = self.state_graph.compile()
 
     def _create_supervisor_chain(self):
-        return self.supervisor.create_supervisor_chain(
-            members=[member.name for member in self.members]
-        )
+        return self.supervisor.create_supervisor_chain(members=self.members)
 
     def _initialize_state_graph(self):
         state_graph = StateGraph(AgentState)
