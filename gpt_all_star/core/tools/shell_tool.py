@@ -110,6 +110,9 @@ class ShellTool(BaseTool):
         )
 
     def _get_user_confirmation(self) -> bool:
+        """Get user confirmation to proceed with command execution.
+        Returns:
+            bool: True if the user confirms (input is 'y'), False otherwise."""
         """Get user confirmation to proceed with command execution."""
         user_input = input("Proceed with command execution? (y/n): ").lower()
         return user_input == "y"
