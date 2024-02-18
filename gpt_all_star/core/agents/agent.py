@@ -267,14 +267,15 @@ Given the conversation above, create a detailed and specific plan to fully meet 
         options = ["FINISH"]
         options.extend(member.name for member in members)
         members_profile = "\n".join(
-            f"{member.name}: {member.profile}" for member in members
+            f"```{member.name}: {member.profile}```" for member in members
         )
         system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {", ".join([member.name for member in members])}.
-# members
+# Members
 ---
-```
 {members_profile}
-```
+
+# Instructions
+---
 Given the following user request, respond with the worker to act next. Each worker will perform a task and respond with their results and status.
 When finished, respond with FINISH.
 """
