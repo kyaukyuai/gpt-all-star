@@ -51,7 +51,6 @@ class ShellTool(BaseTool):
 
     args_schema: Type[BaseModel] = ShellInput
     """Schema for input arguments."""
-
     ask_human_input: bool = False
     """
     If True, prompts the user for confirmation (y/n) before executing
