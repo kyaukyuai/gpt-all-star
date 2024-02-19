@@ -68,7 +68,7 @@ class Team:
                         if self.supervisor.debug_mode:
                             self.supervisor.state(value)
                     else:
-                        self.supervisor.console.print(f"{key} is in charge of it")
+                        self.supervisor.console.print(f"  ┗ {key} is in charge of it.")
                         if self.supervisor.debug_mode:
                             latest_message = value.get("messages")[-1].content.strip()
                             self.supervisor.console.print(
