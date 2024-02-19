@@ -87,57 +87,54 @@ class Team:
         planning_prompt: Optional[str] = None,
         additional_tasks: list[str] = [],
     ):
-        with self.supervisor.console.console.status("[bold green]Working on tasks..."):
-            self.supervisor.state("Planning tasks in progress")
-            tasks = (
-                self.supervisor.create_planning_chain().invoke(
-                    {
-                        "messages": [Message.create_human_message(planning_prompt)],
-                    }
-                )
-                if planning_prompt
-                else {"plan": []}
+        self.supervisor.state("Planning tasks in progress")
+        tasks = (
+            self.supervisor.create_planning_chain().invoke(
+                {
+                    "messages": [Message.create_human_message(planning_prompt)],
+                }
             )
-            for task in additional_tasks:
-                tasks["plan"].append(task)
+            if planning_prompt
+            else {"plan": []}
+        )
+        for task in additional_tasks:
+            tasks["plan"].append(task)
+
+        if self.supervisor.debug_mode:
+            self.supervisor.console.print(
+                json.dumps(tasks, indent=4, ensure_ascii=False)
+            )
+
+        for i, task in enumerate(tasks["plan"]):
+            if task["action"] == ACTIONS[0]:
+                todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
+            else:
+                todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
 
             if self.supervisor.debug_mode:
-                self.supervisor.console.print(
-                    json.dumps(tasks, indent=4, ensure_ascii=False)
-                )
-
-            for i, task in enumerate(tasks["plan"]):
-                if task["action"] == ACTIONS[0]:
-                    todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
-                else:
-                    todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
-
-                if self.supervisor.debug_mode:
-                    self.supervisor.state(
-                        f"""\n
+                self.supervisor.state(
+                    f"""\n
 Task {i + 1}: {todo}
 Context: {task['context']}
 Objective: {task['objective']}
 Reason: {task['reason']}
 ---
 """
-                    )
-                else:
-                    self.supervisor.state(f"({(i+1)}/{len(tasks['plan'])}) {todo}")
-
-                message = Message.create_human_message(
-                    implement_template.format(
-                        task=todo,
-                        objective=task["objective"],
-                        context=task["context"],
-                        reason=task["reason"],
-                        implementation=self.current_source_code(),
-                        specifications=self.storages().docs.get(
-                            "specifications.md", None
-                        ),
-                    )
                 )
-                self.run([message])
+            else:
+                self.supervisor.state(f"({(i+1)}/{len(tasks['plan'])}) {todo}")
+
+            message = Message.create_human_message(
+                implement_template.format(
+                    task=todo,
+                    objective=task["objective"],
+                    context=task["context"],
+                    reason=task["reason"],
+                    implementation=self.current_source_code(),
+                    specifications=self.storages().docs.get("specifications.md", None),
+                )
+            )
+            self.run([message])
 
     @staticmethod
     def _agent_node(state, agent: AgentExecutor, name):

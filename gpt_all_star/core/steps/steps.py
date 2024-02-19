@@ -29,13 +29,11 @@ STEPS = {
         Specification,
         SystemDesign,
         Development,
-        UIDesign,
         Execution,
         Deployment,
     ],
     StepType.BUILD: [
         Development,
-        UIDesign,
         Execution,
         Deployment,
     ],
