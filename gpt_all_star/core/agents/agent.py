@@ -264,19 +264,12 @@ Given the conversation above, create a detailed and specific plan to fully meet 
         )
 
     def create_supervisor_chain(self, members: list[Agent] = []):
+        members = [member.name for member in members]
         options = ["FINISH"]
-        options.extend(member.name for member in members)
-        members_profile = "\n".join(
-            f"```{member.name}: {member.profile}```" for member in members
-        )
-        system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {", ".join([member.name for member in members])}.
-# Members
----
-{members_profile}
-
-# Instructions
----
-Given the following user request, respond with the worker to act next. Each worker will perform a task and respond with their results and status.
+        options.extend(members)
+        system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {str(members)}.
+Given the following user request, respond with the worker to act next.
+Each worker will perform a task and respond with their results and status.
 When finished, respond with FINISH.
 """
         function_def = {
@@ -306,7 +299,7 @@ When finished, respond with FINISH.
                     " Or should we FINISH? Select one of: {options}",
                 ),
             ]
-        ).partial(options=", ".join(options))
+        ).partial(options=str(options))
 
         return (
             prompt

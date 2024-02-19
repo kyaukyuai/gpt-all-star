@@ -15,22 +15,17 @@ Create a detailed and specific development plan from project creation to source 
 ---
 
 ## Application Specifications to be met
-```
+```specifications.md
 {specifications}
 ```
 
 ## Technology stack to be used
-```
+```technologies.md
 {technologies}
 ```
 
-## Page URL to be implemented
-```
-{pages}
-```
-
 ## Files to be implemented
-```
+```files.md
 {files}
 ```
 """
