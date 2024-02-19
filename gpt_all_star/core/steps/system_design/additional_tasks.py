@@ -4,10 +4,10 @@ additional_tasks = [
         "working_directory": "./docs",
         "filename": "technologies.md",
         "command": "",
-        "context": """This task requires compiling a precise list of technologies for building an application,
-focusing on source code implementation. The list should adhere to project specifications and be guided by Technologies Guidelines emphasizing relevance, compatibility, and preference.
-These guidelines mandate including only essential, actively used technologies, ensuring their compatibility,
-and excluding any that cannot be integrated. Additionally, when multiple options are available for a specific project component, the guidelines prioritize React, JavaScript, chakra-ui, HTML, and Docker / Docker Compose.
+        "context": """This task requires compiling a precise list of technologies for building an application, focusing on source code implementation.
+The list should adhere to project specifications and be guided by Technologies Guidelines emphasizing relevance, compatibility, and preference.
+These guidelines mandate including only essential, actively used technologies, ensuring their compatibility, and excluding any that cannot be integrated.
+Additionally, when multiple options are available for a specific project component, the guidelines prioritize React, JavaScript, chakra-ui, HTML, and Docker / Docker Compose.
 """,
         "objective": """To produce a document clearly outlining the necessary and compatible technologies for the project's development, prioritizing preferred technologies.
 This aims to ensure an efficient and coherent development process using a streamlined, compatible technology stack, thereby facilitating easier integration and implementation.
