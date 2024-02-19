@@ -1,4 +1,6 @@
 from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.steps.development.additional_tasks import additional_tasks
+from gpt_all_star.core.steps.development.nodejs_tasks import nodejs_tasks
 from gpt_all_star.core.steps.development.planning_prompt import planning_prompt_template
 from gpt_all_star.core.steps.step import Step
 from gpt_all_star.core.team import Team
@@ -25,4 +27,4 @@ class Development(Step):
             files=team.storages().docs.get("files.md", "N/A"),
         )
 
-        team.drive(planning_prompt)
+        team.drive(planning_prompt, additional_tasks + nodejs_tasks)
