@@ -1,7 +1,7 @@
 additional_tasks = [
     {
         "action": "Add a new file",
-        "working_directory": "./docs/",
+        "working_directory": "./docs",
         "filename": "technologies.md",
         "command": "",
         "context": """This task requires compiling a precise list of technologies for building an application,
@@ -19,7 +19,7 @@ This approach minimizes integration issues, optimizes development efforts, and e
     },
     {
         "action": "Add a new file",
-        "working_directory": "./docs/",
+        "working_directory": "./docs",
         "filename": "pages.md",
         "command": "",
         "context": """This task involves identifying and listing the exact page URLs required for the application's operation.
@@ -37,7 +37,7 @@ By providing a direct and unambiguous list of page URLs, the project supports a 
     },
     {
         "action": "Add a new file",
-        "working_directory": "./docs/",
+        "working_directory": "./docs",
         "filename": "files.md",
         "command": "",
         "context": """Your task is to make sure you have an exhaustive list of all file names needed for the application.

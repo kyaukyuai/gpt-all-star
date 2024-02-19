@@ -306,7 +306,7 @@ When finished, respond with FINISH.
                     " Or should we FINISH? Select one of: {options}",
                 ),
             ]
-        ).partial(options=str(options))
+        ).partial(options=", ".join(options))
 
         return (
             prompt
