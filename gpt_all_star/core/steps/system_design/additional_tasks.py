@@ -1,8 +1,12 @@
+"""This module contains a list of additional tasks for the system design step. Each task is represented as a dictionary with properties such as action, working_directory, filename, command, context, objective, and reason."""
+
 additional_tasks = [
     {
         "action": "Add a new file",
         "working_directory": "./docs",
-        "filename": "technologies.md",
+        """Your task is to make sure you have an exhaustive list of all file names needed for the application.
+Follow a language and framework appropriate best practice file naming convention.
+"""    "filename": "technologies.md",
         "command": "",
         "context": """This task requires compiling a precise list of technologies for building an application, focusing on source code implementation.
 The list should adhere to project specifications and be guided by Technologies Guidelines emphasizing relevance, compatibility, and preference.
