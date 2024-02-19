@@ -12,13 +12,11 @@ The application specifications must be carefully understood and accurately refle
 
 # Current implementation
 ---
-```
 {current_source_code}
-```
 
 # Specifications
 ---
-```
+```specifications.md
 {specifications}
 ```
 """
