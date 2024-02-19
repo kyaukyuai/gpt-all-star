@@ -68,6 +68,7 @@ class Team:
                         if self.supervisor.debug_mode:
                             self.supervisor.state(value)
                     else:
+                        self.supervisor.console.print(f"{key} is in charge of it")
                         if self.supervisor.debug_mode:
                             latest_message = value.get("messages")[-1].content.strip()
                             self.supervisor.console.print(
@@ -131,9 +132,9 @@ Reason: {task['reason']}
                     context=task["context"],
                     reason=task["reason"],
                     implementation=self.current_source_code(),
-                    specifications=self.storages().docs.get("specifications.md", ""),
-                    technologies=self.storages().docs.get("technologies.md", ""),
-                    files=self.storages().docs.get("files.md", ""),
+                    specifications=self.storages().docs.get("specifications.md", "N/A"),
+                    technologies=self.storages().docs.get("technologies.md", "N/A"),
+                    files=self.storages().docs.get("files.md", "N/A"),
                 )
             )
             self.run([message])
