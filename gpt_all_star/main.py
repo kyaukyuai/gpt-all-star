@@ -1,5 +1,11 @@
+import threading
+import time
+
 import typer
 from dotenv import load_dotenv
+from rich import box
+from rich.live import Live
+from rich.panel import Panel
 
 from gpt_all_star.cli.console_terminal import MAIN_COLOR, ConsoleTerminal
 from gpt_all_star.core.project import Project
@@ -7,6 +13,11 @@ from gpt_all_star.core.steps.steps import StepType
 
 COMMAND_NAME = "GPT ALL STAR"
 app = typer.Typer()
+
+
+def run_project(project):
+    project.start()
+    project.finish()
 
 
 @app.command()
@@ -51,8 +62,21 @@ def main(
     console.title(COMMAND_NAME)
 
     project = Project(step, project_name, japanese_mode, review_mode, debug_mode)
-    project.start()
-    project.finish()
+
+    project_thread = threading.Thread(target=run_project, args=(project,))
+    project_thread.start()
+
+    start_time = time.time()
+    with Live(console=console.console, refresh_per_second=10) as live:
+        while project_thread.is_alive():
+            elapsed_time = time.time() - start_time
+            panel = Panel(
+                f"[bold green]Execution Time: {elapsed_time:.2f} seconds",
+                box=box.SIMPLE,
+                title="",
+            )
+            live.update(panel)
+            time.sleep(0.1)
 
     console.print(
         f"Thank you for using {COMMAND_NAME}! See you next time! :bye:",
