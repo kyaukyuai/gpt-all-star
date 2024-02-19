@@ -24,8 +24,6 @@ This approach minimizes integration issues, optimizes development efforts, and e
         "command": "",
         "context": """Your task is to make sure you have an exhaustive list of all file names needed for the application.
 Follow a language and framework appropriate best practice file naming convention.
-Descriptions for each file name are not required, only provide the exact file path and file name.
-Avoid providing personal opinions or alternatives.
 """,
         "objective": """To compile a comprehensive list of all necessary file names and paths required for the application,
 adhering to best practices in file naming conventions appropriate to the programming language and framework used.

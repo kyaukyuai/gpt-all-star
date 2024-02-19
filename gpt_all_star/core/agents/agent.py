@@ -359,7 +359,7 @@ When finished, respond with FINISH.
                 )
             formatted_code = format_file_to_input(filename, file_content)
             source_code_contents.append(formatted_code)
-        return "\n".join(source_code_contents)
+        return "\n".join(source_code_contents) if source_code_contents else "N/A"
 
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
