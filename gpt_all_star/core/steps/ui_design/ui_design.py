@@ -19,7 +19,7 @@ class UIDesign(Step):
 
         planning_prompt = planning_prompt_template.format(
             current_source_code=team.current_source_code(),
-            specifications=team.storages().docs.get("specifications.md", None),
+            specifications=team.storages().docs.get("specifications.md", "N/A"),
         )
 
         team.drive(planning_prompt)
