@@ -141,8 +141,8 @@ class ShellTool(BaseTool):
                     return None
                 if self.verbose:
                     print(stdout)
-                time_count = time.time() - start_time
-                print(f"Time count: {time_count}")
+                # time_count = time.time() - start_time
+                # print(f"Time count: {time_count}")
                 return stdout
             if time.time() - start_time > timeout:
                 process.terminate()
