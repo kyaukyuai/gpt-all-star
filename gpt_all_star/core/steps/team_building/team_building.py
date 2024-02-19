@@ -1,3 +1,4 @@
+from gpt_all_star.core.steps.team_building.team_table import TeamTable
 from rich.table import Table
 
 from gpt_all_star.cli.console_terminal import MAIN_COLOR
@@ -74,24 +75,5 @@ class TeamBuilding(Step):
         )
 
     def _display_team_members(self) -> None:
-        table = Table(
-            show_header=True, header_style=f"{MAIN_COLOR}", title="Team Members"
-        )
-        table.add_column("Name")
-        table.add_column("Role")
-        table.add_column("Profile")
-        team_members = [
-            agent
-            for agent in vars(self.agents).values()
-            if agent.role != AgentRole.COPILOT
-        ]
-        for member in team_members:
-            table.add_row(
-                member.name,
-                member.role.name,
-                TextParser.cut_last_n_lines(
-                    member.profile, 2 if self.japanese_mode else 1
-                ),
-            )
-        self.console.print(table)
-        self.console.new_lines(1)
+        team_table = TeamTable()
+        team_table.display_team_members([agent for agent in vars(self.agents).values() if agent.role != AgentRole.COPILOT])
