@@ -16,7 +16,7 @@ class UIDesign(Step):
         super().__init__(agents, japanese_mode, review_mode, debug_mode)
 
     def run(self) -> None:
-        planning_prompt = planning_prompt_template.format(
+        planning_prompt = self._create_planning_prompt()(
             current_source_code=self.agents.copilot.current_source_code(),
             specifications=self.agents.copilot.storages.docs.get(
                 "specifications.md", "N/A"
