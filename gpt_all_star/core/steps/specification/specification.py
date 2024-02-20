@@ -1,4 +1,5 @@
 from gpt_all_star.core.agents import agents
+from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.specification.additional_tasks import (
     create_additional_tasks,
 )
@@ -32,7 +33,19 @@ app_type:
             style="bold",
         )
 
-        team = Team(supervisor=self.agents.product_owner, members=self.agents.members())
+        supervisor = (
+            self.agents.copilot.create_assign_supervisor_chain(
+                members=self.agents.members()
+            )
+            .invoke({"messages": [Message.create_human_message("")]})
+            .get("assign")
+        )
+        self.agents.copilot.state(f"Supervisor assignment: {supervisor}.")
+
+        team = Team(
+            supervisor=self.agents.get_agent_by_name(supervisor),
+            members=self.agents.members(),
+        )
 
         team.drive(None, create_additional_tasks(app_type, instructions))
         team.supervisor.output_md(team.storages().docs.get("specifications.md", ""))

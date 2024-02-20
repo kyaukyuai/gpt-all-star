@@ -51,9 +51,6 @@ class Team:
         )
         state_graph.set_entry_point("supervisor")
 
-    def current_source_code(self):
-        return self.supervisor.current_source_code()
-
     def storages(self):
         return self.supervisor.storages
 
@@ -131,7 +128,7 @@ Reason: {task['reason']}
                     objective=task["objective"],
                     context=task["context"],
                     reason=task["reason"],
-                    implementation=self.current_source_code(),
+                    implementation=self.supervisor.current_source_code(),
                     specifications=self.storages().docs.get("specifications.md", "N/A"),
                     technologies=self.storages().docs.get("technologies.md", "N/A"),
                     files=self.storages().docs.get("files.md", "N/A"),

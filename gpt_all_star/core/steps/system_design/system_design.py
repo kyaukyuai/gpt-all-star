@@ -1,4 +1,5 @@
 from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.step import Step
 from gpt_all_star.core.steps.system_design.additional_tasks import additional_tasks
 from gpt_all_star.core.team import Team
@@ -15,7 +16,19 @@ class SystemDesign(Step):
         super().__init__(agents, japanese_mode, review_mode, debug_mode)
 
     def run(self) -> None:
-        team = Team(supervisor=self.agents.architect, members=self.agents.members())
+        supervisor = (
+            self.agents.copilot.create_assign_supervisor_chain(
+                members=self.agents.members()
+            )
+            .invoke({"messages": [Message.create_human_message("")]})
+            .get("assign")
+        )
+        self.agents.copilot.state(f"Supervisor assignment: {supervisor}.")
+
+        team = Team(
+            supervisor=self.agents.get_agent_by_name(supervisor),
+            members=self.agents.members(),
+        )
 
         team.drive(None, additional_tasks)
         team.supervisor.output_md(team.storages().docs.get("technologies.md", ""))

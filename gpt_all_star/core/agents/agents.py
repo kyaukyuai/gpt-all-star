@@ -33,4 +33,4 @@ class Agents:
         for attribute in self.__dict__.values():
             if hasattr(attribute, "name") and attribute.name == name:
                 return attribute
-        return None
+        return self.project_manager
