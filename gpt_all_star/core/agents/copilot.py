@@ -17,7 +17,9 @@ class Copilot(Agent):
 
     def start(self, project_name: str) -> None:
         self.state(f"Let's start the project! ({project_name})")
-        self.console.new_lines(1)
+
+    def finish(self, project_name: str) -> None:
+        self.state(f"Completed the project! ({project_name})")
 
     def ask_project_name(self) -> str:
         default_project_name = "".join(
@@ -29,9 +31,6 @@ class Copilot(Agent):
             default=default_project_name,
         )
         return project_name
-
-    def finish(self) -> None:
-        self.state("Completed project")
 
     def confirm_push(self):
         CONFIRM_CHOICES = ["yes", "no"]
