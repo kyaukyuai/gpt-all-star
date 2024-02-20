@@ -61,13 +61,14 @@ class Team:
         try:
             for output in self._team.stream(
                 {"messages": messages},
-                config={"recursion_limit": 25},
+                config={"recursion_limit": 10},
             ):
                 for key, value in output.items():
                     if key == "supervisor" or key == "__end__":
                         if self.supervisor.debug_mode:
                             self.supervisor.state(value)
                     else:
+                        self.supervisor.console.print(f"  ┗ {key} is in charge of it.")
                         if self.supervisor.debug_mode:
                             latest_message = value.get("messages")[-1].content.strip()
                             self.supervisor.console.print(
@@ -87,6 +88,7 @@ class Team:
         planning_prompt: Optional[str] = None,
         additional_tasks: list[str] = [],
     ):
+        self.supervisor.state("Planning tasks in progress")
         tasks = (
             self.supervisor.create_planning_chain().invoke(
                 {
@@ -106,22 +108,22 @@ class Team:
 
         for i, task in enumerate(tasks["plan"]):
             if task["action"] == ACTIONS[0]:
-                todo = f"{task['action']}: {task['command']} in the directory {task['working_directory']}"
+                todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
             else:
-                todo = (
-                    f"{task['action']}: {task['working_directory']}/{task['filename']}"
-                )
+                todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
 
             if self.supervisor.debug_mode:
                 self.supervisor.state(
                     f"""\n
-    Task {i + 1}: {todo}
-    Context: {task['context']}
-    Objective: {task['objective']}
-    Reason: {task['reason']}
-    ---
-    """
+Task {i + 1}: {todo}
+Context: {task['context']}
+Objective: {task['objective']}
+Reason: {task['reason']}
+---
+"""
                 )
+            else:
+                self.supervisor.state(f"({(i+1)}/{len(tasks['plan'])}) {todo}")
 
             message = Message.create_human_message(
                 implement_template.format(
@@ -130,7 +132,9 @@ class Team:
                     context=task["context"],
                     reason=task["reason"],
                     implementation=self.current_source_code(),
-                    specifications=self.storages().docs.get("specifications.md", None),
+                    specifications=self.storages().docs.get("specifications.md", "N/A"),
+                    technologies=self.storages().docs.get("technologies.md", "N/A"),
+                    files=self.storages().docs.get("files.md", "N/A"),
                 )
             )
             self.run([message])
