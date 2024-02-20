@@ -34,6 +34,13 @@ from gpt_all_star.helper.text_parser import format_file_to_input
 
 NEXT_COMMAND = "next"
 
+ACTIONS = [
+    "Execute a command",
+    "Add a new file",
+    "Read and Overwrite an existing file",
+    "Delete an existing file",
+]
+
 
 class Agent(ABC):
     def __init__(
@@ -68,7 +75,7 @@ class Agent(ABC):
         self.tools = (
             tools
             + file_tools
-            + [ShellTool(verbose=True, root_dir=str(working_directory))]
+            + [ShellTool(verbose=self.debug_mode, root_dir=str(working_directory))]
         )
         self.executor = self._create_executor(self.tools)
 
@@ -164,18 +171,25 @@ class Agent(ABC):
             ]
         )
         agent = create_openai_tools_agent(self._llm, tools, prompt)
-        return AgentExecutor(agent=agent, tools=tools, verbose=True)
+        return AgentExecutor(
+            agent=agent,
+            tools=tools,
+            verbose=self.debug_mode,
+            handle_parsing_errors=True,
+        )
 
     def create_planning_chain(self):
         system_prompt = f"""{self.profile}
 Based on the user request provided, your task is to generate a detail and specific plan that includes following items:
-    - task: it must be one of "Execute a command", "Add a new file", "Read and Overwrite an existing file", or "Delete an existing file"
-    - working_directory: The directory where the command is to be executed or the file is to be placed
-    - filename: Specify only if the name of the file to be added or changed is specifically determined
+    - action: it must be one of {", ".join(ACTIONS)}
+    - working_directory: a directory where the command is to be executed or the file is to be placed, it should be started from '.', e.g. './src/'
+    - filename: specify only if the name of the file to be added or changed is specifically determined
     - command: command to be executed if necessary
     - context: all contextual information that should be communicated to the person performing the task
     - objective: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
     - reason: clear reasons why the task should be performed
+
+Make sure that each step has all the information needed - do not skip steps.
 """
         function_def = {
             "name": "planning",
@@ -190,23 +204,16 @@ Based on the user request provided, your task is to generate a detail and specif
                             "type": "object",
                             "description": "Task to do.",
                             "properties": {
-                                "task": {
+                                "action": {
                                     "type": "string",
                                     "description": "Task",
                                     "anyOf": [
-                                        {
-                                            "enum": [
-                                                "Execute a command",
-                                                "Add a new file",
-                                                "Read and Overwrite an existing file",
-                                                "Delete an existing file",
-                                            ]
-                                        },
+                                        {"enum": ACTIONS},
                                     ],
                                 },
                                 "working_directory": {
                                     "type": "string",
-                                    "description": "Directory where the command is to be executed or the file is to be located",
+                                    "description": "Directory where the command is to be executed or the file is to be located, it should be started from '.', e.g. './src/'",
                                 },
                                 "filename": {
                                     "type": "string",
@@ -256,15 +263,15 @@ Given the conversation above, create a detailed and specific plan to fully meet 
             | JsonOutputFunctionsParser()
         )
 
-    def create_supervisor_chain(self, members: list = []):
-        options = ["FINISH"] + members
-        system_prompt = (
-            "You are a supervisor tasked with managing a conversation between the"
-            " following workers: {members}. Given the following user request,"
-            " respond with the worker to act next. Each worker will perform a"
-            " task and respond with their results and status. When finished,"
-            " respond with FINISH."
-        )
+    def create_supervisor_chain(self, members: list[Agent] = []):
+        members = [member.name for member in members]
+        options = ["FINISH"]
+        options.extend(members)
+        system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {str(members)}.
+Given the following user request, respond with the worker to act next.
+Each worker will perform a task and respond with their results and status.
+When finished, respond with FINISH.
+"""
         function_def = {
             "name": "route",
             "description": "Select the next role.",
@@ -292,7 +299,7 @@ Given the conversation above, create a detailed and specific plan to fully meet 
                     " Or should we FINISH? Select one of: {options}",
                 ),
             ]
-        ).partial(options=str(options), members=", ".join(members))
+        ).partial(options=str(options))
 
         return (
             prompt
@@ -300,7 +307,7 @@ Given the conversation above, create a detailed and specific plan to fully meet 
             | JsonOutputFunctionsParser()
         )
 
-    def create_git_commit_message_chain(self, members: list = []):
+    def create_git_commit_message_chain(self):
         system_prompt = "You are an excellent engineer. Given the diff information of the source code, please respond with the appropriate branch name and commit message for making the change."
         function_def = {
             "name": "commit_message",
@@ -352,7 +359,7 @@ Given the conversation above, create a detailed and specific plan to fully meet 
                 )
             formatted_code = format_file_to_input(filename, file_content)
             source_code_contents.append(formatted_code)
-        return "\n".join(source_code_contents)
+        return "\n".join(source_code_contents) if source_code_contents else "N/A"
 
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:

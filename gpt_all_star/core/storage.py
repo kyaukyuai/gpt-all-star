@@ -72,6 +72,7 @@ class Storage:
                     and item.name != ".archive"
                     and item.name != "docs"
                     and item.name != ".idea"
+                    and item.name != "build"
                 ):
                     self.recursive_file_search(item, files_dict)
         return files_dict

@@ -727,20 +727,20 @@ smmap = ">=3.0.1,<6"
 
 [[package]]
 name = "gitpython"
-version = "3.1.41"
+version = "3.1.42"
 description = "GitPython is a Python library used to interact with Git repositories"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "GitPython-3.1.41-py3-none-any.whl", hash = "sha256:c36b6634d069b3f719610175020a9aed919421c87552185b085e04fbbdb10b7c"},
-    {file = "GitPython-3.1.41.tar.gz", hash = "sha256:ed66e624884f76df22c8e16066d567aaa5a37d5b5fa19db2c6df6f7156db9048"},
+    {file = "GitPython-3.1.42-py3-none-any.whl", hash = "sha256:1bf9cd7c9e7255f77778ea54359e54ac22a72a5b51288c457c881057b7bb9ecd"},
+    {file = "GitPython-3.1.42.tar.gz", hash = "sha256:2d99869e0fef71a73cbd242528105af1d6c1b108c60dfabd994bf292f76c3ceb"},
 ]
 
 [package.dependencies]
 gitdb = ">=4.0.1,<5"
 
 [package.extras]
-test = ["black", "coverage[toml]", "ddt (>=1.1.1,!=1.4.3)", "mock", "mypy", "pre-commit", "pytest (>=7.3.1)", "pytest-cov", "pytest-instafail", "pytest-mock", "pytest-sugar", "sumtypes"]
+test = ["black", "coverage[toml]", "ddt (>=1.1.1,!=1.4.3)", "mock", "mypy", "pre-commit", "pytest (>=7.3.1)", "pytest-cov", "pytest-instafail", "pytest-mock", "pytest-sugar"]
 
 [[package]]
 name = "greenlet"
@@ -949,13 +949,13 @@ files = [
 
 [[package]]
 name = "langchain"
-version = "0.1.7"
+version = "0.1.8"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langchain-0.1.7-py3-none-any.whl", hash = "sha256:29d95f12afe9690953820970205dba3b098ee1f7531e80eb18c1236d3feda921"},
-    {file = "langchain-0.1.7.tar.gz", hash = "sha256:b40fbe2b65360afe6c0d5bbf37e79469f990779460640edde5b906175c49807e"},
+    {file = "langchain-0.1.8-py3-none-any.whl", hash = "sha256:19e951b0e2be099ff048ee483acecb47e1a39c33a47dadfee70fcfa20f45cc19"},
+    {file = "langchain-0.1.8.tar.gz", hash = "sha256:c8b1c2954a07cd6422c9027459473bafae90c78f07015bf2fc6262fadf97ea44"},
 ]
 
 [package.dependencies]
@@ -963,9 +963,9 @@ aiohttp = ">=3.8.3,<4.0.0"
 async-timeout = {version = ">=4.0.0,<5.0.0", markers = "python_version < \"3.11\""}
 dataclasses-json = ">=0.5.7,<0.7"
 jsonpatch = ">=1.33,<2.0"
-langchain-community = ">=0.0.20,<0.1"
-langchain-core = ">=0.1.22,<0.2"
-langsmith = ">=0.0.83,<0.1"
+langchain-community = ">=0.0.21,<0.1"
+langchain-core = ">=0.1.24,<0.2"
+langsmith = ">=0.1.0,<0.2.0"
 numpy = ">=1,<2"
 pydantic = ">=1,<3"
 PyYAML = ">=5.3"
@@ -989,20 +989,20 @@ text-helpers = ["chardet (>=5.1.0,<6.0.0)"]
 
 [[package]]
 name = "langchain-community"
-version = "0.0.20"
+version = "0.0.21"
 description = "Community contributed LangChain integrations."
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langchain_community-0.0.20-py3-none-any.whl", hash = "sha256:bd112b5813702919c50f89b1afa2b63adf1da89999df4842b327ee11220f8c39"},
-    {file = "langchain_community-0.0.20.tar.gz", hash = "sha256:c56c48bc77d24e1fc399a9ee9a637d96e3b2ff952e3a080b5a41820d9d00fb3c"},
+    {file = "langchain_community-0.0.21-py3-none-any.whl", hash = "sha256:120977485d244eb472ad3618a31222fe6c2bce08026f4caa96bd6dae2e316ac0"},
+    {file = "langchain_community-0.0.21.tar.gz", hash = "sha256:1c310a7e2663d5f6464a433981504894f97c12783cbeb8bdf4159a574f88c18d"},
 ]
 
 [package.dependencies]
 aiohttp = ">=3.8.3,<4.0.0"
 dataclasses-json = ">=0.5.7,<0.7"
-langchain-core = ">=0.1.21,<0.2"
-langsmith = ">=0.0.83,<0.1"
+langchain-core = ">=0.1.24,<0.2"
+langsmith = ">=0.1.0,<0.2.0"
 numpy = ">=1,<2"
 PyYAML = ">=5.3"
 requests = ">=2,<3"
@@ -1015,19 +1015,19 @@ extended-testing = ["aiosqlite (>=0.19.0,<0.20.0)", "aleph-alpha-client (>=2.15.
 
 [[package]]
 name = "langchain-core"
-version = "0.1.22"
+version = "0.1.24"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langchain_core-0.1.22-py3-none-any.whl", hash = "sha256:d1263c2707ce18bb13654c88f891e53f39edec9b11ff7d0d0f23fd920927b2d6"},
-    {file = "langchain_core-0.1.22.tar.gz", hash = "sha256:deac12b3e42a08bbbaa2acf83d5f8dd2d5513256d8daf0e853e9d68ff4c99d79"},
+    {file = "langchain_core-0.1.24-py3-none-any.whl", hash = "sha256:1887bb2e0c12e0d94c1e805eb56d08dbb670232daf0906761f726bd507324319"},
+    {file = "langchain_core-0.1.24.tar.gz", hash = "sha256:ce70f4b97695eb55637e00ee33d480fffc6db1f95726f99b076b55cb1a42927d"},
 ]
 
 [package.dependencies]
 anyio = ">=3,<5"
 jsonpatch = ">=1.33,<2.0"
-langsmith = ">=0.0.87,<0.0.88"
+langsmith = ">=0.1.0,<0.2.0"
 packaging = ">=23.2,<24.0"
 pydantic = ">=1,<3"
 PyYAML = ">=5.3"
@@ -1039,38 +1039,38 @@ extended-testing = ["jinja2 (>=3,<4)"]
 
 [[package]]
 name = "langchain-experimental"
-version = "0.0.51"
+version = "0.0.52"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langchain_experimental-0.0.51-py3-none-any.whl", hash = "sha256:b6531c4953ace8f553feb18e6741e4c6ece1177ea6d1f0a25379b4df4c4c93a4"},
-    {file = "langchain_experimental-0.0.51.tar.gz", hash = "sha256:ed4a9d9fb6994083ff705667a6c7a22f2ee7849013990b9fd0c2fc67bd1146a4"},
+    {file = "langchain_experimental-0.0.52-py3-none-any.whl", hash = "sha256:30bc6f4aba3ceef75a29b92d775110bbfeb35a7ddb50555fa3b09d4acbf20caa"},
+    {file = "langchain_experimental-0.0.52.tar.gz", hash = "sha256:c8f896d8b9fec363038c9a7f0acb16d0b69d0ed31134eed79ea9c31fd5569256"},
 ]
 
 [package.dependencies]
-langchain = ">=0.1.5,<0.2.0"
-langchain-core = ">=0.1.16,<0.2.0"
+langchain = ">=0.1.8,<0.2.0"
+langchain-core = ">=0.1.24,<0.2.0"
 
 [package.extras]
 extended-testing = ["faker (>=19.3.1,<20.0.0)", "jinja2 (>=3,<4)", "pandas (>=2.0.1,<3.0.0)", "presidio-analyzer (>=2.2.352,<3.0.0)", "presidio-anonymizer (>=2.2.352,<3.0.0)", "sentence-transformers (>=2,<3)", "tabulate (>=0.9.0,<0.10.0)", "vowpal-wabbit-next (==0.6.0)"]
 
 [[package]]
 name = "langchain-openai"
-version = "0.0.5"
+version = "0.0.6"
 description = "An integration package connecting OpenAI and LangChain"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langchain_openai-0.0.5-py3-none-any.whl", hash = "sha256:93b37dfac274adad65e46d5d6e71411e00c6984bcc5e10f1d6bb58e7944dc01b"},
-    {file = "langchain_openai-0.0.5.tar.gz", hash = "sha256:f317fee5b652949ad96ad7edf8ef7a044a6a3f0cc71d1e12f9d5261789fd68c4"},
+    {file = "langchain_openai-0.0.6-py3-none-any.whl", hash = "sha256:2ef040e4447a26a9d3bd45dfac9cefa00797ea58555a3d91ab4f88699eb3a005"},
+    {file = "langchain_openai-0.0.6.tar.gz", hash = "sha256:f5c4ebe46f2c8635c8f0c26cc8df27700aacafea025410e418d5a080039974dd"},
 ]
 
 [package.dependencies]
 langchain-core = ">=0.1.16,<0.2"
 numpy = ">=1,<2"
 openai = ">=1.10.0,<2.0.0"
-tiktoken = ">=0.5.2,<0.6.0"
+tiktoken = ">=0.5.2,<1"
 
 [[package]]
 name = "langgraph"
@@ -1088,13 +1088,13 @@ langchain-core = ">=0.1.16,<0.2.0"
 
 [[package]]
 name = "langsmith"
-version = "0.0.87"
+version = "0.1.2"
 description = "Client library to connect to the LangSmith LLM Tracing and Evaluation Platform."
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langsmith-0.0.87-py3-none-any.whl", hash = "sha256:8903d3811b9fc89eb18f5961c8e6935fbd2d0f119884fbf30dc70b8f8f4121fc"},
-    {file = "langsmith-0.0.87.tar.gz", hash = "sha256:36c4cc47e5b54be57d038036a30fb19ce6e4c73048cd7a464b8f25b459694d34"},
+    {file = "langsmith-0.1.2-py3-none-any.whl", hash = "sha256:92d305056499df1d72f157cc82a3b467eb920f0ffc0f16138ef02e0cbab6261e"},
+    {file = "langsmith-0.1.2.tar.gz", hash = "sha256:807c620d871c27d0d7abcdc9ff02faa96df308e32dc3627de45dd30f559aa58e"},
 ]
 
 [package.dependencies]
@@ -1103,12 +1103,13 @@ requests = ">=2,<3"
 
 [[package]]
 name = "llama-index"
-version = "0.10.4"
+version = "0.10.7"
 description = "Interface between LLMs and your data"
 optional = false
-python-versions = ">=3.8.1,<3.12"
+python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "llama_index-0.10.4-py3-none-any.whl", hash = "sha256:d145befb1476ff633f82fe62e5e8798b352c9b962041452710b6edc9d4982aa4"},
+    {file = "llama_index-0.10.7-py3-none-any.whl", hash = "sha256:6f4b0e06ffbcf2e8230522775bd302b0919a9d7c13111fc8c3baddce2ad4451a"},
+    {file = "llama_index-0.10.7.tar.gz", hash = "sha256:d84cb63b014cc83c3dd2a3dddf958dd14807f6d18f2411af4c5c6551f738db3c"},
 ]
 
 [package.dependencies]
@@ -1880,13 +1881,13 @@ test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.4.3)", "pytest-
 
 [[package]]
 name = "pre-commit"
-version = "3.6.1"
+version = "3.6.2"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "pre_commit-3.6.1-py2.py3-none-any.whl", hash = "sha256:9fe989afcf095d2c4796ce7c553cf28d4d4a9b9346de3cda079bcf40748454a4"},
-    {file = "pre_commit-3.6.1.tar.gz", hash = "sha256:c90961d8aa706f75d60935aba09469a6b0bcb8345f127c3fbee4bdc5f114cf4b"},
+    {file = "pre_commit-3.6.2-py2.py3-none-any.whl", hash = "sha256:ba637c2d7a670c10daedc059f5c49b5bd0aadbccfcd7ec15592cf9665117532c"},
+    {file = "pre_commit-3.6.2.tar.gz", hash = "sha256:c3ef34f463045c88658c5b99f38c1e297abdcc0ff13f98d3370055fbbfabc67e"},
 ]
 
 [package.dependencies]
@@ -2417,13 +2418,13 @@ jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
 name = "selenium"
-version = "4.17.2"
+version = "4.18.0"
 description = ""
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "selenium-4.17.2-py3-none-any.whl", hash = "sha256:5aee79026c07985dc1b0c909f34084aa996dfe5b307602de9016d7a621a473f2"},
-    {file = "selenium-4.17.2.tar.gz", hash = "sha256:d43d6972e516855fb242ef9ce4ce759057b115070e702e7b1c1032fe7b38d87b"},
+    {file = "selenium-4.18.0-py3-none-any.whl", hash = "sha256:d0ac1ab0aa50dffad8050e7f0170395ea23bcecccf7d59b69bc430e47eeb9dac"},
+    {file = "selenium-4.18.0.tar.gz", hash = "sha256:8912e690d4e72350ca733ad28be894e87683064de3304e5f5b5b386697a6c47d"},
 ]
 
 [package.dependencies]
@@ -3201,4 +3202,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "4e5e9cd4b32844dda128116e80f80fdadbfb959a6646656c113fbe208883690d"
+content-hash = "55d1511638fabcd4086493eaf634abf80180f92619029667a8b85432ca59fc9e"

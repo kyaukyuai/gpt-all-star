@@ -1,13 +1,13 @@
 from enum import Enum
 
-from gpt_all_star.core.steps.deployment import Deployment
-from gpt_all_star.core.steps.development import Development
-from gpt_all_star.core.steps.execution import Execution
-from gpt_all_star.core.steps.improvement import Improvement
-from gpt_all_star.core.steps.specification import Specification
-from gpt_all_star.core.steps.system_design import SystemDesign
-from gpt_all_star.core.steps.team_building import TeamBuilding
-from gpt_all_star.core.steps.ui_design import UIDesign
+from gpt_all_star.core.steps.deployment.deployment import Deployment
+from gpt_all_star.core.steps.development.development import Development
+from gpt_all_star.core.steps.execution.execution import Execution
+from gpt_all_star.core.steps.improvement.improvement import Improvement
+from gpt_all_star.core.steps.specification.specification import Specification
+from gpt_all_star.core.steps.system_design.system_design import SystemDesign
+from gpt_all_star.core.steps.team_building.team_building import TeamBuilding
+from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
 
 
 class StepType(str, Enum):

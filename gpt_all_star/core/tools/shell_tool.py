@@ -28,9 +28,9 @@ class ShellInput(BaseModel):
         if not isinstance(commands, list):
             values["commands"] = [commands]
         # Warn that the bash tool is not safe
-        warnings.warn(
-            "The shell tool has no safeguards by default. Use at your own risk."
-        )
+        # warnings.warn(
+        #     "The shell tool has no safeguards by default. Use at your own risk."
+        # )
         return values
 
 
@@ -71,47 +71,78 @@ class ShellTool(BaseTool):
     ) -> str:
         """Run commands and return final output."""
 
-        print(f"Executing command:\n {commands}")
+        not_allowed_commands = ["npm start", "yarn start"]
+
+        if self._is_command_not_allowed(commands, not_allowed_commands):
+            if self.verbose:
+                warnings.warn(
+                    "The command 'npm start' or 'yarn start' is not allowed to be executed."
+                )
+            return None
+
+        if self.verbose:
+            print(f"Executing command:\n {commands}")
+
+        timeout = 300  # Timeout in seconds
 
         try:
             if self.ask_human_input:
-                user_input = input("Proceed with command execution? (y/n): ").lower()
-                if user_input == "y":
-                    process = subprocess.Popen(
-                        commands,
-                        shell=True,
-                        cwd=self.root_dir,
-                        text=True,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.PIPE,
-                    )
-                    stdout, stderr = process.communicate()
-                    if process.returncode != 0:
-                        logger.error(f"Error during command execution: {stderr}")
-                        return None
-                    if self.verbose:
-                        print(stdout)
-                    return stdout
-                else:
+                if not self._get_user_confirmation():
                     logger.info("Invalid input. User aborted command execution.")
                     return None
-            else:
-                process = subprocess.Popen(
-                    commands,
-                    shell=True,
-                    cwd=self.root_dir,
-                    text=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                )
-                stdout, stderr = process.communicate()
-                if process.returncode != 0:
-                    logger.error(f"Error during command execution: {stderr}")
-                    return None
-                if self.verbose:
-                    print(stdout)
-                return stdout
+
+            return self._execute_commands(commands, timeout)
 
         except Exception as e:
             logger.error(f"Error during command execution: {e}")
             return None
+
+    def _is_command_not_allowed(
+        self, commands: Union[str, list[str]], not_allowed_commands: list[str]
+    ) -> bool:
+        """Check if the command is not allowed."""
+        import re
+
+        return isinstance(commands, (str, list)) and any(
+            re.search(
+                cmd, " ".join(commands if isinstance(commands, list) else [commands])
+            )
+            for cmd in not_allowed_commands
+        )
+
+    def _get_user_confirmation(self) -> bool:
+        """Get user confirmation to proceed with command execution."""
+        user_input = input("Proceed with command execution? (y/n): ").lower()
+        return user_input == "y"
+
+    def _execute_commands(
+        self, commands: Union[str, list[str]], timeout: int
+    ) -> Optional[str]:
+        """Execute commands and return the output."""
+        import time
+
+        process = subprocess.Popen(
+            commands,
+            shell=True,
+            cwd=self.root_dir,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        start_time = time.time()
+        while True:
+            if process.poll() is not None:
+                stdout, stderr = process.communicate()
+                if process.returncode != 0:
+                    if self.verbose:
+                        logger.error(f"Error during command execution: {stdout}")
+                    return None
+                if self.verbose:
+                    print(stdout)
+                # time_count = time.time() - start_time
+                # print(f"Time count: {time_count}")
+                return stdout
+            if time.time() - start_time > timeout:
+                process.terminate()
+                logger.info("Command execution timed out.")
+                return None
