@@ -1,4 +1,5 @@
 from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.execution.execution import Execution
 from gpt_all_star.core.steps.improvement.planning_prompt import planning_prompt_template
 from gpt_all_star.core.steps.step import Step
@@ -16,18 +17,29 @@ class Improvement(Step):
         super().__init__(agents, japanese_mode, review_mode, debug_mode)
 
     def run(self) -> None:
-        team = Team(
-            supervisor=self.agents.project_manager, members=self.agents.members()
-        )
-
         request = self.agents.engineer.ask(
             "What would you like to update?", is_required=True, default=None
         )
 
         planning_prompt = planning_prompt_template.format(
             request=request,
-            current_source_code=team.current_source_code(),
+            current_source_code=self.agents.copilot.current_source_code(),
         )
+
+        supervisor = (
+            self.agents.copilot.create_assign_supervisor_chain(
+                members=self.agents.members()
+            )
+            .invoke({"messages": [Message.create_human_message(planning_prompt)]})
+            .get("assign")
+        )
+        self.agents.copilot.state(f"Supervisor assignment: {supervisor}.")
+
+        team = Team(
+            supervisor=self.agents.get_agent_by_name(supervisor),
+            members=self.agents.members(),
+        )
+
         team.drive(planning_prompt)
 
         CONFIRM_CHOICES = ["yes", "no"]

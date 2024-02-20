@@ -307,6 +307,47 @@ When finished, respond with FINISH.
             | JsonOutputFunctionsParser()
         )
 
+    def create_assign_supervisor_chain(self, members: list[Agent] = []):
+        members = [member.name for member in members]
+        system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {str(members)}.
+Given the following user request, respond with the worker to act next.
+Each worker will perform a task and respond with their results and status.
+"""
+        function_def = {
+            "name": "assign",
+            "description": "Assign the task.",
+            "parameters": {
+                "title": "routeSchema",
+                "type": "object",
+                "properties": {
+                    "assign": {
+                        "title": "Assign",
+                        "anyOf": [
+                            {"enum": members},
+                        ],
+                    }
+                },
+                "required": ["assign"],
+            },
+        }
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", system_prompt),
+                MessagesPlaceholder(variable_name="messages"),
+                (
+                    "system",
+                    "Given the conversation above, who should act next?"
+                    " Select one of: {members}",
+                ),
+            ]
+        ).partial(members=str(members))
+
+        return (
+            prompt
+            | self._llm.bind_functions(functions=[function_def], function_call="assign")
+            | JsonOutputFunctionsParser()
+        )
+
     def create_git_commit_message_chain(self):
         system_prompt = "You are an excellent engineer. Given the diff information of the source code, please respond with the appropriate branch name and commit message for making the change."
         function_def = {
@@ -420,7 +461,7 @@ class AgentProfile:
 
 AGENT_PROFILES = {
     AgentRole.COPILOT: AgentProfile(
-        name="copilot",
+        name="Copilot",
         color="#C4C4C4",
         prompt=PromptTemplate.from_template(""),
     ),

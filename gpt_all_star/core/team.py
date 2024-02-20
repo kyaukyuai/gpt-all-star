@@ -88,7 +88,7 @@ class Team:
         planning_prompt: Optional[str] = None,
         additional_tasks: list[str] = [],
     ):
-        self.supervisor.state("Planning tasks in progress")
+        self.supervisor.state("Planning tasks.")
         tasks = (
             self.supervisor.create_planning_chain().invoke(
                 {

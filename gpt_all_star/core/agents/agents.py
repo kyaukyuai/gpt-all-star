@@ -28,3 +28,9 @@ class Agents:
             self.qa_engineer,
             self.project_manager,
         ]
+
+    def get_agent_by_name(self, name: str):
+        for attribute in self.__dict__.values():
+            if hasattr(attribute, "name") and attribute.name == name:
+                return attribute
+        return None
