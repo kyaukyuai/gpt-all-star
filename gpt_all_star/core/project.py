@@ -111,14 +111,12 @@ class Project:
 
     def start(self) -> None:
         self.agents.copilot.start(self.project_name)
-        self._execute_steps()
+        
 
     def finish(self) -> None:
         self.agents.copilot.finish(self.project_name)
-        self.agents.copilot.start(self.project_name)
-        self._archive_previous_storages()
-        self._execute_steps()
-    def start(self) -> None:
+        self.execute_steps()
+           def start(self) -> None:
         self.agents.copilot.start(self.project_name)
         self._archive_previous_storages()
         self._execute_steps()
