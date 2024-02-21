@@ -11,6 +11,8 @@ SUPERVISOR_NAME = "Supervisor"
 
 
 class MultiAgentCollaborationGraph:
+    """Class representing a collaboration graph for multiple agents."""
+    """Class representing a collaboration graph for multiple agents."""
     def __init__(self, supervisor: Agent, agents: list[Agent]):
         self.supervisor = supervisor
         self.agents = agents
