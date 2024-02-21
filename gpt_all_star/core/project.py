@@ -111,3 +111,25 @@ class Project:
 
     def finish(self) -> None:
         self.agents.copilot.finish(self.project_name)
+    def _execute_step(self, step) -> None:
++        """
++        Executes a single step of the project.
++
++        Args:
++            step: The step to execute.
++
++        Returns:
++            None
++        """
+        try:
+            step(
+                self.agents,
+                self.japanese_mode,
+                self.review_mode,
+                self.debug_mode,
+            ).run()
+        except Exception as e:
+            self.agents.copilot.state(
+                f"Failed to execute step {step}. Reason: {str(e)}"
+            )
+            raise e
