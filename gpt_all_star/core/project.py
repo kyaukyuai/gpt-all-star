@@ -50,6 +50,12 @@ class Project:
         self.project_name = project_name or Copilot().ask_project_name()
 
     def _set_storages(self) -> None:
+        """
+        Sets the storages attribute.
+
+        Returns:
+            None
+        """
         project_path = Path(os.path.abspath(f"projects/{self.project_name}")).absolute()
         self.storages = Storages(
             root=Storage(project_path),
