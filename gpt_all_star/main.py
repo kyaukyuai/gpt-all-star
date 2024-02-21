@@ -1,12 +1,5 @@
-import typer
-from dotenv import load_dotenv
-
-from gpt_all_star.cli.console_terminal import MAIN_COLOR, ConsoleTerminal
-from gpt_all_star.core.project import Project
-from gpt_all_star.core.steps.steps import StepType
-
-COMMAND_NAME = "GPT ALL STAR"
-app = typer.Typer()
+def main():
+    run_project()
 
 
 @app.command()
@@ -39,26 +32,4 @@ def main(
         "-r",
         help="Review mode",
     ),
-    debug_mode: bool = typer.Option(
-        False,
-        "--debug_mode",
-        "-d",
-        help="Debug mode",
-    ),
-) -> None:
-    load_dotenv()
-    console = ConsoleTerminal()
-    console.title(COMMAND_NAME)
-
-    project = Project(step, project_name, japanese_mode, review_mode, debug_mode)
-    project.start()
-    project.finish()
-
-    console.print(
-        f"Thank you for using {COMMAND_NAME}! See you next time! :bye:",
-        style=f"{MAIN_COLOR} bold",
-    )
-
-
-if __name__ == "__main__":
-    main()
+    run_project()
