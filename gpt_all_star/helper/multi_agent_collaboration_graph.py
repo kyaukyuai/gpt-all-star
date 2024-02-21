@@ -9,6 +9,10 @@ from gpt_all_star.core.message import Message
 
 SUPERVISOR_NAME = "Supervisor"
 
+"""
+The name of the supervisor agent.
+"""
+
 
 class MultiAgentCollaborationGraph:
     def __init__(self, supervisor: Agent, agents: list[Agent]):
