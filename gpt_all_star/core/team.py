@@ -12,6 +12,13 @@ from gpt_all_star.helper.multi_agent_collaboration_graph import (
 
 
 class Team:
+    """
+    Represents a team of agents and provides methods for managing the team's activities.
+
+    Attributes:
+        supervisor (Agent): The supervisor agent.
+        members (list[Agent]): List of member agents.
+    """ # Updated docstring
     def __init__(self, supervisor: Agent, members: list[Agent]):
         self.supervisor = supervisor
         self.members = members
