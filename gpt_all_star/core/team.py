@@ -12,6 +12,23 @@ from gpt_all_star.helper.multi_agent_collaboration_graph import (
 
 
 class Team:
+    def add_nodes(self, graph: MultiAgentCollaborationGraph) -> None:
+        for member in self.members:
+            graph.add_node(member.name, member.executor.invoke)
+    
+    def add_edges(self, graph: MultiAgentCollaborationGraph) -> None:
+        for member in self.members:
+            graph.add_edge(member.name, 'Supervisor')
+    
+    def set_entry_point(self, graph: MultiAgentCollaborationGraph) -> None:
+        graph.add_node('Supervisor', self.supervisor.create_supervisor_chain(members=self.members))
+        conditional_map = {agent.name: agent.name for agent in self.members}
+        conditional_map['FINISH'] = MultiAgentCollaborationGraph.END
+        graph.add_conditional_edges(
+            'Supervisor',
+            lambda state: state['next'],
+            conditional_map
+        )
     def __init__(self, supervisor: Agent, members: list[Agent]):
         self.supervisor = supervisor
         self.members = members
