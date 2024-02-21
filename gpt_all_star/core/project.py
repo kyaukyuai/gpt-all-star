@@ -115,6 +115,12 @@ class Project:
             raise e
 
     def start(self) -> None:
+        """
+        Starts the project and executes all the project steps.
+        
+        Returns:
+            None
+        """
         self.agents.copilot.start(self.project_name)
         self._execute_steps()
 
