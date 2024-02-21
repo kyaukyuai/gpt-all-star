@@ -1,12 +1,12 @@
 from rich.syntax import Syntax
 
+from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.message import Message
-from gpt_all_star.core.steps.step import Step
 from gpt_all_star.helper.git import Git
 
 
-class Deployment(Step):
+class Deployment:
     def __init__(
         self,
         agents: Agents,
@@ -14,7 +14,11 @@ class Deployment(Step):
         review_mode: bool,
         debug_mode: bool,
     ) -> None:
-        super().__init__(agents, japanese_mode, review_mode, debug_mode)
+        self.console = ConsoleTerminal()
+        self.agents = agents
+        self.japanese_mode = japanese_mode
+        self.review_mode = review_mode
+        self.debug_mode = debug_mode
 
     def run(self) -> None:
         git = Git(self.agents.copilot.storages.root.path)

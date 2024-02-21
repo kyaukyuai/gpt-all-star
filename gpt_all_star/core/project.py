@@ -11,8 +11,11 @@ from gpt_all_star.core.agents.engineer import Engineer
 from gpt_all_star.core.agents.product_owner import ProductOwner
 from gpt_all_star.core.agents.project_manager import ProjectManager
 from gpt_all_star.core.agents.qa_engineer import QAEngineer
+from gpt_all_star.core.execution.execution import Execution
 from gpt_all_star.core.steps.steps import STEPS, StepType
 from gpt_all_star.core.storage import Storage, Storages
+from gpt_all_star.core.team import Team
+from gpt_all_star.core.team_building import TeamBuilding
 
 
 class Project:
@@ -78,12 +81,14 @@ class Project:
 
     def _execute_step(self, step) -> None:
         try:
-            step(
-                self.agents,
-                self.japanese_mode,
-                self.review_mode,
-                self.debug_mode,
-            ).run()
+            Team(members=self.agents).go(
+                step(
+                    self.agents,
+                    self.japanese_mode,
+                    self.review_mode,
+                    self.debug_mode,
+                )
+            )
         except Exception as e:
             self.agents.copilot.state(
                 f"Failed to execute step {step}. Reason: {str(e)}"
@@ -92,7 +97,19 @@ class Project:
 
     def start(self) -> None:
         self.agents.copilot.start(self.project_name)
+        TeamBuilding(
+            self.agents,
+            self.japanese_mode,
+            self.review_mode,
+            self.debug_mode,
+        ).run()
         self._execute_steps()
+        Execution(
+            self.agents,
+            self.japanese_mode,
+            self.review_mode,
+            self.debug_mode,
+        ).run()
 
     def finish(self) -> None:
         self.agents.copilot.finish(self.project_name)

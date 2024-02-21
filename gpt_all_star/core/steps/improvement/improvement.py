@@ -1,9 +1,6 @@
 from gpt_all_star.core.agents.agents import Agents
-from gpt_all_star.core.message import Message
-from gpt_all_star.core.steps.execution.execution import Execution
 from gpt_all_star.core.steps.improvement.planning_prompt import planning_prompt_template
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.core.team import Team
 
 
 class Improvement(Step):
@@ -16,7 +13,7 @@ class Improvement(Step):
     ) -> None:
         super().__init__(agents, japanese_mode, review_mode, debug_mode)
 
-    def run(self) -> None:
+    def planning_prompt(self) -> str:
         request = self.agents.engineer.ask(
             "What would you like to update?", is_required=True, default=None
         )
@@ -25,30 +22,7 @@ class Improvement(Step):
             request=request,
             current_source_code=self.agents.copilot.current_source_code(),
         )
+        return planning_prompt
 
-        supervisor = (
-            self.agents.copilot.create_assign_supervisor_chain(
-                members=self.agents.members()
-            )
-            .invoke({"messages": [Message.create_human_message(planning_prompt)]})
-            .get("assign")
-        )
-        self.agents.copilot.state(f"Supervisor assignment: {supervisor}.")
-
-        team = Team(
-            supervisor=self.agents.get_agent_by_name(supervisor),
-            members=self.agents.members(),
-        )
-
-        team.drive(planning_prompt)
-
-        CONFIRM_CHOICES = ["yes", "no"]
-        choice = self.agents.copilot.present_choices(
-            "Do you want to check the execution again?",
-            CONFIRM_CHOICES,
-            default=1,
-        )
-        if choice == CONFIRM_CHOICES[0]:
-            Execution(
-                self.agents, self.japanese_mode, self.review_mode, self.debug_mode
-            ).run()
+    def additional_tasks(self) -> list:
+        return []

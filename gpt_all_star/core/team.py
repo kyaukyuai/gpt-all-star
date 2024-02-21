@@ -3,40 +3,55 @@ from typing import Optional
 
 from langgraph.pregel import GraphRecursionError
 
-from gpt_all_star.core.agents.agent import ACTIONS, Agent
+from gpt_all_star.core.agents.agent import ACTIONS
+from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.agents.chain import create_assign_supervisor_chain
 from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
+from gpt_all_star.core.steps.step import Step
 from gpt_all_star.helper.multi_agent_collaboration_graph import (
+    SUPERVISOR_NAME,
     MultiAgentCollaborationGraph,
 )
 
 
 class Team:
-    def __init__(self, supervisor: Agent, members: list[Agent]):
-        self.supervisor = supervisor
-        self.members = members
-        self._team = MultiAgentCollaborationGraph(
-            self.supervisor, self.members
-        ).workflow
+    def __init__(self, members: Agents):
+        self.agents = members
+        self.members = members.members()
+        self._graph: Optional[MultiAgentCollaborationGraph] = None
+
+    def build(self, planning_prompt: str | None):
+        supervisor = (
+            create_assign_supervisor_chain(members=self.members)
+            .invoke({"messages": [Message.create_human_message(planning_prompt)]})
+            .get("assign")
+        )
+        print(f"Supervisor assignment: {supervisor}.")
+        self._graph = MultiAgentCollaborationGraph(
+            self.agents.get_agent_by_name(supervisor), self.members
+        )
 
     def storages(self):
-        return self.supervisor.storages
+        return self._graph.supervisor.storages
 
-    def run(self, messages: list[Message]):
+    def _run(self, messages: list[Message]):
         try:
-            for output in self._team.stream(
+            for output in self._graph.workflow.stream(
                 {"messages": messages},
                 config={"recursion_limit": 10},
             ):
                 for key, value in output.items():
-                    if key == "supervisor" or key == "__end__":
-                        if self.supervisor.debug_mode:
-                            self.supervisor.state(value)
+                    if key == SUPERVISOR_NAME or key == "__end__":
+                        if self._graph.supervisor.debug_mode:
+                            self._graph.supervisor.state(value)
                     else:
-                        self.supervisor.console.print(f"  ┗ {key} is in charge of it.")
-                        if self.supervisor.debug_mode:
+                        self._graph.supervisor.console.print(
+                            f"  ┗ {key} is in charge of it."
+                        )
+                        if self._graph.supervisor.debug_mode:
                             latest_message = value.get("messages")[-1].content.strip()
-                            self.supervisor.console.print(
+                            self._graph.supervisor.console.print(
                                 f"""
 {key}:
 ---
@@ -45,17 +60,17 @@ class Team:
 """
                             )
         except GraphRecursionError:
-            if self.supervisor.debug_mode:
+            if self._graph.supervisor.debug_mode:
                 print("Recursion limit reached")
 
     def drive(
         self,
         planning_prompt: Optional[str] = None,
-        additional_tasks: list[str] = [],
+        additional_tasks: list = [],
     ):
-        self.supervisor.state("Planning tasks.")
+        self._graph.supervisor.state("Planning tasks.")
         tasks = (
-            self.supervisor.create_planning_chain().invoke(
+            self._graph.supervisor.create_planning_chain().invoke(
                 {
                     "messages": [Message.create_human_message(planning_prompt)],
                 }
@@ -66,8 +81,8 @@ class Team:
         for task in additional_tasks:
             tasks["plan"].append(task)
 
-        if self.supervisor.debug_mode:
-            self.supervisor.console.print(
+        if self._graph.supervisor.debug_mode:
+            self._graph.supervisor.console.print(
                 json.dumps(tasks, indent=4, ensure_ascii=False)
             )
 
@@ -77,8 +92,8 @@ class Team:
             else:
                 todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
 
-            if self.supervisor.debug_mode:
-                self.supervisor.state(
+            if self._graph.supervisor.debug_mode:
+                self._graph.supervisor.state(
                     f"""\n
 Task {i + 1}: {todo}
 Context: {task['context']}
@@ -88,7 +103,7 @@ Reason: {task['reason']}
 """
                 )
             else:
-                self.supervisor.state(f"({(i+1)}/{len(tasks['plan'])}) {todo}")
+                self._graph.supervisor.state(f"({(i+1)}/{len(tasks['plan'])}) {todo}")
 
             message = Message.create_human_message(
                 implement_template.format(
@@ -96,10 +111,16 @@ Reason: {task['reason']}
                     objective=task["objective"],
                     context=task["context"],
                     reason=task["reason"],
-                    implementation=self.supervisor.current_source_code(),
+                    implementation=self._graph.supervisor.current_source_code(),
                     specifications=self.storages().docs.get("specifications.md", "N/A"),
                     technologies=self.storages().docs.get("technologies.md", "N/A"),
                     files=self.storages().docs.get("files.md", "N/A"),
                 )
             )
-            self.run([message])
+            self._run([message])
+
+    def go(self, step: Step):
+        planning_prompt = step.planning_prompt()
+        additional_tasks = step.additional_tasks()
+        self.build(planning_prompt)
+        self.drive(planning_prompt, additional_tasks)

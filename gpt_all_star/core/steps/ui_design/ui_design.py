@@ -1,8 +1,6 @@
 from gpt_all_star.core.agents.agents import Agents
-from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.step import Step
 from gpt_all_star.core.steps.ui_design.planning_prompt import planning_prompt_template
-from gpt_all_star.core.team import Team
 
 
 class UIDesign(Step):
@@ -15,25 +13,14 @@ class UIDesign(Step):
     ) -> None:
         super().__init__(agents, japanese_mode, review_mode, debug_mode)
 
-    def run(self) -> None:
+    def planning_prompt(self) -> str:
         planning_prompt = planning_prompt_template.format(
             current_source_code=self.agents.copilot.current_source_code(),
             specifications=self.agents.copilot.storages.docs.get(
                 "specifications.md", "N/A"
             ),
         )
-        supervisor = (
-            self.agents.copilot.create_assign_supervisor_chain(
-                members=self.agents.members()
-            )
-            .invoke({"messages": [Message.create_human_message(planning_prompt)]})
-            .get("assign")
-        )
-        self.agents.copilot.state(f"Supervisor assignment: {supervisor}.")
+        return planning_prompt
 
-        team = Team(
-            supervisor=self.agents.get_agent_by_name(supervisor),
-            members=self.agents.members(),
-        )
-
-        team.drive(planning_prompt)
+    def additional_tasks(self) -> list:
+        return []

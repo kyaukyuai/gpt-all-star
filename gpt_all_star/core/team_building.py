@@ -1,15 +1,14 @@
 from rich.table import Table
 
-from gpt_all_star.cli.console_terminal import MAIN_COLOR
+from gpt_all_star.cli.console_terminal import MAIN_COLOR, ConsoleTerminal
 from gpt_all_star.core.agents import agents
 from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.message import Message
-from gpt_all_star.core.steps.step import Step
 from gpt_all_star.helper.config_loader import load_configuration
 from gpt_all_star.helper.text_parser import TextParser
 
 
-class TeamBuilding(Step):
+class TeamBuilding:
     def __init__(
         self,
         agents: agents,
@@ -17,7 +16,11 @@ class TeamBuilding(Step):
         review_mode: bool,
         debug_mode: bool,
     ) -> None:
-        super().__init__(agents, japanese_mode, review_mode, debug_mode)
+        self.console = ConsoleTerminal()
+        self.agents = agents
+        self.japanese_mode = japanese_mode
+        self.review_mode = review_mode
+        self.debug_mode = debug_mode
 
     def run(self) -> None:
         self.agents.copilot.state("Let's start by building a team!")

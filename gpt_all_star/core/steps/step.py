@@ -21,5 +21,9 @@ class Step(ABC):
         self.console.section(f"STEP: {self.__class__.__name__}")
 
     @abstractmethod
-    def run(self) -> None:
+    def planning_prompt(self) -> str:
+        pass
+
+    @abstractmethod
+    def additional_tasks(self) -> list:
         pass
