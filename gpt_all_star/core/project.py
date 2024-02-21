@@ -68,6 +68,19 @@ class Project:
                 storages=self.storages, debug_mode=self.debug_mode
             ),
         )
+    def _execute_improvement_step(self, step) -> None:
+        try:
+            step(
+                self.agents,
+                self.japanese_mode,
+                self.review_mode,
+                self.debug_mode,
+            ).run()
+        except Exception as e:
+            self.agents.copilot.state(
+                f"Failed to execute step {step}. Reason: {str(e)}"
+            )
+            raise e
 
     def _set_step_type(self, step: StepType) -> None:
         self.step_type = step or StepType.DEFAULT
@@ -89,7 +102,7 @@ class Project:
                 self.japanese_mode,
                 self.review_mode,
                 self.debug_mode,
-            ).run()
+            )
         except Exception as e:
             self.agents.copilot.state(
                 f"Failed to execute step {step}. Reason: {str(e)}"
