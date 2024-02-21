@@ -24,7 +24,7 @@ class Project:
         review_mode: bool = False,
         debug_mode: bool = False,
     ) -> None:
-        self._set_modes(japanese_mode, review_mode, debug_mode)
+        self.    _set_modes(japanese_mode, review_mode, debug_mode)
         self._set_project_name(project_name)
         self._set_storages()
         self._set_agents()
