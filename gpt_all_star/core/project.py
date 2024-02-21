@@ -38,6 +38,15 @@ class Project:
         self.debug_mode = debug_mode
 
     def _set_project_name(self, project_name: str) -> None:
+        """
+        Sets the project name attribute.
+
+        Args:
+            project_name (str): The name of the project.
+
+        Returns:
+            None
+        """
         self.project_name = project_name or Copilot().ask_project_name()
 
     def _set_storages(self) -> None:
