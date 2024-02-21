@@ -1,5 +1,7 @@
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.execution.run_project import run_project
+
 from gpt_all_star.core.execution.planning_prompt import planning_prompt_template
 from gpt_all_star.core.team import Team
 
