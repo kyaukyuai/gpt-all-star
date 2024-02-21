@@ -41,11 +41,17 @@ class Project:
         self.project_name = project_name or Copilot().ask_project_name()
 
     def _set_storages(self) -> None:
+    def _set_storages(self) -> None:
         project_path = Path(os.path.abspath(f"projects/{self.project_name}")).absolute()
         self.storages = Storages(
             root=Storage(project_path),
             docs=Storage(project_path / "docs"),
             archive=Storage(project_path / ".archive"),
+        )
+
+    def _archive_previous_storages(self) -> None:
+        self.agents.copilot.state("Archiving previous storages...")
+        Storages.archive_storage(self.storages)
         )
 
     def _set_agents(self) -> None:
@@ -96,3 +102,14 @@ class Project:
 
     def finish(self) -> None:
         self.agents.copilot.finish(self.project_name)
+        self.agents.copilot.start(self.project_name)
+        self._archive_previous_storages()
+        self._execute_steps()
+    def start(self) -> None:
+        self.agents.copilot.start(self.project_name)
+        self._archive_previous_storages()
+        self._execute_steps()
+    def start(self) -> None:
+        self.agents.copilot.start(self.project_name)
+        self._archive_previous_storages()
+        self._execute_steps()
