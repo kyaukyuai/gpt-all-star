@@ -1,55 +1,23 @@
-import functools
 import json
 from typing import Optional
 
-from langchain.agents.agent import AgentExecutor
-from langgraph.graph import END, StateGraph
 from langgraph.pregel import GraphRecursionError
 
 from gpt_all_star.core.agents.agent import ACTIONS, Agent
-from gpt_all_star.core.agents.agent_state import AgentState
 from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
+from gpt_all_star.helper.multi_agent_collaboration_graph import (
+    MultiAgentCollaborationGraph,
+)
 
 
 class Team:
     def __init__(self, supervisor: Agent, members: list[Agent]):
         self.supervisor = supervisor
         self.members = members
-        self.supervisor_chain = self._create_supervisor_chain()
-        self.state_graph = self._initialize_state_graph()
-        self._team = self.state_graph.compile()
-
-    def _create_supervisor_chain(self):
-        return self.supervisor.create_supervisor_chain(members=self.members)
-
-    def _initialize_state_graph(self):
-        state_graph = StateGraph(AgentState)
-        for member in self.members:
-            self._add_node_to_graph(member, state_graph)
-        self._add_entry_point_to_graph(state_graph)
-        self._add_edges_to_graph(state_graph)
-        return state_graph
-
-    def _add_node_to_graph(self, agent: Agent, state_graph):
-        state_graph.add_node(
-            agent.name,
-            functools.partial(self._agent_node, agent=agent.executor, name=agent.name),
-        )
-
-    def _add_edges_to_graph(self, state_graph):
-        for member in self.members:
-            state_graph.add_edge(member.name, "supervisor")
-
-    def _add_entry_point_to_graph(self, state_graph):
-        state_graph.add_node("supervisor", self.supervisor_chain)
-        member_names = [member.name for member in self.members]
-        conditional_map = {k: k for k in member_names}
-        conditional_map["FINISH"] = END
-        state_graph.add_conditional_edges(
-            "supervisor", lambda x: x["next"], conditional_map
-        )
-        state_graph.set_entry_point("supervisor")
+        self._team = MultiAgentCollaborationGraph(
+            self.supervisor, self.members
+        ).workflow
 
     def storages(self):
         return self.supervisor.storages
@@ -135,8 +103,3 @@ Reason: {task['reason']}
                 )
             )
             self.run([message])
-
-    @staticmethod
-    def _agent_node(state, agent: AgentExecutor, name):
-        result = agent.invoke(state)
-        return {"messages": [Message.create_human_message(result["output"], name=name)]}
