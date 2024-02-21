@@ -2,6 +2,7 @@ import json
 from typing import Optional
 
 from langgraph.pregel import GraphRecursionError
+from rich.status import Status
 
 from gpt_all_star.core.agents.agent import ACTIONS
 from gpt_all_star.core.agents.agents import Agents
@@ -46,9 +47,7 @@ class Team:
                         if self._graph.supervisor.debug_mode:
                             self._graph.supervisor.state(value)
                     else:
-                        self._graph.supervisor.console.print(
-                            f"  ┗ {key} is in charge of it."
-                        )
+                        self._graph.supervisor.state(f"  ┗ {key} is in charge of it.")
                         if self._graph.supervisor.debug_mode:
                             latest_message = value.get("messages")[-1].content.strip()
                             self._graph.supervisor.console.print(
@@ -68,56 +67,66 @@ class Team:
         planning_prompt: Optional[str] = None,
         additional_tasks: list = [],
     ):
-        self._graph.supervisor.state("Planning tasks.")
-        tasks = (
-            self._graph.supervisor.create_planning_chain().invoke(
-                {
-                    "messages": [Message.create_human_message(planning_prompt)],
-                }
+        with Status(
+            "[bold green]running...",
+            console=self.agents.copilot.console.console,
+            spinner="runner",
+            speed=0.5,
+        ):
+            self._graph.supervisor.state("Planning tasks.")
+            tasks = (
+                self._graph.supervisor.create_planning_chain().invoke(
+                    {
+                        "messages": [Message.create_human_message(planning_prompt)],
+                    }
+                )
+                if planning_prompt
+                else {"plan": []}
             )
-            if planning_prompt
-            else {"plan": []}
-        )
-        for task in additional_tasks:
-            tasks["plan"].append(task)
-
-        if self._graph.supervisor.debug_mode:
-            self._graph.supervisor.console.print(
-                json.dumps(tasks, indent=4, ensure_ascii=False)
-            )
-
-        for i, task in enumerate(tasks["plan"]):
-            if task["action"] == ACTIONS[0]:
-                todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
-            else:
-                todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
+            for task in additional_tasks:
+                tasks["plan"].append(task)
 
             if self._graph.supervisor.debug_mode:
-                self._graph.supervisor.state(
-                    f"""\n
+                self._graph.supervisor.console.print(
+                    json.dumps(tasks, indent=4, ensure_ascii=False)
+                )
+
+            for i, task in enumerate(tasks["plan"]):
+                if task["action"] == ACTIONS[0]:
+                    todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
+                else:
+                    todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
+
+                if self._graph.supervisor.debug_mode:
+                    self._graph.supervisor.state(
+                        f"""\n
 Task {i + 1}: {todo}
 Context: {task['context']}
 Objective: {task['objective']}
 Reason: {task['reason']}
 ---
 """
-                )
-            else:
-                self._graph.supervisor.state(f"({(i+1)}/{len(tasks['plan'])}) {todo}")
+                    )
+                else:
+                    self._graph.supervisor.state(
+                        f"({(i+1)}/{len(tasks['plan'])}) {todo}"
+                    )
 
-            message = Message.create_human_message(
-                implement_template.format(
-                    task=todo,
-                    objective=task["objective"],
-                    context=task["context"],
-                    reason=task["reason"],
-                    implementation=self._graph.supervisor.current_source_code(),
-                    specifications=self.storages().docs.get("specifications.md", "N/A"),
-                    technologies=self.storages().docs.get("technologies.md", "N/A"),
-                    files=self.storages().docs.get("files.md", "N/A"),
+                message = Message.create_human_message(
+                    implement_template.format(
+                        task=todo,
+                        objective=task["objective"],
+                        context=task["context"],
+                        reason=task["reason"],
+                        implementation=self._graph.supervisor.current_source_code(),
+                        specifications=self.storages().docs.get(
+                            "specifications.md", "N/A"
+                        ),
+                        technologies=self.storages().docs.get("technologies.md", "N/A"),
+                        files=self.storages().docs.get("files.md", "N/A"),
+                    )
                 )
-            )
-            self._run([message])
+                self._run([message])
 
     def go(self, step: Step):
         planning_prompt = step.planning_prompt()
