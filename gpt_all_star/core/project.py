@@ -125,6 +125,11 @@ class Project:
         self._execute_steps()
 
     def finish(self) -> None:
+    """
+    Finishes the project and performs any necessary cleanup.
+    Returns:
+        None
+    """
         self.agents.copilot.finish(self.project_name)
     def _execute_step(self, step) -> None:
 +        """
