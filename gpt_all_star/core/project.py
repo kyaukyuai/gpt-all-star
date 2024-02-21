@@ -92,6 +92,15 @@ class Project:
             self.agents.copilot.state("Interrupt received! Stopping...")
 
     def _execute_step(self, step) -> None:
+    """
+    Executes a single step of the project.
+    
+    Args:
+        step: The step to execute.
+    
+    Returns:
+        None
+    """
         try:
             step(
                 self.agents,
