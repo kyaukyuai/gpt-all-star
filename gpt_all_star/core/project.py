@@ -69,14 +69,14 @@ class Project:
             self.agents.copilot.state("Archiving previous storages...")
             Storages.archive_storage(self.storages)
 
-    def _execute_steps(self) -> None:
+    def execute_steps(self) -> None:
         try:
             for step in STEPS[self.step_type]:
-                self._execute_step(step)
+                self.execute_step(step)
         except KeyboardInterrupt:
             self.agents.copilot.state("Interrupt received! Stopping...")
 
-    def _execute_step(self, step) -> None:
+    def execute_step(self, step) -> None:
         try:
             step(
                 self.agents,
