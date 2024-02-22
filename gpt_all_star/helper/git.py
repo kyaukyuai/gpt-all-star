@@ -12,7 +12,9 @@ class Git:
         self.repo_path = repo_path
         self.repo = git.Repo.init(self.repo_path)
         self.github = Github(os.environ["GITHUB_TOKEN"])
-        self.github_repo = self.github.get_repo(f"gpt-all-star/{repo_path.name}")
+        self.github_repo = self.github.get_repo(
+            f"{os.environ['GITHUB_ORG']}/{repo_path.name}"
+        )
 
     def files(self):
         return [
@@ -52,7 +54,7 @@ class Git:
     def push(self):
         try:
             remote_name = "origin"
-            remote_url = f"https://github.com/gpt-all-star/{self.repo_path.name}.git"
+            remote_url = f"https://github.com/{os.environ['GITHUB_ORG']}/{self.repo_path.name}.git"
             if remote_name in self.repo.remotes:
                 remote = self.repo.remotes[remote_name]
                 if remote.url != remote_url:
@@ -90,7 +92,7 @@ class Git:
         return any(branch.name == "main" for branch in branches)
 
     def _create_new_github_repository(self, repository_name) -> None:
-        url = "https://api.github.com/orgs/gpt-all-star/repos"
+        url = f"https://api.github.com/orgs/{os.getenv('GITHUB_ORG')}/repos"
         token = os.getenv("GITHUB_TOKEN")
 
         headers = {
