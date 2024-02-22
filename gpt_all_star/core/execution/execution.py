@@ -7,12 +7,14 @@ from gpt_all_star.core.team import Team
 class Execution:
     def __init__(
         self,
+        team: Team,
         storages: Storages,
         agents: Agents,
         japanese_mode: bool,
         review_mode: bool,
         debug_mode: bool,
     ) -> None:
+        self.team = team
         self.storages = storages
         self.agents = agents
         self.japanese_mode = japanese_mode
@@ -36,7 +38,4 @@ class Execution:
                     error=e,
                     current_source_code=self.storages.current_source_code(),
                 )
-
-                team = Team(members=self.agents)
-                team._assign_supervisor(planning_prompt)
-                team.drive(planning_prompt)
+                self.team.drive(planning_prompt)
