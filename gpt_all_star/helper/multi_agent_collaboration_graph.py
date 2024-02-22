@@ -37,10 +37,10 @@ class MultiAgentCollaborationGraph:
         for agent in self.agents:
             self._state_graph.add_edge(agent.name, SUPERVISOR_NAME)
 
-    def _add_entry_point(self):
+    def create_supervisor_chain(self):
         self._state_graph.add_node(
             SUPERVISOR_NAME,
-            create_supervisor_chain(members=self.agents),
+            create_supervisor_chain(self, members=self.agents),
         )
         conditional_map = {agent.name: agent.name for agent in self.agents}
         conditional_map["FINISH"] = END
