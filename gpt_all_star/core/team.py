@@ -4,9 +4,12 @@ from typing import Optional
 from langgraph.pregel import GraphRecursionError
 from rich.status import Status
 
-from gpt_all_star.core.agents.agent import ACTIONS
 from gpt_all_star.core.agents.agents import Agents
-from gpt_all_star.core.agents.chain import create_assign_supervisor_chain
+from gpt_all_star.core.agents.chain import (
+    ACTIONS,
+    create_assign_supervisor_chain,
+    create_planning_chain,
+)
 from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.step import Step
@@ -75,7 +78,7 @@ class Team:
         ):
             self._graph.supervisor.state("Planning tasks.")
             tasks = (
-                self._graph.supervisor.create_planning_chain().invoke(
+                create_planning_chain().invoke(
                     {
                         "messages": [Message.create_human_message(planning_prompt)],
                     }

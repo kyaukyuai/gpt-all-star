@@ -5,6 +5,7 @@ from langgraph.graph import END, StateGraph
 
 from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.agents.agent_state import AgentState
+from gpt_all_star.core.agents.chain import create_supervisor_chain
 from gpt_all_star.core.message import Message
 
 SUPERVISOR_NAME = "Supervisor"
@@ -39,7 +40,7 @@ class MultiAgentCollaborationGraph:
     def _add_entry_point(self):
         self._state_graph.add_node(
             SUPERVISOR_NAME,
-            self.supervisor.create_supervisor_chain(members=self.agents),
+            create_supervisor_chain(members=self.agents),
         )
         conditional_map = {agent.name: agent.name for agent in self.agents}
         conditional_map["FINISH"] = END

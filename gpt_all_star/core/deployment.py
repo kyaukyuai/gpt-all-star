@@ -2,6 +2,7 @@ from rich.syntax import Syntax
 
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.agents.agents import Agents
+from gpt_all_star.core.agents.chain import create_git_commit_message_chain
 from gpt_all_star.core.message import Message
 from gpt_all_star.helper.git import Git
 
@@ -34,7 +35,7 @@ class Deployment:
         if not self.agents.copilot.confirm_push() and self.review_mode:
             return
 
-        commit_info = self.agents.copilot.create_git_commit_message_chain().invoke(
+        commit_info = create_git_commit_message_chain().invoke(
             {
                 "messages": [
                     Message.create_human_message(
