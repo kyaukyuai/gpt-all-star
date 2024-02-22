@@ -71,7 +71,7 @@ class QAEngineer(Agent):
         except KeyboardInterrupt:
             self._handle_keyboard_interrupt()
 
-    def _wait_for_server(self) -> bool:
+    def wait_for_server(self) -> bool:
         MAX_ATTEMPTS = 30
         for attempt in range(MAX_ATTEMPTS):
             try:
@@ -100,7 +100,7 @@ class QAEngineer(Agent):
         if errors:
             raise Exception({"browser errors": errors})
 
-    def _handle_keyboard_interrupt(self) -> None:
+    def handle_keyboard_interrupt(self) -> None:
         self.console.new_lines()
         self.console.print("Stopping execution.", style="bold yellow")
         self.console.print("Execution stopped.", style="bold red")
