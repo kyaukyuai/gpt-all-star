@@ -1,34 +1,36 @@
 from rich.syntax import Syntax
 
-from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.agents.chain import create_git_commit_message_chain
+from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.message import Message
+from gpt_all_star.core.storage import Storages
 from gpt_all_star.helper.git import Git
 
 
 class Deployment:
     def __init__(
         self,
+        storages: Storages,
+        copilot: Copilot,
         agents: Agents,
-        debug_mode: bool,
     ) -> None:
-        self.console = ConsoleTerminal()
+        self.storages = storages
+        self.copilot = copilot
         self.agents = agents
-        self.debug_mode = debug_mode
 
     def run(self) -> None:
-        git = Git(self.agents.copilot.storages.root.path)
+        git = Git(self.storages.root.path)
         files_to_add = git.files()
         if not files_to_add:
-            self.agents.copilot.state("No files to add to the repository.")
+            self.copilot.state("No files to add to the repository.")
             return
 
-        self.agents.copilot.state("The following diff will be pushed to the repository")
+        self.copilot.state("The following diff will be pushed to the repository")
         syntax = Syntax(git.diffs(), "diff", theme="monokai", line_numbers=True)
-        self.console.print(syntax)
+        self.copilot.console.console.print(syntax)
 
-        if not self.agents.copilot.confirm_push():
+        if not self.copilot.confirm_push():
             return
 
         commit_info = create_git_commit_message_chain().invoke(
@@ -54,15 +56,15 @@ The format should follow Conventional Commits.
             }
         )
 
-        self.agents.copilot.console.new_lines()
-        self.agents.copilot.state("Pushing to the repository...")
+        self.copilot.console.new_lines()
+        self.copilot.state("Pushing to the repository...")
         try:
             git.checkout(commit_info["branch"])
             git.add(files_to_add)
             git.commit(commit_info["message"])
             git.push()
-            self.agents.copilot.state("Push successful!")
+            self.copilot.state("Push successful!")
         except Exception as e:
-            self.agents.copilot.state(
+            self.copilot.state(
                 f"An error occurred while pushing to the repository: {str(e)}"
             )

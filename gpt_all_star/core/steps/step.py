@@ -9,11 +9,9 @@ class Step(ABC):
         self,
         copilot: Copilot,
         storages: Storages,
-        debug_mode: bool = False,
     ) -> None:
         self.copilot = copilot
         self.storages = storages
-        self.debug_mode = debug_mode
 
         self.copilot.console.section(f"STEP: {self.__class__.__name__}")
 

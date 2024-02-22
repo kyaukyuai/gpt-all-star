@@ -11,9 +11,8 @@ class Specification(Step):
         self,
         copilot: Copilot,
         storages: Storages,
-        debug_mode: bool,
     ) -> None:
-        super().__init__(copilot, storages, debug_mode)
+        super().__init__(copilot, storages)
 
     def planning_prompt(self) -> str:
         return ""

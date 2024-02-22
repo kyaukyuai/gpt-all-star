@@ -10,12 +10,10 @@ class Execution:
         team: Team,
         storages: Storages,
         agents: Agents,
-        debug_mode: bool,
     ) -> None:
         self.team = team
         self.storages = storages
         self.agents = agents
-        self.debug_mode = debug_mode
 
     def run(self) -> None:
         self.agents.qa_engineer.caution()
@@ -31,4 +29,4 @@ class Execution:
                     error=e,
                     current_source_code=self.storages.current_source_code(),
                 )
-                self.team.drive(planning_prompt)
+                self.team.run(planning_prompt)

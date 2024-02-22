@@ -84,7 +84,6 @@ class Project:
                 step(
                     self.copilot,
                     self.storages,
-                    self.debug_mode,
                 )
             )
         except Exception as e:
@@ -102,7 +101,6 @@ class Project:
                 self.team,
                 self.storages,
                 self.agents,
-                self.debug_mode,
             ).run()
 
     def finish(self) -> None:
