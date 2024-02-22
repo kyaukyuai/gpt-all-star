@@ -94,6 +94,12 @@ class Git:
         self.repo.index.commit(commit_message)
 
     def push(self):
+        """
+        Push changes from the local repository to the remote repository.
+
+        Returns:
+            None
+        """
         try:
             remote_name = "origin"
             remote_url = f"https://github.com/{os.environ['GITHUB_ORG']}/{self.repo_path.name}.git"
