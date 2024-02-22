@@ -120,6 +120,15 @@ class Git:
             print(f"An unexpected error occurred: {e}")
             raise e
 
+            """
+        Create a pull request for the specified branch.
+        
+        Args:
+            branch_name (str): The name of the branch for which the pull request is to be created.
+        
+        Returns:
+            None
+        """
     def create_pull_request(self, branch_name):
         try:
             self.github_repo.create_pull(
