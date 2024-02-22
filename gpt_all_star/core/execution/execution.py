@@ -32,4 +32,4 @@ class Execution:
                     error=e,
                     current_source_code=self.storages.current_source_code(),
                 )
-                self.team.run(planning_prompt)
+                self.team._run(planning_prompt)
