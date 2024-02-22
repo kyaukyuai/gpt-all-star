@@ -71,3 +71,13 @@ class Copilot(Agent):
             APP_TYPES,
             default=1,
         )
+
+    def caution(self) -> None:
+        self.state("Executing the code...")
+        self.state(
+            "If it does not work as expected, please consider running the code"
+            + " in another way than above."
+        )
+        self.console.print(
+            "You can press ctrl+c *once* to stop the execution.", style="red"
+        )

@@ -11,6 +11,7 @@ from gpt_all_star.core.agents.engineer import Engineer
 from gpt_all_star.core.agents.product_owner import ProductOwner
 from gpt_all_star.core.agents.project_manager import ProjectManager
 from gpt_all_star.core.agents.qa_engineer import QAEngineer
+from gpt_all_star.core.deployment.deployment import Deployment
 from gpt_all_star.core.execution.execution import Execution
 from gpt_all_star.core.steps.steps import STEPS, StepType
 from gpt_all_star.core.storage import Storage, Storages
@@ -100,6 +101,14 @@ class Project:
             Execution(
                 self.team,
                 self.storages,
+                self.agents,
+            ).run()
+        if self.copilot.confirm(
+            "Do you want to manage this application code with GitHub?"
+        ):
+            Deployment(
+                self.storages,
+                self.copilot,
                 self.agents,
             ).run()
 
