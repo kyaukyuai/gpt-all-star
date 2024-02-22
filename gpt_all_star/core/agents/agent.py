@@ -33,6 +33,7 @@ NEXT_COMMAND = "next"
 
 
 class Agent(ABC):
+    """An abstract base class representing an agent in the system."""
     def __init__(
         self,
         role: AgentRole,
@@ -110,6 +111,8 @@ class Agent(ABC):
         return AGENT_PROFILES[self.role]
 
     def _create_executor(self, tools: list) -> AgentExecutor:
+        """Creates and returns an executor for the agent using the provided tools."""
+        """Creates and returns an executor for the agent using the provided tools."""
         prompt = ChatPromptTemplate.from_messages(
             [
                 (
@@ -129,6 +132,7 @@ class Agent(ABC):
         )
 
     def current_source_code(self) -> str:
+        """Returns the current source code of the agent."""
         source_code_contents = []
         for (
             filename,
@@ -165,6 +169,7 @@ def _create_chat_openai_instance(model_name: str, temperature: float):
 
 
 def _create_azure_chat_openai_instance(model_name: str):
+    """Creates and returns an Azure ChatOpenAI instance."""
     return AzureChatOpenAI(
         openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2023-07-01-preview"),
         deployment_name=model_name,
@@ -183,6 +188,7 @@ def _get_supported_models() -> list[str]:
 
 
 class AgentRole(str, Enum):
+    """An enumeration representing the role of an agent in the system."""
     COPILOT = "copilot"
     PRODUCT_OWNER = "product_owner"
     ENGINEER = "engineer"
