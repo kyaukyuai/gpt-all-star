@@ -157,9 +157,9 @@ Reason: {task['reason']}
 
     def run(self, step: Step):
         planning_prompt = step.planning_prompt()
-        additional_tasks = step.additional_tasks()
+        additional_tasks = []
         self._assign_supervisor(planning_prompt)
-        self._run(planning_prompt, additional_tasks)
+        self._run_task(planning_prompt, additional_tasks)
 
         step.callback()
 
