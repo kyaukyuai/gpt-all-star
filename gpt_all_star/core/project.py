@@ -113,7 +113,6 @@ class Project:
             Deployment(
                 self.storages,
                 self.copilot,
-                self.agents,
             ).run()
 
     def finish(self) -> None:

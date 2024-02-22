@@ -24,6 +24,7 @@ langgraph = "^0.0.24"
 langchain-experimental = "^0.0.52"
 llama-index = "^0.10.0"
 tree-sitter-languages = "^1.10.2"
+pygithub = "^2.2.0"
 
 [tool.poetry.scripts]
 gpt-all-star = 'gpt_all_star.main:app'

@@ -3,6 +3,7 @@ from pathlib import Path
 
 import git
 import requests
+from github import Github
 
 
 class Git:
@@ -10,6 +11,8 @@ class Git:
         self._create_new_github_repository(repo_path.name)
         self.repo_path = repo_path
         self.repo = git.Repo.init(self.repo_path)
+        self.github = Github(os.environ["GITHUB_TOKEN"])
+        self.github_repo = self.github.get_repo(f"gpt-all-star/{repo_path.name}")
 
     def files(self):
         return [
@@ -24,7 +27,7 @@ class Git:
     def diffs(self):
         try:
             if self.repo.head.is_valid() and list(self.repo.iter_commits()):
-                staged_diffs = self.repo.git.diff("--staged")
+                staged_diffs = self.repo.git.diff("HEAD")
                 not_staged_diffs = self.repo.git.diff()
                 return staged_diffs + "\n" + not_staged_diffs
             else:
@@ -59,12 +62,32 @@ class Git:
 
             current_branch = self.repo.active_branch.name
             remote.push(refspec=f"{current_branch}:{current_branch}")
+            print("Push successful!")
         except git.exc.GitCommandError as e:
             print(f"Failed to push to the repository: {e}")
             raise e
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
             raise e
+
+    def create_pull_request(self, branch_name):
+        try:
+            self.github_repo.create_pull(
+                title=branch_name,
+                body="",
+                head=branch_name,
+                base="main",
+            )
+            print("Pull request has been created.")
+        except Exception as e:
+            print(f"Error creating pull request: {e}")
+
+    def check_local_main_branch_exists(self) -> bool:
+        return any(head.name == "main" for head in self.repo.heads)
+
+    def check_github_main_branch_exists(self) -> bool:
+        branches = self.github_repo.get_branches()
+        return any(branch.name == "main" for branch in branches)
 
     def _create_new_github_repository(self, repository_name) -> None:
         url = "https://api.github.com/orgs/gpt-all-star/repos"
