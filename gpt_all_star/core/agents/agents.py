@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
+from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.agents.architect import Architect
-from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.agents.designer import Designer
 from gpt_all_star.core.agents.engineer import Engineer
 from gpt_all_star.core.agents.product_owner import ProductOwner
@@ -11,7 +11,6 @@ from gpt_all_star.core.agents.qa_engineer import QAEngineer
 
 @dataclass
 class Agents:
-    copilot: Copilot
     product_owner: ProductOwner
     engineer: Engineer
     architect: Architect
@@ -19,15 +18,8 @@ class Agents:
     qa_engineer: QAEngineer
     project_manager: ProjectManager
 
-    def members(self):
-        return [
-            self.product_owner,
-            self.engineer,
-            self.architect,
-            self.designer,
-            self.qa_engineer,
-            self.project_manager,
-        ]
+    def to_array(self) -> list[Agent]:
+        return list(vars(self).values())
 
     def get_agent_by_name(self, name: str):
         for attribute in self.__dict__.values():

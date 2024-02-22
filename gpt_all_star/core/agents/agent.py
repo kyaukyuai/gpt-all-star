@@ -27,7 +27,6 @@ from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.tools.shell_tool import ShellTool
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
-from gpt_all_star.helper.text_parser import format_file_to_input
 
 NEXT_COMMAND = "next"
 
@@ -129,18 +128,7 @@ class Agent(ABC):
         )
 
     def current_source_code(self) -> str:
-        source_code_contents = []
-        for (
-            filename,
-            file_content,
-        ) in self.storages.root.recursive_file_search().items():
-            if self.debug_mode:
-                self.console.print(
-                    f"Adding file {filename} to the prompt...", style="blue"
-                )
-            formatted_code = format_file_to_input(filename, file_content)
-            source_code_contents.append(formatted_code)
-        return "\n".join(source_code_contents) if source_code_contents else "N/A"
+        return self.storages.current_source_code(self.debug_mode)
 
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
