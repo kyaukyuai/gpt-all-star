@@ -142,6 +142,12 @@ class Git:
             print(f"Error creating pull request: {e}")
 
     def check_local_main_branch_exists(self) -> bool:
+        """
+        Check if the local 'main' branch exists in the Git repository.
+
+        Returns:
+            bool: True if the local 'main' branch exists, False otherwise.
+        """
         return any(head.name == "main" for head in self.repo.heads)
 
     def check_github_main_branch_exists(self) -> bool:
