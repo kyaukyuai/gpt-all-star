@@ -74,6 +74,7 @@ class Agent(ABC):
         """Prints the state of the agent with the specified text."""
         self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
 
+    """Presents the user with a question and a list of choices, and returns the user's selected choice."""
     def output_md(self, md: str) -> None:
         """Prints the output in Markdown format.
 
