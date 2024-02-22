@@ -47,7 +47,7 @@ class Team:
             .invoke({"messages": [Message.create_human_message(planning_prompt)]})
             .get("assign")
         )
-        print(f"Supervisor assignment: {supervisor_name}.")
+        self.copilot.state(f"Supervisor assignment: {supervisor_name}.")
         supervisor = self.agents.get_agent_by_name(supervisor_name)
         self._graph = MultiAgentCollaborationGraph(supervisor, self.agents.to_array())
         self.supervisor = supervisor

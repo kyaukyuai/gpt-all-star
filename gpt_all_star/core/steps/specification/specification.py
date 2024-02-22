@@ -24,7 +24,7 @@ class Specification(Step):
         instructions = self.copilot.get_instructions()
         app_type = self.copilot.get_app_type()
         self.copilot.state("Ok, we have a instruction and app type now!")
-        self.copilot.console.print(
+        self.copilot.state(
             f"""
 ---
 instruction:
@@ -33,6 +33,5 @@ app_type:
 {app_type}
 ---
 """,
-            style="bold",
         )
         return create_additional_tasks(app_type, instructions)
