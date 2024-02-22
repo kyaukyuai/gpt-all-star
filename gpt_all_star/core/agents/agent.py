@@ -126,6 +126,7 @@ class Agent(ABC):
             tools=tools,
             verbose=self.debug_mode,
             handle_parsing_errors=True,
+            execute_function=self.execute
         )
 
     def current_source_code(self) -> str:
