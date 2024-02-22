@@ -7,6 +7,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from gpt_all_star.helper.text_parser import format_file_to_input
+
 
 class Storage:
     def __init__(self, path: str | Path):
@@ -95,3 +97,15 @@ class Storages:
         for item in os.listdir(storages.root.path):
             if item != ".archive":
                 shutil.move(os.path.join(storages.root.path, item), destination)
+
+    def current_source_code(self, debug_mode: bool = False) -> str:
+        source_code_contents = []
+        for (
+            filename,
+            file_content,
+        ) in self.root.recursive_file_search().items():
+            if debug_mode:
+                print(f"Adding file {filename} to the prompt...")
+            formatted_code = format_file_to_input(filename, file_content)
+            source_code_contents.append(formatted_code)
+        return "\n".join(source_code_contents) if source_code_contents else "N/A"
