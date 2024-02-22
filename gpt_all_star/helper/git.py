@@ -53,6 +53,15 @@ class Git:
             return f"An error occurred while executing git command.: {e}"
 
     def checkout(self, branch_name):
+        """
+        Checkout the specified branch.
+
+        Args:
+            branch_name (str): The name of the branch to check out.
+
+        Returns:
+            bool: True if the checkout is successful, False otherwise.
+        """
         try:
             self.repo.git.checkout("HEAD", b=branch_name)
             return True
