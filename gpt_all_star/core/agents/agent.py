@@ -86,6 +86,17 @@ class Agent(ABC):
         self.console.print(Panel(Markdown(md, style="bold")))
 
     def ask(self, question: str, is_required: bool = True, default: str = None) -> str:
+        """Asks a question and collects user input.
+
+        Args:
+            question (str): The question to ask.
+            is_required (bool, optional): Whether the input is required. Defaults to True.
+            default (str, optional): The default value if no input is provided. Defaults to None.
+            
+        Returns:
+            str: The user's input.
+
+        """
         while True:
             if default and default.endswith("\n"):
                 default = re.sub(r"\n$", "", default)
