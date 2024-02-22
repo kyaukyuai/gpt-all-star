@@ -4,6 +4,7 @@ import os
 import re
 from abc import ABC
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 from functools import lru_cache
 
@@ -20,6 +21,7 @@ from langchain_core.prompts.prompt import PromptTemplate
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
 from rich.markdown import Markdown
 from rich.panel import Panel
+from rich.table import Table
 
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
@@ -73,6 +75,31 @@ class Agent(ABC):
 
     def output_md(self, md: str) -> None:
         self.console.print(Panel(Markdown(md, style="bold")))
+
+    def output_files(self, storages: Storages, exclude_dirs=[]) -> None:
+        table = Table(show_header=True, header_style="bold magenta")
+        table.add_column("Name", width=40)
+        table.add_column("Size(Bytes)", style="dim", justify="right")
+        table.add_column("Date Modified", style="dim", justify="right")
+
+        for root, dirs, files in os.walk(storages.root.path):
+            dirs[:] = [d for d in dirs if d not in exclude_dirs]
+
+            for filename in files:
+                filepath = os.path.join(root, filename)
+                if os.path.isfile(filepath):
+                    relative_path = os.path.relpath(filepath, start=storages.root.path)
+                    stat = os.stat(filepath)
+                    filesize = stat.st_size
+                    mtime = datetime.fromtimestamp(stat.st_mtime).strftime(
+                        "%Y-%m-%d %H:%M:%S"
+                    )
+                    table.add_row(
+                        relative_path,
+                        str(filesize),
+                        mtime,
+                    )
+        self.console.print(table)
 
     def ask(self, question: str, is_required: bool = True, default: str = None) -> str:
         while True:

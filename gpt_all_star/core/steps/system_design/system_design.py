@@ -17,3 +17,7 @@ class SystemDesign(Step):
 
     def additional_tasks(self) -> list:
         return additional_tasks
+
+    def callback(self) -> None:
+        self.copilot.output_md(self.storages.docs.get("technologies.md", ""))
+        self.copilot.output_md(self.storages.docs.get("files.md", ""))

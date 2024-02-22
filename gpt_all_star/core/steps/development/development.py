@@ -24,3 +24,8 @@ class Development(Step):
 
     def additional_tasks(self) -> list:
         return additional_tasks + nodejs_tasks
+
+    def callback(self) -> None:
+        self.copilot.output_files(
+            storages=self.storages, exclude_dirs=[".archive", "node_modules"]
+        )

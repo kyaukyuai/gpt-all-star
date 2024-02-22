@@ -22,3 +22,7 @@ class Step(ABC):
     @abstractmethod
     def additional_tasks(self) -> list:
         pass
+
+    @abstractmethod
+    def callback(self) -> None:
+        pass

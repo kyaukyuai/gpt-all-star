@@ -21,3 +21,8 @@ class UIDesign(Step):
 
     def additional_tasks(self) -> list:
         return []
+
+    def callback(self) -> None:
+        self.copilot.output_files(
+            storages=self.storages, exclude_dirs=[".archive", "node_modules"]
+        )
