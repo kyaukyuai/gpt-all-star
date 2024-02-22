@@ -9,11 +9,10 @@ class SystemDesign(Step):
         self,
         copilot: Copilot,
         storages: Storages,
-        japanese_mode: bool,
         review_mode: bool,
         debug_mode: bool,
     ) -> None:
-        super().__init__(copilot, storages, japanese_mode, review_mode, debug_mode)
+        super().__init__(copilot, storages, review_mode, debug_mode)
 
     def planning_prompt(self) -> str:
         return ""

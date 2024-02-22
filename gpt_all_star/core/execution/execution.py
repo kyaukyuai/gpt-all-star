@@ -10,14 +10,12 @@ class Execution:
         team: Team,
         storages: Storages,
         agents: Agents,
-        japanese_mode: bool,
         review_mode: bool,
         debug_mode: bool,
     ) -> None:
         self.team = team
         self.storages = storages
         self.agents = agents
-        self.japanese_mode = japanese_mode
         self.review_mode = review_mode
         self.debug_mode = debug_mode
 

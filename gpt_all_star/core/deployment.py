@@ -11,13 +11,11 @@ class Deployment:
     def __init__(
         self,
         agents: Agents,
-        japanese_mode: bool,
         review_mode: bool,
         debug_mode: bool,
     ) -> None:
         self.console = ConsoleTerminal()
         self.agents = agents
-        self.japanese_mode = japanese_mode
         self.review_mode = review_mode
         self.debug_mode = debug_mode
 

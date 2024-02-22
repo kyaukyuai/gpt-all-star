@@ -9,13 +9,11 @@ class Step(ABC):
         self,
         copilot: Copilot,
         storages: Storages,
-        japanese_mode: bool = False,
         review_mode: bool = False,
         debug_mode: bool = False,
     ) -> None:
         self.copilot = copilot
         self.storages = storages
-        self.japanese_mode = japanese_mode
         self.review_mode = review_mode
         self.debug_mode = debug_mode
 
