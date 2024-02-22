@@ -6,7 +6,6 @@ from abc import ABC
 from dataclasses import dataclass
 from enum import Enum
 from functools import lru_cache
-from typing import Optional
 
 import openai
 from langchain.agents.agent import AgentExecutor
@@ -14,7 +13,6 @@ from langchain.agents.agent_toolkits.file_management.toolkit import (
     FileManagementToolkit,
 )
 from langchain.agents.openai_tools.base import create_openai_tools_agent
-from langchain_core.callbacks import StreamingStdOutCallbackHandler
 from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
@@ -71,16 +69,6 @@ class Agent(ABC):
         )
         self.executor = self._create_executor(self.tools)
 
-    def invoke(self, input: Optional[str] = None) -> None:
-        if input is not None:
-            self.messages.append(Message.create_human_message(input))
-
-        callbacks = [StreamingStdOutCallbackHandler()] if self.debug_mode else []
-        result = self.executor.invoke(
-            {"messages": self.messages}, config={"callbacks": callbacks}
-        )
-        self.messages.append(Message.create_ai_message(result["output"]))
-
     def state(self, text: str) -> None:
         self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
 
@@ -117,36 +105,6 @@ class Agent(ABC):
 
     def latest_message_content(self) -> str:
         return self.messages[-1].content.strip()
-
-    def execute(
-        self,
-        follow_up_message: str,
-        final_message: str | None = None,
-        review_mode: bool = False,
-    ) -> None:
-        user_input = None
-        count = 0
-
-        while True:
-            if count > 0:
-                if not review_mode:
-                    self._handle_final_message(final_message)
-                    break
-
-                self.console.new_lines(1)
-                user_input = self.ask(follow_up_message)
-                if user_input == NEXT_COMMAND:
-                    self._handle_final_message(final_message)
-                    break
-
-            self.invoke(user_input)
-            self.console.new_lines(1)
-            count += 1
-
-    def _handle_final_message(self, final_message: str | None) -> None:
-        if final_message:
-            self.invoke(final_message)
-        self.console.new_lines(1)
 
     def _get_default_profile(self) -> AgentProfile:
         return AGENT_PROFILES[self.role]
