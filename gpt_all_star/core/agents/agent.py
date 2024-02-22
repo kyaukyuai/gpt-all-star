@@ -142,7 +142,15 @@ class Agent(ABC):
     def latest_message_content(self) -> str:
         return self.messages[-1].content.strip()
 
-    def _get_default_profile(self) -> AgentProfile:
+        def _get_default_profile(self) -> AgentProfile:
+        """Returns the default profile for the agent.
+
+        Returns:
+            AgentProfile: The default profile for the agent.
+
+        Reference:
+            Python documentation on method docstrings
+        """
         return AGENT_PROFILES[self.role]
 
     def _create_executor(self, tools: list) -> AgentExecutor:
