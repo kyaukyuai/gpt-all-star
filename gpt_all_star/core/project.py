@@ -94,7 +94,10 @@ class Project:
     def start(self) -> None:
         self.copilot.start(self.project_name)
         self.team = Team(
-            copilot=self.copilot, members=self.agents, japanese_mode=self.japanese_mode
+            copilot=self.copilot,
+            members=self.agents,
+            storages=self.storages,
+            japanese_mode=self.japanese_mode,
         )
         self._execute_steps()
         if self.copilot.confirm("Do you want to execute this application?"):

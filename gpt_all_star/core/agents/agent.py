@@ -154,9 +154,6 @@ class Agent(ABC):
             handle_parsing_errors=True,
         )
 
-    def current_source_code(self) -> str:
-        return self.storages.current_source_code(self.debug_mode)
-
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
     endpoint = os.getenv("ENDPOINT")
