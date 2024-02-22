@@ -24,6 +24,7 @@ from gpt_all_star.helper.multi_agent_collaboration_graph import (
     MultiAgentCollaborationGraph,
 )
 from gpt_all_star.helper.text_parser import TextParser
+from gpt_all_star.core import team_steps
 
 
 class Team:
@@ -104,7 +105,7 @@ class Team:
 
             self.supervisor.state("Planning tasks.")
             tasks = (
-                create_planning_chain(self.supervisor.profile).invoke(
+                team_steps.create_planning_chain(self.supervisor.profile).invoke(
                     {
                         "messages": [Message.create_human_message(planning_prompt)],
                     }
@@ -159,7 +160,7 @@ Reason: {task['reason']}
         planning_prompt = step.planning_prompt()
         additional_tasks = []
         self._assign_supervisor(planning_prompt)
-        self._run_task(planning_prompt, additional_tasks)
+        self._run(planning_prompt, additional_tasks)
 
         step.callback()
 
