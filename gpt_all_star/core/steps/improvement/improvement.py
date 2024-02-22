@@ -16,7 +16,6 @@ class Improvement(Step):
         request = self.copilot.ask(
             "What would you like to update?", is_required=True, default=None
         )
-
         planning_prompt = planning_prompt_template.format(
             request=request,
             current_source_code=self.storages.current_source_code(),

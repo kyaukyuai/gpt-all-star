@@ -63,7 +63,9 @@ class Team:
                         if self.supervisor.debug_mode:
                             self.supervisor.state(value)
                     else:
-                        self.supervisor.state(f"  ┗ {key} is in charge of it.")
+                        self.agents.get_agent_by_name(key).state(
+                            "  ┗ I am in charge of it."
+                        )
                         if self.supervisor.debug_mode:
                             latest_message = value.get("messages")[-1].content.strip()
                             self.supervisor.console.print(
