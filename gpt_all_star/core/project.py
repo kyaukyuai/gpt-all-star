@@ -98,6 +98,7 @@ class Project:
         self.team = Team(members=self.agents, japanese_mode=self.japanese_mode)
         self._execute_steps()
         Execution(
+            self.storages,
             self.agents,
             self.japanese_mode,
             self.review_mode,
