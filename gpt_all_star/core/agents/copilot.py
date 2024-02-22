@@ -35,14 +35,17 @@ class Copilot(Agent):
         )
         return project_name
 
-    def confirm_push(self):
+    def confirm(self, confirmation: str) -> bool:
         CONFIRM_CHOICES = ["yes", "no"]
         choice = self.present_choices(
-            "Proceed with commit and push to repository?",
+            confirmation,
             CONFIRM_CHOICES,
             default=1,
         )
         return choice == CONFIRM_CHOICES[0]
+
+    def confirm_push(self) -> bool:
+        return self.confirm("Proceed with commit and push to repository?")
 
     def load_instructions(
         self, file_path: str = "./gpt_all_star/instructions.yml"

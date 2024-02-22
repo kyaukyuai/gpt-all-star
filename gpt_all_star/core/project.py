@@ -95,16 +95,19 @@ class Project:
 
     def start(self) -> None:
         self.copilot.start(self.project_name)
-        self.team = Team(members=self.agents, japanese_mode=self.japanese_mode)
+        self.team = Team(
+            copilot=self.copilot, members=self.agents, japanese_mode=self.japanese_mode
+        )
         self._execute_steps()
-        Execution(
-            self.team,
-            self.storages,
-            self.agents,
-            self.japanese_mode,
-            self.review_mode,
-            self.debug_mode,
-        ).run()
+        if self.copilot.confirm("Do you want to execute this application?"):
+            Execution(
+                self.team,
+                self.storages,
+                self.agents,
+                self.japanese_mode,
+                self.review_mode,
+                self.debug_mode,
+            ).run()
 
     def finish(self) -> None:
         self.copilot.finish(self.project_name)

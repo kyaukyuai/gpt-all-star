@@ -26,10 +26,10 @@ from gpt_all_star.helper.text_parser import TextParser
 
 
 class Team:
-    def __init__(self, members: Agents, japanese_mode: bool = False):
+    def __init__(self, copilot: Copilot, members: Agents, japanese_mode: bool = False):
         self.japanese_mode = japanese_mode
         self.agents = members
-        self.copilot = Copilot()
+        self.copilot = copilot
         self.console = self.copilot.console.console
         self._graph: Optional[MultiAgentCollaborationGraph] = None
         self._initialize_team()
@@ -91,6 +91,9 @@ class Team:
             spinner="runner",
             speed=0.5,
         ):
+            if not self._graph:
+                self._assign_supervisor(planning_prompt)
+
             self._graph.supervisor.state("Planning tasks.")
             tasks = (
                 create_planning_chain(self._graph.supervisor.profile).invoke(
