@@ -1,6 +1,5 @@
 from rich.syntax import Syntax
 
-from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.agents.chain import create_git_commit_message_chain
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.message import Message
@@ -13,11 +12,9 @@ class Deployment:
         self,
         storages: Storages,
         copilot: Copilot,
-        agents: Agents,
     ) -> None:
         self.storages = storages
         self.copilot = copilot
-        self.agents = agents
 
     def run(self) -> None:
         git = Git(self.storages.root.path)
@@ -28,10 +25,7 @@ class Deployment:
 
         self.copilot.state("The following diff will be pushed to the repository")
         syntax = Syntax(git.diffs(), "diff", theme="monokai", line_numbers=True)
-        self.copilot.console.console.print(syntax)
-
-        if not self.copilot.confirm_push():
-            return
+        self.copilot.console.print(syntax)
 
         commit_info = create_git_commit_message_chain().invoke(
             {
@@ -59,11 +53,22 @@ The format should follow Conventional Commits.
         self.copilot.console.new_lines()
         self.copilot.state("Pushing to the repository...")
         try:
-            git.checkout(commit_info["branch"])
+            branch_name = (
+                commit_info["branch"]
+                if git.check_local_main_branch_exists()
+                else "main"
+            )
+            is_main_branch = branch_name == "main"
+
+            if not is_main_branch:
+                git.checkout(branch_name)
+
             git.add(files_to_add)
             git.commit(commit_info["message"])
             git.push()
-            self.copilot.state("Push successful!")
+
+            if not is_main_branch:
+                git.create_pull_request(branch_name)
         except Exception as e:
             self.copilot.state(
                 f"An error occurred while pushing to the repository: {str(e)}"
