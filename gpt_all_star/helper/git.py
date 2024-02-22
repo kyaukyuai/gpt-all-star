@@ -82,6 +82,15 @@ class Git:
         self.repo.index.add(files)
 
     def commit(self, commit_message: str = "Add files via gpt-all-star"):
+        """
+        Commit the changes in the repository.
+
+        Args:
+            commit_message (str): The message for the commit.
+
+        Returns:
+            None
+        """
         self.repo.index.commit(commit_message)
 
     def push(self):
