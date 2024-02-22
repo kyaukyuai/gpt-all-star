@@ -88,7 +88,21 @@ class Agent(ABC):
 
     def ask(self, question: str, is_required: bool = True, default: str = None) -> str:
         """Asks a question and collects user input.
+        """Returns the content of the latest message.
 
+        Returns:
+            str: The content of the latest message.
+        """
+        """Returns the content of the latest message.
+
+        Returns:
+            str: The content of the latest message.
+        """
+        """Returns the content of the latest message.
+
+        Returns:
+            str: The content of the latest message.
+        """
         Args:
             question (str): The question to ask.
             is_required (bool, optional): Whether the input is required. Defaults to True.
