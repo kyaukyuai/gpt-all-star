@@ -22,16 +22,6 @@ class QAEngineer(Agent):
     ) -> None:
         super().__init__(AgentRole.QA_ENGINEER, storages, debug_mode, name, profile)
 
-    def caution(self) -> None:
-        self.state("Executing the code...")
-        self.state(
-            "If it does not work as expected, please consider running the code"
-            + " in another way than above."
-        )
-        self.console.print(
-            "You can press ctrl+c *once* to stop the execution.", style="red"
-        )
-
     def run_command(self) -> None:
         command = "cd ./app && bash ./run.sh"
         try:

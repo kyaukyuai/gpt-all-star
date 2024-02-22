@@ -101,6 +101,7 @@ class Project:
             Execution(
                 self.team,
                 self.storages,
+                self.copilot,
                 self.agents,
             ).run()
         if self.copilot.confirm(
