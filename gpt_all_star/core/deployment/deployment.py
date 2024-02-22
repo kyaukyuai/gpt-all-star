@@ -1,6 +1,7 @@
 from rich.syntax import Syntax
 
 from gpt_all_star.core.agents.chain import create_git_commit_message_chain
+from gpt_all_star.helper.pull_request import PullRequest
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
@@ -68,7 +69,7 @@ The format should follow Conventional Commits.
             git.push()
 
             if not is_main_branch:
-                git.create_pull_request(branch_name)
+                PullRequest(git).create_pull_request(branch_name)
         except Exception as e:
             self.copilot.state(
                 f"An error occurred while pushing to the repository: {str(e)}"
