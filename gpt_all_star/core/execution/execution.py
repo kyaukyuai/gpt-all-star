@@ -1,5 +1,7 @@
 from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.agents.copilot import Copilot
+from gpt_all_star.core.agents.qa_engineer import QAEngineer
+from gpt_all_star.core.agents.qa_engineer import QAEngineer
 from gpt_all_star.core.execution.planning_prompt import planning_prompt_template
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.team import Team
@@ -24,7 +26,7 @@ class Execution:
         for attempt in range(MAX_ATTEMPTS):
             self.copilot.state(f"Attempt {attempt + 1}/{MAX_ATTEMPTS}")
             try:
-                self.agents.qa_engineer.run_command()
+                self.run_qa_command()
             except KeyboardInterrupt:
                 break
             except Exception as e:
