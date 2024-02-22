@@ -174,6 +174,14 @@ class Agent(ABC):
             handle_parsing_errors=True,
         )
     def current_source_code(self) -> str:
+        """Returns the current source code of the agent.
+
+        Returns:
+            str: The current source code of the agent.
+
+        Reference:
+            Python documentation on method docstrings
+        """
         """Returns the current source code of the agent."""
         source_code_contents = []
         for (
