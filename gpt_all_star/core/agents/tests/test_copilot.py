@@ -1,10 +1,34 @@
 import unittest
 from unittest.mock import MagicMock
 
-from gpt_all_star.core.agents.copilot import Copilot
+from gpt_all_star.core.agents.tests.test_copilot import Copilot
 
 
 class TestCopilot(unittest.TestCase):
+    def test_ask_project_name(self):
+        copilot = Copilot()
+        project_name = copilot.ask_project_name()
+        self.assertIsInstance(project_name, str, msg='Project name should be a string')
+        
+    def test_confirm(self):
+        copilot = Copilot()
+        self.assertTrue(copilot.confirm('yes'))
+        self.assertFalse(copilot.confirm('no'))
+        
+    def test_get_instructions(self):
+        copilot = Copilot()
+        instructions = copilot.get_instructions()
+        self.assertIsInstance(instructions, str, msg='Instructions should be a string')
+        
+    def test_get_app_type(self):
+        copilot = Copilot()
+        app_type = copilot.get_app_type()
+        self.assertTrue(app_type in ['Client-Side Web Application', 'Full-Stack Web Application'],
+                        msg='App type should be one of the predefined types')
+        
+    def test_caution(self):
+        copilot = Copilot()
+        self.assertIsNone(copilot.caution(), msg='Caution should return None')
     def test_confirm_push(self):
         # Mock dependencies
         copilot = Copilot()
