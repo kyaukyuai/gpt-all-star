@@ -153,7 +153,7 @@ class Agent(ABC):
         """
         return AGENT_PROFILES[self.role]
 
-    def _create_executor(self, tools: list) -> AgentExecutor:
+    _create_executor(self, tools: list) -> AgentExecutor:
         """Creates and returns an executor for the agent using the provided tools."""
         """Creates and returns an executor for the agent using the provided tools."""
         prompt = ChatPromptTemplate.from_messages(
