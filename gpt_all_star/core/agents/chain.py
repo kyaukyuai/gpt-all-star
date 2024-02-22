@@ -15,7 +15,7 @@ ACTIONS = [
 ]
 
 
-def create_supervisor_chain(self, members: list[Agent] = []):
+def create_supervisor_chain(members: list[Agent] = []):
     members = [member.name for member in members]
     options = ["FINISH"]
     options.extend(members)
@@ -106,8 +106,8 @@ Each worker will perform a task and respond with their results and status.
     )
 
 
-def create_planning_chain(self):
-    system_prompt = f"""{self.profile}
+def create_planning_chain(profile: str = ""):
+    system_prompt = f"""{profile}
 Based on the user request provided, your task is to generate a detail and specific plan that includes following items:
     - action: it must be one of {", ".join(ACTIONS)}
     - working_directory: a directory where the command is to be executed or the file is to be placed, it should be started from '.', e.g. './src/'
@@ -192,7 +192,7 @@ Given the conversation above, create a detailed and specific plan to fully meet 
     )
 
 
-def create_git_commit_message_chain(self):
+def create_git_commit_message_chain():
     system_prompt = "You are an excellent engineer. Given the diff information of the source code, please respond with the appropriate branch name and commit message for making the change."
     function_def = {
         "name": "commit_message",
