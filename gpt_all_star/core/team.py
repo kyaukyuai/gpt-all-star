@@ -41,7 +41,7 @@ class Team:
         self.copilot.state("Ok, we have a team now!")
         self._display_team_members()
 
-    def _assign_supervisor(self, planning_prompt: str | None):
+    def assign_supervisor(self, planning_prompt: str | None):
         supervisor_name = (
             create_assign_supervisor_chain(members=self.agents.to_array())
             .invoke({"messages": [Message.create_human_message(planning_prompt)]})
