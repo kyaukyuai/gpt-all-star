@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock
 
-from gpt_all_star.core.deployment.deployment import Deployment
+from gpt_all_star.core.deployment.deployment import Deployment, Storages, Copilot, create_git_commit_message_chain, Message
 from gpt_all_star.helper.git import Git
 
 
