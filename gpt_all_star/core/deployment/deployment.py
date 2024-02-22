@@ -4,7 +4,7 @@ from gpt_all_star.core.agents.chain import create_git_commit_message_chain
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
-from gpt_all_star.helper.git import Git
+from gpt_all_star.helper.git import Git, create_pull_request
 
 
 class Deployment:
