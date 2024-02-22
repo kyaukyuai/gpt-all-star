@@ -22,7 +22,7 @@ class Execution:
         self.copilot.caution()
         MAX_ATTEMPTS = 5
         for attempt in range(MAX_ATTEMPTS):
-            self.agents.qa_engineer.state(f"Attempt {attempt + 1}/{MAX_ATTEMPTS}")
+            self.copilot.state(f"Attempt {attempt + 1}/{MAX_ATTEMPTS}")
             try:
                 self.agents.qa_engineer.run_command()
             except KeyboardInterrupt:
