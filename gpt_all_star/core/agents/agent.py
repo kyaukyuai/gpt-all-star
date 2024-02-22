@@ -198,6 +198,18 @@ class Agent(ABC):
 
 
 def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
+    """Creates and returns a language model for the agent using the provided model name and temperature.
+
+    Args:
+        model_name (str): The name of the language model.
+        temperature (float): The temperature for model sampling.
+    
+    Returns:
+        BaseChatModel: The created language model.
+
+    Reference:
+        Python documentation on method docstrings
+    """
     endpoint = os.getenv("ENDPOINT")
     if endpoint == "AZURE":
         return _create_azure_chat_openai_instance(
