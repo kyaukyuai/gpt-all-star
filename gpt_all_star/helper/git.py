@@ -151,6 +151,12 @@ class Git:
         return any(head.name == "main" for head in self.repo.heads)
 
     def check_github_main_branch_exists(self) -> bool:
+        """
+        Check if the 'main' branch exists in the remote Github repository.
+
+        Returns:
+            bool: True if the 'main' branch exists, False otherwise.
+        """
         branches = self.github_repo.get_branches()
         return any(branch.name == "main" for branch in branches)
 
