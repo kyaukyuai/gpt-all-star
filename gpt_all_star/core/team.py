@@ -53,30 +53,46 @@ class Team:
         return self._graph.supervisor.storages
 
     def _run(self, messages: list[Message]):
-        try:
-            for output in self._graph.workflow.stream(
-                {"messages": messages},
-                config={"recursion_limit": 10},
-            ):
-                for key, value in output.items():
-                    if key == SUPERVISOR_NAME or key == "__end__":
-                        if self._graph.supervisor.debug_mode:
-                            self._graph.supervisor.state(value)
-                    else:
-                        self._graph.supervisor.state(f"  ┗ {key} is in charge of it.")
-                        if self._graph.supervisor.debug_mode:
-                            latest_message = value.get("messages")[-1].content.strip()
-                            self._graph.supervisor.console.print(
-                                f"""
-{key}:
----
-{latest_message}
+    def _execute_task(self, task):
+        if task["action"] == ACTIONS[0]:
+            todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
+        else:
+            todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
+
+        if self._graph.supervisor.debug_mode:
+            self._graph.supervisor.state(
+                f"""\n
+Task {i + 1}: {todo}
+Context: {task['context']}
+Objective: {task['objective']}
+Reason: {task['reason']}
 ---
 """
-                            )
-        except GraphRecursionError:
-            if self._graph.supervisor.debug_mode:
-                print("Recursion limit reached")
+            )
+        else:
+            self._graph.supervisor.state(
+                f"({(i+1)}/{len(tasks['plan'])}) {todo}"
+            )
+
+        message = Message.create_human_message(
+            implement_template.format(
+                task=todo,
+                objective=task["objective"],
+                context=task["context"],
+                reason=task["reason"],
+                implementation=self._graph.supervisor.current_source_code(),
+                specifications=self.storages().docs.get(
+                    "specifications.md", "N/A"
+                ),
+                technologies=self.storages().docs.get("technologies.md", "N/A"),
+                files=self.storages().docs.get("files.md", "N/A"),
+            )
+        )
+        self._run([message])
+
+    def _execute_tasks(self, tasks):
+        for i, task in enumerate(tasks["plan"]):
+            self._execute_task(task)
 
     def drive(
         self,
@@ -107,9 +123,7 @@ class Team:
                     json.dumps(tasks, indent=4, ensure_ascii=False)
                 )
 
-            for i, task in enumerate(tasks["plan"]):
-                if task["action"] == ACTIONS[0]:
-                    todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
+            self._execute_tasks(tasks)
                 else:
                     todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
 
