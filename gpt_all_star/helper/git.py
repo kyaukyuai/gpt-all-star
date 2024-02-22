@@ -7,6 +7,15 @@ from github import Github
 
 
 class Git:
+    """
+    This class represents a Git repository and provides methods for interacting with the repository.
+
+    Attributes:
+        repo_path (Path): The path to the local repository.
+        repo (git.Repo): The Git repository object.
+        github (Github): The Github object for interacting with the remote repository.
+        github_repo (Repository): The Github repository object for the remote repository.
+    """
     def __init__(self, repo_path: Path) -> None:
         self._create_new_github_repository(repo_path.name)
         self.repo_path = repo_path
