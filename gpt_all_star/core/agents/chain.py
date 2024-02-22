@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 
 from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
-from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder, extract_system_prompt, create_function_def
 
 from gpt_all_star.core.agents.agent import Agent, _create_llm
 
