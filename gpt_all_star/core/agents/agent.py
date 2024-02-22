@@ -33,6 +33,11 @@ NEXT_COMMAND = "next"
 
 
 class Agent(ABC):
+
+    def execute(self, commands):
+        result = None
+        # Write the business logic for the execute method here
+        return result
     def __init__(
         self,
         role: AgentRole,
