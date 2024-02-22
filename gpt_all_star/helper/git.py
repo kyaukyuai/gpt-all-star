@@ -26,6 +26,12 @@ class Git:
         )
 
     def files(self):
+        """
+        Returns a list of file paths within the repository, excluding certain directories and files.
+
+        Returns:
+            list: A list of file paths.
+        """
         return [
             str(file)
             for file in self.repo_path.rglob("*")
