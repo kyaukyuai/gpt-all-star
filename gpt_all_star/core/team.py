@@ -5,7 +5,7 @@ from langgraph.pregel import GraphRecursionError
 from rich.status import Status
 from rich.table import Table
 
-from gpt_all_star.cli.console_terminal import MAIN_COLOR, ConsoleTerminal
+from gpt_all_star.cli.console_terminal import MAIN_COLOR
 from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.agents.chain import (
@@ -13,6 +13,7 @@ from gpt_all_star.core.agents.chain import (
     create_assign_supervisor_chain,
     create_planning_chain,
 )
+from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.step import Step
@@ -27,26 +28,27 @@ from gpt_all_star.helper.text_parser import TextParser
 class Team:
     def __init__(self, members: Agents, japanese_mode: bool = False):
         self.japanese_mode = japanese_mode
-        self.console = ConsoleTerminal()
         self.agents = members
-        self.members = members.members()
+        self.copilot = Copilot()
+        self.console = self.copilot.console.console
         self._graph: Optional[MultiAgentCollaborationGraph] = None
-        self.agents.copilot.state("Let's start by building a team!")
-        self.console.new_lines()
+        self._initialize_team()
+
+    def _initialize_team(self):
+        self.copilot.state("Let's start by building a team!")
         self._introduce_agents()
-        self.console.new_lines()
-        self.agents.copilot.state("Ok, we have a team now!")
+        self.copilot.state("Ok, we have a team now!")
         self._display_team_members()
 
     def _assign_supervisor(self, planning_prompt: str | None):
         supervisor = (
-            create_assign_supervisor_chain(members=self.members)
+            create_assign_supervisor_chain(members=self.agents.to_array())
             .invoke({"messages": [Message.create_human_message(planning_prompt)]})
             .get("assign")
         )
         print(f"Supervisor assignment: {supervisor}.")
         self._graph = MultiAgentCollaborationGraph(
-            self.agents.get_agent_by_name(supervisor), self.members
+            self.agents.get_agent_by_name(supervisor), self.agents.to_array()
         )
 
     def storages(self):
@@ -101,7 +103,7 @@ Reason: {task['reason']}
     ):
         with Status(
             "[bold green]running...",
-            console=self.agents.copilot.console.console,
+            console=self.console,
             spinner="runner",
             speed=0.5,
         ):
@@ -167,6 +169,7 @@ Reason: {task['reason']}
     def _introduce_agents(self) -> None:
         agents_list = load_configuration("./gpt_all_star/agents.yml")
         if agents_list:
+            self.copilot.state("Loading members from `agent.yml`...")
             for agent_info in agents_list:
                 self._set_agent_attributes(agent_info)
         else:
@@ -186,25 +189,24 @@ Reason: {task['reason']}
 
     def _introduce_agents_manually(self) -> None:
         for role in AgentRole:
-            if role != AgentRole.COPILOT:
-                self._introduce_agent(getattr(self.agents, role.value), role)
+            self._introduce_agent(getattr(self.agents, role.value), role)
 
     def _introduce_agent(self, agent: Agent, role: AgentRole) -> None:
-        self.agents.copilot.state(f"Please introduce the {role.name}.")
+        self.copilot.state(f"Please introduce the {role.name}.")
         self._ask_agent_name(agent, role)
         self._ask_agent_profile(agent, role)
         self._add_instructions_to_profile(agent)
         agent.messages = [Message.create_system_message(agent.profile)]
 
     def _ask_agent_name(self, agent: Agent, role: AgentRole) -> None:
-        agent.name = self.agents.copilot.ask(
+        agent.name = self.copilot.ask(
             f"What is the name of the {role.name}?",
             is_required=False,
             default=agent.name,
         )
 
     def _ask_agent_profile(self, agent: Agent, role: AgentRole) -> None:
-        agent.profile = self.agents.copilot.ask(
+        agent.profile = self.copilot.ask(
             f"What is the profile of the {role.name}?",
             is_required=False,
             default=agent.profile,
@@ -217,11 +219,7 @@ Reason: {task['reason']}
         table.add_column("Name")
         table.add_column("Role")
         table.add_column("Profile")
-        team_members = [
-            agent
-            for agent in vars(self.agents).values()
-            if agent.role != AgentRole.COPILOT
-        ]
+        team_members = [agent for agent in vars(self.agents).values()]
         for member in team_members:
             table.add_row(
                 member.name,
@@ -231,4 +229,3 @@ Reason: {task['reason']}
                 ),
             )
         self.console.print(table)
-        self.console.new_lines(1)
