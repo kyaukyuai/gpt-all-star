@@ -75,6 +75,14 @@ class Agent(ABC):
         self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
 
     def output_md(self, md: str) -> None:
+        """Prints the output in Markdown format.
+
+        Args:
+            md (str): The content to be displayed in Markdown format.
+
+        Returns:
+            None
+        """
         self.console.print(Panel(Markdown(md, style="bold")))
 
     def ask(self, question: str, is_required: bool = True, default: str = None) -> str:
