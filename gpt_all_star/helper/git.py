@@ -70,6 +70,15 @@ class Git:
             return False
 
     def add(self, files):
+        """
+        Add files to the staging area.
+
+        Args:
+            files: The files to be added.
+
+        Returns:
+            None
+        """
         self.repo.index.add(files)
 
     def commit(self, commit_message: str = "Add files via gpt-all-star"):
