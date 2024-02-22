@@ -22,14 +22,17 @@ class Execution:
         self.copilot.caution()
         MAX_ATTEMPTS = 5
         for attempt in range(MAX_ATTEMPTS):
-            self.agents.qa_engineer.state(f"Attempt {attempt + 1}/{MAX_ATTEMPTS}")
-            try:
-                self.agents.qa_engineer.run_command()
-            except KeyboardInterrupt:
-                break
-            except Exception as e:
-                planning_prompt = planning_prompt_template.format(
-                    error=e,
-                    current_source_code=self.storages.current_source_code(),
-                )
-                self.team.run(planning_prompt)
+            self._run_attempt(attempt)
+            
+    def _run_attempt(self, attempt: int) -> None:
+        self.agents.qa_engineer.state(f"Attempt {attempt + 1}/{MAX_ATTEMPTS}")
+        try:
+            self.agents.qa_engineer.run_command()
+        except KeyboardInterrupt:
+            break
+        except Exception as e:
+            planning_prompt = planning_prompt_template.format(
+                error=e,
+                current_source_code=self.storages.current_source_code(),
+            )
+            self.team.run(planning_prompt)
