@@ -71,6 +71,7 @@ class Agent(ABC):
         self.executor = self._create_executor(self.tools)
 
     def state(self, text: str) -> None:
+        """Prints the state of the agent with the specified text."""
         self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
 
     def output_md(self, md: str) -> None:
@@ -130,7 +131,6 @@ class Agent(ABC):
             verbose=self.debug_mode,
             handle_parsing_errors=True,
         )
-
     def current_source_code(self) -> str:
         """Returns the current source code of the agent."""
         source_code_contents = []
