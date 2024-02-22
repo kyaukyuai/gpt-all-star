@@ -9,10 +9,9 @@ class Improvement(Step):
         self,
         copilot: Copilot,
         storages: Storages,
-        review_mode: bool,
         debug_mode: bool,
     ) -> None:
-        super().__init__(copilot, storages, review_mode, debug_mode)
+        super().__init__(copilot, storages, debug_mode)
 
     def planning_prompt(self) -> str:
         request = self.copilot.ask(

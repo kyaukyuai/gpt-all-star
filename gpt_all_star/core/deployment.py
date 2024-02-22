@@ -11,12 +11,10 @@ class Deployment:
     def __init__(
         self,
         agents: Agents,
-        review_mode: bool,
         debug_mode: bool,
     ) -> None:
         self.console = ConsoleTerminal()
         self.agents = agents
-        self.review_mode = review_mode
         self.debug_mode = debug_mode
 
     def run(self) -> None:
@@ -30,7 +28,7 @@ class Deployment:
         syntax = Syntax(git.diffs(), "diff", theme="monokai", line_numbers=True)
         self.console.print(syntax)
 
-        if not self.agents.copilot.confirm_push() and self.review_mode:
+        if not self.agents.copilot.confirm_push():
             return
 
         commit_info = create_git_commit_message_chain().invoke(

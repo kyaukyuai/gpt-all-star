@@ -22,33 +22,15 @@ class QAEngineer(Agent):
     ) -> None:
         super().__init__(AgentRole.QA_ENGINEER, storages, debug_mode, name, profile)
 
-    def confirm_execution(self, review_mode: bool, command: str) -> None:
-        if review_mode:
-            self.console.new_lines()
-            CONFIRM_CHOICES = ["yes", "no"]
-            choice = self.present_choices(
-                "Do you want to execute this code?",
-                CONFIRM_CHOICES,
-                default=1,
-            )
-            self.console.new_lines()
-            self.console.print(command)
-            self.console.new_lines()
-            if choice == CONFIRM_CHOICES[1]:
-                print("Ok, not executing the code.")
-                return []
-
+    def caution(self) -> None:
         self.state("Executing the code...")
-        self.console.new_lines()
         self.state(
             "If it does not work as expected, please consider running the code"
             + " in another way than above."
         )
-        self.console.new_lines()
         self.console.print(
             "You can press ctrl+c *once* to stop the execution.", style="red"
         )
-        self.console.new_lines()
 
     def run_command(self) -> None:
         command = "cd ./app && bash ./run.sh"

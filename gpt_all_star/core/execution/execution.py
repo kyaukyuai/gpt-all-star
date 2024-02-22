@@ -10,20 +10,15 @@ class Execution:
         team: Team,
         storages: Storages,
         agents: Agents,
-        review_mode: bool,
         debug_mode: bool,
     ) -> None:
         self.team = team
         self.storages = storages
         self.agents = agents
-        self.review_mode = review_mode
         self.debug_mode = debug_mode
 
     def run(self) -> None:
-        self.agents.qa_engineer.confirm_execution(
-            review_mode=self.review_mode,
-            command=self.agents.qa_engineer.storages.root["./app/run.sh"],
-        )
+        self.agents.qa_engineer.caution()
         MAX_ATTEMPTS = 5
         for attempt in range(MAX_ATTEMPTS):
             self.agents.qa_engineer.state(f"Attempt {attempt + 1}/{MAX_ATTEMPTS}")

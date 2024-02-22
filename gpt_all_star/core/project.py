@@ -84,7 +84,6 @@ class Project:
                 step(
                     self.copilot,
                     self.storages,
-                    self.review_mode,
                     self.debug_mode,
                 )
             )
@@ -103,7 +102,6 @@ class Project:
                 self.team,
                 self.storages,
                 self.agents,
-                self.review_mode,
                 self.debug_mode,
             ).run()
 
