@@ -70,6 +70,7 @@ class QAEngineer(Agent):
             process.terminate()
         except KeyboardInterrupt:
             self._handle_keyboard_interrupt()
+            raise KeyboardInterrupt
 
     def _wait_for_server(self) -> bool:
         MAX_ATTEMPTS = 30
