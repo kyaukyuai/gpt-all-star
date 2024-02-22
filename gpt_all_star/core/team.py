@@ -34,7 +34,7 @@ class Team:
         storages: Storages,
         japanese_mode: bool = False,
     ):
-        self.storages = storages
+        self.storages = storages  # The Storages object. Add description of the parameter here
         self.japanese_mode = japanese_mode
         self.agents = members
         self.copilot = copilot
