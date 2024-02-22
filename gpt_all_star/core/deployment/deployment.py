@@ -48,6 +48,12 @@ The format should follow Conventional Commits.
                     )
                 ],
             }
+        """
+        Confirms the push to the repository.
+        """
+        """
+        Confirms the push to the repository.
+        """
         )
 
         self.copilot.console.new_lines()
