@@ -15,7 +15,6 @@ from gpt_all_star.core.execution.execution import Execution
 from gpt_all_star.core.steps.steps import STEPS, StepType
 from gpt_all_star.core.storage import Storage, Storages
 from gpt_all_star.core.team import Team
-from gpt_all_star.core.team_building import TeamBuilding
 
 
 class Project:
@@ -81,7 +80,7 @@ class Project:
 
     def _execute_step(self, step) -> None:
         try:
-            Team(members=self.agents).go(
+            self.team.run(
                 step(
                     self.agents,
                     self.japanese_mode,
@@ -97,12 +96,7 @@ class Project:
 
     def start(self) -> None:
         self.agents.copilot.start(self.project_name)
-        TeamBuilding(
-            self.agents,
-            self.japanese_mode,
-            self.review_mode,
-            self.debug_mode,
-        ).run()
+        self.team = Team(members=self.agents, japanese_mode=self.japanese_mode)
         self._execute_steps()
         Execution(
             self.agents,

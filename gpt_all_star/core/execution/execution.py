@@ -36,8 +36,6 @@ class Execution:
                     current_source_code=self.agents.copilot.current_source_code(),
                 )
 
-                team = Team(
-                    members=self.agents,
-                )
-                team.build(planning_prompt)
+                team = Team(members=self.agents)
+                team._assign_supervisor(planning_prompt)
                 team.drive(planning_prompt)
