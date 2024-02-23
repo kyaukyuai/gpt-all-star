@@ -86,17 +86,17 @@ class Storages:
     docs: Storage
     archive: Storage
 
-    @staticmethod
-    def archive_storage(storages: Storages) -> None:
+    def archive_storage(self) -> None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        destination = os.path.join(storages.archive.path, timestamp)
+        destination = os.path.join(self.archive.path, timestamp)
 
         if not os.path.exists(destination):
             os.makedirs(destination)
 
-        for item in os.listdir(storages.root.path):
+        for item in os.listdir(self.root.path):
             if item != ".archive":
-                shutil.move(os.path.join(storages.root.path, item), destination)
+                shutil.move(os.path.join(self.root.path, item), destination)
+        self.docs.path.mkdir(parents=True, exist_ok=True)
 
     def current_source_code(self, debug_mode: bool = False) -> str:
         source_code_contents = []
@@ -106,6 +106,8 @@ class Storages:
         ) in self.root.recursive_file_search().items():
             if debug_mode:
                 print(f"Adding file {filename} to the prompt...")
-            formatted_code = format_file_to_input(filename, file_content)
+            formatted_code = format_file_to_input(
+                os.path.relpath(filename, self.root.path), file_content
+            )
             source_code_contents.append(formatted_code)
         return "\n".join(source_code_contents) if source_code_contents else "N/A"

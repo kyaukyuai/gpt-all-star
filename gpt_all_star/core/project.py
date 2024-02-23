@@ -74,8 +74,8 @@ class Project:
     def _set_step_type(self, step: StepType) -> None:
         self.step_type = step or StepType.DEFAULT
         if self.step_type is StepType.DEFAULT:
-            self.copilot.state("Archiving previous storages...")
-            Storages.archive_storage(self.storages)
+            self.copilot.state("Archiving previous results...")
+            self.storages.archive_storage()
 
     def _execute_steps(self) -> None:
         try:
