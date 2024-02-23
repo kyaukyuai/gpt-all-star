@@ -3,21 +3,18 @@ from rich.syntax import Syntax
 from gpt_all_star.core.agents.chain import create_git_commit_message_chain
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.message import Message
-from gpt_all_star.core.storage import Storages
 from gpt_all_star.helper.git import Git
 
 
 class Deployment:
     def __init__(
         self,
-        storages: Storages,
         copilot: Copilot,
     ) -> None:
-        self.storages = storages
         self.copilot = copilot
 
     def run(self) -> None:
-        git = Git(self.storages.root.path)
+        git = Git(self.copilot.storages.root.path)
         files_to_add = git.files()
         if not files_to_add:
             self.copilot.state("No files to add to the repository.")

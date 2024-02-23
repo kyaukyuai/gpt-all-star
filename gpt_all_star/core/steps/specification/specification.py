@@ -3,16 +3,14 @@ from gpt_all_star.core.steps.specification.additional_tasks import (
     create_additional_tasks,
 )
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.core.storage import Storages
 
 
 class Specification(Step):
     def __init__(
         self,
         copilot: Copilot,
-        storages: Storages,
     ) -> None:
-        super().__init__(copilot, storages)
+        super().__init__(copilot)
 
     def planning_prompt(self) -> str:
         return ""
@@ -34,4 +32,4 @@ app_type:
         return create_additional_tasks(app_type, instructions)
 
     def callback(self) -> None:
-        self.copilot.output_md(self.storages.docs.get("specifications.md", ""))
+        self.copilot.output_md(self.copilot.storages.docs.get("specifications.md", ""))

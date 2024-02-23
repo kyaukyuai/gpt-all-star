@@ -17,7 +17,6 @@ from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.core.storage import Storages
 from gpt_all_star.helper.config_loader import load_configuration
 from gpt_all_star.helper.multi_agent_collaboration_graph import (
     SUPERVISOR_NAME,
@@ -31,10 +30,8 @@ class Team:
         self,
         copilot: Copilot,
         members: Agents,
-        storages: Storages,
         japanese_mode: bool = False,
     ):
-        self.storages = storages
         self.japanese_mode = japanese_mode
         self.agents = members
         self.copilot = copilot
@@ -145,12 +142,14 @@ Reason: {task['reason']}
                         objective=task["objective"],
                         context=task["context"],
                         reason=task["reason"],
-                        implementation=self.storages.current_source_code(),
-                        specifications=self.storages.docs.get(
+                        implementation=self.copilot.storages.current_source_code(),
+                        specifications=self.copilot.storages.docs.get(
                             "specifications.md", "N/A"
                         ),
-                        technologies=self.storages.docs.get("technologies.md", "N/A"),
-                        files=self.storages.docs.get("files.md", "N/A"),
+                        technologies=self.copilot.storages.docs.get(
+                            "technologies.md", "N/A"
+                        ),
+                        files=self.copilot.storages.docs.get("files.md", "N/A"),
                     )
                 )
                 self._execute([message])
