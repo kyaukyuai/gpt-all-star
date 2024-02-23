@@ -27,7 +27,6 @@ STEPS = {
         SystemDesign,
         Development,
         Entrypoint,
-        UIDesign,
     ],
     StepType.BUILD: [
         Development,
