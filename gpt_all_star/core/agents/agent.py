@@ -76,19 +76,21 @@ class Agent(ABC):
     def output_md(self, md: str) -> None:
         self.console.print(Panel(Markdown(md, style="bold")))
 
-    def output_files(self, storages: Storages, exclude_dirs=[]) -> None:
+    def output_files(self, exclude_dirs=[]) -> None:
         table = Table(show_header=True, header_style="bold magenta")
         table.add_column("Name", width=40)
         table.add_column("Size(Bytes)", style="dim", justify="right")
         table.add_column("Date Modified", style="dim", justify="right")
 
-        for root, dirs, files in os.walk(storages.root.path):
+        for root, dirs, files in os.walk(self.storages.root.path):
             dirs[:] = [d for d in dirs if d not in exclude_dirs]
 
             for filename in files:
                 filepath = os.path.join(root, filename)
                 if os.path.isfile(filepath):
-                    relative_path = os.path.relpath(filepath, start=storages.root.path)
+                    relative_path = os.path.relpath(
+                        filepath, start=self.storages.root.path
+                    )
                     stat = os.stat(filepath)
                     filesize = stat.st_size
                     mtime = datetime.fromtimestamp(stat.st_mtime).strftime(
