@@ -11,6 +11,7 @@ class Development(Step):
         copilot: Copilot,
     ) -> None:
         super().__init__(copilot)
+        self.working_directory = self.copilot.storages.app.path.absolute()
 
     def planning_prompt(self) -> str:
         planning_prompt = planning_prompt_template.format(

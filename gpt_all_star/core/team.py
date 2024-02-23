@@ -156,6 +156,8 @@ Reason: {task['reason']}
     def run(self, step: Step):
         planning_prompt = step.planning_prompt()
         additional_tasks = step.additional_tasks()
+        for agent in self.agents.to_array():
+            agent.set_executor(step.working_directory)
         self._assign_supervisor(planning_prompt)
         self._run(planning_prompt, additional_tasks)
 

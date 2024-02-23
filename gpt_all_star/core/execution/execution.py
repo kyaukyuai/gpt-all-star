@@ -11,6 +11,7 @@ class Execution:
     ) -> None:
         self.team = team
         self.copilot = copilot
+        self.working_directory = self.copilot.storages.app.path.absolute()
 
     def run(self) -> None:
         self.copilot.caution()
@@ -26,4 +27,6 @@ class Execution:
                     error=e,
                     current_source_code=self.copilot.storages.current_source_code(),
                 )
+                for agent in self.team.agents.to_array():
+                    agent.set_executor(self.working_directory)
                 self.team._run(planning_prompt)

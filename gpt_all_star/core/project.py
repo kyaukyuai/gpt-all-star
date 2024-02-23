@@ -50,6 +50,7 @@ class Project:
         self.storages = Storages(
             root=Storage(project_path),
             docs=Storage(project_path / "docs"),
+            app=Storage(project_path / "app"),
             archive=Storage(project_path / ".archive"),
         )
 

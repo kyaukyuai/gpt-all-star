@@ -1,7 +1,7 @@
 additional_tasks = [
     {
         "action": "Add a new file",
-        "working_directory": "./docs",
+        "working_directory": "./",
         "filename": "technologies.md",
         "command": "",
         "context": """This task requires compiling a precise list of technologies for building an application, focusing on source code implementation.
@@ -19,7 +19,7 @@ This approach minimizes integration issues, optimizes development efforts, and e
     },
     {
         "action": "Add a new file",
-        "working_directory": "./docs",
+        "working_directory": "./",
         "filename": "files.md",
         "command": "",
         "context": """Your task is to make sure you have an exhaustive list of all file names needed for the application.

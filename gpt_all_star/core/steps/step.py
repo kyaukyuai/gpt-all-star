@@ -10,6 +10,7 @@ class Step(ABC):
     ) -> None:
         self.copilot = copilot
         self.copilot.console.section(f"STEP: {self.__class__.__name__}")
+        self.working_directory = self.copilot.storages.root.path.absolute()
 
     @abstractmethod
     def planning_prompt(self) -> str:

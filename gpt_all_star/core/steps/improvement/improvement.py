@@ -9,6 +9,7 @@ class Improvement(Step):
         copilot: Copilot,
     ) -> None:
         super().__init__(copilot)
+        self.working_directory = self.copilot.storages.app.path.absolute()
 
     def planning_prompt(self) -> str:
         request = self.copilot.ask(

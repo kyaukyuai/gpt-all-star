@@ -84,6 +84,7 @@ class Storage:
 class Storages:
     root: Storage
     docs: Storage
+    app: Storage
     archive: Storage
 
     def archive_storage(self) -> None:
@@ -97,17 +98,18 @@ class Storages:
             if item != ".archive":
                 shutil.move(os.path.join(self.root.path, item), destination)
         self.docs.path.mkdir(parents=True, exist_ok=True)
+        self.app.path.mkdir(parents=True, exist_ok=True)
 
     def current_source_code(self, debug_mode: bool = False) -> str:
         source_code_contents = []
         for (
             filename,
             file_content,
-        ) in self.root.recursive_file_search().items():
+        ) in self.app.recursive_file_search().items():
             if debug_mode:
                 print(f"Adding file {filename} to the prompt...")
             formatted_code = format_file_to_input(
-                os.path.relpath(filename, self.root.path), file_content
+                f"./{os.path.relpath(filename, self.app.path)}", file_content
             )
             source_code_contents.append(formatted_code)
         return "\n".join(source_code_contents) if source_code_contents else "N/A"

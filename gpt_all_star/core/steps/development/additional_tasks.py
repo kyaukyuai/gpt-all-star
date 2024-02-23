@@ -1,7 +1,7 @@
 additional_tasks = [
     {
         "action": "Add a new file",
-        "working_directory": "./app/",
+        "working_directory": "./",
         "filename": "",
         "command": "",
         "context": """This task involves actively implementing any files identified as missing or incomplete from the docs/files.md review, in accordance with the project specifications.
@@ -17,7 +17,7 @@ This approach guarantees that the application functions as intended and fulfills
     },
     {
         "action": "Add a new file",
-        "working_directory": "./app",
+        "working_directory": "./",
         "filename": "run.sh",
         "command": "",
         "context": """The run.sh script is created to automate the setup and execution processes within the project without needing global installations or superuser privileges.
@@ -34,7 +34,7 @@ This approach not only safeguards the system's integrity but also enhances the p
     },
     {
         "action": "Add a new file",
-        "working_directory": "./app",
+        "working_directory": "./",
         "filename": "README.md",
         "command": "",
         "context": """The README.md file is the gateway to understanding the project,

@@ -11,6 +11,7 @@ class Specification(Step):
         copilot: Copilot,
     ) -> None:
         super().__init__(copilot)
+        self.working_directory = self.copilot.storages.docs.path.absolute()
 
     def planning_prompt(self) -> str:
         return ""

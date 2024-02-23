@@ -55,16 +55,20 @@ class Agent(ABC):
         self.messages: list[BaseMessage] = [Message.create_system_message(self.profile)]
         self.storages = storages
         self.debug_mode = debug_mode
-
-        working_directory = (
-            self.storages.root.path.absolute() if self.storages else os.getcwd()
+        self.additional_tools = tools
+        self.set_executor(
+            working_directory=(
+                self.storages.root.path.absolute() if self.storages else os.getcwd()
+            )
         )
+
+    def set_executor(self, working_directory: str) -> None:
         file_tools = FileManagementToolkit(
             root_dir=str(working_directory),
             selected_tools=["read_file", "write_file", "list_directory", "file_delete"],
         ).get_tools()
         self.tools = (
-            tools
+            self.additional_tools
             + file_tools
             + [ShellTool(verbose=self.debug_mode, root_dir=str(working_directory))]
         )
@@ -82,14 +86,14 @@ class Agent(ABC):
         table.add_column("Size(Bytes)", style="dim", justify="right")
         table.add_column("Date Modified", style="dim", justify="right")
 
-        for root, dirs, files in os.walk(self.storages.root.path):
+        for root, dirs, files in os.walk(self.storages.app.path):
             dirs[:] = [d for d in dirs if d not in exclude_dirs]
 
             for filename in files:
                 filepath = os.path.join(root, filename)
                 if os.path.isfile(filepath):
                     relative_path = os.path.relpath(
-                        filepath, start=self.storages.root.path
+                        filepath, start=self.storages.app.path
                     )
                     stat = os.stat(filepath)
                     filesize = stat.st_size
