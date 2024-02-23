@@ -1,5 +1,8 @@
 from enum import Enum
 
+
+"""Module containing the definition of different types of steps."""
+
 from gpt_all_star.core.steps.development.development import Development
 from gpt_all_star.core.steps.entrypoint.entrypoint import Entrypoint
 from gpt_all_star.core.steps.improvement.improvement import Improvement
@@ -8,6 +11,7 @@ from gpt_all_star.core.steps.system_design.system_design import SystemDesign
 from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
 
 
+"""Representation of different steps types for the execution of workflows."""
 class StepType(str, Enum):
     NONE = "none"
     DEFAULT = "default"
