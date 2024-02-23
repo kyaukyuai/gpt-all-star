@@ -1,8 +1,8 @@
 import unittest
 
-from gpt_all_star.core.steps.entrypoint.entrypoint import Entrypoint
+from gpt_all_star.core.steps.entrypoint.entrypoint import Entrypoint,StepType
 from gpt_all_star.core.steps.steps import STEPS, StepType
-from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
+from gpt_all_star.core.steps.ui_design.ui_design import UIDesign,StepType
 
 
 class TestSteps(unittest.TestCase):
