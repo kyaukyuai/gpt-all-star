@@ -9,7 +9,6 @@ Create a detailed and specific development plan from project creation to source 
 # Constraints
 ---
 - The application specifications must be carefully understood and accurately reflect the specifications.
-- Finally, create `run.sh`, a bash script to automate the setup and execution processes within the project without needing global installations or superuser privileges.
 
 # Requirements
 ---
