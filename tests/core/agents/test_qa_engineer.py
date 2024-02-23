@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from gpt_all_star.core.agents.qa_engineer import QAEngineer
+from gpt_all_star.core.agents.qa_engineer import QAEngineer, ModuleA, ModuleB
 
 
 class TestQAEngineer(unittest.TestCase):
