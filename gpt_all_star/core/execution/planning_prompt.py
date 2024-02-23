@@ -17,8 +17,6 @@ Understand the exact error wording and be sure to correct it.
 
 # Current implementation
 ---
-```
 {current_source_code}
-```
 """
 )
