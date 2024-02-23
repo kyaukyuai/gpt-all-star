@@ -5,6 +5,10 @@ from gpt_all_star.core.steps.development.planning_prompt import planning_prompt_
 
 
 class TestDevelopment:
+    pass
+
+
+class TestDevelopmentClass:
     def test_planning_prompt(self):
         copilot = Copilot()
         development = Development(copilot)
