@@ -1,6 +1,6 @@
 from rich.syntax import Syntax
 
-from gpt_all_star.core.agents.chain import create_git_commit_message_chain
+from gpt_all_star.core.agents.chain import Chain
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.message import Message
 from gpt_all_star.helper.git import Git
@@ -24,11 +24,14 @@ class Deployment:
         syntax = Syntax(git.diffs(), "diff", theme="monokai", line_numbers=True)
         self.copilot.console.print(syntax)
 
-        commit_info = create_git_commit_message_chain().invoke(
-            {
-                "messages": [
-                    Message.create_human_message(
-                        f"""
+        commit_info = (
+            Chain()
+            .create_git_commit_message_chain()
+            .invoke(
+                {
+                    "messages": [
+                        Message.create_human_message(
+                            f"""
 # Instructions
 ---
 Generate an appropriate branch name and commit message showing the following diffs.
@@ -42,9 +45,10 @@ The format should follow Conventional Commits.
 {git.diffs()}
 ```
 """
-                    )
-                ],
-            }
+                        )
+                    ],
+                }
+            )
         )
 
         self.copilot.console.new_lines()

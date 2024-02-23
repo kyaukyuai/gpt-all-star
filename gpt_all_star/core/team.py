@@ -8,11 +8,7 @@ from rich.table import Table
 from gpt_all_star.cli.console_terminal import MAIN_COLOR
 from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.agents.agents import Agents
-from gpt_all_star.core.agents.chain import (
-    ACTIONS,
-    create_assign_supervisor_chain,
-    create_planning_chain,
-)
+from gpt_all_star.core.agents.chain import ACTIONS, Chain
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
@@ -48,7 +44,8 @@ class Team:
 
     def _assign_supervisor(self, planning_prompt: str | None):
         supervisor_name = (
-            create_assign_supervisor_chain(members=self.agents.to_array())
+            Chain()
+            .create_assign_supervisor_chain(members=self.agents.to_array())
             .invoke({"messages": [Message.create_human_message(planning_prompt)]})
             .get("assign")
         )
@@ -101,7 +98,9 @@ class Team:
 
             self.supervisor.state("Planning tasks.")
             tasks = (
-                create_planning_chain(self.supervisor.profile).invoke(
+                Chain()
+                .create_planning_chain(self.supervisor.profile)
+                .invoke(
                     {
                         "messages": [Message.create_human_message(planning_prompt)],
                     }
