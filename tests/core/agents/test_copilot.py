@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 import requests
-from gpt_all_star.core.agents.copilot import Copilot
+from gpt_all_star.core.agents.copilot import Copilot, subprocess, requests, webdriver, Options
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
