@@ -12,7 +12,7 @@ class TestQAEngineer(unittest.TestCase):
         pass
 
     def test_run_command(self):
-        # TODO: Write unit tests to cover the new business logic in the "run_command" method
+        # Add unit tests to cover the new business logic in the "run_command" method
         pass
 
 
