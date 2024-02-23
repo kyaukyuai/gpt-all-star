@@ -24,3 +24,7 @@ class Development(Step):
 
     def callback(self) -> None:
         self.copilot.output_files(exclude_dirs=[".archive", "node_modules"])
+        ]
+
+    def callback(self) -> None:
+        self.copilot.output_files(exclude_dirs=[".archive", "node_modules"])
