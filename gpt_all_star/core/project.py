@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os.path
+import time
 from pathlib import Path
 
 from gpt_all_star.core.agents.agents import Agents
@@ -28,6 +29,7 @@ class Project:
         debug_mode: bool = False,
     ) -> None:
         self.copilot = Copilot()
+        self.start_time = None
         self._set_modes(japanese_mode, review_mode, debug_mode)
         self._set_project_name(project_name)
         self._set_storages()
@@ -93,6 +95,7 @@ class Project:
             raise e
 
     def start(self) -> None:
+        self.start_time = time.time()
         self.copilot.start(self.project_name)
         self.team = Team(
             copilot=self.copilot,
@@ -108,4 +111,10 @@ class Project:
             Deployment(self.copilot).run()
 
     def finish(self) -> None:
+        if self.start_time:
+            end_time = time.time()
+            elapsed_time = end_time - self.start_time
+            self.copilot.state(
+                f"Project finished. Elapsed time: {elapsed_time:.2f} seconds."
+            )
         self.copilot.finish(self.project_name)
