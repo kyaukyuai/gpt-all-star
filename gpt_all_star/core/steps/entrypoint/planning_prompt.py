@@ -8,9 +8,9 @@ Create a detailed and specific development plan to create `run.sh` script to aut
 
 # Constraints
 ---
-- The run.sh script is created to automate the setup and execution processes within the project without needing global installations or superuser privileges.
-- The script encapsulates commands for locally installing dependencies, setting environment variables, and starting necessary parts of the codebase in parallel.
-- It must adhere to security best practices and be based on project-specific requirements.
+- The `run.sh` script is created to automate the setup and execution processes within the project without needing global installations or superuser privileges.
+- Check the current implementation and directory structure and be sure to launch the application.
+- Do not use Docker.
 
 # Current implementation
 ---
