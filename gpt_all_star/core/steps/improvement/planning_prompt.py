@@ -17,8 +17,6 @@ Must always fulfill the user's request exactly.
 
 # Current implementation
 ---
-```
 {current_source_code}
-```
 """
 )

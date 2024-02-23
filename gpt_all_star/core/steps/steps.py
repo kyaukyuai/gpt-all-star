@@ -1,6 +1,7 @@
 from enum import Enum
 
 from gpt_all_star.core.steps.development.development import Development
+from gpt_all_star.core.steps.entrypoint.entrypoint import Entrypoint
 from gpt_all_star.core.steps.improvement.improvement import Improvement
 from gpt_all_star.core.steps.specification.specification import Specification
 from gpt_all_star.core.steps.system_design.system_design import SystemDesign
@@ -14,6 +15,7 @@ class StepType(str, Enum):
     SPECIFICATION = "specification"
     SYSTEM_DESIGN = "system_design"
     DEVELOPMENT = "development"
+    ENTRYPOINT = "entrypoint"
     UI_DESIGN = "ui_design"
     IMPROVEMENT = "improvement"
 
@@ -24,15 +26,18 @@ STEPS = {
         Specification,
         SystemDesign,
         Development,
+        Entrypoint,
         UIDesign,
     ],
     StepType.BUILD: [
         Development,
+        Entrypoint,
         UIDesign,
     ],
     StepType.SPECIFICATION: [Specification],
     StepType.SYSTEM_DESIGN: [SystemDesign],
     StepType.DEVELOPMENT: [Development],
+    StepType.ENTRYPOINT: [Entrypoint],
     StepType.UI_DESIGN: [UIDesign],
     StepType.IMPROVEMENT: [Improvement],
 }
