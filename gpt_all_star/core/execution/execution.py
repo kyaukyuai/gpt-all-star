@@ -31,8 +31,8 @@ Generate an command to execute the application.
 # Constraints
 ---
 - The command must be executed in the directory: {self.copilot.storages.app.path.absolute()}
+- Check the current implementation and directory structure and be sure to launch the application.
 - If run.sh exists, use it in preference.
-
 
 # Current Implementation
 ---
