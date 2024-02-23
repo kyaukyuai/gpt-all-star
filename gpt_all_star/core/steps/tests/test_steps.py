@@ -56,4 +56,4 @@ class TestSteps(unittest.TestCase):
         self.assertIn(Entrypoint, STEPS[StepType.IMPROVEMENT])
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(module=__name__)
