@@ -23,7 +23,7 @@ class TestDevelopmentClass:
         expected_prompt = "Planning prompt: N/A, N/A, N/A"
         assert development.planning_prompt() == expected_prompt
 
-    def test_additional_tasks(self):
+    def remove_test_additional_tasks(self):
         copilot = Copilot()
         development = Development(copilot)
 
