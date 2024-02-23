@@ -17,6 +17,7 @@ class StepType(str, Enum):
     DEVELOPMENT = "development"
     ENTRYPOINT = "entrypoint"
     UI_DESIGN = "ui_design"
+    """Represents the UI design step."""
     IMPROVEMENT = "improvement"
 
 
