@@ -22,10 +22,5 @@ Create a detailed and specific development plan from project creation to source 
 ```technologies.md
 {technologies}
 ```
-
-## Files to be implemented
-```files.md
-{files}
-```
 """
 )

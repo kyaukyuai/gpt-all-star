@@ -148,7 +148,6 @@ Reason: {task['reason']}
                         technologies=self.copilot.storages.docs.get(
                             "technologies.md", "N/A"
                         ),
-                        files=self.copilot.storages.docs.get("files.md", "N/A"),
                     )
                 )
                 self._execute([message])
