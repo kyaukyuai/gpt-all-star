@@ -7,7 +7,7 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 import requests
-from gpt_all_star.core.agents.copilot import Copilot, subprocess, requests, webdriver, Options
+from gpt_all_star.core.agents.copilot import Copilot
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -33,6 +33,19 @@ class TestCopilot(unittest.TestCase):
             b"Error line 2\n",
             b"",
         ]
+        mock_popen = MagicMock(return_value=mock_process)
+        with patch("subprocess.Popen", mock_popen):
+            self.copilot.run_command()
+
+        # Assert that the expected subprocess.Popen arguments were used
+        mock_popen.assert_called_once_with(
+            "cd ./app && bash ./run.sh",
+            shell=True,
+            cwd=self.copilot.storages.root.path,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
         mock_popen = MagicMock(return_value=mock_process)
         with patch("subprocess.Popen", mock_popen):
             self.copilot.run_command()
