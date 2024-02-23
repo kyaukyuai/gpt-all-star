@@ -1,6 +1,7 @@
 import pytest
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.steps.development.development import Development
+from gpt_all_star.core.steps.development.planning_prompt import planning_prompt_template
 
 
 class TestDevelopment:
