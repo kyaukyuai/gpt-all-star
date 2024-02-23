@@ -34,6 +34,7 @@ black = "^24.1.1"
 flake8 = "^7.0.0"
 autopep8 = "^2.0.4"
 pre-commit = "^3.6.1"
+mkdocs = "^1.5.3"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
