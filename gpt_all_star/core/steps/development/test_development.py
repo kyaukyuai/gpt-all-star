@@ -31,7 +31,7 @@ class TestDevelopmentClass:
         expected_tasks = []
         assert development.additional_tasks() == expected_tasks
 
-    def test_callback(self):
+    def test_new_callback_method(self):
         copilot = Copilot()
         development = Development(copilot)
 
