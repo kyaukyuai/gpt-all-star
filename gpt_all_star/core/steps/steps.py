@@ -32,7 +32,6 @@ STEPS = {
     StepType.BUILD: [
         Development,
         Entrypoint,
-        UIDesign,
     ],
     StepType.SPECIFICATION: [Specification],
     StepType.SYSTEM_DESIGN: [SystemDesign],

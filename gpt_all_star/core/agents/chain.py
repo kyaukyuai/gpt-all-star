@@ -228,3 +228,39 @@ Given the conversation above, create a detailed and specific plan to fully meet 
             )
             | JsonOutputFunctionsParser()
         )
+
+    def create_command_to_execute_application_chain(self):
+        system_prompt = "You are an excellent engineer. Given the source code, please respond with the appropriate command to execute the application."
+        function_def = {
+            "name": "execute_command",
+            "description": "Command to execute the application",
+            "parameters": {
+                "title": "executeCommandSchema",
+                "type": "object",
+                "properties": {
+                    "command": {
+                        "type": "string",
+                        "description": "the command to execute the application",
+                    },
+                },
+                "required": ["command"],
+            },
+        }
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", system_prompt),
+                MessagesPlaceholder(variable_name="messages"),
+                (
+                    "system",
+                    "Given the conversation above, generate the command to execute the application",
+                ),
+            ]
+        )
+
+        return (
+            prompt
+            | self._llm.bind_functions(
+                functions=[function_def], function_call="execute_command"
+            )
+            | JsonOutputFunctionsParser()
+        )
