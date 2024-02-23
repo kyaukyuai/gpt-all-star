@@ -76,8 +76,8 @@ class Copilot(Agent):
             default=1,
         )
 
-    def caution(self) -> None:
-        self.state("Executing the code...")
+    def caution(self, command: str) -> None:
+        self.state(f"Executing command: {command}")
         self.state(
             "If it does not work as expected, please consider running the code"
             + " in another way than above."
@@ -86,13 +86,12 @@ class Copilot(Agent):
             "You can press ctrl+c *once* to stop the execution.", style="red"
         )
 
-    def run_command(self) -> None:
-        command = "cd ./app && bash ./run.sh"
+    def run_command(self, command: str) -> None:
         try:
             process = subprocess.Popen(
                 command,
                 shell=True,
-                cwd=self.storages.root.path,
+                cwd=self.storages.app.path,
                 text=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
