@@ -1614,17 +1614,17 @@ tiktoken = ">=0.5.2,<1"
 
 [[package]]
 name = "langgraph"
-version = "0.0.24"
+version = "0.0.26"
 description = "langgraph"
 optional = false
 python-versions = ">=3.9.0,<4.0"
 files = [
-    {file = "langgraph-0.0.24-py3-none-any.whl", hash = "sha256:746edf4c16cde724802b072a5cec6b0341b762d7e7e2cd5f240fb7bb6a38d9a9"},
-    {file = "langgraph-0.0.24.tar.gz", hash = "sha256:9e3c1b05b7716c141615080f73cb189dca6d773d6a13bf95c73098f42305f465"},
+    {file = "langgraph-0.0.26-py3-none-any.whl", hash = "sha256:f3ba45fc2957c6a69cb7639a762b779c80b549c6811b8f8f0e44e5f6943bfa3f"},
+    {file = "langgraph-0.0.26.tar.gz", hash = "sha256:cfd078a61a6212c82d41bcacbbdb53e3706d3fc01b1a44e2e56a45534777287c"},
 ]
 
 [package.dependencies]
-langchain-core = ">=0.1.16,<0.2.0"
+langchain-core = ">=0.1.25,<0.2.0"
 
 [[package]]
 name = "langsmith"
@@ -4888,4 +4888,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "46650440de6343cf3b2db1910d0783b457b4ed45a397f0109327b2fb3a009835"
+content-hash = "742e3aff79b669e4798481a5a70d2c943943424c27b975f75bb37f1705c295d9"
