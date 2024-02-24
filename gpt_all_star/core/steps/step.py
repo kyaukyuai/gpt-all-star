@@ -22,5 +22,5 @@ class Step(ABC):
         pass
 
     @abstractmethod
-    def callback(self) -> None:
+    def callback(self) -> bool:
         pass

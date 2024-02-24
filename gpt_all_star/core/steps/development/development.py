@@ -21,5 +21,6 @@ class Development(Step):
     def additional_tasks(self) -> list:
         return []
 
-    def callback(self) -> None:
+    def callback(self) -> bool:
         self.copilot.output_files(exclude_dirs=self.exclude_dirs)
+        return True
