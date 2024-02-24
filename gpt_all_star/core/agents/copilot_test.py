@@ -1,6 +1,6 @@
 import unittest
 
-from gpt_all_star.core.agents.copilot import Copilot
+from gpt_all_star.core.agents.copilot import Copilot, copilot
 
 
 class TestCopilot(unittest.TestCase):
