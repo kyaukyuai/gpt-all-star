@@ -117,7 +117,6 @@ class Copilot(Agent):
 
             if self._wait_for_server():
                 self._check_browser_errors()
-                return
 
             stdout_thread.join()
             stderr_thread.join()
@@ -165,7 +164,4 @@ class Copilot(Agent):
             raise Exception({"browser errors": errors})
 
     def _handle_keyboard_interrupt(self) -> None:
-        self.console.new_lines()
-        self.console.print("Stopping execution.", style="bold yellow")
-        self.console.print("Execution stopped.", style="bold red")
-        self.console.new_lines()
+        self.state("Execution stopped.")
