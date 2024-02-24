@@ -19,4 +19,3 @@ class SystemDesign(Step):
 
     def callback(self) -> None:
         self.copilot.output_md(self.copilot.storages.docs.get("technologies.md", ""))
-        self.copilot.output_md(self.copilot.storages.docs.get("files.md", ""))

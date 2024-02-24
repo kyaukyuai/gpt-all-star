@@ -17,21 +17,4 @@ It enables the development team to make informed decisions about the technology 
 This approach minimizes integration issues, optimizes development efforts, and ensures the project is built on a solid and efficient foundation of technologies well-suited to its requirements.
 """,
     },
-    {
-        "action": "Add a new file",
-        "working_directory": ".",
-        "filename": "files.md",
-        "command": "",
-        "context": """Your task is to make sure you have an exhaustive list of all file names needed for the application.
-Follow a language and framework appropriate best practice file naming convention.
-""",
-        "objective": """To compile a comprehensive list of all necessary file names and paths required for the application,
-adhering to best practices in file naming conventions appropriate to the programming language and framework used.
-This list will serve as a definitive guide for developers to understand the structure and components of the application.
-""",
-        "reason": """Ensuring a complete and well-organized list of file names is crucial for the clarity and maintainability of the application.
-Following best practice conventions aids in the systematic organization of files, making it easier for developers to navigate, understand, and collaborate on the project.
-This practice promotes consistency, reduces confusion, and enhances the overall development workflow.
-""",
-    },
 ]
