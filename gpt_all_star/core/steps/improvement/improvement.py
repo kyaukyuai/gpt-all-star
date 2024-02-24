@@ -25,4 +25,4 @@ class Improvement(Step):
         return []
 
     def callback(self) -> None:
-        self.copilot.output_files(exclude_dirs=[".archive", "node_modules"])
+        self.copilot.output_files(exclude_dirs=self.exclude_dirs)
