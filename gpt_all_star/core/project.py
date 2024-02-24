@@ -88,11 +88,28 @@ class Project:
             self.copilot.state("Interrupt received! Stopping...")
 
     def _execute_step(self, step) -> None:
-        try:
-            self.team.run(step(self.copilot))
-        except Exception as e:
-            self.copilot.state(f"Failed to execute step {step}. Reason: {str(e)}")
-            raise e
+        MAX_RETRIES = 5
+        retries = 0
+        success = False
+        while retries < MAX_RETRIES and not success:
+            try:
+                result = self.team.run(step(self.copilot))
+                if result:
+                    success = True
+                else:
+                    self.copilot.state(
+                        f"Retrying step {step} (Attempt {retries + 1}/{MAX_RETRIES})"
+                    )
+                    retries += 1
+            except Exception as e:
+                self.copilot.state(f"Failed to execute step {step}. Reason: {str(e)}")
+                raise e
+
+        if not success:
+            self.copilot.state(
+                f"Failed to successfully complete step {step} after {MAX_RETRIES} attempts."
+            )
+            raise Exception(f"Operation failed after {MAX_RETRIES} retries.")
 
     def start(self) -> None:
         self.start_time = time.time()

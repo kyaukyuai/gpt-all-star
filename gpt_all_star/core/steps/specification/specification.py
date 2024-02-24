@@ -32,5 +32,9 @@ app_type:
         )
         return create_additional_tasks(app_type, instructions)
 
-    def callback(self) -> None:
-        self.copilot.output_md(self.copilot.storages.docs.get("specifications.md", ""))
+    def callback(self) -> bool:
+        specifications = self.copilot.storages.docs.get("specifications.md")
+        has_specifications = bool(specifications)
+        if has_specifications:
+            self.copilot.output_md(specifications)
+        return has_specifications
