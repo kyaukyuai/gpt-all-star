@@ -1,7 +1,7 @@
 from gpt_all_star.core.agents.chain import Chain
 from gpt_all_star.core.agents.copilot import Copilot
-from gpt_all_star.core.execution.planning_prompt import planning_prompt_template
 from gpt_all_star.core.message import Message
+from gpt_all_star.core.steps.healing.healing import Healing
 from gpt_all_star.core.team import Team
 
 
@@ -51,10 +51,5 @@ Generate an command to execute the application.
             except KeyboardInterrupt:
                 break
             except Exception as e:
-                planning_prompt = planning_prompt_template.format(
-                    error=e,
-                    current_source_code=self.copilot.storages.current_source_code(),
-                )
-                for agent in self.team.agents.to_array():
-                    agent.set_executor(self.working_directory)
-                self.team._run(planning_prompt)
+                healing = Healing(copilot=self.copilot, error_message=e)
+                self.team.run(healing)
