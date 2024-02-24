@@ -163,5 +163,17 @@ class Copilot(Agent):
         if errors:
             raise Exception({"browser errors": errors})
 
+        """
+    Handle a keyboard interrupt during execution.
+
+    This function is called when a keyboard interrupt (e.g., Ctrl+C) is detected during execution.
+    It performs necessary cleanup and stops the execution.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+    """
     def _handle_keyboard_interrupt(self) -> None:
         self.state("Execution stopped.")
