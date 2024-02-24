@@ -31,7 +31,7 @@ Generate an command to execute the application.
 # Constraints
 ---
 - Check the current implementation and directory structure and be sure to launch the application.
-- If run.sh exists, use it in preference.
+- If run.sh exists, it should be used first. To use it, move to the directory where run.sh exists, and then run `sh . /run.sh` after moving to the directory where run.sh exists.
 
 # Current Implementation
 ---
