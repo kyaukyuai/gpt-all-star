@@ -152,7 +152,7 @@ Reason: {task['reason']}
                 )
                 self._execute([message])
 
-    def run(self, step: Step):
+    def run(self, step: Step) -> bool:
         planning_prompt = step.planning_prompt()
         additional_tasks = step.additional_tasks()
         for agent in self.agents.to_array():
@@ -160,7 +160,7 @@ Reason: {task['reason']}
         self._assign_supervisor(planning_prompt)
         self._run(planning_prompt, additional_tasks)
 
-        step.callback()
+        return step.callback()
 
     def _introduce_agents(self) -> None:
         agents_list = load_configuration("./gpt_all_star/agents.yml")
