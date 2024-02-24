@@ -88,7 +88,7 @@ class Team:
         additional_tasks: list = [],
     ):
         with Status(
-            "[bold green]running...(Have a cup of coffee and relax.)",
+            f"[bold {MAIN_COLOR}]running...(Have a cup of coffee and relax.)",
             console=self.console,
             spinner="runner",
             speed=0.5,
