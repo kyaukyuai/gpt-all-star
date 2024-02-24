@@ -3,8 +3,7 @@
 
 <h1 align="center">GPT ALL STAR</h1>
 
-🤖 **GPT ALL STAR**
-AI-powered code generation tool for scratch development of web applications with a team collaboration of autonomous AI agents.
+🤖 **GPT ALL STAR**: AI-powered code generation tool for scratch development of web applications with a team collaboration of autonomous AI agents.
 </div>
 
 <h2>Table of contents</h2>
