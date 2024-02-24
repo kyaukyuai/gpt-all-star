@@ -6,11 +6,26 @@ from gpt_all_star.core.team import Team
 
 
 class Execution:
+    """
+    Class representing the execution of the application.
+
+    Attributes:
+        team (Team): The team object.
+        copilot (Copilot): The copilot object.
+        working_directory (str): The absolute path of the working directory.
+    """
     def __init__(
         self,
         team: Team,
         copilot: Copilot,
     ) -> None:
+        """
+        Initialize the Execution object.
+
+        Args:
+            team (Team): The team object.
+            copilot (Copilot): The copilot object.
+        """
         self.team = team
         self.copilot = copilot
         self.working_directory = self.copilot.storages.app.path.absolute()
@@ -49,6 +64,15 @@ Generate an command to execute the application.
             try:
                 self.copilot.run_command(command["command"])
             except KeyboardInterrupt:
+                break
+            except Exception as e:
+                planning_prompt = planning_prompt_template.format(
+                    error=e,
+                    current_source_code=self.copilot.storages.current_source_code(),
+                )
+                for agent in self.team.agents.to_array():
+                    agent.set_executor(self.working_directory)
+                self.team._run(planning_prompt)
                 break
             except Exception as e:
                 planning_prompt = planning_prompt_template.format(
