@@ -28,12 +28,10 @@ STEPS = {
         Specification,
         SystemDesign,
         Development,
-        UIDesign,
         Entrypoint,
     ],
     StepType.BUILD: [
         Development,
-        UIDesign,
         Entrypoint,
     ],
     StepType.SPECIFICATION: [Specification],

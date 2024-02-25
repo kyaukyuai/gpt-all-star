@@ -131,6 +131,7 @@ class Copilot(Agent):
                 )
             process.terminate()
         except KeyboardInterrupt:
+            process.wait()
             self._handle_keyboard_interrupt()
             raise KeyboardInterrupt
 
