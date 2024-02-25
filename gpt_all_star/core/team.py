@@ -12,6 +12,7 @@ from gpt_all_star.core.agents.chain import ACTIONS, Chain
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
+from gpt_all_star.core.steps.development.replanning_prompt import replanning_template
 from gpt_all_star.core.steps.step import Step
 from gpt_all_star.helper.config_loader import load_configuration
 from gpt_all_star.helper.multi_agent_collaboration_graph import (
@@ -86,6 +87,7 @@ class Team:
         self,
         planning_prompt: Optional[str] = None,
         additional_tasks: list = [],
+        plan_and_solve: bool = False,
     ):
         with Status(
             f"[bold {MAIN_COLOR}]running...(Have a cup of coffee and relax.)",
@@ -116,7 +118,9 @@ class Team:
                     json.dumps(tasks, indent=4, ensure_ascii=False)
                 )
 
-            for i, task in enumerate(tasks["plan"]):
+            completed_plan = []
+            while len(tasks["plan"]) > 0:
+                task = tasks["plan"][0]
                 if task["action"] == ACTIONS[0]:
                     todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
                 else:
@@ -125,7 +129,7 @@ class Team:
                 if self.supervisor.debug_mode:
                     self.supervisor.state(
                         f"""\n
-Task {i + 1}: {todo}
+Task: {todo}
 Context: {task['context']}
 Objective: {task['objective']}
 Reason: {task['reason']}
@@ -133,7 +137,9 @@ Reason: {task['reason']}
 """
                     )
                 else:
-                    self.supervisor.state(f"({(i+1)}/{len(tasks['plan'])}) {todo}")
+                    self.supervisor.state(
+                        f"(# of remaining tasks: {len(tasks['plan'])}) {todo}"
+                    )
 
                 message = Message.create_human_message(
                     implement_template.format(
@@ -153,6 +159,37 @@ Reason: {task['reason']}
                     )
                 )
                 self._execute([message])
+                tasks["plan"].pop(0)
+
+                if plan_and_solve:
+                    completed_plan.append(task)
+                    tasks = (
+                        Chain()
+                        .create_replanning_chain(self.supervisor.profile)
+                        .invoke(
+                            {
+                                "messages": [
+                                    Message.create_human_message(
+                                        replanning_template.format(
+                                            original_plan=tasks,
+                                            completed_plan=completed_plan,
+                                            implementation=self.copilot.storages.current_source_code(),
+                                            specifications=self.copilot.storages.docs.get(
+                                                "specifications.md", "N/A"
+                                            ),
+                                            technologies=self.copilot.storages.docs.get(
+                                                "technologies.md", "N/A"
+                                            ),
+                                        )
+                                    )
+                                ],
+                            }
+                        )
+                    )
+                    if self.supervisor.debug_mode:
+                        self.supervisor.console.print(
+                            json.dumps(tasks, indent=4, ensure_ascii=False)
+                        )
 
     def run(self, step: Step) -> bool:
         planning_prompt = step.planning_prompt()
@@ -160,7 +197,7 @@ Reason: {task['reason']}
         for agent in self.agents.to_array():
             agent.set_executor(step.working_directory)
         self._assign_supervisor(planning_prompt)
-        self._run(planning_prompt, additional_tasks)
+        self._run(planning_prompt, additional_tasks, step.plan_and_solve)
 
         return step.callback()
 
