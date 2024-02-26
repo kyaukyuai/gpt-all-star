@@ -21,7 +21,7 @@ This is a research-project, and its primary value is to explore the possibility 
   2. Leaders develop an action plan for each step.
   3. Collaborate with team members to execute each task in the action plan.
 
-![GPT ALL STAR Concept](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/978fd0ef-cc86-4f7f-8e10-83f85227edbc)
+![gpt-all-star-concept](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/f85f05d3-2427-4af9-b48c-99c065892b2a)
 
 ## 🐳 Getting Started
 
