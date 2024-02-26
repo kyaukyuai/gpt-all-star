@@ -15,7 +15,13 @@ This is a research-project, and its primary value is to explore the possibility 
 
 ## 🏛 Concept
 
-concept
+- **Build Team, Build App**: All you do is structure your team and dictate what you make.
+- **AI agent collaboration**: Form a team of AI agents and collaborate with them to execute the steps.
+  1. Select the appropriate a ｌeader for each step.
+  2. Leaders develop an action plan for each step.
+  3. Collaborate with team members to execute each task in the action plan.
+
+![GPT ALL STAR Concept](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/978fd0ef-cc86-4f7f-8e10-83f85227edbc)
 
 ## 🐳 Getting Started
 
