@@ -15,11 +15,11 @@ This is a research-project, and its primary value is to explore the possibility 
 
 ## 🏛 Concept
 
-- **Build Team, Build App**: All you do is structure your team and dictate what you make.
-- **AI agent collaboration**: Form a team of AI agents and collaborate with them to execute the steps.
-  1. Select the appropriate a ｌeader for each step.
-  2. Leaders develop an action plan for each step.
-  3. Collaborate with team members to execute each task in the action plan.
+- **Build Team, Build App**: Simply organize your team and decide on what to build.
+- **AI Agent Collaboration**: Assemble a group of AI agents and work together to carry out the steps.
+  1. Choose the right ｌeader for each step.
+  2. Leaders create a plan of action for each step.
+  3. Work with team members to complete every task in the action plan.
 
 ![gpt-all-star-concept](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/f85f05d3-2427-4af9-b48c-99c065892b2a)
 
