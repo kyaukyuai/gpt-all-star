@@ -1,3 +1,11 @@
+"""
+This file contains additional tasks related to system design.
+
+The tasks in this file focus on compiling a list of technologies for building an application, adhering to project specifications and guidelines.
+
+Author: [Your Name]
+Date: [Current Date]
+"""
 additional_tasks = [
     {
         "action": "Add a new file",
