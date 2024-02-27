@@ -8,7 +8,7 @@ Create a detailed and specific development plan to enhance the UI and UX in acco
 
 # Constraints
 ---
-The application specifications must be carefully understood and accurately reflect the specifications.
+- The application specifications must be carefully understood and accurately reflected in the application.
 
 # Current implementation
 ---
