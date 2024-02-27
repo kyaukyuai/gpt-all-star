@@ -1,3 +1,4 @@
+"""This file contains the definition of the Team class."""
 import json
 from typing import Optional
 
@@ -22,6 +23,7 @@ from gpt_all_star.helper.text_parser import TextParser
 
 
 class Team:
+    """Initializes the Team class."""
     def __init__(
         self,
         copilot: Copilot,
@@ -178,6 +180,7 @@ Reason: {task['reason']}
         self._add_instructions_to_profile(agent)
         agent.messages = [Message.create_system_message(agent.profile)]
 
+    """Adds instructions to the agent's profile."""
     def _add_instructions_to_profile(self, agent: Agent) -> None:
         agent.profile += "\nAny instruction you get that is labeled as **IMPORTANT**, you follow strictly."
         if self.japanese_mode:
