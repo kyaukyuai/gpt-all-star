@@ -27,6 +27,8 @@ This is a research-project, and its primary value is to explore the possibility 
 
 ## 🐳 Getting Started
 
+:bulb: While it's entirely feasible to launch the application on your local machine directly, we **strongly recommend** using **Docker** for starting up the application.
+
 1. Clone the repository
 
 ```bash
