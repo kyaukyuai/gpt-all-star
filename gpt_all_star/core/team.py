@@ -185,7 +185,8 @@ Reason: {task['reason']}
 
     def _introduce_agents_manually(self) -> None:
         for role in AgentRole:
-            self._introduce_agent(getattr(self.agents, role.value), role)
+            if role is not AgentRole.COPILOT:
+                self._introduce_agent(getattr(self.agents, role.value), role)
 
     def _introduce_agent(self, agent: Agent, role: AgentRole) -> None:
         self.copilot.state(f"Please introduce the {role.name}.")
