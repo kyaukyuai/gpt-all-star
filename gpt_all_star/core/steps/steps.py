@@ -1,3 +1,4 @@
+"""Import Enum module and enumeration of step types"""
 from enum import Enum
 
 from gpt_all_star.core.steps.development.development import Development
@@ -9,6 +10,8 @@ from gpt_all_star.core.steps.system_design.system_design import SystemDesign
 from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
 
 
+"""Enumerates different types of steps"""
+"""Enumerates different types of steps"""
 class StepType(str, Enum):
     NONE = "none"
     DEFAULT = "default"
