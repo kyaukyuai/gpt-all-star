@@ -1,26 +1,26 @@
-from gpt_all_star.core.agents import agents
+from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.steps.specification.additional_tasks import (
     create_additional_tasks,
 )
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.core.team import Team
 
 
 class Specification(Step):
     def __init__(
         self,
-        agents: agents,
-        japanese_mode: bool,
-        review_mode: bool,
-        debug_mode: bool,
+        copilot: Copilot,
     ) -> None:
-        super().__init__(agents, japanese_mode, review_mode, debug_mode)
+        super().__init__(copilot)
+        self.working_directory = self.copilot.storages.docs.path.absolute()
 
-    def run(self) -> None:
-        instructions = self.agents.product_owner.get_instructions()
-        app_type = self.agents.product_owner.get_app_type()
-        self.agents.copilot.state("Ok, we have a instruction and app type now!")
-        self.agents.copilot.console.print(
+    def planning_prompt(self) -> str:
+        return ""
+
+    def additional_tasks(self) -> list:
+        instructions = self.copilot.get_instructions()
+        app_type = self.copilot.get_app_type()
+        self.copilot.state("Ok, we have a instruction and app type now!")
+        self.copilot.state(
             f"""
 ---
 instruction:
@@ -29,10 +29,12 @@ app_type:
 {app_type}
 ---
 """,
-            style="bold",
         )
+        return create_additional_tasks(app_type, instructions)
 
-        team = Team(supervisor=self.agents.product_owner, members=self.agents.members())
-
-        team.drive(None, create_additional_tasks(app_type, instructions))
-        team.supervisor.output_md(team.storages().docs.get("specifications.md", ""))
+    def callback(self) -> bool:
+        specifications = self.copilot.storages.docs.get("specifications.md")
+        has_specifications = bool(specifications)
+        if has_specifications:
+            self.copilot.output_md(specifications)
+        return has_specifications

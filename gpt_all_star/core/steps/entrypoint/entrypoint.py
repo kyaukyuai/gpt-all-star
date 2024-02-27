@@ -1,9 +1,9 @@
 from gpt_all_star.core.agents.copilot import Copilot
+from gpt_all_star.core.steps.entrypoint.planning_prompt import planning_prompt_template
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.core.steps.ui_design.planning_prompt import planning_prompt_template
 
 
-class UIDesign(Step):
+class Entrypoint(Step):
     def __init__(
         self,
         copilot: Copilot,
@@ -16,7 +16,6 @@ class UIDesign(Step):
             current_source_code=self.copilot.storages.current_source_code(
                 debug_mode=self.copilot.debug_mode
             ),
-            specifications=self.copilot.storages.docs.get("specifications.md", "N/A"),
         )
         return planning_prompt
 

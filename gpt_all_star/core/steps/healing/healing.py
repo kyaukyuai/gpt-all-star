@@ -1,22 +1,20 @@
 from gpt_all_star.core.agents.copilot import Copilot
+from gpt_all_star.core.steps.healing.planning_prompt import planning_prompt_template
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.core.steps.ui_design.planning_prompt import planning_prompt_template
 
 
-class UIDesign(Step):
-    def __init__(
-        self,
-        copilot: Copilot,
-    ) -> None:
+class Healing(Step):
+    def __init__(self, copilot: Copilot, error_message: str) -> None:
         super().__init__(copilot)
+        self.error_message = error_message
         self.working_directory = self.copilot.storages.app.path.absolute()
 
     def planning_prompt(self) -> str:
         planning_prompt = planning_prompt_template.format(
+            error=self.error_message,
             current_source_code=self.copilot.storages.current_source_code(
                 debug_mode=self.copilot.debug_mode
             ),
-            specifications=self.copilot.storages.docs.get("specifications.md", "N/A"),
         )
         return planning_prompt
 

@@ -27,8 +27,6 @@ This is a research-project, and its primary value is to explore the possibility 
 
 ## 🐳 Getting Started
 
-:bulb: While it's entirely feasible to launch the application on your local machine directly, we **strongly recommend** using **Docker** for starting up the application.
-
 1. Clone the repository
 
 ```bash
@@ -63,10 +61,6 @@ $ poetry install
 ```bash
 $ poetry run gpt-all-star
 ```
-
-7. Edit the team members
-
-If you want to change the team members, edit the `gpt_all_star/agents.yml` file.
 
 ## 🔎 Examples
 

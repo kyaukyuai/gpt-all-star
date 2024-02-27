@@ -7,6 +7,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from gpt_all_star.helper.text_parser import format_file_to_input
+
 
 class Storage:
     def __init__(self, path: str | Path):
@@ -54,7 +56,11 @@ class Storage:
         if files_dict is None:
             files_dict = {}
         for item in (path or self.path).iterdir():
-            if item.is_file() and item.name != "package-lock.json":
+            if (
+                item.is_file()
+                and item.name != "package-lock.json"
+                and item.name != "yarn.lock"
+            ):
                 try:
                     with open(item, "r", encoding="utf-8") as f:
                         file_content = f.read()
@@ -82,16 +88,32 @@ class Storage:
 class Storages:
     root: Storage
     docs: Storage
+    app: Storage
     archive: Storage
 
-    @staticmethod
-    def archive_storage(storages: Storages) -> None:
+    def archive_storage(self) -> None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        destination = os.path.join(storages.archive.path, timestamp)
+        destination = os.path.join(self.archive.path, timestamp)
 
         if not os.path.exists(destination):
             os.makedirs(destination)
 
-        for item in os.listdir(storages.root.path):
+        for item in os.listdir(self.root.path):
             if item != ".archive":
-                shutil.move(os.path.join(storages.root.path, item), destination)
+                shutil.move(os.path.join(self.root.path, item), destination)
+        self.docs.path.mkdir(parents=True, exist_ok=True)
+        self.app.path.mkdir(parents=True, exist_ok=True)
+
+    def current_source_code(self, debug_mode: bool = False) -> str:
+        source_code_contents = []
+        for (
+            filename,
+            file_content,
+        ) in self.app.recursive_file_search().items():
+            if debug_mode:
+                print(f"Adding file {filename} to the prompt...")
+            formatted_code = format_file_to_input(
+                f"./{os.path.relpath(filename, self.app.path)}", file_content
+            )
+            source_code_contents.append(formatted_code)
+        return "\n".join(source_code_contents) if source_code_contents else "N/A"

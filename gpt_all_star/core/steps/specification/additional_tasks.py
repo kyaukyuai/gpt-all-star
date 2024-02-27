@@ -2,7 +2,7 @@ def create_additional_tasks(app_type, instructions):
     additional_tasks = [
         {
             "action": "Add a new file",
-            "working_directory": "./docs",
+            "working_directory": ".",
             "filename": "specifications.md",
             "command": "",
             "context": f"""The task is to clarify specifications of a {app_type}.

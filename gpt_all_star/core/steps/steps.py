@@ -1,50 +1,46 @@
 from enum import Enum
 
-from gpt_all_star.core.steps.deployment.deployment import Deployment
 from gpt_all_star.core.steps.development.development import Development
-from gpt_all_star.core.steps.execution.execution import Execution
+from gpt_all_star.core.steps.entrypoint.entrypoint import Entrypoint
+from gpt_all_star.core.steps.healing.healing import Healing
 from gpt_all_star.core.steps.improvement.improvement import Improvement
 from gpt_all_star.core.steps.specification.specification import Specification
 from gpt_all_star.core.steps.system_design.system_design import SystemDesign
-from gpt_all_star.core.steps.team_building.team_building import TeamBuilding
 from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
 
 
 class StepType(str, Enum):
+    NONE = "none"
     DEFAULT = "default"
     BUILD = "build"
-    TEAM_BUILDING = "team_building"
     SPECIFICATION = "specification"
     SYSTEM_DESIGN = "system_design"
     DEVELOPMENT = "development"
+    ENTRYPOINT = "entrypoint"
     UI_DESIGN = "ui_design"
-    EXECUTION = "execution"
     IMPROVEMENT = "improvement"
-    DEPLOYMENT = "deployment"
+    HEALING = "healing"
 
 
 STEPS = {
+    StepType.NONE: [],
     StepType.DEFAULT: [
-        TeamBuilding,
         Specification,
         SystemDesign,
         Development,
         UIDesign,
-        Execution,
-        Deployment,
+        Entrypoint,
     ],
     StepType.BUILD: [
         Development,
         UIDesign,
-        Execution,
-        Deployment,
+        Entrypoint,
     ],
-    StepType.TEAM_BUILDING: [TeamBuilding],
     StepType.SPECIFICATION: [Specification],
     StepType.SYSTEM_DESIGN: [SystemDesign],
     StepType.DEVELOPMENT: [Development],
+    StepType.ENTRYPOINT: [Entrypoint],
     StepType.UI_DESIGN: [UIDesign],
-    StepType.EXECUTION: [Execution],
     StepType.IMPROVEMENT: [Improvement],
-    StepType.DEPLOYMENT: [Deployment],
+    StepType.HEALING: [Healing],
 }

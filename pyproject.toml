@@ -1,8 +1,13 @@
 [tool.poetry]
 name = "gpt-all-star"
-version = "0.1.0"
-description = ""
+version = "0.0.1"
+description = "AI-powered code generation tool for scratch development of web applications with a team collaboration of autonomous AI agents. This is a research-project, and its primary value is to explore the possibility of autonomous AI agents."
 authors = ["Yuya Kakui <y.kakui@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.urls]
+Repository = "https://github.com/kyaukyuai/gpt-all-star"
 
 [tool.poetry.dependencies]
 python = ">=3.10.0,<3.11"
@@ -18,12 +23,13 @@ gitpython = "^3.1.41"
 requests = "^2.31.0"
 typer = "^0.9.0"
 pyfiglet = "^1.0.2"
-langchain-openai = "^0.0.6"
+langchain-openai = "^0.0.7"
 selenium = "^4.17.2"
-langgraph = "^0.0.24"
+langgraph = "^0.0.26"
 langchain-experimental = "^0.0.52"
 llama-index = "^0.10.0"
 tree-sitter-languages = "^1.10.2"
+pygithub = "^2.2.0"
 
 [tool.poetry.scripts]
 gpt-all-star = 'gpt_all_star.main:app'
@@ -33,6 +39,8 @@ black = "^24.1.1"
 flake8 = "^7.0.0"
 autopep8 = "^2.0.4"
 pre-commit = "^3.6.1"
+mkdocs = "^1.5.3"
+mkdocs-material = "^9.5.11"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md

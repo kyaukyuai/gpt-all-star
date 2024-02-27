@@ -30,10 +30,5 @@ Understand exactly why you should do it and make sure you meet the status to be 
 ```technologies.md
 {technologies}
 ```
-
-## Files to be implemented
-```files.md
-{files}
-```
 """
 )
