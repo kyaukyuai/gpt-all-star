@@ -1,6 +1,7 @@
 import unittest
 
 from gpt_all_star.core.steps.steps import StepType
+step_type_values = [val.value for val in StepType]
 
 
 class TestSteps(unittest.TestCase):
@@ -33,6 +34,24 @@ class TestSteps(unittest.TestCase):
 
     def test_step_type_healing(self):
         self.assertEqual(StepType.HEALING, "healing")
+
+
+def test_step_type_enum_values(self):
+        self.assertEqual(
+            self.step_type_values,
+            [
+                "none",
+                "default",
+                "build",
+                "specification",
+                "system_design",
+                "development",
+                "entrypoint",
+                "ui_design",
+                "improvement",
+                "healing"
+            ]
+        )
 
 
 if __name__ == "__main__":
