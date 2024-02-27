@@ -62,6 +62,10 @@ $ poetry install
 $ poetry run gpt-all-star
 ```
 
+7. Edit the team members
+
+If you want to change the team members, edit the `gpt_all_star/agents.yml` file.
+
 ## 🔎 Examples
 
 examples
