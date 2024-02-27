@@ -141,7 +141,9 @@ Reason: {task['reason']}
                         objective=task["objective"],
                         context=task["context"],
                         reason=task["reason"],
-                        implementation=self.copilot.storages.current_source_code(),
+                        implementation=self.copilot.storages.current_source_code(
+                            debug_mode=self.copilot.debug_mode
+                        ),
                         specifications=self.copilot.storages.docs.get(
                             "specifications.md", "N/A"
                         ),

@@ -12,7 +12,9 @@ class Healing(Step):
     def planning_prompt(self) -> str:
         planning_prompt = planning_prompt_template.format(
             error=self.error_message,
-            current_source_code=self.copilot.storages.current_source_code(),
+            current_source_code=self.copilot.storages.current_source_code(
+                debug_mode=self.copilot.debug_mode
+            ),
         )
         return planning_prompt
 

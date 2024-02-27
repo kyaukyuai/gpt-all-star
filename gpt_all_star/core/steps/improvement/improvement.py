@@ -17,7 +17,9 @@ class Improvement(Step):
         )
         planning_prompt = planning_prompt_template.format(
             request=request,
-            current_source_code=self.copilot.storages.current_source_code(),
+            current_source_code=self.copilot.storages.current_source_code(
+                debug_mode=self.copilot.debug_mode
+            ),
         )
         return planning_prompt
 

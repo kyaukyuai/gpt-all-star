@@ -35,7 +35,7 @@ Generate an command to execute the application.
 
 # Current Implementation
 ---
-{self.copilot.storages.current_source_code()}
+{self.copilot.storages.current_source_code(debug_mode=self.copilot.debug_mode)}
 """
                         )
                     ],
