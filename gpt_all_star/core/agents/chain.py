@@ -115,7 +115,7 @@ Based on the user request provided, your task is to generate a detail and specif
     - objective: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
     - reason: clear reasons why the task should be performed
 
-Make sure that each step has all the information needed - do not skip steps.
+Make sure that each step has all the information needed.
 """
         function_def = {
             "name": "planning",
@@ -185,6 +185,92 @@ Given the conversation above, create a detailed and specific plan to fully meet 
             prompt
             | self._llm.bind_functions(
                 functions=[function_def], function_call="planning"
+            )
+            | JsonOutputFunctionsParser()
+        )
+
+    def create_replanning_chain(self, profile: str = ""):
+        system_prompt = f"""{profile}
+Based on the user request provided and the current implementation, your task is to update the original plan that includes following items:
+    - action: it must be one of {", ".join(ACTIONS)}
+    - working_directory: a directory where the command is to be executed or the file is to be placed, it should be started from '.', e.g. './src'
+    - filename: specify only if the name of the file to be added or changed is specifically determined
+    - command: command to be executed if necessary
+    - context: all contextual information that should be communicated to the person performing the task
+    - objective: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
+    - reason: clear reasons why the task should be performed
+
+If no more steps are needed and you can return to the user, then respond with that.
+Otherwise, fill out the plan.
+"""
+        function_def = {
+            "name": "replanning",
+            "description": "Create the replan.",
+            "parameters": {
+                "title": "planSchema",
+                "type": "object",
+                "properties": {
+                    "plan": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "description": "Task to do.",
+                            "properties": {
+                                "action": {
+                                    "type": "string",
+                                    "description": "Task",
+                                    "anyOf": [
+                                        {"enum": ACTIONS},
+                                    ],
+                                },
+                                "working_directory": {
+                                    "type": "string",
+                                    "description": "Directory where the command is to be executed or the file is to be located, it should be started from '.', e.g. './src'",
+                                },
+                                "filename": {
+                                    "type": "string",
+                                    "description": "Specify only if the name of the file to be added or changed is specifically determined",
+                                },
+                                "command": {
+                                    "type": "string",
+                                    "description": "Command to be executed if necessary",
+                                },
+                                "context": {
+                                    "type": "string",
+                                    "description": "All contextual information that should be communicated to the person performing the task",
+                                },
+                                "objective": {
+                                    "type": "string",
+                                    "description": "Very detailed description of the goals to be achieved for the task to be executed to accomplish the entire plan",
+                                },
+                                "reason": {
+                                    "type": "string",
+                                    "reason": "Clear reasons why the task should be performed",
+                                },
+                            },
+                        },
+                    }
+                },
+                "required": ["plan"],
+            },
+        }
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", system_prompt),
+                MessagesPlaceholder(variable_name="messages"),
+                (
+                    "system",
+                    """
+Given the conversation above, update the original plan to fully meet the user's requirements."
+""",
+                ),
+            ]
+        ).partial()
+
+        return (
+            prompt
+            | self._llm.bind_functions(
+                functions=[function_def], function_call="replanning"
             )
             | JsonOutputFunctionsParser()
         )

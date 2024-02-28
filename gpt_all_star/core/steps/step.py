@@ -11,6 +11,7 @@ class Step(ABC):
         self.copilot = copilot
         self.copilot.console.section(f"STEP: {self.__class__.__name__}")
         self.working_directory = self.copilot.storages.root.path.absolute()
+        self.plan_and_solve = False
         self.exclude_dirs = [".archive", "node_modules", "build"]
 
     @abstractmethod
