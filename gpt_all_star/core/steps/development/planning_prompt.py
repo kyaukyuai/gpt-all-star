@@ -9,6 +9,7 @@ Create a detailed and specific development plan from project creation to source 
 # Constraints
 ---
 - The application specifications must be carefully understood and accurately reflected in the application.
+- The operation check itself is performed in a separate step and is not included in the plan.
 
 # Requirements
 ---

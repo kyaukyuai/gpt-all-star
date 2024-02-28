@@ -45,12 +45,19 @@ def main(
         "-d",
         help="Debug mode",
     ),
+    plan_and_solve: bool = typer.Option(
+        False,
+        "--plan_and_solve",
+        help="Plan-and-Solve Prompting",
+    ),
 ) -> None:
     load_dotenv()
     console = ConsoleTerminal()
     console.title(COMMAND_NAME)
 
-    project = Project(step, project_name, japanese_mode, review_mode, debug_mode)
+    project = Project(
+        step, project_name, japanese_mode, review_mode, debug_mode, plan_and_solve
+    )
     project.start()
     project.finish()
 
