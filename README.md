@@ -16,6 +16,8 @@ This is a research-project, and its primary value is to explore the possibility 
 
 - [🏛 Concept](#-concept)
 - [🐳 Getting Started](#-getting-started)
+  - [For User](#for-user)
+  - [For Developer](#for-developer)
 - [🔎 Examples](#-examples)
 
 ## 🏛 Concept
@@ -29,6 +31,29 @@ This is a research-project, and its primary value is to explore the possibility 
 ![gpt-all-star-concept](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/77bdd5fa-afe9-4e3c-8dfd-85399852aec6)
 
 ## 🐳 Getting Started
+
+### For User
+
+1. Installation
+
+```bash
+$ pip install gpt-all-star
+```
+
+2. Set the `GPT ALL STAR` environment variables
+
+```bash
+$ export OPENAI_API_MODEL_NAME=gpt-4-turbo-preview
+$ export OPENAI_API_KEY=<your-openai-api-key>
+```
+
+3. Fun `GPT ALL STAR`
+
+```bash
+$ gpt-all-star
+```
+
+### For Developer
 
 :bulb: While it's entirely feasible to launch the application on your local machine directly, we **strongly recommend** using **Docker** for starting up the application.
 

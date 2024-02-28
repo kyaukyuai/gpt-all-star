@@ -11,9 +11,9 @@ class Git:
         self._create_new_github_repository(repo_path.name)
         self.repo_path = repo_path
         self.repo = git.Repo.init(self.repo_path)
-        self.github = Github(os.environ["GITHUB_TOKEN"])
+        self.github = Github(os.getenv("GITHUB_TOKEN"))
         self.github_repo = self.github.get_repo(
-            f"{os.environ['GITHUB_ORG']}/{repo_path.name}"
+            f"{os.getenv('GITHUB_ORG')}/{repo_path.name}"
         )
 
     def files(self):
@@ -54,7 +54,7 @@ class Git:
     def push(self):
         try:
             remote_name = "origin"
-            remote_url = f"https://github.com/{os.environ['GITHUB_ORG']}/{self.repo_path.name}.git"
+            remote_url = f"https://github.com/{os.getenv('GITHUB_ORG')}/{self.repo_path.name}.git"
             if remote_name in self.repo.remotes:
                 remote = self.repo.remotes[remote_name]
                 if remote.url != remote_url:
