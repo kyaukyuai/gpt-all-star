@@ -27,9 +27,11 @@ class Project:
         japanese_mode: bool = False,
         review_mode: bool = False,
         debug_mode: bool = False,
+        plan_and_solve: bool = False,
     ) -> None:
         self.copilot = Copilot()
         self.start_time = None
+        self.plan_and_solve = plan_and_solve
         self._set_modes(japanese_mode, review_mode, debug_mode)
         self._set_project_name(project_name)
         self._set_storages()
@@ -118,6 +120,7 @@ class Project:
             copilot=self.copilot,
             members=self.agents,
             japanese_mode=self.japanese_mode,
+            plan_and_solve=self.plan_and_solve,
         )
         self._execute_steps()
         if self.copilot.confirm("Do you want to execute this application?"):

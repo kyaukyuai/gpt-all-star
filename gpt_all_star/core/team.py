@@ -28,8 +28,10 @@ class Team:
         copilot: Copilot,
         members: Agents,
         japanese_mode: bool = False,
+        plan_and_solve: bool = False,
     ):
         self.japanese_mode = japanese_mode
+        self.plan_and_solve = plan_and_solve
         self.agents = members
         self.copilot = copilot
         self.console = self.copilot.console.console
@@ -87,10 +89,10 @@ class Team:
         self,
         planning_prompt: Optional[str] = None,
         additional_tasks: list = [],
-        plan_and_solve: bool = False,
+        step_plan_and_solve: bool = False,
     ):
         with Status(
-            f"[bold {MAIN_COLOR}]running...(Have a cup of coffee and relax.)",
+            "[bold white]running...(Have a cup of coffee and relax.)[/bold white]",
             console=self.console,
             spinner="runner",
             speed=0.5,
@@ -118,6 +120,8 @@ class Team:
                     json.dumps(tasks, indent=4, ensure_ascii=False)
                 )
 
+            MAX_REPLANNING = 5
+            replanning = 0
             completed_plan = []
             while len(tasks["plan"]) > 0:
                 task = tasks["plan"][0]
@@ -138,7 +142,7 @@ Reason: {task['reason']}
                     )
                 else:
                     self.supervisor.state(
-                        f"(# of remaining tasks: {len(tasks['plan'])}) {todo}"
+                        f"({(1/len(tasks['plan']) * 100):.1f}%) {todo}"
                     )
 
                 message = Message.create_human_message(
@@ -161,7 +165,11 @@ Reason: {task['reason']}
                 self._execute([message])
                 tasks["plan"].pop(0)
 
-                if plan_and_solve:
+                if (
+                    self.plan_and_solve
+                    and step_plan_and_solve
+                    and replanning < MAX_REPLANNING
+                ):
                     completed_plan.append(task)
                     tasks = (
                         Chain()
@@ -186,6 +194,7 @@ Reason: {task['reason']}
                             }
                         )
                     )
+                    replanning += 1
                     if self.supervisor.debug_mode:
                         self.supervisor.console.print(
                             json.dumps(tasks, indent=4, ensure_ascii=False)
