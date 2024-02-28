@@ -9,7 +9,7 @@ This is a research-project, and its primary value is to explore the possibility 
 </p>
 </div>
 
-![gpt-all-star-2](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/1ec23255-7463-4510-90fc-80b15eb64cb9)
+![gpt-all-star-demo](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/1ec23255-7463-4510-90fc-80b15eb64cb9)
 
 <h2>Table of contents</h2>
 </hr>
