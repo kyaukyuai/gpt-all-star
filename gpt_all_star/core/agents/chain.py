@@ -108,7 +108,7 @@ Each worker will perform a task and respond with their results and status.
         system_prompt = f"""{profile}
 Based on the user request provided, your task is to generate a detail and specific plan that includes following items:
     - action: it must be one of {", ".join(ACTIONS)}
-    - working_directory: a directory where the command is to be executed or the file is to be placed, it should be started from '.', e.g. './src/'
+    - working_directory: a directory where the command is to be executed or the file is to be placed, it should be started from '.', e.g. './src'
     - filename: specify only if the name of the file to be added or changed is specifically determined
     - command: command to be executed if necessary
     - context: all contextual information that should be communicated to the person performing the task
@@ -139,7 +139,7 @@ Make sure that each step has all the information needed - do not skip steps.
                                 },
                                 "working_directory": {
                                     "type": "string",
-                                    "description": "Directory where the command is to be executed or the file is to be located, it should be started from '.', e.g. './src/'",
+                                    "description": "Directory where the command is to be executed or the file is to be located, it should be started from '.', e.g. './src'",
                                 },
                                 "filename": {
                                     "type": "string",
