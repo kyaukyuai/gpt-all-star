@@ -19,6 +19,10 @@ This is a research-project, and its primary value is to explore the possibility 
 - [🔎 Examples](#-examples)
 
 ## 🏛 Concept
+'''
+AI-powered code generation tool for scratch development of web applications with a team collaboration of autonomous AI agents.
+This is a research-project, and its primary value is to explore the possibility of autonomous AI agents.
+'''
 
 - **Build Team, Build App**: Simply organize your team and decide on what to build.
 - **AI Agent Collaboration**: Assemble a group of AI agents and work together to carry out the steps.
