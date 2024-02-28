@@ -26,11 +26,14 @@ from rich.table import Table
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
+
+# storage class
+"""Provides storage operations for the agent."""
 from gpt_all_star.core.tools.shell_tool import ShellTool
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
 
-NEXT_COMMAND = "next"
+NEXT_COMMAND = "next"  # NEXT_COMMAND: Constant for the next command  # NEXT_COMMAND: Constant for the next command
 
 
 class Agent(ABC):
@@ -63,6 +66,15 @@ class Agent(ABC):
         )
 
     def set_executor(self, working_directory: str) -> None:
+        """
+        Set the executor for the agent using the specified tools and working directory.
+
+        Args:
+            working_directory (str): The working directory for the executor.
+
+        Returns:
+            None
+        """
         file_tools = FileManagementToolkit(
             root_dir=str(working_directory),
             selected_tools=["read_file", "write_file", "list_directory", "file_delete"],
@@ -78,6 +90,15 @@ class Agent(ABC):
         self.console.print(f"{self.name}: {text}", style=f"bold {self.color}")
 
     def output_md(self, md: str) -> None:
+        """
+        Print the specified markdown content.
+
+        Args:
+            md (str): The markdown content to print.
+
+        Returns:
+            None
+        """
         self.console.print(Panel(Markdown(md, style="bold")))
 
     def output_files(self, exclude_dirs=[]) -> None:
@@ -182,7 +203,16 @@ def _create_chat_openai_instance(model_name: str, temperature: float):
     )
 
 
-def _create_azure_chat_openai_instance(model_name: str):
+def _create_azure_chat_openai_instance(model_name: str) -> AzureChatOpenAI:
+    """
+    Create and return an instance of the AzureChatOpenAI class for the agent.
+
+    Args:
+        model_name (str): The name of the AzureChatOpenAI model.
+
+    Returns:
+        AzureChatOpenAI: The created instance of AzureChatOpenAI.
+    """
     return AzureChatOpenAI(
         openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2023-07-01-preview"),
         deployment_name=model_name,
@@ -201,6 +231,12 @@ def _get_supported_models() -> list[str]:
 
 
 class AgentRole(str, Enum):
+    """
+    An enumeration of roles for the agent.
+    """
+    """
+    An enumeration of roles for the agent.
+    """
     COPILOT = "copilot"
     PRODUCT_OWNER = "product_owner"
     ENGINEER = "engineer"
@@ -217,6 +253,7 @@ class AgentProfile:
     prompt: PromptTemplate
 
 
+"""A mapping of agent roles to their profiles."""
 AGENT_PROFILES = {
     AgentRole.COPILOT: AgentProfile(
         name="Copilot",
