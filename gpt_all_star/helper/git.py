@@ -7,7 +7,14 @@ from github import Github
 
 
 class Git:
-    def __init__(self, repo_path: Path) -> None:
+    def __init__(self, repo_path: Path) -> None:  # repo_path: The path to the repository
+        """
+        Initialize the Git class with the specified repository path.
+        
+        Args:
+            repo_path (Path): The path to the repository.
+        
+        """
         self._create_new_github_repository(repo_path.name)
         self.repo_path = repo_path
         self.repo = git.Repo.init(self.repo_path)
@@ -17,6 +24,12 @@ class Git:
         )
 
     def files(self):
+        """
+        Get a list of files in the repository.
+        
+        Returns:
+            List[str]: A list of file paths in the repository.
+        """
         return [
             str(file)
             for file in self.repo_path.rglob("*")
@@ -48,10 +61,19 @@ class Git:
     def add(self, files):
         self.repo.index.add(files)
 
-    def commit(self, commit_message: str = "Add files via gpt-all-star"):
+    def commit(self, commit_message: str = "Add files via gpt-all-star"):  # commit_message: The commit message
+        """
+        Commit the changes with the specified commit message.
+        
+        Args:
+            commit_message (str, optional): The message for the commit. Defaults to "Add files via gpt-all-star".
+        """
         self.repo.index.commit(commit_message)
 
     def push(self):
+        """
+        Push the changes to the remote repository.
+        """
         try:
             remote_name = "origin"
             remote_url = f"https://github.com/{os.getenv('GITHUB_ORG')}/{self.repo_path.name}.git"
