@@ -1,18 +1,24 @@
 <div align="center">
 <img width="628" alt="gpt-all-star" src="https://github.com/kyaukyuai/gpt-all-star/assets/1140707/dc46fbf4-16f9-4989-801d-7df65af0c696">
+
+[![PyPI](https://img.shields.io/pypi/v/gpt-all-star.svg)](https://pypi.org/project/gpt-all-star/) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
 <p>
 AI-powered code generation tool for scratch development of web applications with a team collaboration of autonomous AI agents.
 This is a research-project, and its primary value is to explore the possibility of autonomous AI agents.
 </p>
 </div>
 
-![gpt-all-star-2](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/1ec23255-7463-4510-90fc-80b15eb64cb9)
+![gpt-all-star-demo](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/1ec23255-7463-4510-90fc-80b15eb64cb9)
 
 <h2>Table of contents</h2>
 </hr>
 
 - [🏛 Concept](#-concept)
 - [🐳 Getting Started](#-getting-started)
+  - [For User](#for-user)
+  - [For Developer](#for-developer)
+- [🕴 Current Situation](#-current-situation)
 - [🔎 Examples](#-examples)
 
 ## 🏛 Concept
@@ -26,6 +32,31 @@ This is a research-project, and its primary value is to explore the possibility 
 ![gpt-all-star-concept](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/77bdd5fa-afe9-4e3c-8dfd-85399852aec6)
 
 ## 🐳 Getting Started
+
+### For User
+
+1. Installation
+
+```bash
+$ pip install gpt-all-star
+```
+
+2. Set the `GPT ALL STAR` environment variables
+
+```bash
+$ export OPENAI_API_MODEL_NAME=gpt-4-turbo-preview
+$ export OPENAI_API_KEY=<your-openai-api-key>
+```
+
+3. Fun `GPT ALL STAR`
+
+```bash
+$ gpt-all-star
+```
+
+### For Developer
+
+:bulb: While it's entirely feasible to launch the application on your local machine directly, we **strongly recommend** using **Docker** for starting up the application.
 
 1. Clone the repository
 
@@ -61,6 +92,15 @@ $ poetry install
 ```bash
 $ poetry run gpt-all-star
 ```
+
+7. Edit the team members
+
+If you want to change the team members, edit the `gpt_all_star/agents.yml` file.
+
+## 🕴 Current Situation
+
+This is a research project and the main focus is currently on validating `Client Web Applications` in `React` and `ChakraUI` using `JavaScript`.
+We would like to test other languages and libraries as well and welcome contributions.
 
 ## 🔎 Examples
 

@@ -18,6 +18,7 @@ This is a research-project, and its primary value is to explore the possibility 
 - [🐳 Getting Started](#-getting-started)
   - [For User](#for-user)
   - [For Developer](#for-developer)
+- [🕴 Current Situation](#-current-situation)
 - [🔎 Examples](#-examples)
 
 ## 🏛 Concept
@@ -95,6 +96,11 @@ $ poetry run gpt-all-star
 7. Edit the team members
 
 If you want to change the team members, edit the `gpt_all_star/agents.yml` file.
+
+## 🕴 Current Situation
+
+This is a research project and the main focus is currently on validating `Client Web Applications` in `React` and `ChakraUI` using `JavaScript`.
+We would like to test other languages and libraries as well and welcome contributions.
 
 ## 🔎 Examples
 
