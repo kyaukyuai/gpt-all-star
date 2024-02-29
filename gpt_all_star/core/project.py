@@ -20,6 +20,12 @@ from gpt_all_star.core.team import Team
 
 
 class Project:
+    """
+    Represents a project in the AI-powered code generation tool.
+    
+    This class manages the execution of various steps in the project workflow, including setting modes,
+    initializing storages, agents, and step types, executing steps, and managing project start and finish.
+    """
     def __init__(
         self,
         step: StepType = StepType.DEFAULT,
