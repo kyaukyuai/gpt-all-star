@@ -31,6 +31,7 @@ class TestProject(unittest.TestCase
             project._execute_step(mock_step)
 
         # Assert the expected behavior
+        assert result, "Expected the step execution to be successful"
 
     @patch("gpt_all_star.core.project.STEPS")
     def test_execute_step_retries(self, mock_steps):
@@ -49,6 +50,7 @@ class TestProject(unittest.TestCase
             project._execute_step(mock_step)
 
         # Assert the expected behavior
+        assert result,"Expected the step execution to be successful after retries"
 
     @patch("gpt_all_star.core.project.STEPS")
     def test_execute_step_failure(self, mock_steps):
@@ -68,6 +70,7 @@ class TestProject(unittest.TestCase
                 project._execute_step(mock_step)
 
         # Assert the expected behavior
+        self.assertTrue(result, "Expected the step execution to fail")
 
     @patch("gpt_all_star.core.project.STEPS")
     def test_execute_step_interrupt(self, mock_steps):
@@ -86,6 +89,7 @@ class TestProject(unittest.TestCase
             project._execute_step(mock_step)
 
         # Assert the expected behavior
+        assert result,"Expected the step execution to be interrupted"
 
     @patch("gpt_all_star.core.project.STEPS")
     def test_execute_step_default_step_type(self, mock_steps):
