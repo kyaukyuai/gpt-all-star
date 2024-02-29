@@ -8,7 +8,8 @@ Create a detailed and specific development plan to enhance the UI and UX in acco
 
 # Constraints
 ---
-- The application specifications must be carefully understood and accurately reflected in the application.
+- Verification of operation, deployment, and version control are done in separate steps and are not included in the development plan.
+- Focus only on implementing source code that works perfectly according to the specification.
 
 # Current implementation
 ---
