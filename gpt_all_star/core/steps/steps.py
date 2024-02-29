@@ -7,6 +7,7 @@ from gpt_all_star.core.steps.improvement.improvement import Improvement
 from gpt_all_star.core.steps.specification.specification import Specification
 from gpt_all_star.core.steps.system_design.system_design import SystemDesign
 from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
+import unittest
 
 
 class StepType(str, Enum):
@@ -40,7 +41,7 @@ STEPS = {
     StepType.SYSTEM_DESIGN: [SystemDesign],
     StepType.DEVELOPMENT: [Development],
     StepType.ENTRYPOINT: [Entrypoint],
-    StepType.UI_DESIGN: [UIDesign],
+    StepType.UI_DESIGN: [UIDesign, unittest.TestCase],
     StepType.IMPROVEMENT: [Improvement],
     StepType.HEALING: [Healing],
 }
