@@ -123,10 +123,15 @@ class Project:
             plan_and_solve=self.plan_and_solve,
         )
         self._execute_steps()
-        if self.copilot.confirm("Do you want to execute this application?"):
-            Execution(self.team, self.copilot).run()
-        if self.copilot.confirm(
-            "Do you want to manage this application code with GitHub?"
+        if bool(os.listdir(self.storages.app.path.absolute())):
+            if self.copilot.confirm("Do you want to execute this application?"):
+                Execution(self.team, self.copilot).run()
+        if (
+            os.environ.get("GITHUB_ORG")
+            and os.environ.get("GITHUB_TOKEN")
+            and self.copilot.confirm(
+                "Do you want to manage this application code with GitHub?"
+            )
         ):
             Deployment(self.copilot).run()
 
