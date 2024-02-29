@@ -8,6 +8,10 @@ additional_tasks = [
 The list should adhere to project specifications and be guided by Technologies Guidelines emphasizing relevance, compatibility, and preference.
 These guidelines mandate including only essential, actively used technologies, ensuring their compatibility, and excluding any that cannot be integrated.
 Additionally, when multiple options are available for a specific project component, the guidelines prioritize React, JavaScript, chakra-ui and HTML.
+**IMPORTANT**: Only technologies related to source code implementation should be listed, not version control tools, technologies related to automated testing or deployment, or tools related to project management.
+**IMPORTANT**: List only the minimum required technology.
+**IMPORTANT**: Descriptions for each technology are not required, only provide the exact technology name.
+**IMPORTANT**: Avoid providing personal opinions or alternatives.
 """,
         "objective": """To produce a document clearly outlining the necessary and compatible technologies for the project's development, prioritizing preferred technologies.
 This aims to ensure an efficient and coherent development process using a streamlined, compatible technology stack, thereby facilitating easier integration and implementation.

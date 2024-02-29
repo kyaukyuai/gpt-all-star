@@ -1,4 +1,6 @@
 from gpt_all_star.core.agents.copilot import Copilot
+from gpt_all_star.core.steps.development.additional_tasks import additional_tasks
+from gpt_all_star.core.steps.development.nodejs_tasks import nodejs_tasks
 from gpt_all_star.core.steps.development.planning_prompt import planning_prompt_template
 from gpt_all_star.core.steps.step import Step
 
@@ -20,7 +22,7 @@ class Development(Step):
         return planning_prompt
 
     def additional_tasks(self) -> list:
-        return []
+        return additional_tasks + nodejs_tasks
 
     def callback(self) -> bool:
         self.copilot.output_files(exclude_dirs=self.exclude_dirs)

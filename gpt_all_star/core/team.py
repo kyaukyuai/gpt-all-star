@@ -120,7 +120,7 @@ class Team:
                     json.dumps(tasks, indent=4, ensure_ascii=False)
                 )
 
-            MAX_REPLANNING = 5
+            MAX_REPLANNING = 10
             replanning = 0
             completed_plan = []
             while len(tasks["plan"]) > 0:
