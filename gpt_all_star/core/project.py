@@ -56,6 +56,14 @@ class Project:
         self.project_name = project_name or self.copilot.ask_project_name()
 
     def _set_storages(self) -> None:
+        self.japanese_mode = japanese_mode
+        self.review_mode = review_mode
+        self.debug_mode = debug_mode
+
+    def _set_project_name(self, project_name: str) -> None:
+        self.project_name = project_name or self.copilot.ask_project_name()
+
+    def _set_storages(self) -> None:
         project_path = Path(os.path.abspath(f"projects/{self.project_name}")).absolute()
         self.storages = Storages(
             root=Storage(project_path),
@@ -76,6 +84,12 @@ class Project:
             engineer=Engineer(storages=self.storages, debug_mode=self.debug_mode),
             architect=Architect(storages=self.storages, debug_mode=self.debug_mode),
             designer=Designer(storages=self.storages, debug_mode=self.debug_mode),
+            product_owner=ProductOwner(
+                storages=self.storages, debug_mode=self.debug_mode
+            ),
+            engineer=Engineer(storages=self.storages, debug_mode=self.debug_mode),
+            architect=Architect(storages=self.storages, debug_mode=self.debug_mode),
+            designer=Designer(storages=self.storages, debug_mode=self.debug_mode),
             qa_engineer=QAEngineer(storages=self.storages, debug_mode=self.debug_mode),
             project_manager=ProjectManager(
                 storages=self.storages, debug_mode=self.debug_mode
@@ -89,6 +103,9 @@ class Project:
             self.storages.archive_storage()
 
     def _execute_steps(self) -> None:
+        """
+        Execute the steps in the project.
+        """
         try:
             for step in STEPS[self.step_type]:
                 self._execute_step(step)
