@@ -7,7 +7,7 @@ from gpt_all_star.core.project import Project, StepType
 
 
 class TestProject(unittest.TestCase
-    def setUp(self):
+    def setUp(self):# New test case setup
         self.mock_copilot = ...
         self.mock_team = ...
         self.mock_step = ...
@@ -69,7 +69,7 @@ class TestProject(unittest.TestCase
             with self.assertRaises(Exception):
                 project._execute_step(mock_step)
 
-        # Assert the expected behavior
+        self.assertTrue(result, "Expected the step execution to fail") # Additional test case
         self.assertTrue(result, "Expected the step execution to fail")
 
     @patch("gpt_all_star.core.project.STEPS")
@@ -88,7 +88,7 @@ class TestProject(unittest.TestCase
             # Call the method to be tested
             project._execute_step(mock_step)
 
-        # Assert the expected behavior
+        assert result,"Expected the step execution to be interrupted" # Additional test case
         assert result,"Expected the step execution to be interrupted"
 
     @patch("gpt_all_star.core.project.STEPS")
