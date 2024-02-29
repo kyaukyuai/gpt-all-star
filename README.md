@@ -20,6 +20,7 @@ This is a research-project, and its primary value is to explore the possibility 
   - [For Developer](#for-developer)
 - [🕴 Current Situation](#-current-situation)
 - [🔎 Examples](#-examples)
+  - [⏱️ Pomodoro Timer](#️-pomodoro-timer)
 
 ## 🏛 Concept
 
@@ -104,9 +105,9 @@ We would like to test other languages and libraries as well and welcome contribu
 
 ## 🔎 Examples
 
-### Pomodoro Timer
+### ⏱️ Pomodoro Timer
 
-- 💬 Instruction: `A Pomodoro Timer fully designed by human interface guideline`
+- 💬 Instruction: `Pomodoro Timer fully designed by human interface guideline`
 - 💻️ [GitHub](https://github.com/gpt-all-star/pomodoro)
 
 ![Export-1707059574807](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/c194dced-d179-4d1e-8e5d-f89dbafa00ee)
