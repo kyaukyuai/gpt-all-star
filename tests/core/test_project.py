@@ -7,7 +7,8 @@ from gpt_all_star.core.project import Project, StepType
 
 
 class TestProject(unittest.TestCase
-    def setUp(self):# New test case setup
+    def setUp(self):# Set up for the new test case
+        # Set up for the new test case and initialize the test environment
         self.mock_copilot = ...
         self.mock_team = ...
         self.mock_step = ...
@@ -22,6 +23,7 @@ class TestProject(unittest.TestCase
     @patch("gpt_all_star.core.project.STEPS")
     def test_execute_step_success(self, mock_steps):
         # Mock the necessary dependencies
+        # Test for executing step successfully
         # Mock the necessary dependencies
         self.mock_copilot = ...
         mock_team = ...
@@ -41,6 +43,7 @@ class TestProject(unittest.TestCase
     @patch("gpt_all_star.core.project.STEPS")
     def test_execute_step_retries(self, mock_steps):
         # Mock the necessary dependencies
+        # Test for executing step with retries
         # Mock the necessary dependencies
         self.mock_copilot = ...
         mock_team = ...
@@ -60,6 +63,7 @@ class TestProject(unittest.TestCase
     @patch("gpt_all_star.core.project.STEPS")
     def test_execute_step_failure(self, mock_steps):
         # Mock the necessary dependencies
+        # Test for executing step and expecting failure
         # Mock the necessary dependencies
         self.mock_copilot = ...
         mock_team = ...
@@ -80,12 +84,14 @@ class TestProject(unittest.TestCase
     @patch("gpt_all_star.core.project.STEPS")
     def test_execute_step_interrupt(self, mock_steps):
         # Mock the necessary dependencies
+        # Test for executing step and expecting an interrupt
         # Mock the necessary dependencies
         self.mock_copilot = ...
         mock_team = ...
         mock_step = ...
 
         # Create an instance of Project with desired configuration
+# Test the default step type
         project = Project(step=StepType.DEFAULT, ...)
 
         # Patch the necessary methods and attributes
