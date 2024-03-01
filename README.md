@@ -71,6 +71,30 @@ $ git clone git@github.com:kyaukyuai/gpt-all-star.git
 $ mv .env.sample .env
 ```
 
+```bash
+# OPENAI or AZURE
+ENDPOINT=OPENAI
+
+# USE when ENDPOINT=OPENAI
+OPENAI_API_MODEL_NAME=gpt-4-1106-preview
+OPENAI_API_KEY=<your-openai-api-key>
+
+# USE when ENDPOINT=AZURE
+AZURE_OPENAI_API_KEY=<your-azure-opnai-api-key>
+AZURE_OPENAI_ENDPOINT=https://<your-azure-openai-endpoint>.openai.azure.com/
+AZURE_OPENAI_DEPLOYMENT_NAME=<your-azure-openai-deployment-name>
+
+# LangSmith
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
+LANGCHAIN_API_KEY=<your-langchain-api-key>
+LANGCHAIN_PROJECT=<your-langchain-project>
+
+# This is an environment variable to use if you want to manage the code you want to generate with gpt-all-star on Github.
+GITHUB_ORG=<your-github-org>
+GITHUB_TOKEN=<your-github-token>
+```
+
 3. Run `docker compose build` and `docker compose up`
 
 ```bash
@@ -92,6 +116,27 @@ $ poetry install
 
 ```bash
 $ poetry run gpt-all-star
+```
+
+```bash
+$ poetry run gpt-all-star --help
+
+Usage: gpt-all-star [OPTIONS]
+
+╭─ Options ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ --step                -s      [none|default|build|specification|system_design|development  Step to be performed [default: StepType.DEFAULT]            │
+│                               |entrypoint|ui_design|improvement|healing]                                                                               │
+│ --project_name        -p      TEXT                                                         Project name [default: None]                                │
+│ --japanese_mode       -j                                                                   Japanese mode                                               │
+│ --review_mode         -r                                                                   Review mode                                                 │
+│ --debug_mode          -d                                                                   Debug mode                                                  │
+│ --plan_and_solve                                                                           Plan-and-Solve Prompting                                    │
+│ --install-completion          [bash|zsh|fish|powershell|pwsh]                              Install completion for the specified shell. [default: None] │
+│ --show-completion             [bash|zsh|fish|powershell|pwsh]                              Show completion for the specified shell, to copy it or      │
+│                                                                                            customize the installation.                                 │
+│                                                                                            [default: None]                                             │
+│ --help                                                                                     Show this message and exit.                                 │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
 7. Edit the team members
