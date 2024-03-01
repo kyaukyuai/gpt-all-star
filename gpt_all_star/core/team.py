@@ -39,11 +39,11 @@ class Team:
         self.supervisor = None
         self._initialize_team()
 
-    def _initialize_team(self):
+    def initialize_team(self):
         self.copilot.state("Let's start by building a team!")
-        self._introduce_agents()
+        self.introduce_agents()
         self.copilot.state("Ok, we have a team now!")
-        self._display_team_members()
+        self.display_team_members()
 
     def _assign_supervisor(self, planning_prompt: str | None):
         supervisor_name = (
@@ -116,7 +116,7 @@ class Team:
                 tasks["plan"].append(task)
 
             if self.supervisor.debug_mode:
-                self.supervisor.console.print(
+                self.console.print(
                     json.dumps(tasks, indent=4, ensure_ascii=False)
                 )
 
