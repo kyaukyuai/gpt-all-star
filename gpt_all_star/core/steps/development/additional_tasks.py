@@ -5,7 +5,7 @@ additional_tasks = [
         "filename": "the specific file with placeholders",
         "command": "",
         "context": """The task involves identifying a file within the project that has incomplete implementation,
-indicated by placeholders such as 'will go here', 'will be added here', 'PlaceHolder', 'TODO', etc.
+indicated by placeholders such as 'will go here', 'will be added here', 'PlaceHolder', 'TODO', 'Component' etc.
 Once identified, these placeholders are to be addressed and corrected with complete and functional code to ensure that the implementation is fully realized.
 """,
         "objective": """To remove any uncertainties or incomplete segments within the code by replacing placeholders with actual, working code.

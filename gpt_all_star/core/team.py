@@ -123,6 +123,8 @@ class Team:
             MAX_REPLANNING = 10
             replanning = 0
             completed_plan = []
+            original_tasks_count = len(tasks["plan"])
+            count = 1
             while len(tasks["plan"]) > 0:
                 task = tasks["plan"][0]
                 if task["action"] == ACTIONS[0]:
@@ -141,9 +143,7 @@ Reason: {task['reason']}
 """
                     )
                 else:
-                    self.supervisor.state(
-                        f"({(1/len(tasks['plan']) * 100):.1f}%) {todo}"
-                    )
+                    self.supervisor.state(f"({count}/{original_tasks_count}) {todo}")
 
                 message = Message.create_human_message(
                     implement_template.format(
@@ -163,6 +163,7 @@ Reason: {task['reason']}
                     )
                 )
                 self._execute([message])
+                count += 1
                 tasks["plan"].pop(0)
 
                 if (
@@ -195,6 +196,8 @@ Reason: {task['reason']}
                         )
                     )
                     replanning += 1
+                    count = 1
+                    original_tasks_count = len(tasks["plan"])
                     if self.supervisor.debug_mode:
                         self.supervisor.console.print(
                             json.dumps(tasks, indent=4, ensure_ascii=False)
