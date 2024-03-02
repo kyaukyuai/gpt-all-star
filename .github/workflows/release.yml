@@ -31,7 +31,7 @@ jobs:
 
       # Cache Poetry's dependencies based on the lock file
       - name: Set up Poetry cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry
           key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
