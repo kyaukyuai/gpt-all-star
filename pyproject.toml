@@ -41,11 +41,16 @@ autopep8 = "^2.0.4"
 pre-commit = "^3.6.1"
 mkdocs = "^1.5.3"
 mkdocs-material = "^9.5.11"
+python-semantic-release = "^9.1.1"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
 useLibraryCodeForTypes = true
 exclude = [".cache"]
+
+[tool.semantic_release]
+version_variable = "pyproject.toml:version"
+version_source = "tag"
 
 [project.scripts]
 gpt-all-star = 'gpt_all_star.main:app'
