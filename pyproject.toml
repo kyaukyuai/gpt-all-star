@@ -51,6 +51,10 @@ exclude = [".cache"]
 [tool.semantic_release]
 version_variable = "pyproject.toml:version"
 version_source = "tag"
+branch = "main"
+upload_to_PyPI = true
+upload_to_release = true
+build_command = "pip install poetry && poetry build"
 
 [project.scripts]
 gpt-all-star = 'gpt_all_star.main:app'
