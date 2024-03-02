@@ -9,8 +9,14 @@ on:
       - main
       - develop
 
+permissions:
+  contents: read
+
 jobs:
   update_release_draft:
+    permissions:
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       # (Optional) GitHub Enterprise requires GHE_HOST variable set
