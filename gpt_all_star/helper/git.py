@@ -17,13 +17,12 @@ class Git:
         )
 
     def files(self):
+        excluded_dirs = ["node_modules", ".git", ".archive", ".idea", "build"]
         return [
             str(file)
             for file in self.repo_path.rglob("*")
             if file.is_file()
-            and "node_modules" not in str(file)
-            and ".git" not in str(file)
-            and ".archive" not in str(file)
+            and not any(excluded_dir in str(file) for excluded_dir in excluded_dirs)
         ]
 
     def diffs(self):
