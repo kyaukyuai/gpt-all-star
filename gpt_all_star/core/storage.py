@@ -55,32 +55,18 @@ class Storage:
     ) -> dict[str, str]:
         if files_dict is None:
             files_dict = {}
+        excluded_files = ["package-lock.json", "yarn.lock"]
+        excluded_dirs = ["node_modules", ".git", ".archive", ".idea", "build"]
+
         for item in (path or self.path).iterdir():
-            if (
-                item.is_file()
-                and item.name != "package-lock.json"
-                and item.name != "yarn.lock"
-            ):
+            if item.is_file() and item.name not in excluded_files:
                 try:
-                    with open(item, "r", encoding="utf-8") as f:
-                        file_content = f.read()
+                    file_content = item.read_text(encoding="utf-8")
                 except UnicodeDecodeError:
                     continue
-                    # raise ValueError(
-                    #     f"Non-text file detected: {item}, currently only supports utf-8 "
-                    #     f"decodable text files."
-                    # )
                 files_dict[str(item)] = file_content
-            elif item.is_dir():
-                if (
-                    item.name != "node_modules"
-                    and item.name != ".git"
-                    and item.name != ".archive"
-                    and item.name != "docs"
-                    and item.name != ".idea"
-                    and item.name != "build"
-                ):
-                    self.recursive_file_search(item, files_dict)
+            elif item.is_dir() and item.name not in excluded_dirs:
+                self.recursive_file_search(item, files_dict)
         return files_dict
 
 
