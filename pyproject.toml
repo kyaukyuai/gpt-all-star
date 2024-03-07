@@ -30,6 +30,8 @@ langchain-experimental = "^0.0.53"
 llama-index = "^0.10.0"
 tree-sitter-languages = "^1.10.2"
 pygithub = "^2.2.0"
+uvicorn = "^0.27.1"
+fastapi = "^0.110.0"
 
 [tool.poetry.scripts]
 gpt-all-star = 'gpt_all_star.main:app'

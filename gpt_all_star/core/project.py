@@ -6,6 +6,7 @@ from pathlib import Path
 
 from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.agents.architect import Architect
+from gpt_all_star.core.agents.chain import ACTIONS, Chain
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.agents.designer import Designer
 from gpt_all_star.core.agents.engineer import Engineer
@@ -14,9 +15,15 @@ from gpt_all_star.core.agents.project_manager import ProjectManager
 from gpt_all_star.core.agents.qa_engineer import QAEngineer
 from gpt_all_star.core.deployment.deployment import Deployment
 from gpt_all_star.core.execution.execution import Execution
+from gpt_all_star.core.implement_prompt import implement_template
+from gpt_all_star.core.message import Message
+from gpt_all_star.core.steps.specification.specification import Specification
 from gpt_all_star.core.steps.steps import STEPS, StepType
 from gpt_all_star.core.storage import Storage, Storages
 from gpt_all_star.core.team import Team
+from gpt_all_star.helper.multi_agent_collaboration_graph import (
+    MultiAgentCollaborationGraph,
+)
 
 
 class Project:
@@ -79,7 +86,8 @@ class Project:
     def _set_step_type(self, step: StepType) -> None:
         self.step_type = step or StepType.DEFAULT
         if self.step_type is StepType.DEFAULT:
-            self.copilot.state("Archiving previous results...")
+            if self.debug_mode:
+                self.copilot.state("Archiving previous results...")
             self.storages.archive_storage()
 
     def _execute_steps(self) -> None:
@@ -134,6 +142,73 @@ class Project:
             )
         ):
             Deployment(self.copilot).run()
+
+    def chat(self, message: str) -> None:
+        for step in STEPS[self.step_type]:
+            step = step(self.copilot, display=False)
+            if step.__class__ is Specification:
+                step.instructions = message
+                step.app_type = "Client-Side Web Application"
+            supervisor_name = (
+                Chain()
+                .create_assign_supervisor_chain(members=self.agents.to_array())
+                .invoke(
+                    {"messages": [Message.create_human_message(step.planning_prompt())]}
+                )
+                .get("assign")
+            )
+            supervisor = self.agents.get_agent_by_name(supervisor_name)
+            self._graph = MultiAgentCollaborationGraph(
+                supervisor, self.agents.to_array()
+            )
+            self.supervisor = supervisor
+            tasks = (
+                Chain()
+                .create_planning_chain(self.supervisor.profile)
+                .invoke(
+                    {
+                        "messages": [
+                            Message.create_human_message(step.planning_prompt())
+                        ],
+                    }
+                )
+            )
+            for task in step.additional_tasks():
+                tasks["plan"].append(task)
+
+            count = 1
+            while len(tasks["plan"]) > 0:
+                task = tasks["plan"][0]
+                if task["action"] == ACTIONS[0]:
+                    todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
+                else:
+                    todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
+
+                message = Message.create_human_message(
+                    implement_template.format(
+                        task=todo,
+                        objective=task["objective"],
+                        context=task["context"],
+                        reason=task["reason"],
+                        implementation=self.copilot.storages.current_source_code(
+                            debug_mode=self.copilot.debug_mode
+                        ),
+                        specifications=self.copilot.storages.docs.get(
+                            "specifications.md", "N/A"
+                        ),
+                        technologies=self.copilot.storages.docs.get(
+                            "technologies.md", "N/A"
+                        ),
+                    )
+                )
+                for output in self._graph.workflow.stream(
+                    {"messages": [message]},
+                    config={"recursion_limit": 50},
+                ):
+                    for key, value in output.items():
+                        print(value)
+                count += 1
+                tasks["plan"].pop(0)
 
     def finish(self) -> None:
         if self.start_time:
