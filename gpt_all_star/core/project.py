@@ -206,7 +206,7 @@ class Project:
                     config={"recursion_limit": 50},
                 ):
                     for key, value in output.items():
-                        print(value)
+                        yield value
                 count += 1
                 tasks["plan"].pop(0)
 

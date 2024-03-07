@@ -8,4 +8,4 @@ class GptAllStar:
 
     def chat(self, project_name: str, step: StepType = None, message=None):
         project = Project(step=step, project_name=project_name)
-        project.chat(message=message)
+        return project.chat(message=message)
