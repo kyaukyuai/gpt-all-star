@@ -7,8 +7,9 @@ class Improvement(Step):
     def __init__(
         self,
         copilot: Copilot,
+        display: bool = True,
     ) -> None:
-        super().__init__(copilot)
+        super().__init__(copilot, display)
         self.working_directory = self.copilot.storages.app.path.absolute()
 
     def planning_prompt(self) -> str:

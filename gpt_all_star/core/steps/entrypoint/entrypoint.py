@@ -4,11 +4,8 @@ from gpt_all_star.core.steps.step import Step
 
 
 class Entrypoint(Step):
-    def __init__(
-        self,
-        copilot: Copilot,
-    ) -> None:
-        super().__init__(copilot)
+    def __init__(self, copilot: Copilot, display: bool = True) -> None:
+        super().__init__(copilot, display)
         self.working_directory = self.copilot.storages.app.path.absolute()
 
     def planning_prompt(self) -> str:

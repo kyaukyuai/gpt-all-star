@@ -9,19 +9,27 @@ class Specification(Step):
     def __init__(
         self,
         copilot: Copilot,
+        display: bool = True,
     ) -> None:
-        super().__init__(copilot)
+        super().__init__(copilot, display)
         self.working_directory = self.copilot.storages.docs.path.absolute()
+        self.instructions = ""
+        self.app_type = ""
 
     def planning_prompt(self) -> str:
         return ""
 
     def additional_tasks(self) -> list:
-        instructions = self.copilot.get_instructions()
-        app_type = self.copilot.get_app_type()
-        self.copilot.state("Ok, we have a instruction and app type now!")
-        self.copilot.state(
-            f"""
+        instructions = (
+            self.copilot.get_instructions()
+            if self.instructions == ""
+            else self.instructions
+        )
+        app_type = self.copilot.get_app_type() if self.app_type == "" else self.app_type
+        if self.display:
+            self.copilot.state(
+                f"""
+Ok, we have a instruction and app type now!
 ---
 instruction:
 {instructions}
@@ -29,7 +37,7 @@ app_type:
 {app_type}
 ---
 """,
-        )
+            )
         return create_additional_tasks(app_type, instructions)
 
     def callback(self) -> bool:
