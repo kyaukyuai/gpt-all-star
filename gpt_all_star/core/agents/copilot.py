@@ -14,7 +14,6 @@ from gpt_all_star.helper.config_loader import load_configuration
 
 APP_TYPES = ["Client-Side Web Application", "Full-Stack Web Application"]
 
-
 class Copilot(Agent):
     def __init__(
         self,
@@ -22,21 +21,22 @@ class Copilot(Agent):
         debug_mode: bool = False,
         name: str | None = None,
         profile: str | None = None,
+        language: str | None = None
     ) -> None:
-        super().__init__(AgentRole.COPILOT, storages, debug_mode, name, profile)
+        super().__init__(AgentRole.COPILOT, storages, debug_mode, name, profile, language=language)
 
     def start(self, project_name: str) -> None:
-        self.state(f"Let's start the project! ({project_name})")
+        self.state(self._("Let's start the project! (%s)") % project_name)
 
     def finish(self, project_name: str) -> None:
-        self.state(f"Completed the project! ({project_name})")
+        self.state(self._(f"Completed the project! (%s)") % project_name)
 
     def ask_project_name(self) -> str:
         default_project_name = "".join(
             random.choice(string.ascii_letters + string.digits) for i in range(15)
         )
         project_name = self.ask(
-            "What is the name of the project?",
+            self._("What is the name of the project?"),
             is_required=False,
             default=default_project_name,
         )
@@ -62,7 +62,7 @@ class Copilot(Agent):
         if instruction:
             return instruction
         return self.ask(
-            "What application do you want to build? Please describe it in as much detail as possible."
+            self._("What application do you want to build? Please describe it in as much detail as possible.")
         )
 
     def get_app_type(self) -> str:
@@ -71,16 +71,16 @@ class Copilot(Agent):
         if app_type:
             return app_type
         return self.present_choices(
-            "What type of application do you want to build?",
+            self._("What type of application do you want to build?"),
             APP_TYPES,
             default=1,
         )
 
     def caution(self, command: str) -> None:
-        self.state(f"Executing command: {command}")
+        self.state(self._("Executing command: %s") % command)
         self.state(
-            "If it does not work as expected, please consider running the code"
-            + " in another way than above."
+            self._("If it does not work as expected, please consider running the code"
+            + " in another way than above.")
         )
         self.console.print(
             "You can press ctrl+c *once* to stop the execution.", style="red"
@@ -145,7 +145,7 @@ class Copilot(Agent):
             except requests.ConnectionError:
                 pass
             time.sleep(1)
-        self.state("Unable to confirm server startup")
+        self.state(self._("Unable to confirm server startup"))
         return False
 
     def _check_browser_errors(self):
@@ -165,4 +165,4 @@ class Copilot(Agent):
             raise Exception({"browser errors": errors})
 
     def _handle_keyboard_interrupt(self) -> None:
-        self.state("Execution stopped.")
+        self.state(self._("Execution stopped."))

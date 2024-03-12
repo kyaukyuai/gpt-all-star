@@ -27,6 +27,7 @@ from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.tools.shell_tool import ShellTool
+from gpt_all_star.helper.translator import create_translator
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
 
@@ -35,14 +36,15 @@ NEXT_COMMAND = "next"
 
 class Agent(ABC):
     def __init__(
-        self,
-        role: AgentRole,
-        storages: Storages | None,
-        debug_mode: bool = False,
-        name: str | None = None,
-        profile: str | None = None,
-        color: str | None = None,
-        tools: list = [],
+            self,
+            role: AgentRole,
+            storages: Storages | None,
+            debug_mode: bool = False,
+            name: str | None = None,
+            profile: str | None = None,
+            color: str | None = None,
+            tools: list = [],
+            language: str | None = None
     ) -> None:
         self.console = ConsoleTerminal()
         self._llm = _create_llm(os.getenv("OPENAI_API_MODEL_NAME"), 0.1)
@@ -62,15 +64,21 @@ class Agent(ABC):
             )
         )
 
+        self._set_language(language)
+        self._ = create_translator(self.language)
+
+    def _set_language(self, language: str | None) -> None:
+        self.language = language if language is not None else "en"
+
     def set_executor(self, working_directory: str) -> None:
         file_tools = FileManagementToolkit(
             root_dir=str(working_directory),
             selected_tools=["read_file", "write_file", "list_directory", "file_delete"],
         ).get_tools()
         self.tools = (
-            self.additional_tools
-            + file_tools
-            + [ShellTool(verbose=self.debug_mode, root_dir=str(working_directory))]
+                self.additional_tools
+                + file_tools
+                + [ShellTool(verbose=self.debug_mode, root_dir=str(working_directory))]
         )
         self.executor = self._create_executor(self.tools)
 
@@ -123,10 +131,10 @@ class Agent(ABC):
             print("No input provided! Please try again.")
 
     def present_choices(
-        self,
-        question: str,
-        choices: list[str],
-        default: str,
+            self,
+            question: str,
+            choices: list[str],
+            default: str,
     ) -> str:
         return self.console.choice(
             f"{self.name}: {question} (default: {default})",
