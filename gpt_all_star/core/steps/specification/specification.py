@@ -8,17 +8,14 @@ from gpt_all_star.helper.translator import create_translator
 
 class Specification(Step):
     def __init__(
-            self,
-            copilot: Copilot,
-            display: bool = True,
-            japanese_mode: bool = False
+        self, copilot: Copilot, display: bool = True, japanese_mode: bool = False
     ) -> None:
         super().__init__(copilot, display)
         self.working_directory = self.copilot.storages.docs.path.absolute()
         self.instructions = ""
         self.app_type = ""
         self.japanese_mode = japanese_mode
-        self._ = create_translator('ja' if japanese_mode else 'en')
+        self._ = create_translator("ja" if japanese_mode else "en")
 
     def planning_prompt(self) -> str:
         return ""
@@ -32,7 +29,8 @@ class Specification(Step):
         app_type = self.copilot.get_app_type() if self.app_type == "" else self.app_type
         if self.display:
             self.copilot.state(
-                self._("""
+                self._(
+                    """
 Ok, we have a instruction and app type now!
 ---
 instruction:
@@ -41,7 +39,9 @@ app_type:
 %s
 ---
 """,
-                       ) % (instructions, app_type))
+                )
+                % (instructions, app_type)
+            )
         return create_additional_tasks(app_type, instructions)
 
     def callback(self) -> bool:

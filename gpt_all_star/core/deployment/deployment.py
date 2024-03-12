@@ -8,13 +8,9 @@ from gpt_all_star.helper.translator import create_translator
 
 
 class Deployment:
-    def __init__(
-            self,
-            copilot: Copilot,
-            japanese_mode: bool
-    ) -> None:
+    def __init__(self, copilot: Copilot, japanese_mode: bool) -> None:
         self.copilot = copilot
-        self._ = create_translator('ja' if japanese_mode else 'en')
+        self._ = create_translator("ja" if japanese_mode else "en")
 
     def _set_language(self, language: str | None) -> None:
         self.language = language if language is not None else "en"
@@ -26,7 +22,9 @@ class Deployment:
             self.copilot.state(self._("No files to add to the repository."))
             return
 
-        self.copilot.state(self._("The following diff will be pushed to the repository"))
+        self.copilot.state(
+            self._("The following diff will be pushed to the repository")
+        )
         syntax = Syntax(git.diffs(), "diff", theme="monokai", line_numbers=True)
         self.copilot.console.print(syntax)
 

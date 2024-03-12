@@ -6,14 +6,11 @@ from gpt_all_star.helper.translator import create_translator
 
 class Improvement(Step):
     def __init__(
-            self,
-            copilot: Copilot,
-            display: bool = True,
-            japanese_mode: bool = False
+        self, copilot: Copilot, display: bool = True, japanese_mode: bool = False
     ) -> None:
         super().__init__(copilot, display)
         self.working_directory = self.copilot.storages.app.path.absolute()
-        self._ = create_translator('ja' if japanese_mode else 'en')
+        self._ = create_translator("ja" if japanese_mode else "en")
 
     def planning_prompt(self) -> str:
         request = self.copilot.ask(
