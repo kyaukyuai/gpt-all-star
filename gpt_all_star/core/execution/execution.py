@@ -5,17 +5,13 @@ from gpt_all_star.core.steps.healing.healing import Healing
 from gpt_all_star.core.team import Team
 from gpt_all_star.helper.translator import create_translator
 
+
 class Execution:
-    def __init__(
-        self,
-        team: Team,
-        copilot: Copilot,
-        japanese_mode: bool
-    ) -> None:
+    def __init__(self, team: Team, copilot: Copilot, japanese_mode: bool) -> None:
         self.team = team
         self.copilot = copilot
         self.working_directory = self.copilot.storages.app.path.absolute()
-        self._ = create_translator('ja' if japanese_mode else 'en')
+        self._ = create_translator("ja" if japanese_mode else "en")
 
     def run(self) -> None:
         command = (

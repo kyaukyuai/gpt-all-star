@@ -14,6 +14,7 @@ from gpt_all_star.helper.config_loader import load_configuration
 
 APP_TYPES = ["Client-Side Web Application", "Full-Stack Web Application"]
 
+
 class Copilot(Agent):
     def __init__(
         self,
@@ -21,15 +22,17 @@ class Copilot(Agent):
         debug_mode: bool = False,
         name: str | None = None,
         profile: str | None = None,
-        language: str | None = None
+        language: str | None = None,
     ) -> None:
-        super().__init__(AgentRole.COPILOT, storages, debug_mode, name, profile, language=language)
+        super().__init__(
+            AgentRole.COPILOT, storages, debug_mode, name, profile, language=language
+        )
 
     def start(self, project_name: str) -> None:
         self.state(self._("Let's start the project! (%s)") % project_name)
 
     def finish(self, project_name: str) -> None:
-        self.state(self._(f"Completed the project! (%s)") % project_name)
+        self.state(self._("Completed the project! (%s)") % project_name)
 
     def ask_project_name(self) -> str:
         default_project_name = "".join(
@@ -62,7 +65,9 @@ class Copilot(Agent):
         if instruction:
             return instruction
         return self.ask(
-            self._("What application do you want to build? Please describe it in as much detail as possible.")
+            self._(
+                "What application do you want to build? Please describe it in as much detail as possible."
+            )
         )
 
     def get_app_type(self) -> str:
@@ -79,8 +84,10 @@ class Copilot(Agent):
     def caution(self, command: str) -> None:
         self.state(self._("Executing command: %s") % command)
         self.state(
-            self._("If it does not work as expected, please consider running the code"
-            + " in another way than above.")
+            self._(
+                "If it does not work as expected, please consider running the code"
+                + " in another way than above."
+            )
         )
         self.console.print(
             "You can press ctrl+c *once* to stop the execution.", style="red"

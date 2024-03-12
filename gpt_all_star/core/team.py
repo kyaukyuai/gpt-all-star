@@ -38,7 +38,7 @@ class Team:
         self.console = self.copilot.console.console
         self._graph: Optional[MultiAgentCollaborationGraph] = None
         self.supervisor = None
-        self._ = create_translator('ja' if japanese_mode else 'en')
+        self._ = create_translator("ja" if japanese_mode else "en")
         self._initialize_team()
 
     def _initialize_team(self):
@@ -136,14 +136,17 @@ class Team:
 
                 if self.supervisor.debug_mode:
                     self.supervisor.state(
-                        self._("""\n
+                        self._(
+                            """\n
 Task: %s
 Context: %s
 Objective: %s
 Reason: %s
 ---
 """
-                    ) % (todo, task['context'], task['objective'], task['reason']))
+                        )
+                        % (todo, task["context"], task["objective"], task["reason"])
+                    )
                 else:
                     self.supervisor.state(f"({count}/{original_tasks_count}) {todo}")
 

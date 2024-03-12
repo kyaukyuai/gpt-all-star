@@ -29,13 +29,13 @@ from gpt_all_star.helper.translator import setup_i18n
 
 class Project:
     def __init__(
-            self,
-            step: StepType = StepType.DEFAULT,
-            project_name: str = None,
-            japanese_mode: bool = False,
-            review_mode: bool = False,
-            debug_mode: bool = False,
-            plan_and_solve: bool = False,
+        self,
+        step: StepType = StepType.DEFAULT,
+        project_name: str = None,
+        japanese_mode: bool = False,
+        review_mode: bool = False,
+        debug_mode: bool = False,
+        plan_and_solve: bool = False,
     ) -> None:
         self.copilot = Copilot(language="ja_JP" if japanese_mode else "en")
         self.start_time = None
@@ -50,7 +50,7 @@ class Project:
         self._ = self._create_translate(japanese_mode)
 
     def _set_modes(
-            self, japanese_mode: bool, review_mode: bool, debug_mode: bool
+        self, japanese_mode: bool, review_mode: bool, debug_mode: bool
     ) -> None:
         self.japanese_mode = japanese_mode
         self.review_mode = review_mode
@@ -95,9 +95,9 @@ class Project:
 
     def _create_translate(self, japanese_mode: bool) -> any:
         if japanese_mode:
-            return setup_i18n('ja_JP')
+            return setup_i18n("ja_JP")
         else:
-            return setup_i18n('en')
+            return setup_i18n("en")
 
     def _execute_steps(self) -> None:
         try:
@@ -117,11 +117,14 @@ class Project:
                     success = True
                 else:
                     self.copilot.state(
-                        self._("Retrying step %d (Attempt %d/%d)") % (step, retries + 1, MAX_RETRIES)
+                        self._("Retrying step %d (Attempt %d/%d)")
+                        % (step, retries + 1, MAX_RETRIES)
                     )
                     retries += 1
             except Exception as e:
-                self.copilot.state(self._("Failed to execute step %d. Reason: %s") % (step, str(e)))
+                self.copilot.state(
+                    self._("Failed to execute step %d. Reason: %s") % (step, str(e))
+                )
                 raise e
 
         if not success:
@@ -145,11 +148,11 @@ class Project:
             if self.copilot.confirm(self._("Do you want to execute this application?")):
                 Execution(self.team, self.copilot, self.japanese_mode).run()
         if (
-                os.environ.get("GITHUB_ORG")
-                and os.environ.get("GITHUB_TOKEN")
-                and self.copilot.confirm(
-            self._("Do you want to manage this application code with GitHub?")
-        )
+            os.environ.get("GITHUB_ORG")
+            and os.environ.get("GITHUB_TOKEN")
+            and self.copilot.confirm(
+                self._("Do you want to manage this application code with GitHub?")
+            )
         ):
             Deployment(self.copilot, self.japanese_mode).run()
 
@@ -212,8 +215,8 @@ class Project:
                     )
                 )
                 for output in self._graph.workflow.stream(
-                        {"messages": [message]},
-                        config={"recursion_limit": 50},
+                    {"messages": [message]},
+                    config={"recursion_limit": 50},
                 ):
                     for key, value in output.items():
                         yield value
@@ -225,6 +228,6 @@ class Project:
             end_time = time.time()
             elapsed_time = end_time - self.start_time
             self.copilot.state(
-                self._(f"Project finished. Elapsed time: %.2f seconds.") % elapsed_time
+                self._("Project finished. Elapsed time: %.2f seconds.") % elapsed_time
             )
         self.copilot.finish(self.project_name)

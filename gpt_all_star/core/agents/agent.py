@@ -36,15 +36,15 @@ NEXT_COMMAND = "next"
 
 class Agent(ABC):
     def __init__(
-            self,
-            role: AgentRole,
-            storages: Storages | None,
-            debug_mode: bool = False,
-            name: str | None = None,
-            profile: str | None = None,
-            color: str | None = None,
-            tools: list = [],
-            language: str | None = None
+        self,
+        role: AgentRole,
+        storages: Storages | None,
+        debug_mode: bool = False,
+        name: str | None = None,
+        profile: str | None = None,
+        color: str | None = None,
+        tools: list = [],
+        language: str | None = None,
     ) -> None:
         self.console = ConsoleTerminal()
         self._llm = _create_llm(os.getenv("OPENAI_API_MODEL_NAME"), 0.1)
@@ -76,9 +76,9 @@ class Agent(ABC):
             selected_tools=["read_file", "write_file", "list_directory", "file_delete"],
         ).get_tools()
         self.tools = (
-                self.additional_tools
-                + file_tools
-                + [ShellTool(verbose=self.debug_mode, root_dir=str(working_directory))]
+            self.additional_tools
+            + file_tools
+            + [ShellTool(verbose=self.debug_mode, root_dir=str(working_directory))]
         )
         self.executor = self._create_executor(self.tools)
 
@@ -131,10 +131,10 @@ class Agent(ABC):
             print("No input provided! Please try again.")
 
     def present_choices(
-            self,
-            question: str,
-            choices: list[str],
-            default: str,
+        self,
+        question: str,
+        choices: list[str],
+        default: str,
     ) -> str:
         return self.console.choice(
             f"{self.name}: {question} (default: {default})",
