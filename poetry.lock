@@ -1673,13 +1673,13 @@ extended-testing = ["lxml (>=5.1.0,<6.0.0)"]
 
 [[package]]
 name = "langgraph"
-version = "0.0.26"
+version = "0.0.28"
 description = "langgraph"
 optional = false
 python-versions = ">=3.9.0,<4.0"
 files = [
-    {file = "langgraph-0.0.26-py3-none-any.whl", hash = "sha256:f3ba45fc2957c6a69cb7639a762b779c80b549c6811b8f8f0e44e5f6943bfa3f"},
-    {file = "langgraph-0.0.26.tar.gz", hash = "sha256:cfd078a61a6212c82d41bcacbbdb53e3706d3fc01b1a44e2e56a45534777287c"},
+    {file = "langgraph-0.0.28-py3-none-any.whl", hash = "sha256:69461073c262fb11694b767238c986b36084cded4e6b4338042549fabdaf1cc0"},
+    {file = "langgraph-0.0.28.tar.gz", hash = "sha256:e630fec69dce6801540ab78d2aac615029945293ec113e6a632de2162e0a1239"},
 ]
 
 [package.dependencies]
@@ -5271,4 +5271,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "bb302d84b344355e329d30dc9453ab177691e0fedb66d04cf85d431ce27e5984"
+content-hash = "a719cc5c170a47df497048b01efdee31b19584c4ad0f04d3bd81216a71ec9399"
