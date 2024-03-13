@@ -7,11 +7,9 @@ from gpt_all_star.core.steps.step import Step
 
 class Development(Step):
     def __init__(
-        self,
-        copilot: Copilot,
-        display: bool = True,
+        self, copilot: Copilot, display: bool = True, japanese_mode: bool = False
     ) -> None:
-        super().__init__(copilot, display)
+        super().__init__(copilot, display, japanese_mode)
         self.working_directory = self.copilot.storages.app.path.absolute()
         self.plan_and_solve = True
 

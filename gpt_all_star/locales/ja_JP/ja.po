@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-03-09 16:49+0900\n"
-"PO-Revision-Date: 2024-03-10 23:55+0900\n"
+"POT-Creation-Date: 2024-03-13 23:19+0900\n"
+"PO-Revision-Date: 2024-03-13 23:21+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
@@ -15,44 +15,62 @@ msgstr ""
 "X-Poedit-SearchPath-1: core\n"
 "X-Poedit-SearchPath-2: helper\n"
 
-#: core/agents/copilot.py:31
-#, python-brace-format
-msgid "Let's start the project! (%s)"
-msgstr "%sをプロジェクトを始めよう！"
-
 #: core/agents/copilot.py:34
-#, python-brace-format
-msgid "Completed the project! (%s)"
-msgstr "%s プロジェクト完了!"
+#, python-format
+msgid "Let's start the project! (%s)"
+msgstr "「%s」プロジェクトを始めよう！"
 
-#: core/agents/copilot.py:41
+#: core/agents/copilot.py:37
+#, python-format
+msgid "Completed the project! (%s)"
+msgstr "「%s 」プロジェクト完了!"
+
+#: core/agents/copilot.py:44
 msgid "What is the name of the project?"
 msgstr "プロジェクト名を何にしますか？"
 
-#: core/agents/copilot.py:67
+#: core/agents/copilot.py:51
+msgid "yes"
+msgstr "はい"
+
+#: core/agents/copilot.py:51
+msgid "no"
+msgstr "いいえ"
+
+#: core/agents/copilot.py:71
 msgid ""
 "What application do you want to build? Please describe it in as much detail "
 "as possible."
 msgstr ""
-"どのようなアプリケーションを作りたいですか？できるだけ詳しく説明してください。"
+"どのようなアプリケーションを作りたいですか？できるだけ詳しく説明してくださ"
+"い。"
 
-#: core/agents/copilot.py:82
-#, python-brace-format
+#: core/agents/copilot.py:81
+msgid "What type of application do you want to build?"
+msgstr "どのようなアプリケーションを作りたいですか?"
+
+#: core/agents/copilot.py:87
+#, python-format
 msgid "Executing command: %s"
 msgstr "実行中のコマンド: %s"
 
-#: core/agents/copilot.py:84
+#: core/agents/copilot.py:90
 msgid ""
 "If it does not work as expected, please consider running the code in another "
 "way than above."
 msgstr ""
-"期待通りに動作しない場合は、上記とは別の方法でコードを実行することを検討してください"
+"期待通りに動作しない場合は、上記とは別の方法でコードを実行することを検討して"
+"ください"
 
-#: core/agents/copilot.py:150
+#: core/agents/copilot.py:95
+msgid "You can press ctrl+c *once* to stop the execution."
+msgstr "一度だけctrl+cを押すと実行を停止することができます。"
+
+#: core/agents/copilot.py:157
 msgid "Unable to confirm server startup"
 msgstr "サーバーの起動を確認できません"
 
-#: core/agents/copilot.py:170
+#: core/agents/copilot.py:177
 msgid "Execution stopped."
 msgstr "実行を停止します"
 
@@ -60,68 +78,65 @@ msgstr "実行を停止します"
 msgid "No files to add to the repository."
 msgstr "リポジトリに追加するファイルがありません"
 
-#: core/deployment/deployment.py:25
+#: core/deployment/deployment.py:26
 msgid "The following diff will be pushed to the repository"
 msgstr "以下の差分がリポジトリにプッシュされます"
 
-#: core/deployment/deployment.py:57
+#: core/deployment/deployment.py:59
 msgid "Pushing to the repository..."
 msgstr "リポジトリにプッシュしています…"
 
-#: core/deployment/deployment.py:77
+#: core/deployment/deployment.py:79
+#, python-format
 msgid "An error occurred while pushing to the repository: %s"
 msgstr "リポジトリへのプッシュ中にエラーが発生しました : %s"
 
-#: core/execution/execution.py:50
+#: core/execution/execution.py:46
+#, python-format
 msgid "Attempt %d/%d"
 msgstr "試行回数 %d/%d"
 
-#: core/project.py:94
+#: core/project.py:93
 msgid "Archiving previous results..."
 msgstr "過去の結果をアーカイブ中です…"
 
-#: core/project.py:107
+#: core/project.py:101
 msgid "Interrupt received! Stopping..."
 msgstr "割り込みを受けた！停止中です…"
 
-#: core/project.py:120
+#: core/project.py:114
+#, python-format
 msgid "Retrying step %d (Attempt %d/%d)"
 msgstr "リトライステップ : %d (試行回数 %d/%d)"
 
-#: core/project.py:124
+#: core/project.py:120
+#, python-format
 msgid "Failed to execute step %d. Reason: %s"
 msgstr "ステップ %dの実行に失敗しました。理由：%s"
 
-#: core/project.py:129
-#, python-brace-format
-msgid ""
-"Failed to successfully complete step %(step)d after %(max_retries)d attempts."
-msgstr ""
-"%(max_retries)d 回試行しましたが、ステップ%(step)dを正常に完了できませんでした。"
-
-#: core/project.py:144
+#: core/project.py:142
 msgid "Do you want to execute this application?"
 msgstr "このアプリケーションを実行しますか？"
 
-#: core/project.py:150
+#: core/project.py:148
 msgid "Do you want to manage this application code with GitHub?"
 msgstr "このアプリケーションコードをGitHubで管理したいですか？"
 
-#: core/project.py:160
+#: core/project.py:158
 msgid "Client-Side Web Application"
 msgstr "クライアント側ウェブアプリケーション"
 
-#: core/project.py:227
-#, python-brace-format
+#: core/project.py:225
+#, python-format
 msgid "Project finished. Elapsed time: %.2f seconds."
 msgstr "プロジェクト終了 経過時間：%.2f 秒"
 
-#: core/steps/improvement/improvement.py:17
+#: core/steps/improvement/improvement.py:15
 msgid "What would you like to update?"
 msgstr "何を更新したいですか？"
 
-#: core/steps/specification/specification.py:33
-#, python-brace-format
+#: core/steps/specification/specification.py:31
+#, python-format
 msgid ""
 "\n"
 "Ok, we have a instruction and app type now!\n"
@@ -150,7 +165,7 @@ msgid "Ok, we have a team now!"
 msgstr "よし、これでチームが決まった！"
 
 #: core/team.py:57
-#, python-brace-format
+#, python-format
 msgid "Supervisor assignment: %s."
 msgstr "スーパーバイザーを任命 : %s."
 
@@ -162,7 +177,8 @@ msgstr "  ┗ 私が責任者です"
 msgid "Planning tasks."
 msgstr "タスクのプランニング"
 
-#: core/team.py:139
+#: core/team.py:140
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -180,21 +196,35 @@ msgstr ""
 "理由: %s\n"
 "—\n"
 
-#: core/team.py:221
+#: core/team.py:224
 msgid "Loading members from `agent.yml`..."
-msgstr "agent.yml`からメンバーをロード中…"
+msgstr "`agent.yml`からメンバーをロード中…"
 
-#: core/team.py:245
-#, python-brace-format
+#: core/team.py:248
+#, python-format
 msgid "Please introduce the %s."
 msgstr "%sについて説明してください。"
 
-#: core/team.py:253
-#, python-brace-format
+#: core/team.py:256
+#, python-format
 msgid "What is the name of the %s?"
 msgstr "%sの名前は何ですか?"
 
-#: core/team.py:260
-#, python-brace-format
+#: core/team.py:263
+#, python-format
 msgid "What is the profile of the %s?"
 msgstr "%sのプロフィールを教えて下さい"
+
+#~ msgid "instruction:"
+#~ msgstr "指示:"
+
+#~ msgid "app_type:"
+#~ msgstr "アプリ種別:"
+
+#, python-brace-format
+#~ msgid ""
+#~ "Failed to successfully complete step %(step)d after %(max_retries)d "
+#~ "attempts."
+#~ msgstr ""
+#~ "%(max_retries)d 回試行しましたが、ステップ%(step)dを正常に完了できませんで"
+#~ "した。"

@@ -24,7 +24,7 @@ from gpt_all_star.core.team import Team
 from gpt_all_star.helper.multi_agent_collaboration_graph import (
     MultiAgentCollaborationGraph,
 )
-from gpt_all_star.helper.translator import setup_i18n
+from gpt_all_star.helper.translator import create_translator
 
 
 class Project:
@@ -37,7 +37,7 @@ class Project:
         debug_mode: bool = False,
         plan_and_solve: bool = False,
     ) -> None:
-        self.copilot = Copilot(language="ja_JP" if japanese_mode else "en")
+        self.copilot = Copilot(language="ja" if japanese_mode else "en")
         self.start_time = None
         self.plan_and_solve = plan_and_solve
         self._set_modes(japanese_mode, review_mode, debug_mode)
@@ -47,7 +47,7 @@ class Project:
         self._set_agents()
         self._set_step_type(step)
 
-        self._ = self._create_translate(japanese_mode)
+        self._ = create_translator("ja" if japanese_mode else "en")
 
     def _set_modes(
         self, japanese_mode: bool, review_mode: bool, debug_mode: bool
@@ -93,12 +93,6 @@ class Project:
                 self.copilot.state(self._("Archiving previous results..."))
             self.storages.archive_storage()
 
-    def _create_translate(self, japanese_mode: bool) -> any:
-        if japanese_mode:
-            return setup_i18n("ja_JP")
-        else:
-            return setup_i18n("en")
-
     def _execute_steps(self) -> None:
         try:
             for step in STEPS[self.step_type]:
@@ -112,7 +106,9 @@ class Project:
         success = False
         while retries < MAX_RETRIES and not success:
             try:
-                result = self.team.run(step(self.copilot))
+                result = self.team.run(
+                    step(self.copilot, japanese_mode=self.japanese_mode)
+                )
                 if result:
                     success = True
                 else:
@@ -158,7 +154,7 @@ class Project:
 
     def chat(self, message: str) -> None:
         for step in STEPS[self.step_type]:
-            step = step(self.copilot, display=False)
+            step = step(self.copilot, display=False, japanese_mode=self.japanese_mode)
             if step.__class__ is Specification:
                 step.instructions = message
                 step.app_type = self._("Client-Side Web Application")

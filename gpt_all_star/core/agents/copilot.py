@@ -11,6 +11,7 @@ from selenium.webdriver.chrome.options import Options
 from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.helper.config_loader import load_configuration
+from gpt_all_star.helper.translator import create_translator
 
 APP_TYPES = ["Client-Side Web Application", "Full-Stack Web Application"]
 
@@ -27,6 +28,7 @@ class Copilot(Agent):
         super().__init__(
             AgentRole.COPILOT, storages, debug_mode, name, profile, language=language
         )
+        self._ = create_translator(language)
 
     def start(self, project_name: str) -> None:
         self.state(self._("Let's start the project! (%s)") % project_name)
@@ -46,7 +48,7 @@ class Copilot(Agent):
         return project_name
 
     def confirm(self, confirmation: str) -> bool:
-        CONFIRM_CHOICES = ["yes", "no"]
+        CONFIRM_CHOICES = [self._("yes"), self._("no")]
         choice = self.present_choices(
             confirmation,
             CONFIRM_CHOICES,
@@ -90,7 +92,7 @@ class Copilot(Agent):
             )
         )
         self.console.print(
-            "You can press ctrl+c *once* to stop the execution.", style="red"
+            self._("You can press ctrl+c *once* to stop the execution."), style="red"
         )
 
     def run_command(self, command: str) -> None:

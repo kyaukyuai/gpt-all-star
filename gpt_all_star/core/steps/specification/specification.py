@@ -3,19 +3,17 @@ from gpt_all_star.core.steps.specification.additional_tasks import (
     create_additional_tasks,
 )
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.helper.translator import create_translator
 
 
 class Specification(Step):
     def __init__(
         self, copilot: Copilot, display: bool = True, japanese_mode: bool = False
     ) -> None:
-        super().__init__(copilot, display)
+        super().__init__(copilot, display, japanese_mode)
         self.working_directory = self.copilot.storages.docs.path.absolute()
         self.instructions = ""
         self.app_type = ""
         self.japanese_mode = japanese_mode
-        self._ = create_translator("ja" if japanese_mode else "en")
 
     def planning_prompt(self) -> str:
         return ""
