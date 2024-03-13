@@ -1703,19 +1703,19 @@ requests = ">=2,<3"
 
 [[package]]
 name = "llama-index"
-version = "0.10.18"
+version = "0.10.19"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "llama_index-0.10.18-py3-none-any.whl", hash = "sha256:107a534d72b7d61927c2f013ebae1e385134f2ba044fced8716e1ef55d66cb12"},
-    {file = "llama_index-0.10.18.tar.gz", hash = "sha256:116c5d96d783bfcdb88be48f1da63c9d11c56edca062cd3ee85b6054859497f7"},
+    {file = "llama_index-0.10.19-py3-none-any.whl", hash = "sha256:26804a9dc12abe1ecf58a6148d6a1a5601cbe3d7437ec16ce2b49cf9870ec562"},
+    {file = "llama_index-0.10.19.tar.gz", hash = "sha256:9bf3e5fb94195f104684b0df697933e7c3b4cf9f4fdbe77f873b7ff60cbf7d22"},
 ]
 
 [package.dependencies]
 llama-index-agent-openai = ">=0.1.4,<0.2.0"
 llama-index-cli = ">=0.1.2,<0.2.0"
-llama-index-core = ">=0.10.18,<0.11.0"
+llama-index-core = ">=0.10.19,<0.11.0"
 llama-index-embeddings-openai = ">=0.1.5,<0.2.0"
 llama-index-indices-managed-llama-cloud = ">=0.1.2,<0.2.0"
 llama-index-legacy = ">=0.9.48,<0.10.0"
@@ -1760,13 +1760,13 @@ llama-index-vector-stores-chroma = ">=0.1.1,<0.2.0"
 
 [[package]]
 name = "llama-index-core"
-version = "0.10.18.post1"
+version = "0.10.19"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "llama_index_core-0.10.18.post1-py3-none-any.whl", hash = "sha256:e2383d0e865febfd8dfc96c1d02cd3ee99927c31b2eb3fbb50211d0829e538e5"},
-    {file = "llama_index_core-0.10.18.post1.tar.gz", hash = "sha256:0a197f27c13a9d88966469d2361f4f70fe1678d391602dd7a8ec65209c70a24b"},
+    {file = "llama_index_core-0.10.19-py3-none-any.whl", hash = "sha256:53c96712de51778f4b880d730ab59bb072caf14b46718d0cb5ec86d622195ed6"},
+    {file = "llama_index_core-0.10.19.tar.gz", hash = "sha256:ecb369a58b7ae72fcd26a6a3c58b582cfdb9b513918a88c79757128d932c7945"},
 ]
 
 [package.dependencies]
@@ -1798,7 +1798,7 @@ gradientai = ["gradientai (>=1.4.0)"]
 html = ["beautifulsoup4 (>=4.12.2,<5.0.0)"]
 langchain = ["langchain (>=0.0.303)"]
 local-models = ["optimum[onnxruntime] (>=1.13.2,<2.0.0)", "sentencepiece (>=0.1.99,<0.2.0)", "transformers[torch] (>=4.33.1,<5.0.0)"]
-postgres = ["asyncpg (>=0.28.0,<0.29.0)", "pgvector (>=0.1.0,<0.2.0)", "psycopg2-binary (>=2.9.9,<3.0.0)"]
+postgres = ["asyncpg (>=0.29.0,<0.30.0)", "pgvector (>=0.2.4,<0.3.0)", "psycopg2-binary (>=2.9.9,<3.0.0)"]
 query-tools = ["guidance (>=0.0.64,<0.0.65)", "jsonpath-ng (>=1.6.0,<2.0.0)", "lm-format-enforcer (>=0.4.3,<0.5.0)", "rank-bm25 (>=0.2.2,<0.3.0)", "scikit-learn", "spacy (>=3.7.1,<4.0.0)"]
 
 [[package]]
