@@ -1703,19 +1703,19 @@ requests = ">=2,<3"
 
 [[package]]
 name = "llama-index"
-version = "0.10.19"
+version = "0.10.20"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "llama_index-0.10.19-py3-none-any.whl", hash = "sha256:26804a9dc12abe1ecf58a6148d6a1a5601cbe3d7437ec16ce2b49cf9870ec562"},
-    {file = "llama_index-0.10.19.tar.gz", hash = "sha256:9bf3e5fb94195f104684b0df697933e7c3b4cf9f4fdbe77f873b7ff60cbf7d22"},
+    {file = "llama_index-0.10.20-py3-none-any.whl", hash = "sha256:e42bcb00a41f2e60fad3da2d286e53ba0d3f963f94741e7bffd9600e80208413"},
+    {file = "llama_index-0.10.20.tar.gz", hash = "sha256:796dc3a540f4e531d0f027702ebcb7bb89d5c42a94e77413a06b0c228ea66654"},
 ]
 
 [package.dependencies]
 llama-index-agent-openai = ">=0.1.4,<0.2.0"
 llama-index-cli = ">=0.1.2,<0.2.0"
-llama-index-core = ">=0.10.19,<0.11.0"
+llama-index-core = ">=0.10.20,<0.11.0"
 llama-index-embeddings-openai = ">=0.1.5,<0.2.0"
 llama-index-indices-managed-llama-cloud = ">=0.1.2,<0.2.0"
 llama-index-legacy = ">=0.9.48,<0.10.0"
@@ -1760,13 +1760,13 @@ llama-index-vector-stores-chroma = ">=0.1.1,<0.2.0"
 
 [[package]]
 name = "llama-index-core"
-version = "0.10.19"
+version = "0.10.20.post1"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "llama_index_core-0.10.19-py3-none-any.whl", hash = "sha256:53c96712de51778f4b880d730ab59bb072caf14b46718d0cb5ec86d622195ed6"},
-    {file = "llama_index_core-0.10.19.tar.gz", hash = "sha256:ecb369a58b7ae72fcd26a6a3c58b582cfdb9b513918a88c79757128d932c7945"},
+    {file = "llama_index_core-0.10.20.post1-py3-none-any.whl", hash = "sha256:085229fcb4e090920745a4d4bd13c3fdd2d47325a71ea89a099adbc355bcf4ae"},
+    {file = "llama_index_core-0.10.20.post1.tar.gz", hash = "sha256:6b3e862322ba90e4714506dbe875d9f5bb8d45eedaf3f0e3642603631fa08046"},
 ]
 
 [package.dependencies]
