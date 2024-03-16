@@ -5,9 +5,13 @@ from gpt_all_star.core.steps.step import Step
 
 class Healing(Step):
     def __init__(
-        self, copilot: Copilot, error_message: str, display: bool = True
+        self,
+        copilot: Copilot,
+        error_message: str,
+        display: bool = True,
+        japanese_mode: bool = False,
     ) -> None:
-        super().__init__(copilot, display)
+        super().__init__(copilot, display, japanese_mode)
         self.error_message = error_message
         self.working_directory = self.copilot.storages.app.path.absolute()
 

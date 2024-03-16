@@ -5,11 +5,9 @@ from gpt_all_star.core.steps.ui_design.planning_prompt import planning_prompt_te
 
 class UIDesign(Step):
     def __init__(
-        self,
-        copilot: Copilot,
-        display: bool = True,
+        self, copilot: Copilot, display: bool = True, japanese_mode: bool = False
     ) -> None:
-        super().__init__(copilot, display)
+        super().__init__(copilot, display, japanese_mode)
         self.working_directory = self.copilot.storages.app.path.absolute()
 
     def planning_prompt(self) -> str:

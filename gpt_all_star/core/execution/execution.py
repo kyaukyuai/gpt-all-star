@@ -3,17 +3,15 @@ from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.healing.healing import Healing
 from gpt_all_star.core.team import Team
+from gpt_all_star.helper.translator import create_translator
 
 
 class Execution:
-    def __init__(
-        self,
-        team: Team,
-        copilot: Copilot,
-    ) -> None:
+    def __init__(self, team: Team, copilot: Copilot, japanese_mode: bool) -> None:
         self.team = team
         self.copilot = copilot
         self.working_directory = self.copilot.storages.app.path.absolute()
+        self._ = create_translator("ja" if japanese_mode else "en")
 
     def run(self) -> None:
         command = (
@@ -45,7 +43,7 @@ Generate an command to execute the application.
         self.copilot.caution(command["command"])
         MAX_ATTEMPTS = 5
         for attempt in range(MAX_ATTEMPTS):
-            self.copilot.state(f"Attempt {attempt + 1}/{MAX_ATTEMPTS}")
+            self.copilot.state(self._("Attempt %d/%d") % (attempt + 1, MAX_ATTEMPTS))
             try:
                 self.copilot.run_command(command["command"])
             except KeyboardInterrupt:

@@ -27,6 +27,7 @@ from gpt_all_star.cli.console_terminal import ConsoleTerminal
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.tools.shell_tool import ShellTool
+from gpt_all_star.helper.translator import create_translator
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
 
@@ -43,6 +44,7 @@ class Agent(ABC):
         profile: str | None = None,
         color: str | None = None,
         tools: list = [],
+        language: str | None = None,
     ) -> None:
         self.console = ConsoleTerminal()
         self._llm = _create_llm(os.getenv("OPENAI_API_MODEL_NAME"), 0.1)
@@ -61,6 +63,12 @@ class Agent(ABC):
                 self.storages.root.path.absolute() if self.storages else os.getcwd()
             )
         )
+
+        self._set_language(language)
+        self._ = create_translator(self.language)
+
+    def _set_language(self, language: str | None) -> None:
+        self.language = language if language is not None else "en"
 
     def set_executor(self, working_directory: str) -> None:
         file_tools = FileManagementToolkit(

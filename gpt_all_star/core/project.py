@@ -24,6 +24,7 @@ from gpt_all_star.core.team import Team
 from gpt_all_star.helper.multi_agent_collaboration_graph import (
     MultiAgentCollaborationGraph,
 )
+from gpt_all_star.helper.translator import create_translator
 
 
 class Project:
@@ -36,7 +37,7 @@ class Project:
         debug_mode: bool = False,
         plan_and_solve: bool = False,
     ) -> None:
-        self.copilot = Copilot()
+        self.copilot = Copilot(language="ja" if japanese_mode else "en")
         self.start_time = None
         self.plan_and_solve = plan_and_solve
         self._set_modes(japanese_mode, review_mode, debug_mode)
@@ -45,6 +46,8 @@ class Project:
         self._set_copilot()
         self._set_agents()
         self._set_step_type(step)
+
+        self._ = create_translator("ja" if japanese_mode else "en")
 
     def _set_modes(
         self, japanese_mode: bool, review_mode: bool, debug_mode: bool
@@ -87,7 +90,7 @@ class Project:
         self.step_type = step or StepType.DEFAULT
         if self.step_type is StepType.DEFAULT:
             if self.debug_mode:
-                self.copilot.state("Archiving previous results...")
+                self.copilot.state(self._("Archiving previous results..."))
             self.storages.archive_storage()
 
     def _execute_steps(self) -> None:
@@ -95,7 +98,7 @@ class Project:
             for step in STEPS[self.step_type]:
                 self._execute_step(step)
         except KeyboardInterrupt:
-            self.copilot.state("Interrupt received! Stopping...")
+            self.copilot.state(self._("Interrupt received! Stopping..."))
 
     def _execute_step(self, step) -> None:
         MAX_RETRIES = 5
@@ -103,21 +106,27 @@ class Project:
         success = False
         while retries < MAX_RETRIES and not success:
             try:
-                result = self.team.run(step(self.copilot))
+                result = self.team.run(
+                    step(self.copilot, japanese_mode=self.japanese_mode)
+                )
                 if result:
                     success = True
                 else:
                     self.copilot.state(
-                        f"Retrying step {step} (Attempt {retries + 1}/{MAX_RETRIES})"
+                        self._("Retrying step %d (Attempt %d/%d)")
+                        % (step, retries + 1, MAX_RETRIES)
                     )
                     retries += 1
             except Exception as e:
-                self.copilot.state(f"Failed to execute step {step}. Reason: {str(e)}")
+                self.copilot.state(
+                    self._("Failed to execute step %d. Reason: %s") % (step, str(e))
+                )
                 raise e
 
         if not success:
+            failed_message = "Failed to successfully complete step %(step)d after %(max_retries)d attempts."
             self.copilot.state(
-                f"Failed to successfully complete step {step} after {MAX_RETRIES} attempts."
+                self._(failed_message) % {"step": step, "max_retries": MAX_RETRIES}
             )
             raise Exception(f"Operation failed after {MAX_RETRIES} retries.")
 
@@ -132,23 +141,23 @@ class Project:
         )
         self._execute_steps()
         if bool(os.listdir(self.storages.app.path.absolute())):
-            if self.copilot.confirm("Do you want to execute this application?"):
-                Execution(self.team, self.copilot).run()
+            if self.copilot.confirm(self._("Do you want to execute this application?")):
+                Execution(self.team, self.copilot, self.japanese_mode).run()
         if (
             os.environ.get("GITHUB_ORG")
             and os.environ.get("GITHUB_TOKEN")
             and self.copilot.confirm(
-                "Do you want to manage this application code with GitHub?"
+                self._("Do you want to manage this application code with GitHub?")
             )
         ):
-            Deployment(self.copilot).run()
+            Deployment(self.copilot, self.japanese_mode).run()
 
     def chat(self, message: str) -> None:
         for step in STEPS[self.step_type]:
-            step = step(self.copilot, display=False)
+            step = step(self.copilot, display=False, japanese_mode=self.japanese_mode)
             if step.__class__ is Specification:
                 step.instructions = message
-                step.app_type = "Client-Side Web Application"
+                step.app_type = self._("Client-Side Web Application")
             supervisor_name = (
                 Chain()
                 .create_assign_supervisor_chain(members=self.agents.to_array())
@@ -215,6 +224,6 @@ class Project:
             end_time = time.time()
             elapsed_time = end_time - self.start_time
             self.copilot.state(
-                f"Project finished. Elapsed time: {elapsed_time:.2f} seconds."
+                self._("Project finished. Elapsed time: %.2f seconds.") % elapsed_time
             )
         self.copilot.finish(self.project_name)
