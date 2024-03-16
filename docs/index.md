@@ -98,3 +98,50 @@ We would like to test other languages and libraries as well and welcome contribu
 - 💻️ [GitHub](https://github.com/gpt-all-star/pomodoro)
 
 ![Export-1707059574807](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/c194dced-d179-4d1e-8e5d-f89dbafa00ee)
+
+## 🍻 Contribution
+
+GPT ALL STAR is open-source and we welcome contributions. If you're looking to contribute, please:
+
+- Fork the repository.
+- Create a new branch for your feature.
+- Add your feature or improvement.
+- Send a pull request.
+- We appreciate your input!
+
+**Installing Dependencies**
+
+```bash
+poetry lock
+poetry install
+```
+
+**Virtual Env**
+
+```bash
+poetry shell
+```
+
+**Pre-commit hooks**
+
+```bash
+pre-commit install
+```
+
+**Running static type checks**
+
+```bash
+poetry run pyright
+```
+
+**Packaging**
+
+```bash
+poetry build
+```
+
+**Installing Locally**
+
+```bash
+pip install dist/*.tar.gz
+```
