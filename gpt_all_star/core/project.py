@@ -158,6 +158,8 @@ class Project:
             if step.__class__ is Specification:
                 step.instructions = message
                 step.app_type = self._("Client-Side Web Application")
+            for agent in self.agents.to_array():
+                agent.set_executor(step.working_directory)
             supervisor_name = (
                 Chain()
                 .create_assign_supervisor_chain(members=self.agents.to_array())
