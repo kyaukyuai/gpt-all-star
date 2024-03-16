@@ -187,7 +187,13 @@ class Project:
             for task in step.additional_tasks():
                 tasks["plan"].append(task)
 
-            yield {"tasks": tasks}
+            yield {
+                "messages": [
+                    Message.create_human_message(
+                        message=str(tasks), name=self.supervisor.name
+                    )
+                ],
+            }
 
             count = 1
             while len(tasks["plan"]) > 0:

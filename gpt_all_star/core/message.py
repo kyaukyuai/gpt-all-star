@@ -11,7 +11,10 @@ class Message:
         return SystemMessage(content=message)
 
     @staticmethod
-    def create_human_message(message: str, name: Optional[str] = None) -> HumanMessage:
+    def create_human_message(
+        message: str,
+        name: Optional[str] = None,
+    ) -> HumanMessage:
         return HumanMessage(content=message, name=name)
 
     @staticmethod
