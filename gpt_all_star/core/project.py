@@ -187,6 +187,8 @@ class Project:
             for task in step.additional_tasks():
                 tasks["plan"].append(task)
 
+            yield {"tasks": tasks}
+
             count = 1
             while len(tasks["plan"]) > 0:
                 task = tasks["plan"][0]
