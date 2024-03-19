@@ -113,13 +113,14 @@ class Project:
                     success = True
                 else:
                     self.copilot.state(
-                        self._("Retrying step %d (Attempt %d/%d)")
-                        % (step, retries + 1, MAX_RETRIES)
+                        self._("Retrying step: %s (Attempt %d/%d)")
+                        % (step.__name__, retries + 1, MAX_RETRIES)
                     )
                     retries += 1
             except Exception as e:
                 self.copilot.state(
-                    self._("Failed to execute step %d. Reason: %s") % (step, str(e))
+                    self._("Failed to execute step: %s. Reason: %s")
+                    % (step.__name__, str(e))
                 )
                 raise e
 
