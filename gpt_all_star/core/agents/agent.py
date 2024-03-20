@@ -6,24 +6,21 @@ from abc import ABC
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from functools import lru_cache
 
-import openai
 from langchain.agents.agent import AgentExecutor
 from langchain.agents.agent_toolkits.file_management.toolkit import (
     FileManagementToolkit,
 )
 from langchain.agents.openai_tools.base import create_openai_tools_agent
-from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.prompts.prompt import PromptTemplate
-from langchain_openai import AzureChatOpenAI, ChatOpenAI
 from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.table import Table
 
 from gpt_all_star.cli.console_terminal import ConsoleTerminal
+from gpt_all_star.core.llm import LLM_TYPE, create_llm
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.tools.shell_tool import ShellTool
@@ -47,7 +44,7 @@ class Agent(ABC):
         language: str | None = None,
     ) -> None:
         self.console = ConsoleTerminal()
-        self._llm = _create_llm(os.getenv("OPENAI_API_MODEL_NAME"), 0.1)
+        self._llm = create_llm(LLM_TYPE[os.getenv("ENDPOINT", default="OPENAI")])
 
         self.role: AgentRole = role
         self.name: str = name or self._get_default_profile().name
@@ -167,45 +164,6 @@ class Agent(ABC):
             verbose=self.debug_mode,
             handle_parsing_errors=True,
         )
-
-
-def _create_llm(model_name: str, temperature: float) -> BaseChatModel:
-    endpoint = os.getenv("ENDPOINT", default="OPENAI")
-    if endpoint == "AZURE":
-        return _create_azure_chat_openai_instance(
-            os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")
-        )
-    else:
-        return _create_chat_openai_instance(model_name, temperature)
-
-
-def _create_chat_openai_instance(model_name: str, temperature: float):
-    if model_name not in _get_supported_models():
-        raise ValueError(f"Model {model_name} not supported")
-    return ChatOpenAI(
-        model=model_name,
-        temperature=temperature,
-        streaming=True,
-        client=openai.chat.completions,
-    )
-
-
-def _create_azure_chat_openai_instance(model_name: str):
-    return AzureChatOpenAI(
-        openai_api_version=os.getenv("AZURE_OPENAI_API_VERSION", "2023-07-01-preview"),
-        deployment_name=model_name,
-        streaming=True,
-    )
-
-
-def _get_supported_models() -> list[str]:
-    # cache the models list since it is unlikely to change frequently.
-    @lru_cache(maxsize=1)
-    def _fetch_supported_models():
-        openai.api_type = "openai"
-        return [model.id for model in openai.models.list()]
-
-    return _fetch_supported_models()
 
 
 class AgentRole(str, Enum):
