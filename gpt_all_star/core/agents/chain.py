@@ -5,7 +5,8 @@ import os
 from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
 
-from gpt_all_star.core.agents.agent import Agent, _create_llm
+from gpt_all_star.core.agents.agent import Agent
+from gpt_all_star.core.llm import LLM_TYPE, create_llm
 
 ACTIONS = [
     "Execute a command",
@@ -17,7 +18,7 @@ ACTIONS = [
 
 class Chain:
     def __init__(self) -> None:
-        self._llm = _create_llm(os.getenv("OPENAI_API_MODEL_NAME"), 0.1)
+        self._llm = create_llm(LLM_TYPE[os.getenv("ENDPOINT", default="OPENAI")])
 
     def create_supervisor_chain(self, members: list[Agent] = []):
         members = [member.name for member in members]
