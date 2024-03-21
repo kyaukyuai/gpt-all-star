@@ -795,13 +795,13 @@ files = [
 
 [[package]]
 name = "fsspec"
-version = "2024.3.0"
+version = "2024.3.1"
 description = "File-system specification"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "fsspec-2024.3.0-py3-none-any.whl", hash = "sha256:779001bd0122c9c4975cf03827d5e86c3afb914a3ae27040f15d341ab506a693"},
-    {file = "fsspec-2024.3.0.tar.gz", hash = "sha256:f13a130c0ed07e15c4e1aeb0472a823e9c426b0b5792a1f40d902b0a71972d43"},
+    {file = "fsspec-2024.3.1-py3-none-any.whl", hash = "sha256:918d18d41bf73f0e2b261824baeb1b124bcf771767e3a26425cd7dec3332f512"},
+    {file = "fsspec-2024.3.1.tar.gz", hash = "sha256:f39780e282d7d117ffb42bb96992f8a90795e4d0fb0f661a70ca39fe9c43ded9"},
 ]
 
 [package.extras]
@@ -1030,13 +1030,13 @@ files = [
 
 [[package]]
 name = "importlib-resources"
-version = "6.3.0"
+version = "6.3.2"
 description = "Read resources from Python packages"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "importlib_resources-6.3.0-py3-none-any.whl", hash = "sha256:783407aa1cd05550e3aa123e8f7cfaebee35ffa9cb0242919e2d1e4172222705"},
-    {file = "importlib_resources-6.3.0.tar.gz", hash = "sha256:166072a97e86917a9025876f34286f549b9caf1d10b35a1b372bffa1600c6569"},
+    {file = "importlib_resources-6.3.2-py3-none-any.whl", hash = "sha256:f41f4098b16cd140a97d256137cfd943d958219007990b2afb00439fc623f580"},
+    {file = "importlib_resources-6.3.2.tar.gz", hash = "sha256:963eb79649252b0160c1afcfe5a1d3fe3ad66edd0a8b114beacffb70c0674223"},
 ]
 
 [package.extras]
@@ -1254,13 +1254,13 @@ langchain-core = ">=0.1.25,<0.2.0"
 
 [[package]]
 name = "langsmith"
-version = "0.1.27"
+version = "0.1.31"
 description = "Client library to connect to the LangSmith LLM Tracing and Evaluation Platform."
 optional = false
-python-versions = ">=3.8.1,<4.0"
+python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langsmith-0.1.27-py3-none-any.whl", hash = "sha256:d223176952b1525c958189ab1b894f5bd9891ec9177222f7a978aeee4bf1cc95"},
-    {file = "langsmith-0.1.27.tar.gz", hash = "sha256:e0a339d976362051adf3fdbc43fcc7c00bb4615a401321ad7e556bd2dab556c0"},
+    {file = "langsmith-0.1.31-py3-none-any.whl", hash = "sha256:5211a9dc00831db307eb843485a97096484b697b5d2cd1efaac34228e97ca087"},
+    {file = "langsmith-0.1.31.tar.gz", hash = "sha256:efd54ccd44be7fda911bfdc0ead340473df2fdd07345c7252901834d0c4aa37e"},
 ]
 
 [package.dependencies]
@@ -1295,13 +1295,13 @@ llama-index-readers-llama-parse = ">=0.1.2,<0.2.0"
 
 [[package]]
 name = "llama-index-agent-openai"
-version = "0.1.5"
+version = "0.1.6"
 description = "llama-index agent openai integration"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "llama_index_agent_openai-0.1.5-py3-none-any.whl", hash = "sha256:1ab06fe853d9d391ba724dcb0009b249ae88ca4de4b5842226373b0c55ee435a"},
-    {file = "llama_index_agent_openai-0.1.5.tar.gz", hash = "sha256:42099326d526af140493c5f744ef70bef0aed8a941b6c9aea4b3eff9c63f0ba6"},
+    {file = "llama_index_agent_openai-0.1.6-py3-none-any.whl", hash = "sha256:5e8b1f03b56630cfc96304fa748c3c584f78a55f08bf14974b38c9fb8a5d0c90"},
+    {file = "llama_index_agent_openai-0.1.6.tar.gz", hash = "sha256:9c56655822f5eb8b72648e87fe64119b1e907e4a7dbcc2da4b6f3fe162828b71"},
 ]
 
 [package.dependencies]
@@ -1310,13 +1310,13 @@ llama-index-llms-openai = ">=0.1.5,<0.2.0"
 
 [[package]]
 name = "llama-index-cli"
-version = "0.1.9"
+version = "0.1.11"
 description = "llama-index cli"
 optional = false
-python-versions = ">=3.8.1,<4.0"
+python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index_cli-0.1.9-py3-none-any.whl", hash = "sha256:d9f8e1040f5770c8410a6b429fde0a504cadc1ed3834b9d63c603c01ac03565b"},
-    {file = "llama_index_cli-0.1.9.tar.gz", hash = "sha256:410abbe74b0efc362ffc5b3ed853ef909bfc97c94f7b276257ce18708f20e22b"},
+    {file = "llama_index_cli-0.1.11-py3-none-any.whl", hash = "sha256:44bc32af6d9bc0b523ad284f24fa1ec17288491243fe6d7c7b4770b3245dbb84"},
+    {file = "llama_index_cli-0.1.11.tar.gz", hash = "sha256:5de707e125aa877d70c61da70cc44fea72a9f7adb77f413b51f73b1deffdd750"},
 ]
 
 [package.dependencies]
@@ -1326,13 +1326,13 @@ llama-index-llms-openai = ">=0.1.1,<0.2.0"
 
 [[package]]
 name = "llama-index-core"
-version = "0.10.20.post2"
+version = "0.10.21.post1"
 description = "Interface between LLMs and your data"
 optional = false
-python-versions = ">=3.8.1,<4.0"
+python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index_core-0.10.20.post2-py3-none-any.whl", hash = "sha256:6d05e53271250dd340ea75f0395d9529eea6788546c1fe9020dc7597fa47907b"},
-    {file = "llama_index_core-0.10.20.post2.tar.gz", hash = "sha256:d7d83a2f89269a3abc64663ef122ab6b132d6fbc1d32b5f0ba2909c4e8c6c55a"},
+    {file = "llama_index_core-0.10.21.post1-py3-none-any.whl", hash = "sha256:acfec6e39f9f38a1c64e60b953bdf787862abd9a797c0dc3348be34ed67493e7"},
+    {file = "llama_index_core-0.10.21.post1.tar.gz", hash = "sha256:0c212d14ffc368114099e881e9e3fa2d073d5186be07ec9db46070d475db14e0"},
 ]
 
 [package.dependencies]
@@ -1369,13 +1369,13 @@ query-tools = ["guidance (>=0.0.64,<0.0.65)", "jsonpath-ng (>=1.6.0,<2.0.0)", "l
 
 [[package]]
 name = "llama-index-embeddings-openai"
-version = "0.1.6"
+version = "0.1.7"
 description = "llama-index embeddings openai integration"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "llama_index_embeddings_openai-0.1.6-py3-none-any.whl", hash = "sha256:f8b2dded0718e9f57c08ce352d186941e6acf7de414c64219210b66f7a6d6d2d"},
-    {file = "llama_index_embeddings_openai-0.1.6.tar.gz", hash = "sha256:f12f0ef6f92211efe1a022a97bb68fc8731c93bd20df3b0567dba69c610033db"},
+    {file = "llama_index_embeddings_openai-0.1.7-py3-none-any.whl", hash = "sha256:6023925ed1487b0688323d21711efbf8880e82ed3b87ef413255c3dc63a2f2fe"},
+    {file = "llama_index_embeddings_openai-0.1.7.tar.gz", hash = "sha256:c71cc9820680c4cedfc9845dc87b94f6851d1ccce1e486fc91298f8fa8d9f27d"},
 ]
 
 [package.dependencies]
@@ -2813,7 +2813,6 @@ files = [
     {file = "PyYAML-6.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:bf07ee2fef7014951eeb99f56f39c9bb4af143d8aa3c21b1677805985307da34"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:855fb52b0dc35af121542a76b9a84f8d1cd886ea97c84703eaa6d88e37a2ad28"},
     {file = "PyYAML-6.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:40df9b996c2b73138957fe23a16a4f0ba614f4c0efce1e9406a184b6d07fa3a9"},
-    {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a08c6f0fe150303c1c6b71ebcd7213c2858041a7e01975da3a99aed1e7a378ef"},
     {file = "PyYAML-6.0.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6c22bec3fbe2524cde73d7ada88f6566758a8f7227bfbf93a408a9d86bcc12a0"},
     {file = "PyYAML-6.0.1-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:8d4e9c88387b0f5c7d5f281e55304de64cf7f9c0021a3525bd3b1c542da3b0e4"},
     {file = "PyYAML-6.0.1-cp312-cp312-win32.whl", hash = "sha256:d483d2cdf104e7c9fa60c544d92981f12ad66a457afae824d146093b8c294c54"},
@@ -3356,32 +3355,37 @@ telegram = ["requests"]
 
 [[package]]
 name = "tree-sitter"
-version = "0.21.0"
+version = "0.21.1"
 description = "Python bindings for the Tree-Sitter parsing library"
 optional = false
-python-versions = "<3.12,>=3.8"
+python-versions = ">=3.8"
 files = [
-    {file = "tree-sitter-0.21.0.tar.gz", hash = "sha256:c74ec9eff30e0c5b9f00ee578cca64df322b9885c8a15364a2c537f485abcc77"},
-    {file = "tree_sitter-0.21.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:bb334076814909e8b1f22aba5128a07a953e9eacfd269d3e4f1819cf2b290f5b"},
-    {file = "tree_sitter-0.21.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:8da1b036a13a5b1e7e499535060137f0127a05a0b63aec2b7e9992f27e1b0b2e"},
-    {file = "tree_sitter-0.21.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cfcae2748f9d210370fca00fff95f7516e49953e60b4919bf42de64906417717"},
-    {file = "tree_sitter-0.21.0-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:ca8f27570acb03a06fc3b663e4ebf1d224c442846ed3837a518b044bad20582b"},
-    {file = "tree_sitter-0.21.0-cp310-cp310-win_amd64.whl", hash = "sha256:d78e2cf597f6e54bbfe27beae5dae6cde290d934753cb1a00d8b12d66f2034d8"},
-    {file = "tree_sitter-0.21.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:384c103edf6e5ac98710c1a71e2956849d692a0c47d55cd5ba3aedc000b7c3d6"},
-    {file = "tree_sitter-0.21.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:5ce18b46634a4132c6932e032ea4717e572cf0db40223afcf0eab69664ad3500"},
-    {file = "tree_sitter-0.21.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3e2f0723c025bb532e9a0cad5e1b1f99b6e35049b948321c3ad7617be716bc7a"},
-    {file = "tree_sitter-0.21.0-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:63458f19b266d9ec58057d8435f92728a164a6debc24fb3c545664bc0b4fa087"},
-    {file = "tree_sitter-0.21.0-cp311-cp311-win_amd64.whl", hash = "sha256:f308f7d05019c35d43ea609c1f04ed896fd713ddf5c95db92b3c56dbbd3c1e09"},
-    {file = "tree_sitter-0.21.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:ab516edce67cd201312ecd55b65b195ce118ab900cc649fc868a1185e462a9bc"},
-    {file = "tree_sitter-0.21.0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:ef283479cb0d5c37f4c8e6cefa6e28d4de9a1eb858b43e964c4e822282394300"},
-    {file = "tree_sitter-0.21.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3310284a92d326d050cef385b4f6611a2166fbf04b2789fd87f279bfe939d6cb"},
-    {file = "tree_sitter-0.21.0-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:46539b86c01463d4d5ac7b4834300504218f79e359fb496e0c4da40c24ddb167"},
-    {file = "tree_sitter-0.21.0-cp38-cp38-win_amd64.whl", hash = "sha256:eb89b951958c26f902ea3ae32f5d899ca9231d1aea64823d634f71e77af41b11"},
-    {file = "tree_sitter-0.21.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:72e109678704785cf75682edae5265106d9d13b5b146c2f6a5cd2ea0ed293e9c"},
-    {file = "tree_sitter-0.21.0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:0f8eae679c13f519ae4437610f5d7a3a849b401f61d0bc08ad0ee580d4102387"},
-    {file = "tree_sitter-0.21.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0a9d007426365f3c027ef50c68ac03ab0b777ca6e613bfe921474ed69ad8ea1f"},
-    {file = "tree_sitter-0.21.0-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:348df964896bc34ec4c55d45d052decbc0ec6519624bd15f2e31580477be5d6d"},
-    {file = "tree_sitter-0.21.0-cp39-cp39-win_amd64.whl", hash = "sha256:55307318d10325ebafb51025cb630663f61172855f43c4054942a4ba69d4f11c"},
+    {file = "tree-sitter-0.21.1.tar.gz", hash = "sha256:fc830cea69fff71cdf28e57326eeb9460ae5ff70d1b5d4bba36b889b4ba0237f"},
+    {file = "tree_sitter-0.21.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:5725ae76f460b25e62788257eac4b3cc86670f97485fbb19f27c6c8a62524db6"},
+    {file = "tree_sitter-0.21.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:a61817730c9ba0af2a3d646357946a89927ec1a59090ad6898f17cb646f71636"},
+    {file = "tree_sitter-0.21.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:941690e1ddec309f3cd4cf70d5e63310499f2fdec42913e271720da38f95ff77"},
+    {file = "tree_sitter-0.21.1-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:016ff1578df0f93605b94ffb385925d657371e411f4bd435281cfbb019f3bcf3"},
+    {file = "tree_sitter-0.21.1-cp310-cp310-win_amd64.whl", hash = "sha256:d3085928e6ea5170728ea543d53426a4a19877ec67e8d835f754bda383887af6"},
+    {file = "tree_sitter-0.21.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:797a57ba1c53162098a0ec23e3983ba2f7c5858fef427ee6560baa12c16288a9"},
+    {file = "tree_sitter-0.21.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:4bec17a7ea8c7d628b60abf8be1e9ede18fb6dac6aeab4c4f5b0f458404ad594"},
+    {file = "tree_sitter-0.21.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2ba3e9218e375f35b0bdb284747d6d42282810601a0cc0565c681cc10d45fb1d"},
+    {file = "tree_sitter-0.21.1-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:08b9193de82e8029f42b05a618e4a99151133b5a0a746fa56070d37665f6181d"},
+    {file = "tree_sitter-0.21.1-cp311-cp311-win_amd64.whl", hash = "sha256:dacf0bd3124aaa0e1474ce96a36276d90fd3a0cb581a5bc185ef0366f4617e47"},
+    {file = "tree_sitter-0.21.1-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:88793e8e0b32c531cefcaa86c858d4c46079b629c9ec4ed264ba86337f9754b3"},
+    {file = "tree_sitter-0.21.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:5c02f8a8b8c463b5b0ce007d3568ce434f159a176cedc8a3eaa68ec745bc8f0d"},
+    {file = "tree_sitter-0.21.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7c6879f6a7544c15f0e3e4185c391d09cf643a7664f251ccb97dde243cf6ba51"},
+    {file = "tree_sitter-0.21.1-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:9b4f029b04d267ed9dd0c78a816f92c28bfc4962194db5fbb6a6e2c83622fec2"},
+    {file = "tree_sitter-0.21.1-cp312-cp312-win_amd64.whl", hash = "sha256:e9b32455d8f7151eb6a6a03541461e32107479a7dbc00fe1b1f93f899ce71234"},
+    {file = "tree_sitter-0.21.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:96718b674f0e86c58d31d0f8507aa33b89af9381631f1a41c22231b6b0fc968a"},
+    {file = "tree_sitter-0.21.1-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:404dd04cc6506d3b3b9ff6e82de3afd51f50d9253a7dbaac175b02019bb6e3e9"},
+    {file = "tree_sitter-0.21.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1c2e322b00eea3f77426778b72e06d692ffce18571b0c7b56dd5fefc23fb79dc"},
+    {file = "tree_sitter-0.21.1-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:1c3081556248a6149e49756491ad80cbbb6428bb6997120c857a01e6d8d426a6"},
+    {file = "tree_sitter-0.21.1-cp38-cp38-win_amd64.whl", hash = "sha256:22c528609e8017c3b703472fe2e5e84c24d132cf9ce1cb19fc61d9f54037ceda"},
+    {file = "tree_sitter-0.21.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:18544491bf2910e1587f67bcd568eeaf6de4a9d3b47c8018a724d4b97f96596b"},
+    {file = "tree_sitter-0.21.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:8023c3e4e8133db620c7779577c9cf2b81ae047e40ce132af7b49ad0470676ce"},
+    {file = "tree_sitter-0.21.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:38f5cf1ca75c9f874028bb4c0b4dfada1a39807286191dd8de67206971392d35"},
+    {file = "tree_sitter-0.21.1-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:5732e57f86037b5a95eeed8d59967b0c8f3534622c998ac0e49ffaab3dee9f8f"},
+    {file = "tree_sitter-0.21.1-cp39-cp39-win_amd64.whl", hash = "sha256:001b3162586f2e87949fdee768d266510bd21ec87f5c10f0e8a6fe20f1232647"},
 ]
 
 [[package]]
@@ -3457,17 +3461,17 @@ tree-sitter = "*"
 
 [[package]]
 name = "trio"
-version = "0.24.0"
+version = "0.25.0"
 description = "A friendly Python library for async concurrency and I/O"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "trio-0.24.0-py3-none-any.whl", hash = "sha256:c3bd3a4e3e3025cd9a2241eae75637c43fe0b9e88b4c97b9161a55b9e54cd72c"},
-    {file = "trio-0.24.0.tar.gz", hash = "sha256:ffa09a74a6bf81b84f8613909fb0beaee84757450183a7a2e0b47b455c0cac5d"},
+    {file = "trio-0.25.0-py3-none-any.whl", hash = "sha256:e6458efe29cc543e557a91e614e2b51710eba2961669329ce9c862d50c6e8e81"},
+    {file = "trio-0.25.0.tar.gz", hash = "sha256:9b41f5993ad2c0e5f62d0acca320ec657fdb6b2a2c22b8c7aed6caf154475c4e"},
 ]
 
 [package.dependencies]
-attrs = ">=20.1.0"
+attrs = ">=23.2.0"
 cffi = {version = ">=1.14", markers = "os_name == \"nt\" and implementation_name != \"pypy\""}
 exceptiongroup = {version = "*", markers = "python_version < \"3.11\""}
 idna = "*"
