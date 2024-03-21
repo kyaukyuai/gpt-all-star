@@ -169,7 +169,7 @@ class Project:
                 )
                 .get("assign")
             )
-            supervisor = self.agents.get_agent_by_name(supervisor_name)
+            supervisor = self.agents.get_agent_by_role(supervisor_name)
             self._graph = MultiAgentCollaborationGraph(
                 supervisor, self.agents.to_array()
             )

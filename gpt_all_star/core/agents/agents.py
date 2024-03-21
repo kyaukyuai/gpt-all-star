@@ -21,8 +21,8 @@ class Agents:
     def to_array(self) -> list[Agent]:
         return list(vars(self).values())
 
-    def get_agent_by_name(self, name: str):
+    def get_agent_by_role(self, role: str):
         for attribute in self.__dict__.values():
-            if hasattr(attribute, "name") and attribute.name == name:
+            if hasattr(attribute, "role") and attribute.role.name == role:
                 return attribute
         return self.project_manager

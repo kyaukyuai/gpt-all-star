@@ -21,7 +21,7 @@ class Chain:
         self._llm = create_llm(LLM_TYPE[os.getenv("ENDPOINT", default="OPENAI")])
 
     def create_supervisor_chain(self, members: list[Agent] = []):
-        members = [member.name for member in members]
+        members = [member.role.name for member in members]
         options = ["FINISH"]
         options.extend(members)
         system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {str(members)}.
@@ -65,7 +65,7 @@ When finished, respond with FINISH.
         )
 
     def create_assign_supervisor_chain(self, members: list[Agent] = []):
-        members = [member.name for member in members]
+        members = [member.role.name for member in members]
         system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {str(members)}.
 Given the following user request, respond with the worker to act next.
 Each worker will perform a task and respond with their results and status.

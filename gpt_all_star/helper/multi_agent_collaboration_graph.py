@@ -27,22 +27,24 @@ class MultiAgentCollaborationGraph:
     def _add_nodes(self):
         for agent in self.agents:
             self._state_graph.add_node(
-                agent.name,
+                agent.role.name,
                 functools.partial(
-                    self._agent_node_callback, agent=agent.executor, name=agent.name
+                    self._agent_node_callback,
+                    agent=agent.executor,
+                    name=agent.role.name,
                 ),
             )
 
     def _add_edges(self):
         for agent in self.agents:
-            self._state_graph.add_edge(agent.name, SUPERVISOR_NAME)
+            self._state_graph.add_edge(agent.role.name, SUPERVISOR_NAME)
 
     def _add_entry_point(self):
         self._state_graph.add_node(
             SUPERVISOR_NAME,
             Chain().create_supervisor_chain(members=self.agents),
         )
-        conditional_map = {agent.name: agent.name for agent in self.agents}
+        conditional_map = {agent.role.name: agent.role.name for agent in self.agents}
         conditional_map["FINISH"] = END
         self._state_graph.add_conditional_edges(
             SUPERVISOR_NAME, lambda state: state["next"], conditional_map
