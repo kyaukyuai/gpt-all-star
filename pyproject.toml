@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gpt-all-star"
-version = "0.0.12"
+version = "0.0.13"
 description = "AI-powered code generation tool for scratch development of web applications with a team collaboration of autonomous AI agents. This is a research-project, and its primary value is to explore the possibility of autonomous AI agents."
 authors = ["Yuya Kakui <y.kakui@gmail.com>"]
 license = "MIT"
@@ -32,6 +32,7 @@ tree-sitter-languages = "^1.10.2"
 pygithub = "^2.2.0"
 uvicorn = "^0.29.0"
 fastapi = "^0.110.0"
+langchain-anthropic = "^0.1.4"
 
 [tool.poetry.scripts]
 gpt-all-star = 'gpt_all_star.main:app'
