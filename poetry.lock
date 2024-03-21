@@ -1240,13 +1240,13 @@ extended-testing = ["lxml (>=5.1.0,<6.0.0)"]
 
 [[package]]
 name = "langgraph"
-version = "0.0.28"
+version = "0.0.29"
 description = "langgraph"
 optional = false
-python-versions = ">=3.9.0,<4.0"
+python-versions = "<4.0,>=3.9.0"
 files = [
-    {file = "langgraph-0.0.28-py3-none-any.whl", hash = "sha256:69461073c262fb11694b767238c986b36084cded4e6b4338042549fabdaf1cc0"},
-    {file = "langgraph-0.0.28.tar.gz", hash = "sha256:e630fec69dce6801540ab78d2aac615029945293ec113e6a632de2162e0a1239"},
+    {file = "langgraph-0.0.29-py3-none-any.whl", hash = "sha256:ebb308f0afeffda6cc929c466aacfca73a7b561d4ba3fc190202c7bd3905702d"},
+    {file = "langgraph-0.0.29.tar.gz", hash = "sha256:12be459587ca7e753f06e94917028d54c7359664e0a04a8cedb0a7b595c4c996"},
 ]
 
 [package.dependencies]
@@ -3863,4 +3863,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "3a4c865b689ac18b6f6e3ab123a6521635691a10dd1af02034098556a002576c"
+content-hash = "324508f48d6eecf041435d85bee427943ec97d2d41f963406f441d67cd83047f"
