@@ -9,3 +9,7 @@ class GptAllStar:
     def chat(self, project_name: str, step: StepType = None, message=None):
         project = Project(step=step, project_name=project_name)
         return project.chat(message=message)
+
+    def execute(self, project_name: str):
+        project = Project(step=StepType.NONE, project_name=project_name)
+        return project.execute()

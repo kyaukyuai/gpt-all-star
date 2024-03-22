@@ -17,6 +17,7 @@ from gpt_all_star.core.deployment.deployment import Deployment
 from gpt_all_star.core.execution.execution import Execution
 from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
+from gpt_all_star.core.steps.healing.healing import Healing
 from gpt_all_star.core.steps.specification.specification import Specification
 from gpt_all_star.core.steps.steps import STEPS, StepType
 from gpt_all_star.core.storage import Storage, Storages
@@ -152,6 +153,127 @@ class Project:
             )
         ):
             Deployment(self.copilot, self.japanese_mode).run()
+
+    def execute(self) -> None:
+        command = (
+            Chain()
+            .create_command_to_execute_application_chain()
+            .invoke(
+                {
+                    "messages": [
+                        Message.create_human_message(
+                            f"""
+# Instructions
+---
+Generate an command to execute the application.
+
+# Constraints
+---
+- Check the current implementation and directory structure and be sure to launch the application.
+- If run.sh exists, it should be used first. To use it, move to the directory where run.sh exists, and then run `sh . /run.sh` after moving to the directory where run.sh exists.
+
+# Current Implementation
+---
+{self.copilot.storages.current_source_code(debug_mode=self.copilot.debug_mode)}
+"""
+                        )
+                    ],
+                }
+            )
+        )
+        yield {
+            "messages": [
+                Message.create_human_message(
+                    message=f"Execute command: {command['command']}"
+                )
+            ],
+        }
+
+        MAX_ATTEMPTS = 5
+        for attempt in range(MAX_ATTEMPTS):
+            try:
+                self.copilot.run_command(command["command"])
+            except Exception as e:
+                yield {
+                    "messages": [
+                        Message.create_human_message(message=f"Error is happened: {e}")
+                    ],
+                }
+                step = Healing(copilot=self.copilot, display=False, error_message=e)
+                for agent in self.agents.to_array():
+                    agent.set_executor(step.working_directory)
+                supervisor_name = (
+                    Chain()
+                    .create_assign_supervisor_chain(members=self.agents.to_array())
+                    .invoke(
+                        {
+                            "messages": [
+                                Message.create_human_message(step.planning_prompt())
+                            ]
+                        }
+                    )
+                    .get("assign")
+                )
+                supervisor = self.agents.get_agent_by_role(supervisor_name)
+                self._graph = MultiAgentCollaborationGraph(
+                    supervisor, self.agents.to_array()
+                )
+                self.supervisor = supervisor
+                tasks = (
+                    Chain()
+                    .create_planning_chain(self.supervisor.profile)
+                    .invoke(
+                        {
+                            "messages": [
+                                Message.create_human_message(step.planning_prompt())
+                            ],
+                        }
+                    )
+                )
+                for task in step.additional_tasks():
+                    tasks["plan"].append(task)
+
+                yield {
+                    "messages": [
+                        Message.create_human_message(
+                            message=str(tasks), name=self.supervisor.role.name
+                        )
+                    ],
+                }
+
+                count = 1
+                while len(tasks["plan"]) > 0:
+                    task = tasks["plan"][0]
+                    if task["action"] == ACTIONS[0]:
+                        todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
+                    else:
+                        todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
+
+                    message = Message.create_human_message(
+                        implement_template.format(
+                            task=todo,
+                            objective=task["objective"],
+                            context=task["context"],
+                            reason=task["reason"],
+                            implementation=self.copilot.storages.current_source_code(
+                                debug_mode=self.copilot.debug_mode
+                            ),
+                            specifications=self.copilot.storages.docs.get(
+                                "specifications.md", "N/A"
+                            ),
+                            technologies=self.copilot.storages.docs.get(
+                                "technologies.md", "N/A"
+                            ),
+                        )
+                    )
+                    for output in self._graph.workflow.stream(
+                        {"messages": [message]},
+                        config={"recursion_limit": 50},
+                    ):
+                        for key, value in output.items():
+                            yield value
+                    count += 1
+                    tasks["plan"].pop(0)
 
     def chat(self, message: str) -> None:
         for step in STEPS[self.step_type]:
