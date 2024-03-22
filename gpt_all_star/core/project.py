@@ -191,7 +191,7 @@ class Project:
             yield {
                 "messages": [
                     Message.create_human_message(
-                        message=str(tasks), name=self.supervisor.name
+                        message=str(tasks), name=self.supervisor.role.name
                     )
                 ],
             }
