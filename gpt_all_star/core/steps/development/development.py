@@ -17,6 +17,10 @@ class Development(Step):
         planning_prompt = planning_prompt_template.format(
             specifications=self.copilot.storages.docs.get("specifications.md", "N/A"),
             technologies=self.copilot.storages.docs.get("technologies.md", "N/A"),
+            system_architecture=self.copilot.storages.docs.get(
+                "system_architecture.md", "N/A"
+            ),
+            design_html=self.copilot.storages.docs.get("design_000.html", "N/A"),
         )
         return planning_prompt
 

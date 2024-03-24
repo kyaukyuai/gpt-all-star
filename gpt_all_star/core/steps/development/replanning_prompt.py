@@ -35,5 +35,11 @@ Create a detailed and specific development plan from project creation to source 
 ```technologies.md
 {technologies}
 ```
+
+# UI Design
+---
+```design_000.html
+{design_html}
+```
 """
 )
