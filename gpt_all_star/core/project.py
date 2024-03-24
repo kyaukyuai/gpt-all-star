@@ -192,7 +192,11 @@ Generate an command to execute the application.
         MAX_ATTEMPTS = 5
         for attempt in range(MAX_ATTEMPTS):
             try:
-                self.copilot.run_command(command["command"])
+                url = self.copilot.run_command(command["command"], display=False)
+                yield {
+                    "messages": [Message.create_human_message(message=f"URL: {url}")],
+                }
+                return
             except Exception as e:
                 yield {
                     "messages": [

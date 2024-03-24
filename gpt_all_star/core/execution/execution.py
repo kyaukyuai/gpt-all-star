@@ -46,6 +46,7 @@ Generate an command to execute the application.
             self.copilot.state(self._("Attempt %d/%d") % (attempt + 1, MAX_ATTEMPTS))
             try:
                 self.copilot.run_command(command["command"])
+                return
             except KeyboardInterrupt:
                 break
             except Exception as e:
