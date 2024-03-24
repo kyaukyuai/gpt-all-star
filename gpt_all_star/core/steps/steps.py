@@ -4,6 +4,7 @@ from gpt_all_star.core.steps.development.development import Development
 from gpt_all_star.core.steps.entrypoint.entrypoint import Entrypoint
 from gpt_all_star.core.steps.healing.healing import Healing
 from gpt_all_star.core.steps.improvement.improvement import Improvement
+from gpt_all_star.core.steps.mock_ui_design.mock_ui_design import MockUiDesign
 from gpt_all_star.core.steps.specification.specification import Specification
 from gpt_all_star.core.steps.system_design.system_design import SystemDesign
 from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
@@ -20,6 +21,7 @@ class StepType(str, Enum):
     UI_DESIGN = "ui_design"
     IMPROVEMENT = "improvement"
     HEALING = "healing"
+    MOCK_UI_DESIGN = "mock_ui_design"
 
 
 STEPS = {
@@ -27,6 +29,15 @@ STEPS = {
     StepType.DEFAULT: [
         Specification,
         SystemDesign,
+        MockUiDesign,
+        Development,
+        UIDesign,
+        Entrypoint,
+    ],
+    StepType.MOCK_UI_DESIGN: [
+        Specification,
+        SystemDesign,
+        MockUiDesign,
         Development,
         UIDesign,
         Entrypoint,
