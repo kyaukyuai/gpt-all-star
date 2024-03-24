@@ -5,12 +5,18 @@ def create_additional_tasks(app_type, instructions):
             "working_directory": ".",
             "filename": "specifications.md",
             "command": "",
-            "context": f"""The task is to clarify specifications of a {app_type}.
-Your role is to read and understand the instructions and provide the specifications, not to implement them.
-The following are requirements that your application must meet: ```{instructions}```
-First, summarize the instructions into a list of concise bullet points that need further clarification.
-Then, assume the ambiguity as the simplest possible specification for building the MVP(Minimum Viable Product) and state them clearly.
-**IMPORTANT**: Please describe the specifications inferred from the instructions in as much detail as possible.
+            "context": f"""Your task is to clarify the {app_type} specification.
+Your role is to read and understand the instructions and provide the specification, not to implement it.
+
+[the task you do].
+The following sentence is a business requirement that the application must meet: ```{instructions}```
+
+[output format].
+Compile the business requirements into a concise list
+Please separate the description into categories of business requirements, system requirements, and UI/UX design
+[Important]
+You are free to add to these specifications as you see fit
+If you add more, you must be specific
 """,
             "objective": f"""To document a clear and concise list of specifications for the {app_type}, derived from the given instructions.
 This document will serve as the basis for developing a Minimum Viable Product (MVP), ensuring that the development focuses on essential features required for the initial launch.
