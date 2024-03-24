@@ -21,4 +21,10 @@ class SystemDesign(Step):
         has_technologies = bool(technologies)
         if has_technologies:
             self.copilot.output_md(technologies)
+
+        system_architecture = self.copilot.storages.docs.get("system_architecture.md")
+        has_system_architecture = bool(system_architecture)
+        if has_system_architecture:
+            self.copilot.output_md(system_architecture)
+
         return has_technologies
