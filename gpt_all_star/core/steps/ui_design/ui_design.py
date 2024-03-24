@@ -16,6 +16,9 @@ class UIDesign(Step):
                 debug_mode=self.copilot.debug_mode
             ),
             specifications=self.copilot.storages.docs.get("specifications.md", "N/A"),
+            system_architecture=self.copilot.storages.docs.get(
+                "system_architecture.md", "N/A"
+            ),
         )
         return planning_prompt
 
