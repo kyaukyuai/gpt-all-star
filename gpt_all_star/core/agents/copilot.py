@@ -1,8 +1,11 @@
+import os
 import random
+import signal
 import string
 import subprocess
 import threading
 import time
+from typing import Optional
 
 import requests
 from selenium import webdriver
@@ -95,7 +98,7 @@ class Copilot(Agent):
             self._("You can press ctrl+c *once* to stop the execution."), style="red"
         )
 
-    def run_command(self, command: str) -> None:
+    def run_command(self, command: str, display: bool = True):
         try:
             process = subprocess.Popen(
                 command,
@@ -104,6 +107,7 @@ class Copilot(Agent):
                 text=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
+                preexec_fn=os.setsid,
             )
 
             stdout_lines = []
@@ -124,13 +128,17 @@ class Copilot(Agent):
             stdout_thread.start()
             stderr_thread.start()
 
-            if self._wait_for_server():
-                self._check_browser_errors()
+            if url := self._wait_for_server():
+                self._check_browser_errors(url)
+                if not display:
+                    os.killpg(process.pid, signal.SIGTERM)
+                    process.wait()
+                    return url
 
             stdout_thread.join()
             stderr_thread.join()
-
             return_code = process.wait()
+
             if return_code != 0:
                 raise Exception(
                     {
@@ -138,31 +146,35 @@ class Copilot(Agent):
                         "stderr": "\n".join(stderr_lines),
                     }
                 )
-            process.terminate()
+
+            os.killpg(process.pid, signal.SIGTERM)
+            process.wait()
         except KeyboardInterrupt:
+            os.killpg(process.pid, signal.SIGTERM)
             process.wait()
             self._handle_keyboard_interrupt()
             raise KeyboardInterrupt
 
-    def _wait_for_server(self) -> bool:
+    def _wait_for_server(self) -> Optional[str]:
         MAX_ATTEMPTS = 30
         for attempt in range(MAX_ATTEMPTS):
             try:
-                response = requests.get("http://localhost:3000")
+                url = "http://localhost:3000"
+                response = requests.get(url)
                 if response.status_code == 200:
-                    return True
+                    return url
             except requests.ConnectionError:
                 pass
             time.sleep(1)
         self.state(self._("Unable to confirm server startup"))
-        return False
+        return None
 
-    def _check_browser_errors(self):
+    def _check_browser_errors(self, url: str) -> None:
         """Access the site with a headless browser and catch console errors"""
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         driver = webdriver.Chrome(options=chrome_options)
-        driver.get("http://localhost:3000")
+        driver.get(url)
 
         errors = ""
         for entry in driver.get_log("browser"):
