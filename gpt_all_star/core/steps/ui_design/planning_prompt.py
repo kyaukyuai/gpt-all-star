@@ -27,5 +27,11 @@ Create a detailed and specific development plan to enhance the UI and UX in acco
 ```system_system_architecture.md
 {system_architecture}
 ```
+
+# UI Design
+---
+```design_000.html
+{design_html}
+```
 """
 )

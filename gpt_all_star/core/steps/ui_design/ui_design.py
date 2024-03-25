@@ -19,6 +19,7 @@ class UIDesign(Step):
             system_architecture=self.copilot.storages.docs.get(
                 "system_architecture.md", "N/A"
             ),
+            design_html=self.copilot.storages.docs.get("design_000.html", "N/A"),
         )
         return planning_prompt
 
