@@ -19,6 +19,7 @@ This is a research-project, and its primary value is to explore the possibility 
   - [For User](#for-user)
   - [For Developer](#for-developer)
 - [🕴 Current Situation](#-current-situation)
+- [🧑‍💻️ UI Project](#️-ui-project)
 - [🔎 Examples](#-examples)
   - [⏱️ Pomodoro Timer](#️-pomodoro-timer)
 - [🍻 Contribution](#-contribution)
@@ -148,6 +149,13 @@ If you want to change the team members, edit the `gpt_all_star/agents.yml` file.
 
 This is a research project and the main focus is currently on validating `Client Web Applications` in `React` and `ChakraUI` using `JavaScript`.
 We would like to test other languages and libraries as well and welcome contributions.
+
+## 🧑‍💻️ UI Project
+
+[gpt-all-star-ui](https://github.com/kyaukyuai/gpt-all-star-ui) is a web application that uses `gpt-all-star` as a backend.
+It's a simple web application that allows you to use `gpt-all-star` as a service.
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://gpt-all-star.streamlit.app/)
 
 ## 🔎 Examples
 
