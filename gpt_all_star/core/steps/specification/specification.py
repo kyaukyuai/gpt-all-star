@@ -13,7 +13,6 @@ class Specification(Step):
         self.working_directory = self.copilot.storages.docs.path.absolute()
         self.instructions = ""
         self.app_type = ""
-        self.japanese_mode = japanese_mode
 
     def planning_prompt(self) -> str:
         return ""
