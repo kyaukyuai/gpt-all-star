@@ -19,7 +19,14 @@ Must always fulfill the user's request exactly.
 # Current Situation
 ---
 
-## Current implementation
-{current_source_code}
+## Application Specifications to be met
+```specifications.md
+{specifications}
+```
+
+## Technology stack to be used
+```technologies.md
+{technologies}
+```
 """
 )

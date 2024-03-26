@@ -1,4 +1,4 @@
-from gpt_all_star.core.project import Project
+from gpt_all_star.core.respond import Respond
 from gpt_all_star.core.steps.steps import StepType
 
 
@@ -7,9 +7,9 @@ class GptAllStar:
         pass
 
     def chat(self, project_name: str, step: StepType = None, message=None):
-        project = Project(step=step, project_name=project_name)
-        return project.chat(message=message)
+        respond = Respond(step=step, project_name=project_name)
+        return respond.chat(message=message)
 
     def execute(self, project_name: str):
-        project = Project(step=StepType.NONE, project_name=project_name)
-        return project.execute()
+        respond = Respond(step=StepType.NONE, project_name=project_name)
+        return respond.execute()
