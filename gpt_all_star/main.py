@@ -1,6 +1,7 @@
 import typer
 from dotenv import load_dotenv
 
+from gpt_all_star import gpt_all_star
 from gpt_all_star.cli.console_terminal import MAIN_COLOR, ConsoleTerminal
 from gpt_all_star.core.project import Project
 from gpt_all_star.core.steps.steps import StepType
@@ -68,4 +69,14 @@ def main(
 
 
 if __name__ == "__main__":
-    main()
+    # for chunk in gpt_all_star.chat(
+    #     message="Update the specifications so that the design adheres to the human interface guidelines.",
+    #     step=StepType.DOC_IMPROVEMENT,
+    #     project_name="test",
+    # ):
+    #     print(chunk)
+
+    for chunk in gpt_all_star.execute(project_name="markdown-editor"):
+        print(chunk)
+
+    # main()
