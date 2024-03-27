@@ -131,10 +131,6 @@ msgstr "クライアント側ウェブアプリケーション"
 msgid "Project finished. Elapsed time: %.2f seconds."
 msgstr "プロジェクト終了 経過時間：%.2f 秒"
 
-#: core/steps/improvement/improvement.py:15
-msgid "What would you like to update?"
-msgstr "何を更新したいですか？"
-
 #: core/steps/specification/specification.py:31
 #, python-format
 msgid ""

@@ -13,6 +13,7 @@ class Step(ABC):
         self.plan_and_solve = False
         self.exclude_dirs = [".archive", "node_modules", "build"]
         self.display = display
+        self.improvement_request = None
 
         if self.display:
             self.copilot.console.section(f"STEP: {self.__class__.__name__}")
@@ -29,4 +30,8 @@ class Step(ABC):
 
     @abstractmethod
     def callback(self) -> bool:
+        pass
+
+    @abstractmethod
+    def improvement_prompt(self) -> str:
         pass

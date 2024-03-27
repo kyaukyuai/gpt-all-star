@@ -10,6 +10,10 @@ class GptAllStar:
         respond = Respond(step=step, project_name=project_name)
         return respond.chat(message=message)
 
+    def improve(self, project_name: str, step: StepType = None, message=None):
+        respond = Respond(step=step, project_name=project_name)
+        return respond.improve(message=message)
+
     def execute(self, project_name: str):
         respond = Respond(step=StepType.NONE, project_name=project_name)
         return respond.execute()
