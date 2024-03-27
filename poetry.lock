@@ -1354,19 +1354,19 @@ requests = ">=2,<3"
 
 [[package]]
 name = "llama-index"
-version = "0.10.24"
+version = "0.10.25"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index-0.10.24-py3-none-any.whl", hash = "sha256:f241b70086d109b296fc9a75fa5eaa580f9bfb48d3271bc9702b0c206ce298ab"},
-    {file = "llama_index-0.10.24.tar.gz", hash = "sha256:2ec779fb0046271cf170f4b94a78ec6dc111d51e20cdf8a1e2ce471b48c7dc8a"},
+    {file = "llama_index-0.10.25-py3-none-any.whl", hash = "sha256:a8806e4285321c4b1e0008bb626deaccfe95d7fde421103b9d4a393dd2951ce7"},
+    {file = "llama_index-0.10.25.tar.gz", hash = "sha256:1266dc66b3a9823416f8ad516af21297434fce1344f75de318ddb63aed952abd"},
 ]
 
 [package.dependencies]
-llama-index-agent-openai = ">=0.1.4,<0.2.0"
+llama-index-agent-openai = ">=0.1.4,<0.3.0"
 llama-index-cli = ">=0.1.2,<0.2.0"
-llama-index-core = ">=0.10.24,<0.11.0"
+llama-index-core = ">=0.10.25,<0.11.0"
 llama-index-embeddings-openai = ">=0.1.5,<0.2.0"
 llama-index-indices-managed-llama-cloud = ">=0.1.2,<0.2.0"
 llama-index-legacy = ">=0.9.48,<0.10.0"
@@ -1410,13 +1410,13 @@ llama-index-llms-openai = ">=0.1.1,<0.2.0"
 
 [[package]]
 name = "llama-index-core"
-version = "0.10.24.post1"
+version = "0.10.25.post1"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index_core-0.10.24.post1-py3-none-any.whl", hash = "sha256:a9d0a6e94c48fde8c9d64e549e7316883f6a0f95c78aa4a196355f6a15c5041c"},
-    {file = "llama_index_core-0.10.24.post1.tar.gz", hash = "sha256:8ddc3f5e967c91bd884a8cd4b233309c92f18aaec75998e405d6d7cc62e0e740"},
+    {file = "llama_index_core-0.10.25.post1-py3-none-any.whl", hash = "sha256:6d2cc4f9325e5ae52501a01a44f2ce377e79f049ab1e5cb727c19269cea0531b"},
+    {file = "llama_index_core-0.10.25.post1.tar.gz", hash = "sha256:e4a384383a8dfd93b263d2c2159a49ad0feb3ad2df60e733928f689d80596c2b"},
 ]
 
 [package.dependencies]
@@ -1426,7 +1426,7 @@ deprecated = ">=1.2.9.3"
 dirtyjson = ">=1.0.8,<2.0.0"
 fsspec = ">=2023.5.0"
 httpx = "*"
-llamaindex-py-client = ">=0.1.13,<0.2.0"
+llamaindex-py-client = ">=0.1.15,<0.2.0"
 nest-asyncio = ">=1.5.8,<2.0.0"
 networkx = ">=3.0"
 nltk = ">=3.8.1,<4.0.0"
@@ -1630,13 +1630,13 @@ llama-index-core = ">=0.10.7"
 
 [[package]]
 name = "llamaindex-py-client"
-version = "0.1.13"
+version = "0.1.15"
 description = ""
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = "<4.0,>=3.8"
 files = [
-    {file = "llamaindex_py_client-0.1.13-py3-none-any.whl", hash = "sha256:02400c90655da80ae373e0455c829465208607d72462f1898fd383fdfe8dabce"},
-    {file = "llamaindex_py_client-0.1.13.tar.gz", hash = "sha256:3bd9b435ee0a78171eba412dea5674d813eb5bf36e577d3c7c7e90edc54900d9"},
+    {file = "llamaindex_py_client-0.1.15-py3-none-any.whl", hash = "sha256:d189f23a8f7f78d0e170f62b531dd6ac030eadcb7dd7d38c1b543c4c98c51e5c"},
+    {file = "llamaindex_py_client-0.1.15.tar.gz", hash = "sha256:c7ce26855ba976153bb40157c3c194223c6b75179935b988dd4bd6a3fe83aacb"},
 ]
 
 [package.dependencies]
