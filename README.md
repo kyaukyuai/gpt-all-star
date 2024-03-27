@@ -127,7 +127,7 @@ Usage: gpt-all-star [OPTIONS]
 
 ╭─ Options ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ --step                -s      [none|default|build|specification|system_design|development  Step to be performed [default: StepType.DEFAULT]            │
-│                               |entrypoint|ui_design|improvement|healing]                                                                               │
+│                               |entrypoint|ui_design|healing]                                                                               │
 │ --project_name        -p      TEXT                                                         Project name [default: None]                                │
 │ --japanese_mode       -j                                                                   Japanese mode                                               │
 │ --review_mode         -r                                                                   Review mode                                                 │

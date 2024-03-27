@@ -1,5 +1,8 @@
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.steps.development.additional_tasks import additional_tasks
+from gpt_all_star.core.steps.development.improvement_prompt import (
+    improvement_prompt_template,
+)
 from gpt_all_star.core.steps.development.nodejs_tasks import nodejs_tasks
 from gpt_all_star.core.steps.development.planning_prompt import planning_prompt_template
 from gpt_all_star.core.steps.step import Step
@@ -26,3 +29,15 @@ class Development(Step):
     def callback(self) -> bool:
         self.copilot.output_files(exclude_dirs=self.exclude_dirs)
         return True
+
+    def improvement_prompt(self) -> str:
+        request = self.improvement_request or self.copilot.ask(
+            self._("What do you want to update?"), is_required=True, default=None
+        )
+        improvement_prompt = improvement_prompt_template.format(
+            request=request,
+            current_source_code=self.copilot.storages.current_source_code(
+                debug_mode=self.copilot.debug_mode
+            ),
+        )
+        return improvement_prompt
