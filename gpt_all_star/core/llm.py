@@ -13,6 +13,7 @@ class LLM_TYPE(str, Enum):
     AZURE = "AZURE"
     ANTHROPIC = "ANTHROPIC"
     ANTHROPIC_TOOLS = "ANTHROPIC_TOOLS"
+    APIPIE = "APIPIE"
 
 
 def create_llm(llm_name: LLM_TYPE) -> BaseChatModel:
@@ -45,6 +46,11 @@ def create_llm(llm_name: LLM_TYPE) -> BaseChatModel:
             model_name=os.getenv("ANTHROPIC_API_MODEL", "claude-3-opus-20240229"),
             temperature=0.1,
         )
+    elif llm_name == LLM_TYPE.APIPIE:
+        return _create_chat_apipie(
+            model_name=os.getenv("APIPIE_API_MODEL", "default-model"),
+            temperature=0.1,
+        )
     else:
         raise ValueError(f"Unsupported LLM type: {llm_name}")
 
@@ -74,6 +80,14 @@ def _create_azure_chat_openai(
         deployment_name=deployment_name,
         temperature=temperature,
         streaming=True,
+    )
+
+def _create_chat_apipie(model_name: str, temperature: float) -> ChatAPIpie:
+    return ChatAPIpie(
+        model_name=model_name,
+        temperature=temperature,
+        streaming=True,
+        client=openai.chat.completions,  # Assuming similar client setup as OpenAI
     )
 
 
