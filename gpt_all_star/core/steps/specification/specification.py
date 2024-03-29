@@ -2,6 +2,9 @@ from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.steps.specification.additional_tasks import (
     create_additional_tasks,
 )
+from gpt_all_star.core.steps.specification.improvement_prompt import (
+    improvement_prompt_template,
+)
 from gpt_all_star.core.steps.step import Step
 
 
@@ -13,7 +16,6 @@ class Specification(Step):
         self.working_directory = self.copilot.storages.docs.path.absolute()
         self.instructions = ""
         self.app_type = ""
-        self.japanese_mode = japanese_mode
 
     def planning_prompt(self) -> str:
         return ""
@@ -48,3 +50,13 @@ app_type:
         if has_specifications:
             self.copilot.output_md(specifications)
         return has_specifications
+
+    def improvement_prompt(self) -> str:
+        request = self.improvement_request or self.copilot.ask(
+            self._("What do you want to update?"), is_required=True, default=None
+        )
+        improvement_prompt = improvement_prompt_template.format(
+            request=request,
+            specifications=self.copilot.storages.docs.get("specifications.md", "N/A"),
+        )
+        return improvement_prompt

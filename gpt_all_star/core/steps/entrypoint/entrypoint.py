@@ -24,3 +24,6 @@ class Entrypoint(Step):
     def callback(self) -> bool:
         self.copilot.output_files(exclude_dirs=self.exclude_dirs)
         return True
+
+    def improvement_prompt(self) -> str:
+        return ""

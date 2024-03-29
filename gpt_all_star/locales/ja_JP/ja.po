@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-03-13 23:19+0900\n"
-"PO-Revision-Date: 2024-03-13 23:21+0900\n"
+"POT-Creation-Date: 2024-03-27 14:56+0900\n"
+"PO-Revision-Date: 2024-03-27 14:58+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
@@ -15,29 +15,29 @@ msgstr ""
 "X-Poedit-SearchPath-1: core\n"
 "X-Poedit-SearchPath-2: helper\n"
 
-#: core/agents/copilot.py:34
+#: core/agents/copilot.py:37
 #, python-format
 msgid "Let's start the project! (%s)"
 msgstr "「%s」プロジェクトを始めよう！"
 
-#: core/agents/copilot.py:37
+#: core/agents/copilot.py:40
 #, python-format
 msgid "Completed the project! (%s)"
 msgstr "「%s 」プロジェクト完了!"
 
-#: core/agents/copilot.py:44
+#: core/agents/copilot.py:47
 msgid "What is the name of the project?"
 msgstr "プロジェクト名を何にしますか？"
 
-#: core/agents/copilot.py:51
+#: core/agents/copilot.py:54
 msgid "yes"
 msgstr "はい"
 
-#: core/agents/copilot.py:51
+#: core/agents/copilot.py:54
 msgid "no"
 msgstr "いいえ"
 
-#: core/agents/copilot.py:71
+#: core/agents/copilot.py:74
 msgid ""
 "What application do you want to build? Please describe it in as much detail "
 "as possible."
@@ -45,16 +45,16 @@ msgstr ""
 "どのようなアプリケーションを作りたいですか？できるだけ詳しく説明してくださ"
 "い。"
 
-#: core/agents/copilot.py:81
+#: core/agents/copilot.py:84
 msgid "What type of application do you want to build?"
 msgstr "どのようなアプリケーションを作りたいですか?"
 
-#: core/agents/copilot.py:87
+#: core/agents/copilot.py:90
 #, python-format
 msgid "Executing command: %s"
 msgstr "実行中のコマンド: %s"
 
-#: core/agents/copilot.py:90
+#: core/agents/copilot.py:93
 msgid ""
 "If it does not work as expected, please consider running the code in another "
 "way than above."
@@ -62,15 +62,15 @@ msgstr ""
 "期待通りに動作しない場合は、上記とは別の方法でコードを実行することを検討して"
 "ください"
 
-#: core/agents/copilot.py:95
+#: core/agents/copilot.py:98
 msgid "You can press ctrl+c *once* to stop the execution."
 msgstr "一度だけctrl+cを押すと実行を停止することができます。"
 
-#: core/agents/copilot.py:157
+#: core/agents/copilot.py:169
 msgid "Unable to confirm server startup"
 msgstr "サーバーの起動を確認できません"
 
-#: core/agents/copilot.py:177
+#: core/agents/copilot.py:189
 msgid "Execution stopped."
 msgstr "実行を停止します"
 
@@ -96,46 +96,48 @@ msgstr "リポジトリへのプッシュ中にエラーが発生しました : 
 msgid "Attempt %d/%d"
 msgstr "試行回数 %d/%d"
 
-#: core/project.py:93
+#: core/project.py:86 core/respond.py:90
 msgid "Archiving previous results..."
 msgstr "過去の結果をアーカイブ中です…"
 
-#: core/project.py:101
+#: core/project.py:94
 msgid "Interrupt received! Stopping..."
 msgstr "割り込みを受けた！停止中です…"
 
-#: core/project.py:114
+#: core/project.py:109
 #, python-format
-msgid "Retrying step %d (Attempt %d/%d)"
-msgstr "リトライステップ : %d (試行回数 %d/%d)"
+msgid "Retrying step: %s (Attempt %d/%d)"
+msgstr "リトライステップ : %s (試行回数 %d/%d)"
 
-#: core/project.py:120
+#: core/project.py:115
 #, python-format
-msgid "Failed to execute step %d. Reason: %s"
-msgstr "ステップ %dの実行に失敗しました。理由：%s"
+msgid "Failed to execute step: %s. Reason: %s"
+msgstr "ステップ %s の実行に失敗しました。理由：%s"
 
-#: core/project.py:142
+#: core/project.py:138
 msgid "Do you want to execute this application?"
 msgstr "このアプリケーションを実行しますか？"
 
-#: core/project.py:148
+#: core/project.py:144
 msgid "Do you want to manage this application code with GitHub?"
 msgstr "このアプリケーションコードをGitHubで管理したいですか？"
 
-#: core/project.py:158
-msgid "Client-Side Web Application"
-msgstr "クライアント側ウェブアプリケーション"
-
-#: core/project.py:225
+#: core/project.py:154
 #, python-format
 msgid "Project finished. Elapsed time: %.2f seconds."
 msgstr "プロジェクト終了 経過時間：%.2f 秒"
 
-#: core/steps/improvement/improvement.py:15
-msgid "What would you like to update?"
-msgstr "何を更新したいですか？"
+#: core/respond.py:227
+msgid "Client-Side Web Application"
+msgstr "クライアント側ウェブアプリケーション"
 
-#: core/steps/specification/specification.py:31
+#: core/steps/development/development.py:35
+#: core/steps/specification/specification.py:56
+#: core/steps/system_design/system_design.py:31
+msgid "What do you want to update?"
+msgstr "どのように更新したいですか？"
+
+#: core/steps/specification/specification.py:33
 #, python-format
 msgid ""
 "\n"
@@ -164,7 +166,7 @@ msgstr "まずはチーム作りから始めよう！"
 msgid "Ok, we have a team now!"
 msgstr "よし、これでチームが決まった！"
 
-#: core/team.py:57
+#: core/team.py:58
 #, python-format
 msgid "Supervisor assignment: %s."
 msgstr "スーパーバイザーを任命 : %s."
