@@ -30,5 +30,10 @@ Understand exactly why you should do it and make sure you meet the status to be 
 ```technologies.md
 {technologies}
 ```
+
+## UI Design
+```ui_design.html
+{ui_design}
+```
 """
 )

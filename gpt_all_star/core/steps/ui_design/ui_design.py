@@ -1,6 +1,11 @@
+from rich.panel import Panel
+
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.core.steps.ui_design.planning_prompt import planning_prompt_template
+from gpt_all_star.core.steps.ui_design.additional_tasks import additional_tasks
+from gpt_all_star.core.steps.ui_design.improvement_prompt import (
+    improvement_prompt_template,
+)
 
 
 class UIDesign(Step):
@@ -8,23 +13,27 @@ class UIDesign(Step):
         self, copilot: Copilot, display: bool = True, japanese_mode: bool = False
     ) -> None:
         super().__init__(copilot, display, japanese_mode)
-        self.working_directory = self.copilot.storages.app.path.absolute()
+        self.working_directory = self.copilot.storages.docs.path.absolute()
 
     def planning_prompt(self) -> str:
-        planning_prompt = planning_prompt_template.format(
-            current_source_code=self.copilot.storages.current_source_code(
-                debug_mode=self.copilot.debug_mode
-            ),
-            specifications=self.copilot.storages.docs.get("specifications.md", "N/A"),
-        )
-        return planning_prompt
+        return ""
 
     def additional_tasks(self) -> list:
-        return []
+        return additional_tasks
 
     def callback(self) -> bool:
-        self.copilot.output_files(exclude_dirs=self.exclude_dirs)
-        return True
+        ui_design = self.copilot.storages.docs.get("ui_design.html")
+        has_ui_design = bool(ui_design)
+        if has_ui_design:
+            self.copilot.console.print(Panel(ui_design))
+        return has_ui_design
 
     def improvement_prompt(self) -> str:
-        return ""
+        request = self.improvement_request or self.copilot.ask(
+            self._("What do you want to update?"), is_required=True, default=None
+        )
+        improvement_prompt = improvement_prompt_template.format(
+            request=request,
+            ui_design=self.copilot.storages.docs.get("ui_design.html", "N/A"),
+        )
+        return improvement_prompt
