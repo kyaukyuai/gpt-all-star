@@ -85,6 +85,9 @@ class Agent(ABC):
     def output_md(self, md: str) -> None:
         self.console.print(Panel(Markdown(md, style="bold")))
 
+    def output_html(self, html: str) -> None:
+        self.console.print(Panel(html))
+
     def output_files(self, exclude_dirs=[]) -> None:
         table = Table(show_header=True, header_style="bold magenta")
         table.add_column("Name", width=40)
