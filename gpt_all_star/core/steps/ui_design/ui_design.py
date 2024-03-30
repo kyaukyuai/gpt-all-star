@@ -1,5 +1,3 @@
-from rich.panel import Panel
-
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.steps.step import Step
 from gpt_all_star.core.steps.ui_design.additional_tasks import additional_tasks
@@ -25,7 +23,7 @@ class UIDesign(Step):
         ui_design = self.copilot.storages.docs.get("ui_design.html")
         has_ui_design = bool(ui_design)
         if has_ui_design:
-            self.copilot.console.print(Panel(ui_design))
+            self.copilot.output_html(ui_design)
         return has_ui_design
 
     def improvement_prompt(self) -> str:
