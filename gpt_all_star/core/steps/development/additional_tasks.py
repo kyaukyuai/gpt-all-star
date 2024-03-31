@@ -41,14 +41,28 @@ This not only enhances the project's approachability but also fosters a welcomin
         "filename": "README.md",
         "command": "",
         "context": """It is important that the correct implementation is made in the correct location according to the specifications of the technology used
-If files are not placed where they should be, the application will not run properly.
+If files or directories are not placed where they should be, the application will not run properly.
 """,
-        "objective": """Based on the specifications of the technology used, the file must be placed in the correct location at the time of implementation.
-If a file is placed in the wrong location, it must be moved to the proper location.
+        "objective": """Based on the specifications of the technology used, files and directories must be placed in the correct location during implementation.
+If a file or directory is placed in the wrong location, it must be moved to the proper location.
 """,
-        "reason": """If the file is in the wrong location, an error will occur and it will not work correctly.
+        "reason": """If the file or directories is in the wrong location, an error will occur and it will not work correctly.
 
 Also, the file location is closely related to the import paths listed in the source code, and if the paths do not match, it is not a correct implementation.
+""",
+    },
+    {
+        "action": "If loading is required to use a function from another file, check to see if the loading is done correctly",
+        "working_directory": "the directory where the target file exists",
+        "filename": "README.md",
+        "command": "",
+        "context": """When using a function that exists in another file or directory, the Path to be read must be correctly described.
+If the description is incorrect, the program will not work correctly and will become non-executable as an error.
+""",
+        "objective": """When using library functions from other files or directories, if the loading method is incorrect, it must be corrected.
+""",
+        "reason": """If the path to load is incorrect or written incorrectly, the program will not work correctly.
+For correct operation, the description and the path to load must be coded correctly.
 """,
     },
 ]
