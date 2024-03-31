@@ -120,7 +120,8 @@ class Project:
         if not success:
             failed_message = "Failed to successfully complete step %(step)s after %(max_retries)d attempts."
             self.copilot.state(
-                self._(failed_message) % {"step": str(step), "max_retries": MAX_RETRIES}
+                self._(failed_message)
+                % {"step": step.__name__, "max_retries": MAX_RETRIES}
             )
             raise Exception(f"Operation failed after {MAX_RETRIES} retries.")
 
