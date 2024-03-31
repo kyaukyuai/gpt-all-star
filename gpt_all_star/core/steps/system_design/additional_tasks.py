@@ -4,12 +4,15 @@ additional_tasks = [
         "working_directory": ".",
         "filename": "technologies.md",
         "command": "",
-        "context": """[the task you do]
-This task requires compiling a list of specific technologies to be used to build the application before starting the implementation of the source code.
+        "context": """This task requires compiling a list of specific technologies to be used to build the application before starting the implementation of the source code.
 This list must conform to the project specifications.
 It must not use any technology unrelated to the project.
 Must be compatible between the libraries used.
 Additionally, when multiple options are available for a specific project component, the guidelines prioritize React, JavaScript, chakra-ui and HTML.
+""",
+        "objective": """To produce a document clearly outlining the necessary and compatible technologies for the project's development, prioritizing preferred technologies.
+This aims to ensure an efficient and coherent development process using a streamlined, compatible technology stack, thereby facilitating easier integration and implementation.
+
 [output format]
 Categorized by technology used and displayed in a list
 For OSS, etc., if a Github repository exists, the URL must also be included.
@@ -19,9 +22,6 @@ If it does not exist, you do not need to include it.
 Only technologies related to source code implementation should be listed, not version control tools, technologies related to automated testing or deployment, or tools related to project management.
 Descriptions for each technology are not required, only provide the exact technology name.
 Avoid providing personal opinions or alternatives.
-""",
-        "objective": """To produce a document clearly outlining the necessary and compatible technologies for the project's development, prioritizing preferred technologies.
-This aims to ensure an efficient and coherent development process using a streamlined, compatible technology stack, thereby facilitating easier integration and implementation.
 """,
         "reason": """Creating a focused and guided list of technologies is essential for the project's success.
 It enables the development team to make informed decisions about the technology stack, ensuring that each technology chosen is not only relevant and compatible but also preferred within the project's context.
