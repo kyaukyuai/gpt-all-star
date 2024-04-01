@@ -1273,18 +1273,18 @@ extended-testing = ["jinja2 (>=3,<4)"]
 
 [[package]]
 name = "langchain-experimental"
-version = "0.0.55"
+version = "0.0.56"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_experimental-0.0.55-py3-none-any.whl", hash = "sha256:1b6b47689a4d21f81fac5ce3e968914bf7cafb70a14695404a0a67585114e09f"},
-    {file = "langchain_experimental-0.0.55.tar.gz", hash = "sha256:8338a5e31b3dce8b072ddbdc1dda7765d864505478923e98681a93ae2555c237"},
+    {file = "langchain_experimental-0.0.56-py3-none-any.whl", hash = "sha256:91fd7a723b0ef3193a63726745523efdd5dd7134116d838c312cfdbf4b354298"},
+    {file = "langchain_experimental-0.0.56.tar.gz", hash = "sha256:ebb1c34815739d3af50c9b709c57b91d0357d567ad2042acb724853c6ba1d735"},
 ]
 
 [package.dependencies]
-langchain = ">=0.1.13,<0.2.0"
-langchain-core = ">=0.1.33,<0.2.0"
+langchain = ">=0.1.14,<0.2.0"
+langchain-core = ">=0.1.37,<0.2.0"
 
 [package.extras]
 extended-testing = ["faker (>=19.3.1,<20.0.0)", "jinja2 (>=3,<4)", "pandas (>=2.0.1,<3.0.0)", "presidio-analyzer (>=2.2.352,<3.0.0)", "presidio-anonymizer (>=2.2.352,<3.0.0)", "sentence-transformers (>=2,<3)", "tabulate (>=0.9.0,<0.10.0)", "vowpal-wabbit-next (==0.6.0)"]
@@ -4104,4 +4104,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "1f507f714f0dfc24addda81093d3b5b73f4431ede3fab2081fa99af401226456"
+content-hash = "153f0ba52e8543fc2bb36c5710cd4b5385cc03a8147073773e6b6d3e17e637a8"
