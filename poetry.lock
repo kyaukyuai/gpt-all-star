@@ -1341,19 +1341,19 @@ requests = ">=2,<3"
 
 [[package]]
 name = "llama-index"
-version = "0.10.25"
+version = "0.10.26"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index-0.10.25-py3-none-any.whl", hash = "sha256:a8806e4285321c4b1e0008bb626deaccfe95d7fde421103b9d4a393dd2951ce7"},
-    {file = "llama_index-0.10.25.tar.gz", hash = "sha256:1266dc66b3a9823416f8ad516af21297434fce1344f75de318ddb63aed952abd"},
+    {file = "llama_index-0.10.26-py3-none-any.whl", hash = "sha256:25a3f8c9f63fbdaaf3d760ce59c5dad8afc5cf40431e9e6a28e02b92a820d450"},
+    {file = "llama_index-0.10.26.tar.gz", hash = "sha256:5a6036bcb2449277ede3244cfa1b49d9fab5dba30ad8b212c2df92449cfa7d48"},
 ]
 
 [package.dependencies]
 llama-index-agent-openai = ">=0.1.4,<0.3.0"
 llama-index-cli = ">=0.1.2,<0.2.0"
-llama-index-core = ">=0.10.25,<0.11.0"
+llama-index-core = ">=0.10.26,<0.11.0"
 llama-index-embeddings-openai = ">=0.1.5,<0.2.0"
 llama-index-indices-managed-llama-cloud = ">=0.1.2,<0.2.0"
 llama-index-legacy = ">=0.9.48,<0.10.0"
