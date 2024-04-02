@@ -38,7 +38,7 @@ This not only enhances the project's approachability but also fosters a welcomin
     {
         "action": "Always need to make sure that source code and resources relevant to the project are stored in the correct location",
         "working_directory": "the directory where the target file exists",
-        "filename": "README.md",
+        "filename": "the specific file with placeholders",
         "command": "",
         "context": """It is important that the correct implementation is made in the correct location according to the specifications of the technology used
 If files or directories are not placed where they should be, the application will not run properly.
