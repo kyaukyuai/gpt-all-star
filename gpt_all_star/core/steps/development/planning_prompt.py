@@ -9,7 +9,8 @@ Create a detailed and specific development plan from project creation to source 
 # Constraints
 ---
 - Verification of operation, deployment, and version control are done in separate steps and are not included in the development plan.
-- Focus only on implementing source code that works perfectly according to the specification.
+- Focus only on implementing source code that works perfectly according to the requirements.
+- `working_directory` is very important, so please pay close attention!
 
 # Requirements
 ---
@@ -22,6 +23,11 @@ Create a detailed and specific development plan from project creation to source 
 ## Technology stack to be used
 ```technologies.md
 {technologies}
+```
+
+## UI Design to be implemented
+```ui_design.html
+{ui_design}
 ```
 """
 )

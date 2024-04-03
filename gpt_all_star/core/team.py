@@ -129,10 +129,16 @@ class Team:
             count = 1
             while len(tasks["plan"]) > 0:
                 task = tasks["plan"][0]
+                working_directory = task.get("working_directory", "")
+                file_name = task.get("filename", "")
                 if task["action"] == ACTIONS[0]:
-                    todo = f"{task['action']}: {task['command']} in the directory({task.get('working_directory', '')})"
+                    todo = f"{task['action']}: {task['command']} in the directory({working_directory})"
+                elif file_name == "the specific file with placeholders":
+                    todo = f"{task['action']}: all files that has any placeholders such as 'TODO', 'PlaceHolder', 'will be added here'"
+                elif working_directory == "the directory where the target file exists":
+                    todo = f"{task['action']}: {file_name}(a directory follows the directory in which the file resides)"
                 else:
-                    todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
+                    todo = f"{task['action']}: {working_directory}/{file_name}"
 
                 if self.supervisor.debug_mode:
                     self.supervisor.state(
@@ -196,6 +202,9 @@ Reason: %s
                                             ),
                                             technologies=self.copilot.storages.docs.get(
                                                 "technologies.md", "N/A"
+                                            ),
+                                            ui_design=self.copilot.storages.docs.get(
+                                                "ui_design.html", "N/A"
                                             ),
                                         )
                                     )
