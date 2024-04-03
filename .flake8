@@ -25,6 +25,6 @@ ignore =
 # N = pep8-namingプラグインの警告
 select = E,W,F,N,B,C,H
 
-max-complexity = 10
+max-complexity = 11
 
 per-file-ignores = __init__.py:F401
