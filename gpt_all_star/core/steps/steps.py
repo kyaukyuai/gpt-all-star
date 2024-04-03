@@ -6,7 +6,6 @@ from gpt_all_star.core.steps.healing.healing import Healing
 from gpt_all_star.core.steps.specification.specification import Specification
 from gpt_all_star.core.steps.system_design.system_design import SystemDesign
 from gpt_all_star.core.steps.ui_design.ui_design import UIDesign
-from gpt_all_star.core.steps.ui_development.ui_development import UIDevelopment
 
 
 class StepType(str, Enum):
@@ -16,7 +15,6 @@ class StepType(str, Enum):
     SPECIFICATION = "specification"
     SYSTEM_DESIGN = "system_design"
     DEVELOPMENT = "development"
-    UI_DEVELOPMENT = "ui_development"
     ENTRYPOINT = "entrypoint"
     UI_DESIGN = "ui_design"
     HEALING = "healing"
@@ -29,18 +27,15 @@ STEPS = {
         SystemDesign,
         UIDesign,
         Development,
-        UIDevelopment,
         Entrypoint,
     ],
     StepType.BUILD: [
         Development,
-        UIDevelopment,
         Entrypoint,
     ],
     StepType.SPECIFICATION: [Specification],
     StepType.SYSTEM_DESIGN: [SystemDesign],
     StepType.DEVELOPMENT: [Development],
-    StepType.UI_DEVELOPMENT: [UIDevelopment],
     StepType.ENTRYPOINT: [Entrypoint],
     StepType.UI_DESIGN: [UIDesign],
     StepType.HEALING: [Healing],
