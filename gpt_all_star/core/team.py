@@ -63,7 +63,7 @@ class Team:
         try:
             for output in self._graph.workflow.stream(
                 {"messages": messages},
-                config={"recursion_limit": 10},
+                config={"recursion_limit": 50},
             ):
                 for key, value in output.items():
                     if key == SUPERVISOR_NAME or key == "__end__":
@@ -146,12 +146,10 @@ class Team:
                             """\n
 Task: %s
 Context: %s
-Objective: %s
-Reason: %s
 ---
 """
                         )
-                        % (todo, task["context"], task["objective"], task["reason"])
+                        % (todo, task["context"])
                     )
                 else:
                     self.supervisor.state(f"({count}/{original_tasks_count}) {todo}")
@@ -159,9 +157,7 @@ Reason: %s
                 message = Message.create_human_message(
                     implement_template.format(
                         task=todo,
-                        objective=task["objective"],
                         context=task["context"],
-                        reason=task["reason"],
                         implementation=self.copilot.storages.current_source_code(
                             debug_mode=self.copilot.debug_mode
                         ),

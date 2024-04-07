@@ -196,9 +196,7 @@ Generate an command to execute the application.
                     message = Message.create_human_message(
                         implement_template.format(
                             task=todo,
-                            objective=task["objective"],
                             context=task["context"],
-                            reason=task["reason"],
                             implementation=self.copilot.storages.current_source_code(
                                 debug_mode=self.copilot.debug_mode
                             ),
@@ -276,9 +274,7 @@ Generate an command to execute the application.
                 message = Message.create_human_message(
                     implement_template.format(
                         task=todo,
-                        objective=task["objective"],
                         context=task["context"],
-                        reason=task["reason"],
                         implementation=self.copilot.storages.current_source_code(
                             debug_mode=self.copilot.debug_mode
                         ),
@@ -356,9 +352,7 @@ Generate an command to execute the application.
                 message = Message.create_human_message(
                     implement_template.format(
                         task=todo,
-                        objective=task["objective"],
                         context=task["context"],
-                        reason=task["reason"],
                         implementation=self.copilot.storages.current_source_code(
                             debug_mode=self.copilot.debug_mode
                         ),

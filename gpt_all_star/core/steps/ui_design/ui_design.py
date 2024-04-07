@@ -1,6 +1,6 @@
 from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.steps.step import Step
-from gpt_all_star.core.steps.ui_design.additional_tasks import additional_tasks
+from gpt_all_star.core.steps.ui_design.additional_tasks import create_additional_tasks
 from gpt_all_star.core.steps.ui_design.improvement_prompt import (
     improvement_prompt_template,
 )
@@ -17,7 +17,7 @@ class UIDesign(Step):
         return ""
 
     def additional_tasks(self) -> list:
-        return additional_tasks
+        return create_additional_tasks()
 
     def callback(self) -> bool:
         ui_design = self.copilot.storages.docs.get("ui_design.html")

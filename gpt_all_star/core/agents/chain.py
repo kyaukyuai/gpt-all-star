@@ -113,8 +113,6 @@ Based on the user request provided, your task is to generate a detail and specif
     - filename: specify only if the name of the file to be added or changed is specifically determined
     - command: command to be executed if necessary
     - context: all contextual information that should be communicated to the person performing the task
-    - objective: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
-    - reason: clear reasons why the task should be performed
 
 Make sure that each step has all the information needed.
 """
@@ -154,14 +152,6 @@ Make sure that each step has all the information needed.
                                     "type": "string",
                                     "description": "All contextual information that should be communicated to the person performing the task",
                                 },
-                                "objective": {
-                                    "type": "string",
-                                    "description": "Very detailed description of the goals to be achieved for the task to be executed to accomplish the entire plan",
-                                },
-                                "reason": {
-                                    "type": "string",
-                                    "reason": "Clear reasons why the task should be performed",
-                                },
                             },
                         },
                     }
@@ -198,8 +188,6 @@ Based on the user request provided and the current implementation, your task is 
     - filename: specify only if the name of the file to be added or changed is specifically determined
     - command: command to be executed if necessary
     - context: all contextual information that should be communicated to the person performing the task
-    - objective: very detailed description of the objective to be achieved for the task to be executed to accomplish the entire plan
-    - reason: clear reasons why the task should be performed
 
 If no more steps are needed and you can return to the user, then respond with that.
 Otherwise, fill out the plan.
@@ -239,14 +227,6 @@ Otherwise, fill out the plan.
                                 "context": {
                                     "type": "string",
                                     "description": "All contextual information that should be communicated to the person performing the task",
-                                },
-                                "objective": {
-                                    "type": "string",
-                                    "description": "Very detailed description of the goals to be achieved for the task to be executed to accomplish the entire plan",
-                                },
-                                "reason": {
-                                    "type": "string",
-                                    "reason": "Clear reasons why the task should be performed",
                                 },
                             },
                         },

@@ -1,38 +1,49 @@
-additional_tasks = [
-    {
-        "action": "Read and Overwrite an existing file",
-        "working_directory": "",
-        "filename": "the specific file with placeholders",
-        "command": "",
-        "context": """The task involves identifying a file within the project that has incomplete implementation,
-indicated by placeholders such as 'will go here', 'will be added here', 'PlaceHolder', 'TODO', 'Component' etc.
-Once identified, these placeholders are to be addressed and corrected with complete and functional code to ensure that the implementation is fully realized.
+def create_additional_tasks() -> list:
+    additional_tasks = [
+        {
+            "action": "Read and Overwrite an existing file",
+            "working_directory": "the directory where the target file exists",
+            "filename": "README.md",
+            "command": "",
+            "context": """The task is to update the README.md file.
+
+It must be included in the specifications document.
+---
+1. Project Title
+    Specify the name of the repository or project.
+
+2. Project Overview
+    Briefly explain the purpose, functionality, and problems the project solves.
+    Highlight the main goals and benefits of the project.
+
+3. Features
+    List the key features and characteristics of the project in bullet points.
+    Emphasize the features that are important to users.
+
+4. Installation
+    Provide detailed instructions on how to install or set up the project in a local environment.
+    Mention any required dependencies or tools.
+
+5. Usage
+    Explain the basic usage and steps to execute the main features of the project.
+    Include code examples and command-line usage examples.
+
+6. Configuration
+    Describe how to configure the project and any available configuration options.
+    Provide examples of configuration files and recommended settings.
+
+7. Contributing
+    Explain how others can contribute to the project.
+    Include contribution guidelines and instructions for setting up the development environment.
+
+8. License
+    Specify the license under which the project is distributed.
+    Provide details about the license and a link to the license document.
+
+9. Contact Information
+    Provide contact information for the project maintainers or developers.
+    Include email addresses, social media links, and links to issue trackers.
 """,
-        "objective": """To remove any uncertainties or incomplete segments within the code by replacing placeholders with actual, working code.
-This aims to enhance the code's integrity and functionality, ensuring that the implementation is comprehensive and devoid of omissions.
-""",
-        "reason": """Completing the implementation by addressing placeholders is crucial for maintaining a high standard of code quality.
-It ensures that the project is reliable, maintainable, and free from sections that could lead to confusion or errors during execution.
-This task directly impacts the project's effectiveness and its ability to meet its intended functionalities.
-""",
-    },
-    {
-        "action": "Read and Overwrite an existing file",
-        "working_directory": "the directory where the target file exists",
-        "filename": "README.md",
-        "command": "",
-        "context": """The README.md file is the gateway to understanding the project,
-providing essential details such as the project title, a brief description, the technology stack used, requirements for running the project, and instructions on how to run it.
-This comprehensive overview ensures that anyone looking at the project for the first time can quickly grasp its purpose, setup, and usage.
-""",
-        "objective": """To craft a document that serves as a complete guide for navigating and understanding the project.
-The README aims to succinctly communicate the project's title, its core functionalities and features, the technologies it is built upon,
-any prerequisites or dependencies needed for installation, and clear, step-by-step instructions for running the project.
-""",
-        "reason": """Including a well-documented README file is crucial for any project, especially open-source ones,
-as it significantly boosts the project's clarity and ease of use for both potential users and contributors.
-It acts as the first layer of documentation that aids in setting the right expectations and providing a roadmap for engagement with the project.
-This not only enhances the project's approachability but also fosters a welcoming environment for collaboration and contribution.
-""",
-    },
-]
+        },
+    ]
+    return additional_tasks

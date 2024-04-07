@@ -1,24 +1,23 @@
-additional_tasks = [
-    {
-        "action": "Add a new file",
-        "working_directory": ".",
-        "filename": "technologies.md",
-        "command": "",
-        "context": """This task requires compiling a precise list of technologies for building an application, focusing on source code implementation.
-The list should adhere to project specifications and be guided by Technologies Guidelines emphasizing relevance, compatibility, and preference.
-These guidelines mandate including only essential, actively used technologies, ensuring their compatibility, and excluding any that cannot be integrated.
-Additionally, when multiple options are available for a specific project component, the guidelines prioritize React, JavaScript, chakra-ui and HTML.
-**IMPORTANT**: Only technologies related to source code implementation should be listed, not version control tools, technologies related to automated testing or deployment, or tools related to project management.
-**IMPORTANT**: List only the minimum required technology.
-**IMPORTANT**: Descriptions for each technology are not required, only provide the exact technology name.
-**IMPORTANT**: Avoid providing personal opinions or alternatives.
+def create_additional_tasks() -> list:
+    additional_tasks = [
+        {
+            "action": "Add a new file",
+            "working_directory": ".",
+            "filename": "technologies.md",
+            "command": "",
+            "context": """The task is to clarify the technology requirements to be used for the project and provide a list of technology requirements in the markdown format.
+
+First, list only the most used and minimum required technologies in the project in order to build an application that meets the specifications.
+Then, select only the technologies that related to source code implementation, not version control tools, technologies related to automated testing or deployment, or tools related to project management.
+
+It must be included in the document.
+---
+1. Development language
+
+2. Framework
+
+3. Library
 """,
-        "objective": """To produce a document clearly outlining the necessary and compatible technologies for the project's development, prioritizing preferred technologies.
-This aims to ensure an efficient and coherent development process using a streamlined, compatible technology stack, thereby facilitating easier integration and implementation.
-""",
-        "reason": """Creating a focused and guided list of technologies is essential for the project's success.
-It enables the development team to make informed decisions about the technology stack, ensuring that each technology chosen is not only relevant and compatible but also preferred within the project's context.
-This approach minimizes integration issues, optimizes development efforts, and ensures the project is built on a solid and efficient foundation of technologies well-suited to its requirements.
-""",
-    },
-]
+        },
+    ]
+    return additional_tasks
