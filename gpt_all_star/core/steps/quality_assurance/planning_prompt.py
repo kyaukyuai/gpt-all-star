@@ -4,12 +4,15 @@ planning_prompt_template = PromptTemplate.from_template(
     """
 # Instructions
 ---
-Create a detailed and specific development plan in order to build a fully working application.
+Review current implementation and develop a detailed plan to correct areas that are not as per requirements.
 
 # Constraints
 ---
-- Focus only on implementing source code that works perfectly according to the requirements.
 - `working_directory` is very important, so please pay close attention!
+
+# Current implementation
+---
+{current_source_code}
 
 # Requirements
 ---

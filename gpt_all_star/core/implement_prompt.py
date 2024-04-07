@@ -10,9 +10,7 @@ Conduct `task` with horizontal thinking according to `context`.
 
 # Constraints
 ---
-Understand exactly why you should do it and make sure you meet the status to be achieved.
-- reason: {reason}
-- objective: {objective}
+- Please check the contents of the directories and files of the current implementation before executing the task.
 
 # Current implementation
 ---
@@ -31,7 +29,7 @@ Understand exactly why you should do it and make sure you meet the status to be 
 {technologies}
 ```
 
-## UI Design
+## UI Design to be implemented
 ```ui_design.html
 {ui_design}
 ```
