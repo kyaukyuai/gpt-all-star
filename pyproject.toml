@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gpt-all-star"
-version = "0.0.24"
+version = "0.0.25"
 description = "AI-powered code generation tool for scratch development of web applications with a team collaboration of autonomous AI agents. This is a research-project, and its primary value is to explore the possibility of autonomous AI agents."
 authors = ["Yuya Kakui <y.kakui@gmail.com>"]
 license = "MIT"
