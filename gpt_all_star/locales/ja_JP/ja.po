@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-03-27 14:56+0900\n"
-"PO-Revision-Date: 2024-03-27 14:58+0900\n"
+"POT-Creation-Date: 2024-04-09 09:06+0900\n"
+"PO-Revision-Date: 2024-04-09 09:07+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
@@ -96,20 +96,20 @@ msgstr "リポジトリへのプッシュ中にエラーが発生しました : 
 msgid "Attempt %d/%d"
 msgstr "試行回数 %d/%d"
 
-#: core/project.py:86 core/respond.py:90
+#: core/project.py:85 core/respond.py:93
 msgid "Archiving previous results..."
 msgstr "過去の結果をアーカイブ中です…"
 
-#: core/project.py:94
+#: core/project.py:93
 msgid "Interrupt received! Stopping..."
 msgstr "割り込みを受けた！停止中です…"
 
-#: core/project.py:109
+#: core/project.py:108
 #, python-format
 msgid "Retrying step: %s (Attempt %d/%d)"
 msgstr "リトライステップ : %s (試行回数 %d/%d)"
 
-#: core/project.py:115
+#: core/project.py:114
 #, python-format
 msgid "Failed to execute step: %s. Reason: %s"
 msgstr "ステップ %s の実行に失敗しました。理由：%s"
@@ -127,13 +127,15 @@ msgstr "このアプリケーションコードをGitHubで管理したいです
 msgid "Project finished. Elapsed time: %.2f seconds."
 msgstr "プロジェクト終了 経過時間：%.2f 秒"
 
-#: core/respond.py:227
+#: core/respond.py:231
 msgid "Client-Side Web Application"
 msgstr "クライアント側ウェブアプリケーション"
 
 #: core/steps/development/development.py:35
+#: core/steps/quality_assurance/quality_assurance.py:38
 #: core/steps/specification/specification.py:56
-#: core/steps/system_design/system_design.py:31
+#: core/steps/system_design/system_design.py:33
+#: core/steps/ui_design/ui_design.py:31
 msgid "What do you want to update?"
 msgstr "どのように更新したいですか？"
 
@@ -179,40 +181,42 @@ msgstr "  ┗ 私が責任者です"
 msgid "Planning tasks."
 msgstr "タスクのプランニング"
 
-#: core/team.py:140
-#, python-format
+#: core/team.py:146
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "\n"
+#| "Task: %s\n"
+#| "Context: %s\n"
+#| "---\n"
 msgid ""
 "\n"
 "\n"
 "Task: %s\n"
 "Context: %s\n"
-"Objective: %s\n"
-"Reason: %s\n"
 "---\n"
 msgstr ""
 "\n"
 "\n"
 "タスク: %s\n"
 "背景: %s\n"
-"目的: %s\n"
-"理由: %s\n"
 "—\n"
 
-#: core/team.py:224
+#: core/team.py:232
 msgid "Loading members from `agent.yml`..."
 msgstr "`agent.yml`からメンバーをロード中…"
 
-#: core/team.py:248
+#: core/team.py:256
 #, python-format
 msgid "Please introduce the %s."
 msgstr "%sについて説明してください。"
 
-#: core/team.py:256
+#: core/team.py:264
 #, python-format
 msgid "What is the name of the %s?"
 msgstr "%sの名前は何ですか?"
 
-#: core/team.py:263
+#: core/team.py:271
 #, python-format
 msgid "What is the profile of the %s?"
 msgstr "%sのプロフィールを教えて下さい"

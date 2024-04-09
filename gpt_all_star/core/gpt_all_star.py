@@ -6,14 +6,32 @@ class GptAllStar:
     def __init__(self):
         pass
 
-    def chat(self, project_name: str, step: StepType = None, message=None):
-        respond = Respond(step=step, project_name=project_name)
+    def chat(
+        self,
+        project_name: str,
+        step: StepType = None,
+        message=None,
+        japanese_mode: bool = False,
+    ):
+        respond = Respond(
+            step=step, project_name=project_name, japanese_mode=japanese_mode
+        )
         return respond.chat(message=message)
 
-    def improve(self, project_name: str, step: StepType = None, message=None):
-        respond = Respond(step=step, project_name=project_name)
+    def improve(
+        self,
+        project_name: str,
+        step: StepType = None,
+        message=None,
+        japanese_mode: bool = False,
+    ):
+        respond = Respond(
+            step=step, project_name=project_name, japanese_mode=japanese_mode
+        )
         return respond.improve(message=message)
 
-    def execute(self, project_name: str):
-        respond = Respond(step=StepType.NONE, project_name=project_name)
+    def execute(self, project_name: str, japanese_mode: bool = False):
+        respond = Respond(
+            step=StepType.NONE, project_name=project_name, japanese_mode=japanese_mode
+        )
         return respond.execute()
