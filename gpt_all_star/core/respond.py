@@ -82,6 +82,9 @@ class Respond:
                 storages=self.storages, debug_mode=self.debug_mode
             ),
         )
+        for agent in self.agents.to_array():
+            if self.japanese_mode:
+                agent.profile += "\n**IMPORTANT: 必ず日本語で書いて下さい**"
 
     def _set_step_type(self, step: StepType) -> None:
         self.step_type = step or StepType.DEFAULT
