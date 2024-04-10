@@ -1277,17 +1277,17 @@ extended-testing = ["faker (>=19.3.1,<20.0.0)", "jinja2 (>=3,<4)", "pandas (>=2.
 
 [[package]]
 name = "langchain-openai"
-version = "0.1.1"
+version = "0.1.2"
 description = "An integration package connecting OpenAI and LangChain"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_openai-0.1.1-py3-none-any.whl", hash = "sha256:5cf4df5d2550af673337eafedaeec014ba52f9a25aeb8451206ca254bed01e5c"},
-    {file = "langchain_openai-0.1.1.tar.gz", hash = "sha256:d10e9a9fc4c8ea99ca98f23808ce44c7dcdd65354ac07ad10afe874ecf3401ca"},
+    {file = "langchain_openai-0.1.2-py3-none-any.whl", hash = "sha256:45fab91803df22c6d5fce7c010df404569898372df5ae8cd03af50bef774d2ec"},
+    {file = "langchain_openai-0.1.2.tar.gz", hash = "sha256:cd391e61bd93ab72ae24d8e1f250257d6acff6d9e455e623363b8c171533050a"},
 ]
 
 [package.dependencies]
-langchain-core = ">=0.1.33,<0.2.0"
+langchain-core = ">=0.1.41,<0.2.0"
 openai = ">=1.10.0,<2.0.0"
 tiktoken = ">=0.5.2,<1"
 
