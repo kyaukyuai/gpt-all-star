@@ -245,15 +245,19 @@ Generate an command to execute the application.
             )
             self.supervisor = supervisor
             tasks = (
-                Chain()
-                .create_planning_chain(self.supervisor.profile)
-                .invoke(
-                    {
-                        "messages": [
-                            Message.create_human_message(step.planning_prompt())
-                        ],
-                    }
+                (
+                    Chain()
+                    .create_planning_chain(self.supervisor.profile)
+                    .invoke(
+                        {
+                            "messages": [
+                                Message.create_human_message(step.planning_prompt())
+                            ],
+                        }
+                    )
                 )
+                if step.planning_prompt()
+                else {"plan": []}
             )
             for task in step.additional_tasks():
                 tasks["plan"].append(task)
