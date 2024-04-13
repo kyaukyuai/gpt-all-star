@@ -18,6 +18,7 @@ from gpt_all_star.core.steps.healing.healing import Healing
 from gpt_all_star.core.steps.specification.specification import Specification
 from gpt_all_star.core.steps.steps import STEPS, StepType
 from gpt_all_star.core.storage import Storage, Storages
+from gpt_all_star.helper.git import Git
 from gpt_all_star.helper.multi_agent_collaboration_graph import (
     MultiAgentCollaborationGraph,
 )
@@ -92,6 +93,78 @@ class Respond:
             if self.debug_mode:
                 self.copilot.state(self._("Archiving previous results..."))
             self.storages.archive_storage()
+
+    def deploy(self) -> None:
+        git = Git(self.copilot.storages.root.path)
+        files_to_add = git.files()
+        if not files_to_add:
+            yield {
+                "messages": [
+                    Message.create_human_message(
+                        message=self._("No files to add to the repository.")
+                    )
+                ],
+            }
+            return
+        commit_info = (
+            Chain()
+            .create_git_commit_message_chain()
+            .invoke(
+                {
+                    "messages": [
+                        Message.create_human_message(
+                            f"""
+# Instructions
+---
+Generate an appropriate branch name and commit message showing the following diffs.
+
+# Constraints
+---
+The format should follow Conventional Commits.
+
+## Here is the diff
+```
+{git.diffs()}
+```
+"""
+                        )
+                    ],
+                }
+            )
+        )
+        yield {
+            "messages": [Message.create_human_message(message=f"{commit_info}")],
+        }
+        try:
+            branch_name = (
+                commit_info["branch"]
+                if git.check_local_main_branch_exists()
+                else "main"
+            )
+            is_main_branch = branch_name == "main"
+
+            if not is_main_branch:
+                git.checkout(branch_name)
+
+            git.add(files_to_add)
+            git.commit(commit_info["message"])
+            git.push()
+
+            if not is_main_branch:
+                git.create_pull_request(branch_name)
+
+            yield {
+                "messages": [
+                    Message.create_human_message(
+                        message=self._("Successfully deployed to the repository: %s")
+                        % git.url()
+                    )
+                ],
+            }
+        except Exception as e:
+            self.copilot.state(
+                self._("An error occurred while pushing to the repository: %s") % str(e)
+            )
 
     def execute(self) -> None:
         command = (

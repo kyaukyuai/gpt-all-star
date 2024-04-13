@@ -16,6 +16,9 @@ class Git:
             f"{os.getenv('GITHUB_ORG')}/{repo_path.name}"
         )
 
+    def url(self):
+        return f"https://github.com/{os.getenv('GITHUB_ORG')}/{self.repo_path.name}"
+
     def files(self):
         excluded_dirs = ["node_modules", ".git", ".archive", ".idea", "build"]
         return [
