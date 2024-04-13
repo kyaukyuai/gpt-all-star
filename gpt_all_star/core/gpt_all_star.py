@@ -35,3 +35,9 @@ class GptAllStar:
             step=StepType.NONE, project_name=project_name, japanese_mode=japanese_mode
         )
         return respond.execute()
+
+    def deploy(self, project_name: str, japanese_mode: bool = False):
+        respond = Respond(
+            step=StepType.NONE, project_name=project_name, japanese_mode=japanese_mode
+        )
+        return respond.deploy()
