@@ -1154,13 +1154,13 @@ files = [
 
 [[package]]
 name = "langchain"
-version = "0.1.15"
+version = "0.1.16"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain-0.1.15-py3-none-any.whl", hash = "sha256:3ac516463ae7f80047091f04592a1eea138321710bbc266005f9de238d71acd3"},
-    {file = "langchain-0.1.15.tar.gz", hash = "sha256:79d43035327fdcc5ac81a3db10f2b879f2bd5db3b268ef82bac7baf3ec32954e"},
+    {file = "langchain-0.1.16-py3-none-any.whl", hash = "sha256:bc074cc5e51fad79b9ead1572fc3161918d0f614a6c8f0460543d505ad249ac7"},
+    {file = "langchain-0.1.16.tar.gz", hash = "sha256:b6bce78f8c071baa898884accfff15c3d81da2f0dd86c20e2f4c80b41463f49f"},
 ]
 
 [package.dependencies]
@@ -1169,7 +1169,7 @@ async-timeout = {version = ">=4.0.0,<5.0.0", markers = "python_version < \"3.11\
 dataclasses-json = ">=0.5.7,<0.7"
 jsonpatch = ">=1.33,<2.0"
 langchain-community = ">=0.0.32,<0.1"
-langchain-core = ">=0.1.41,<0.2.0"
+langchain-core = ">=0.1.42,<0.2.0"
 langchain-text-splitters = ">=0.0.1,<0.1"
 langsmith = ">=0.1.17,<0.2.0"
 numpy = ">=1,<2"
