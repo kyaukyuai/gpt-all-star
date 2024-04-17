@@ -1195,13 +1195,13 @@ text-helpers = ["chardet (>=5.1.0,<6.0.0)"]
 
 [[package]]
 name = "langchain-anthropic"
-version = "0.1.9"
+version = "0.1.10"
 description = "An integration package connecting AnthropicMessages and LangChain"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_anthropic-0.1.9-py3-none-any.whl", hash = "sha256:aa5e4754d2c6d7dadcfa134ac9b8e4cade7ac6013e85e3944087c253e05f1741"},
-    {file = "langchain_anthropic-0.1.9.tar.gz", hash = "sha256:b64c733071c7b262b9e4c7f1b8ef44b72898486b2294f2e84eb9f1392adb75b3"},
+    {file = "langchain_anthropic-0.1.10-py3-none-any.whl", hash = "sha256:cd9cf39ebf0c59bd4b0acbceaaeddd1101a16b3c2aa242a08887ac92d07eeba1"},
+    {file = "langchain_anthropic-0.1.10.tar.gz", hash = "sha256:b5972c613753f1fabb049bd0ee381e9a857b76b44d937bd3331e5ba675ecf496"},
 ]
 
 [package.dependencies]
