@@ -7,11 +7,10 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 
-from langchain.agents.agent import AgentExecutor
+from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.agents.agent_toolkits.file_management.toolkit import (
     FileManagementToolkit,
 )
-from langchain.agents.openai_tools.base import create_openai_tools_agent
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.prompts.prompt import PromptTemplate
@@ -27,8 +26,6 @@ from gpt_all_star.core.tools.shell_tool import ShellTool
 from gpt_all_star.helper.translator import create_translator
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
-
-NEXT_COMMAND = "next"
 
 
 class Agent(ABC):
@@ -160,7 +157,7 @@ class Agent(ABC):
                 MessagesPlaceholder(variable_name="agent_scratchpad"),
             ]
         )
-        agent = create_openai_tools_agent(self._llm, tools, prompt)
+        agent = create_tool_calling_agent(self._llm, tools, prompt)
         return AgentExecutor(
             agent=agent,
             tools=tools,

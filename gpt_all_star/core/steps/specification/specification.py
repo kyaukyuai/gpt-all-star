@@ -17,6 +17,9 @@ class Specification(Step):
         self.instructions = ""
         self.app_type = ""
 
+    def assign_prompt(self) -> str:
+        return "We want to generate concise specifications for the web application."
+
     def planning_prompt(self) -> str:
         return ""
 

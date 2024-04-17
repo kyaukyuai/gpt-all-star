@@ -10,6 +10,14 @@ class Entrypoint(Step):
         super().__init__(copilot, display, japanese_mode)
         self.working_directory = self.copilot.storages.app.path.absolute()
 
+    def assign_prompt(self) -> str:
+        assign_prompt = planning_prompt_template.format(
+            current_source_code=self.copilot.storages.current_source_code(
+                debug_mode=self.copilot.debug_mode
+            ),
+        )
+        return assign_prompt
+
     def planning_prompt(self) -> str:
         planning_prompt = planning_prompt_template.format(
             current_source_code=self.copilot.storages.current_source_code(

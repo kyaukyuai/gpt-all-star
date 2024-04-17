@@ -47,11 +47,11 @@ class Team:
         self.copilot.state(self._("Ok, we have a team now!"))
         self._display_team_members()
 
-    def _assign_supervisor(self, planning_prompt: str | None):
+    def _assign_supervisor(self, assign_prompt: str | None):
         supervisor_name = (
             Chain()
             .create_assign_supervisor_chain(members=self.agents.to_array())
-            .invoke({"messages": [Message.create_human_message(planning_prompt)]})
+            .invoke({"messages": [Message.create_human_message(assign_prompt)]})
             .get("assign")
         )
         supervisor = self.agents.get_agent_by_role(supervisor_name)
@@ -89,6 +89,7 @@ class Team:
 
     def _run(
         self,
+        assign_prompt: Optional[str] = None,
         planning_prompt: Optional[str] = None,
         additional_tasks: list = [],
         step_plan_and_solve: bool = False,
@@ -100,7 +101,7 @@ class Team:
             speed=0.5,
         ):
             if not self._graph:
-                self._assign_supervisor(planning_prompt)
+                self._assign_supervisor(assign_prompt)
 
             self.supervisor.state(self._("Planning tasks."))
             tasks = (
@@ -217,12 +218,13 @@ Context: %s
                         )
 
     def run(self, step: Step) -> bool:
+        assign_prompt = step.assign_prompt()
         planning_prompt = step.planning_prompt()
         additional_tasks = step.additional_tasks()
         for agent in self.agents.to_array():
             agent.set_executor(step.working_directory)
-        self._assign_supervisor(planning_prompt)
-        self._run(planning_prompt, additional_tasks, step.plan_and_solve)
+        self._assign_supervisor(assign_prompt)
+        self._run(assign_prompt, planning_prompt, additional_tasks, step.plan_and_solve)
 
         return step.callback()
 
