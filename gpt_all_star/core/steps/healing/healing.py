@@ -15,6 +15,15 @@ class Healing(Step):
         self.error_message = error_message
         self.working_directory = self.copilot.storages.app.path.absolute()
 
+    def assign_prompt(self) -> str:
+        assign_prompt = planning_prompt_template.format(
+            error=self.error_message,
+            current_source_code=self.copilot.storages.current_source_code(
+                debug_mode=self.copilot.debug_mode
+            ),
+        )
+        return assign_prompt
+
     def planning_prompt(self) -> str:
         planning_prompt = planning_prompt_template.format(
             error=self.error_message,

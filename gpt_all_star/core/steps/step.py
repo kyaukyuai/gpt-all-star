@@ -21,6 +21,10 @@ class Step(ABC):
         self._ = create_translator("ja" if japanese_mode else "en")
 
     @abstractmethod
+    def assign_prompt(self) -> str:
+        pass
+
+    @abstractmethod
     def planning_prompt(self) -> str:
         pass
 

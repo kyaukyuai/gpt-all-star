@@ -15,6 +15,14 @@ class Development(Step):
         self.working_directory = self.copilot.storages.app.path.absolute()
         self.plan_and_solve = True
 
+    def assign_prompt(self) -> str:
+        assign_prompt = planning_prompt_template.format(
+            specifications=self.copilot.storages.docs.get("specifications.md", "N/A"),
+            technologies=self.copilot.storages.docs.get("technologies.md", "N/A"),
+            ui_design=self.copilot.storages.docs.get("ui_design.html", "N/A"),
+        )
+        return assign_prompt
+
     def planning_prompt(self) -> str:
         planning_prompt = planning_prompt_template.format(
             specifications=self.copilot.storages.docs.get("specifications.md", "N/A"),

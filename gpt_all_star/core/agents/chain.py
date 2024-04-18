@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import os
 
-from langchain.output_parsers.openai_functions import JsonOutputFunctionsParser
+from langchain_core.messages.ai import AIMessage
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.pydantic_v1 import BaseModel, Field
 
 from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.llm import LLM_TYPE, create_llm
@@ -18,7 +19,14 @@ ACTIONS = [
 
 class Chain:
     def __init__(self) -> None:
-        self._llm = create_llm(LLM_TYPE[os.getenv("ENDPOINT", default="OPENAI")])
+        self.llm_type = LLM_TYPE[os.getenv("ENDPOINT", default="OPENAI")]
+        self.llm = create_llm(self.llm_type)
+
+    @staticmethod
+    def remove_quotes(string):
+        if string.startswith("'") and string.endswith("'"):
+            return string[1:-1]
+        return string
 
     def create_supervisor_chain(self, members: list[Agent] = []):
         members = [member.role.name for member in members]
@@ -27,42 +35,28 @@ class Chain:
         system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {str(members)}.
 Given the following user request, respond with the worker to act next.
 Each worker will perform a task and respond with their results and status.
+The task must be finished when the first instruction is fulfilled, without executing any other instructions.
 When finished, respond with FINISH.
 """
-        function_def = {
-            "name": "route",
-            "description": "Select the next role.",
-            "parameters": {
-                "title": "routeSchema",
-                "type": "object",
-                "properties": {
-                    "next": {
-                        "title": "Next",
-                        "anyOf": [
-                            {"enum": options},
-                        ],
-                    }
-                },
-                "required": ["next"],
-            },
-        }
         prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", system_prompt),
                 MessagesPlaceholder(variable_name="messages"),
                 (
-                    "system",
+                    "human",
                     "Given the conversation above, who should act next?"
                     " Or should we FINISH? Select one of: {options}",
                 ),
             ]
         ).partial(options=str(options))
 
-        return (
-            prompt
-            | self._llm.bind_functions(functions=[function_def], function_call="route")
-            | JsonOutputFunctionsParser()
-        )
+        class Next(BaseModel):
+            next: str = Field(description="The next role to act")
+
+        def parse(message: Next) -> dict:
+            return {"next": self.remove_quotes(message.next)}
+
+        return prompt | self.llm.with_structured_output(Next) | parse
 
     def create_assign_supervisor_chain(self, members: list[Agent] = []):
         members = [member.role.name for member in members]
@@ -70,40 +64,25 @@ When finished, respond with FINISH.
 Given the following user request, respond with the worker to act next.
 Each worker will perform a task and respond with their results and status.
 """
-        function_def = {
-            "name": "assign",
-            "description": "Assign the task.",
-            "parameters": {
-                "title": "routeSchema",
-                "type": "object",
-                "properties": {
-                    "assign": {
-                        "title": "Assign",
-                        "anyOf": [
-                            {"enum": members},
-                        ],
-                    }
-                },
-                "required": ["assign"],
-            },
-        }
         prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", system_prompt),
                 MessagesPlaceholder(variable_name="messages"),
                 (
-                    "system",
+                    "human",
                     "Given the conversation above, who should act next?"
                     " Select one of: {members}",
                 ),
             ]
         ).partial(members=str(members))
 
-        return (
-            prompt
-            | self._llm.bind_functions(functions=[function_def], function_call="assign")
-            | JsonOutputFunctionsParser()
-        )
+        class Assign(BaseModel):
+            assign: str = Field(description="The role to assign the task")
+
+        def parse(message: Assign) -> dict:
+            return {"assign": self.remove_quotes(message.assign)}
+
+        return prompt | self.llm.with_structured_output(Assign) | parse
 
     def create_planning_chain(self, profile: str = ""):
         system_prompt = f"""{profile}
@@ -116,7 +95,7 @@ Based on the user request provided, your task is to generate a detail and specif
 
 Make sure that each step has all the information needed.
 """
-        function_def = {
+        tool_def = {
             "name": "planning",
             "description": "Create the plan.",
             "parameters": {
@@ -164,7 +143,7 @@ Make sure that each step has all the information needed.
                 ("system", system_prompt),
                 MessagesPlaceholder(variable_name="messages"),
                 (
-                    "system",
+                    "human",
                     """
 Given the conversation above, create a detailed and specific plan to fully meet the user's requirements."
 """,
@@ -172,13 +151,10 @@ Given the conversation above, create a detailed and specific plan to fully meet 
             ]
         ).partial()
 
-        return (
-            prompt
-            | self._llm.bind_functions(
-                functions=[function_def], function_call="planning"
-            )
-            | JsonOutputFunctionsParser()
-        )
+        def parse(ai_message: AIMessage) -> dict:
+            return {"plan": ai_message.tool_calls[0]["args"]["plan"]}
+
+        return prompt | self.llm.bind_tools([tool_def]) | parse
 
     def create_replanning_chain(self, profile: str = ""):
         system_prompt = f"""{profile}
@@ -192,7 +168,7 @@ Based on the user request provided and the current implementation, your task is 
 If no more steps are needed and you can return to the user, then respond with that.
 Otherwise, fill out the plan.
 """
-        function_def = {
+        tool_def = {
             "name": "replanning",
             "description": "Create the replan.",
             "parameters": {
@@ -240,7 +216,7 @@ Otherwise, fill out the plan.
                 ("system", system_prompt),
                 MessagesPlaceholder(variable_name="messages"),
                 (
-                    "system",
+                    "human",
                     """
 Given the conversation above, update the original plan to fully meet the user's requirements."
 """,
@@ -248,86 +224,50 @@ Given the conversation above, update the original plan to fully meet the user's 
             ]
         ).partial()
 
-        return (
-            prompt
-            | self._llm.bind_functions(
-                functions=[function_def], function_call="replanning"
-            )
-            | JsonOutputFunctionsParser()
-        )
+        def parse(ai_message: AIMessage) -> dict:
+            return {"plan": ai_message.tool_calls[0]["args"]["plan"]}
+
+        return prompt | self.llm.bind_tools([tool_def]) | parse
 
     def create_git_commit_message_chain(self):
         system_prompt = "You are an excellent engineer. Given the diff information of the source code, please respond with the appropriate branch name and commit message for making the change."
-        function_def = {
-            "name": "commit_message",
-            "description": "Information of the commit to be made.",
-            "parameters": {
-                "title": "commitMessageSchema",
-                "type": "object",
-                "properties": {
-                    "branch": {
-                        "type": "string",
-                        "description": "Name of the branch to be pushed.",
-                    },
-                    "message": {
-                        "type": "string",
-                        "description": "Commit message to be used.",
-                    },
-                },
-                "required": ["branch", "message"],
-            },
-        }
         prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", system_prompt),
                 MessagesPlaceholder(variable_name="messages"),
                 (
-                    "system",
+                    "human",
                     "Given the conversation above, generate the appropriate branch name and commit message for making the change.",
                 ),
             ]
         )
 
-        return (
-            prompt
-            | self._llm.bind_functions(
-                functions=[function_def], function_call="commit_message"
-            )
-            | JsonOutputFunctionsParser()
-        )
+        class CommitMessage(BaseModel):
+            branch: str = Field(description="The branch name to use")
+            message: str = Field(description="The commit message to use")
+
+        def parse(message: CommitMessage) -> dict:
+            return {"branch": message.branch, "message": message.message}
+
+        return prompt | self.llm.with_structured_output(CommitMessage) | parse
 
     def create_command_to_execute_application_chain(self):
         system_prompt = "You are an excellent engineer. Given the source code, please respond with the appropriate command to execute the application."
-        function_def = {
-            "name": "execute_command",
-            "description": "Command to execute the application",
-            "parameters": {
-                "title": "executeCommandSchema",
-                "type": "object",
-                "properties": {
-                    "command": {
-                        "type": "string",
-                        "description": "the command to execute the application",
-                    },
-                },
-                "required": ["command"],
-            },
-        }
         prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", system_prompt),
                 MessagesPlaceholder(variable_name="messages"),
                 (
-                    "system",
+                    "human",
                     "Given the conversation above, generate the command to execute the application",
                 ),
             ]
         )
 
-        return (
-            prompt
-            | self._llm.bind_functions(
-                functions=[function_def], function_call="execute_command"
-            )
-            | JsonOutputFunctionsParser()
-        )
+        class ExecuteCommand(BaseModel):
+            command: str = Field(description="The command to execute the application")
+
+        def parse(message: ExecuteCommand) -> dict:
+            return {"command": message.command}
+
+        return prompt | self.llm.with_structured_output(ExecuteCommand) | parse

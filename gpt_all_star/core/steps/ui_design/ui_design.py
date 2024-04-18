@@ -13,6 +13,9 @@ class UIDesign(Step):
         super().__init__(copilot, display, japanese_mode)
         self.working_directory = self.copilot.storages.docs.path.absolute()
 
+    def assign_prompt(self) -> str:
+        return "We want to generate concise UI design."
+
     def planning_prompt(self) -> str:
         return ""
 
