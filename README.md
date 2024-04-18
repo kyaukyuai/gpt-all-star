@@ -47,7 +47,7 @@ $ pip install gpt-all-star
 2. Set the `GPT ALL STAR` environment variables
 
 ```bash
-$ export OPENAI_API_MODEL_NAME=gpt-4-turbo-preview
+$ export OPENAI_API_MODEL_NAME=gpt-4
 $ export OPENAI_API_KEY=<your-openai-api-key>
 ```
 
@@ -74,17 +74,21 @@ $ mv .env.sample .env
 ```
 
 ```bash
-# OPENAI or AZURE
+# OPENAI or AZURE or ANTHROPIC
 ENDPOINT=OPENAI
 
 # USE when ENDPOINT=OPENAI
-OPENAI_API_MODEL_NAME=gpt-4-1106-preview
+OPENAI_API_MODEL_NAME=gpt-4
 OPENAI_API_KEY=<your-openai-api-key>
 
 # USE when ENDPOINT=AZURE
-AZURE_OPENAI_API_KEY=<your-azure-opnai-api-key>
+AZURE_OPENAI_API_KEY=<your-azure-openai-api-key>
 AZURE_OPENAI_ENDPOINT=https://<your-azure-openai-endpoint>.openai.azure.com/
 AZURE_OPENAI_DEPLOYMENT_NAME=<your-azure-openai-deployment-name>
+
+# USE when ENDPOINT=ANTHROPIC
+ANTHROPIC_API_KEY=<your-anthropic-api-key>
+ANTHROPIC_MODEL_NAME=<your-anthropic-model-name>
 
 # LangSmith
 LANGCHAIN_TRACING_V2=true
