@@ -1,3 +1,5 @@
+import warnings
+
 import typer
 from dotenv import load_dotenv
 
@@ -7,6 +9,9 @@ from gpt_all_star.core.steps.steps import StepType
 
 COMMAND_NAME = "GPT ALL STAR"
 app = typer.Typer()
+
+
+warnings.filterwarnings("ignore")
 
 
 @app.command()
