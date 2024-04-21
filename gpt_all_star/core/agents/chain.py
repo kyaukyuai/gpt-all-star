@@ -29,10 +29,17 @@ class Chain:
         return string
 
     def create_supervisor_chain(self, members: list[Agent] = []):
-        members = [member.role.name for member in members]
+        member_names = [member.role.name for member in members]
+        profiles = "\n\n".join(
+            f"{member.role.name}\n--\n{member.profile}" for member in members
+        )
         options = ["FINISH"]
-        options.extend(members)
-        system_prompt = f"""You are a `Supervisor` tasked with managing a conversation between the following workers: {str(members)}.
+        options.extend(member_names)
+        system_prompt = f"""You are a `Supervisor` tasked with managing a conversation between the following workers: {str(member_names)}.
+Each member has a profile that describes their capabilities and specialties.
+```
+{profiles}
+```
 Each worker will perform a task and respond with their results and status.
 Given the user request, determine the next worker to act or if the task is complete.
 If the worker is prompted to finish like `Supervisor: FINISH`, always be answered with `FINISH`.
@@ -53,10 +60,17 @@ If the worker is prompted to finish like `Supervisor: FINISH`, always be answere
         return prompt | self.llm.with_structured_output(Next) | parse
 
     def create_assign_supervisor_chain(self, members: list[Agent] = []):
-        members = [member.role.name for member in members]
-        system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {str(members)}.
-Given the following user request, respond with the worker to act next.
+        member_names = [member.role.name for member in members]
+        profiles = "\n\n".join(
+            f"{member.role.name}\n--\n{member.profile}" for member in members
+        )
+        system_prompt = f"""You are a `Supervisor` tasked with managing a conversation between the following workers: {str(member_names)}.
+Each member has a profile that describes their capabilities and specialties.
+```
+{profiles}
+```
 Each worker will perform a task and respond with their results and status.
+Given the following user request, respond with the worker to act next.
 """
         prompt = ChatPromptTemplate.from_messages(
             [
@@ -65,13 +79,13 @@ Each worker will perform a task and respond with their results and status.
                 (
                     "human",
                     "Given the conversation above, who should act next?"
-                    " Select one of: {members}",
+                    " Select one of: {member_names}",
                 ),
             ]
-        ).partial(members=str(members))
+        ).partial(member_names=str(member_names))
 
         class Assign(BaseModel):
-            assign: str = Field(description="The role to assign the task")
+            assign: str = Field(description="The worker to assign the task")
 
         def parse(message: Assign) -> dict:
             return {"assign": self.remove_quotes(message.assign)}

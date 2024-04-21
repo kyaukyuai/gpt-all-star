@@ -26,3 +26,7 @@ class Agents:
             if hasattr(attribute, "role") and attribute.role.name == role:
                 return attribute
         return self.project_manager
+
+    def set_executors(self, working_directory: str):
+        for agent in self.to_array():
+            agent.set_executor(working_directory)

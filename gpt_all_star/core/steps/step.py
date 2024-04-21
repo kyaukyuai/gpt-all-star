@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from gpt_all_star.core.agents.copilot import Copilot
+from gpt_all_star.core.implementation_prompt import implementation_prompt_template
 from gpt_all_star.helper.translator import create_translator
 
 
@@ -31,6 +32,18 @@ class Step(ABC):
     @abstractmethod
     def additional_tasks(self) -> list:
         pass
+
+    def implementation_prompt(self, task: str, context: str) -> str:
+        return implementation_prompt_template.format(
+            task=task,
+            context=context,
+            implementation=self.copilot.storages.current_source_code(
+                debug_mode=self.copilot.debug_mode
+            ),
+            specifications=self.copilot.storages.docs.get("specifications.md", "N/A"),
+            technologies=self.copilot.storages.docs.get("technologies.md", "N/A"),
+            ui_design=self.copilot.storages.docs.get("ui_design.html", "N/A"),
+        )
 
     @abstractmethod
     def callback(self) -> bool:

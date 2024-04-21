@@ -3,6 +3,9 @@ from gpt_all_star.core.steps.step import Step
 from gpt_all_star.core.steps.system_design.additional_tasks import (
     create_additional_tasks,
 )
+from gpt_all_star.core.steps.system_design.implementation_prompt import (
+    implementation_prompt_template,
+)
 from gpt_all_star.core.steps.system_design.improvement_prompt import (
     improvement_prompt_template,
 )
@@ -23,6 +26,13 @@ class SystemDesign(Step):
 
     def additional_tasks(self) -> list:
         return create_additional_tasks()
+
+    def implementation_prompt(self, task: str, context: str) -> str:
+        return implementation_prompt_template.format(
+            task=task,
+            context=context,
+            specifications=self.copilot.storages.docs.get("specifications.md", "N/A"),
+        )
 
     def callback(self) -> bool:
         technologies = self.copilot.storages.docs.get("technologies.md")

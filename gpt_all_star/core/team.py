@@ -10,7 +10,6 @@ from gpt_all_star.core.agents.agent import Agent, AgentRole
 from gpt_all_star.core.agents.agents import Agents
 from gpt_all_star.core.agents.chain import ACTIONS, Chain
 from gpt_all_star.core.agents.copilot import Copilot
-from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.development.replanning_prompt import replanning_template
 from gpt_all_star.core.steps.step import Step
@@ -87,22 +86,21 @@ class Team:
             if self.supervisor.debug_mode:
                 print("Recursion limit reached")
 
-    def _run(
-        self,
-        assign_prompt: Optional[str] = None,
-        planning_prompt: Optional[str] = None,
-        additional_tasks: list = [],
-        step_plan_and_solve: bool = False,
-    ):
+    def _run(self, step: Step):
+        assign_prompt = step.assign_prompt()
+        planning_prompt = step.planning_prompt()
+        additional_tasks = step.additional_tasks()
+        step_plan_and_solve = step.plan_and_solve
+
+        self.agents.set_executors(step.working_directory)
+        self._assign_supervisor(assign_prompt)
+
         with Status(
             "[bold white]running...(Have a cup of coffee and relax.)[/bold white]",
             console=self.console,
             spinner="runner",
             speed=0.5,
         ):
-            if not self._graph:
-                self._assign_supervisor(assign_prompt)
-
             self.supervisor.state(self._("Planning tasks."))
             tasks = (
                 Chain()
@@ -156,21 +154,9 @@ Context: %s
                     self.supervisor.state(f"({count}/{original_tasks_count}) {todo}")
 
                 message = Message.create_human_message(
-                    implement_template.format(
+                    step.implementation_prompt(
                         task=todo,
                         context=task["context"],
-                        implementation=self.copilot.storages.current_source_code(
-                            debug_mode=self.copilot.debug_mode
-                        ),
-                        specifications=self.copilot.storages.docs.get(
-                            "specifications.md", "N/A"
-                        ),
-                        technologies=self.copilot.storages.docs.get(
-                            "technologies.md", "N/A"
-                        ),
-                        ui_design=self.copilot.storages.docs.get(
-                            "ui_design.html", "N/A"
-                        ),
                     )
                 )
                 self._execute([message])
@@ -218,13 +204,7 @@ Context: %s
                         )
 
     def run(self, step: Step) -> bool:
-        assign_prompt = step.assign_prompt()
-        planning_prompt = step.planning_prompt()
-        additional_tasks = step.additional_tasks()
-        for agent in self.agents.to_array():
-            agent.set_executor(step.working_directory)
-        self._assign_supervisor(assign_prompt)
-        self._run(assign_prompt, planning_prompt, additional_tasks, step.plan_and_solve)
+        self._run(step)
 
         return step.callback()
 
