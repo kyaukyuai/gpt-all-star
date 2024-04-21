@@ -5,8 +5,8 @@ implement_template = PromptTemplate.from_template(
 # Instructions
 ---
 Conduct `task` with horizontal thinking according to `context`.
-Focus only on performing the task and prompt `FINISH` when achieved.
-There is no need to consider the tasks that follow.
+Inform the `Supervisor` to respond with `FINISH` if the task has been completed successfully.
+You do not need to proceed with any subsequent tasks.
 
 - task: {task}
 - context: {context}
