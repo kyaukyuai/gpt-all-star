@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 
-implement_template = PromptTemplate.from_template(
+implementation_prompt_template = PromptTemplate.from_template(
     """
 # Instructions
 ---
@@ -10,14 +10,6 @@ You do not need to proceed with any subsequent tasks.
 
 - task: {task}
 - context: {context}
-
-# Constraints
----
-- Please check the contents of the directories and files of the current implementation before executing the task.
-
-# Current implementation
----
-{implementation}
 
 # Requirements
 ---
@@ -30,11 +22,6 @@ You do not need to proceed with any subsequent tasks.
 ## Technology stack to be used
 ```technologies.md
 {technologies}
-```
-
-## UI Design to be implemented
-```ui_design.html
-{ui_design}
 ```
 """
 )

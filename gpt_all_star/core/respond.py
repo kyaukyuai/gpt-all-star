@@ -12,7 +12,6 @@ from gpt_all_star.core.agents.engineer import Engineer
 from gpt_all_star.core.agents.product_owner import ProductOwner
 from gpt_all_star.core.agents.project_manager import ProjectManager
 from gpt_all_star.core.agents.qa_engineer import QAEngineer
-from gpt_all_star.core.implement_prompt import implement_template
 from gpt_all_star.core.message import Message
 from gpt_all_star.core.steps.healing.healing import Healing
 from gpt_all_star.core.steps.specification.specification import Specification
@@ -270,21 +269,9 @@ Generate an command to execute the application.
                         todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
 
                     message = Message.create_human_message(
-                        implement_template.format(
+                        step.implementation_prompt(
                             task=todo,
                             context=task["context"],
-                            implementation=self.copilot.storages.current_source_code(
-                                debug_mode=self.copilot.debug_mode
-                            ),
-                            specifications=self.copilot.storages.docs.get(
-                                "specifications.md", "N/A"
-                            ),
-                            technologies=self.copilot.storages.docs.get(
-                                "technologies.md", "N/A"
-                            ),
-                            ui_design=self.copilot.storages.docs.get(
-                                "ui_design.html", "N/A"
-                            ),
                         )
                     )
                     for output in self._graph.workflow.stream(
@@ -352,21 +339,9 @@ Generate an command to execute the application.
                     todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
 
                 message = Message.create_human_message(
-                    implement_template.format(
+                    step.implementation_prompt(
                         task=todo,
                         context=task["context"],
-                        implementation=self.copilot.storages.current_source_code(
-                            debug_mode=self.copilot.debug_mode
-                        ),
-                        specifications=self.copilot.storages.docs.get(
-                            "specifications.md", "N/A"
-                        ),
-                        technologies=self.copilot.storages.docs.get(
-                            "technologies.md", "N/A"
-                        ),
-                        ui_design=self.copilot.storages.docs.get(
-                            "ui_design.html", "N/A"
-                        ),
                     )
                 )
                 for output in self._graph.workflow.stream(
@@ -430,21 +405,9 @@ Generate an command to execute the application.
                     todo = f"{task['action']}: {task.get('working_directory', '')}/{task.get('filename', '')}"
 
                 message = Message.create_human_message(
-                    implement_template.format(
+                    step.implementation_prompt(
                         task=todo,
                         context=task["context"],
-                        implementation=self.copilot.storages.current_source_code(
-                            debug_mode=self.copilot.debug_mode
-                        ),
-                        specifications=self.copilot.storages.docs.get(
-                            "specifications.md", "N/A"
-                        ),
-                        technologies=self.copilot.storages.docs.get(
-                            "technologies.md", "N/A"
-                        ),
-                        ui_design=self.copilot.storages.docs.get(
-                            "ui_design.html", "N/A"
-                        ),
                     )
                 )
                 for output in self._graph.workflow.stream(

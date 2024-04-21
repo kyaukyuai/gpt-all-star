@@ -2,6 +2,9 @@ from gpt_all_star.core.agents.copilot import Copilot
 from gpt_all_star.core.steps.specification.additional_tasks import (
     create_additional_tasks,
 )
+from gpt_all_star.core.steps.specification.implementation_prompt import (
+    implementation_prompt_template,
+)
 from gpt_all_star.core.steps.specification.improvement_prompt import (
     improvement_prompt_template,
 )
@@ -46,6 +49,12 @@ app_type:
                 % (instructions, app_type)
             )
         return create_additional_tasks(app_type, instructions)
+
+    def implementation_prompt(self, task: str, context: str) -> str:
+        return implementation_prompt_template.format(
+            task=task,
+            context=context,
+        )
 
     def callback(self) -> bool:
         specifications = self.copilot.storages.docs.get("specifications.md")
