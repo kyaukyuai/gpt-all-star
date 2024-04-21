@@ -32,26 +32,20 @@ class Chain:
         members = [member.role.name for member in members]
         options = ["FINISH"]
         options.extend(members)
-        system_prompt = f"""You are a supervisor tasked with managing a conversation between the following workers: {str(members)}.
-Given the following user request, respond with the worker to act next.
+        system_prompt = f"""You are a `Supervisor` tasked with managing a conversation between the following workers: {str(members)}.
 Each worker will perform a task and respond with their results and status.
-The task must be finished when the first instruction is fulfilled, without executing any other instructions.
-When finished, respond with FINISH.
+Given the user request, determine the next worker to act or if the task is complete.
+If the worker is prompted to finish like `Supervisor: FINISH`, always be answered with `FINISH`.
 """
         prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", system_prompt),
                 MessagesPlaceholder(variable_name="messages"),
-                (
-                    "human",
-                    "Given the conversation above, who should act next?"
-                    " Or should we FINISH? Select one of: {options}",
-                ),
             ]
         ).partial(options=str(options))
 
         class Next(BaseModel):
-            next: str = Field(description="The next role to act")
+            next: str = Field(description="The next worker to act or `FINISH`")
 
         def parse(message: Next) -> dict:
             return {"next": self.remove_quotes(message.next)}
