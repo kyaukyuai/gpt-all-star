@@ -14,6 +14,8 @@ from gpt_all_star.core.agents.project_manager import ProjectManager
 from gpt_all_star.core.agents.qa_engineer import QAEngineer
 from gpt_all_star.core.deployment.deployment import Deployment
 from gpt_all_star.core.execution.execution import Execution
+from gpt_all_star.core.steps.entrypoint.entrypoint import Entrypoint
+from gpt_all_star.core.steps.healing.healing import Healing
 from gpt_all_star.core.steps.steps import STEPS, StepType
 from gpt_all_star.core.storage import Storage, Storages
 from gpt_all_star.core.team import Team
@@ -101,7 +103,10 @@ class Project:
                 result = self.team.run(
                     step(self.copilot, japanese_mode=self.japanese_mode)
                 )
-                if self.review_mode:
+                if self.review_mode and step not in [
+                    Entrypoint,
+                    Healing,
+                ]:
                     while True:
                         ask_improve = self.copilot.ask(
                             self._(

@@ -207,6 +207,9 @@ Context: %s
         step.improvement_request = improvement_request
         improvement_prompt = step.improvement_prompt()
 
+        if improvement_prompt == "":
+            return None
+
         self.agents.set_executors(step.working_directory)
         self._assign_supervisor(improvement_prompt)
 
