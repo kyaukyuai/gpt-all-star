@@ -203,8 +203,81 @@ Context: %s
                             json.dumps(tasks, indent=4, ensure_ascii=False)
                         )
 
+    def _improve(self, step: Step, improvement_request: Optional[str] = None) -> None:
+        step.improvement_request = improvement_request
+        improvement_prompt = step.improvement_prompt()
+
+        self.agents.set_executors(step.working_directory)
+        self._assign_supervisor(improvement_prompt)
+
+        with Status(
+            "[bold white]running...(Have a cup of coffee and relax.)[/bold white]",
+            console=self.console,
+            spinner="runner",
+            speed=0.5,
+        ):
+            self.supervisor.state(self._("Planning tasks."))
+            tasks = (
+                Chain()
+                .create_planning_chain(self.supervisor.profile)
+                .invoke(
+                    {
+                        "messages": [Message.create_human_message(improvement_prompt)],
+                    }
+                )
+            )
+
+            if self.supervisor.debug_mode:
+                self.supervisor.console.print(
+                    json.dumps(tasks, indent=4, ensure_ascii=False)
+                )
+
+            original_tasks_count = len(tasks["plan"])
+            count = 1
+            while len(tasks["plan"]) > 0:
+                task = tasks["plan"][0]
+                working_directory = task.get("working_directory", "")
+                file_name = task.get("filename", "")
+                if task["action"] == ACTIONS[0]:
+                    todo = f"{task['action']}: {task['command']} in the directory({working_directory})"
+                elif file_name == "the specific file with placeholders":
+                    todo = f"{task['action']}: all files that has any placeholders such as 'TODO', 'PlaceHolder', 'will be added here'"
+                elif working_directory == "the directory where the target file exists":
+                    todo = f"{task['action']}: {file_name}(a directory follows the directory in which the file resides)"
+                else:
+                    todo = f"{task['action']}: {working_directory}/{file_name}"
+
+                if self.supervisor.debug_mode:
+                    self.supervisor.state(
+                        self._(
+                            """\n
+Task: %s
+Context: %s
+---
+"""
+                        )
+                        % (todo, task["context"])
+                    )
+                else:
+                    self.supervisor.state(f"({count}/{original_tasks_count}) {todo}")
+
+                message = Message.create_human_message(
+                    step.implementation_prompt(
+                        task=todo,
+                        context=task["context"],
+                    )
+                )
+                self._execute([message])
+                count += 1
+                tasks["plan"].pop(0)
+
     def run(self, step: Step) -> bool:
         self._run(step)
+
+        return step.callback()
+
+    def improve(self, step: Step, improvement_request: Optional[str] = None) -> bool:
+        self._improve(step, improvement_request)
 
         return step.callback()
 

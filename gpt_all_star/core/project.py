@@ -101,6 +101,22 @@ class Project:
                 result = self.team.run(
                     step(self.copilot, japanese_mode=self.japanese_mode)
                 )
+                if self.review_mode:
+                    while True:
+                        ask_improve = self.copilot.ask(
+                            self._(
+                                """Is this okay? If so, please enter [Y].
+If you want to make any corrections, please enter them."""
+                            ),
+                            is_required=True,
+                            default="Y",
+                        )
+                        if ask_improve.lower() == "y":
+                            break
+                        result = self.team.improve(
+                            step(self.copilot, japanese_mode=self.japanese_mode),
+                            ask_improve,
+                        )
                 if result:
                     success = True
                 else:
