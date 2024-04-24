@@ -52,7 +52,9 @@ If the worker is prompted to finish like `Supervisor: FINISH`, always be answere
         ).partial(options=str(options))
 
         class Next(BaseModel):
-            next: str = Field(description="The next worker to act or `FINISH`")
+            next: str = Field(
+                description=f"The next worker to act from members({str(member_names)}) or `FINISH` to finish the task"
+            )
 
         def parse(message: Next) -> dict:
             return {"next": self.remove_quotes(message.next)}
@@ -85,7 +87,9 @@ Given the following user request, respond with the worker to act next.
         ).partial(member_names=str(member_names))
 
         class Assign(BaseModel):
-            assign: str = Field(description="The worker to assign the task")
+            assign: str = Field(
+                description=f"The worker to assign the task from members({str(member_names)})"
+            )
 
         def parse(message: Assign) -> dict:
             return {"assign": self.remove_quotes(message.assign)}
