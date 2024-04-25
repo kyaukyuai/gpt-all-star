@@ -38,14 +38,13 @@ langchain-anthropic = "^0.1.4"
 gpt-all-star = 'gpt_all_star.main:app'
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.1.1"
-flake8 = "^7.0.0"
 autopep8 = "^2.0.4"
 pre-commit = "^3.6.1"
 mkdocs = "^1.5.3"
 mkdocs-material = "^9.5.11"
 python-semantic-release = "^9.1.1"
 pyright = "^1.1.354"
+ruff = "^0.4.1"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
@@ -65,8 +64,8 @@ gpt-all-star = 'gpt_all_star.main:app'
 
 [tool.ruff]
 # https://beta.ruff.rs/docs/configuration/
-select = ['E', 'W', 'F', 'I', 'B', 'C4', 'ARG', 'SIM']
-ignore = ['W291', 'W292', 'W293']
+lint.select = ['E', 'W', 'F', 'I', 'B', 'C4', 'ARG', 'SIM']
+lint.ignore = ['W291', 'W292', 'W293']
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

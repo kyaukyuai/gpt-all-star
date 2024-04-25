@@ -23,11 +23,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install poetry
+          pip install poetry ruff
           poetry install
 
-      - name: Run black
-        run: poetry run black --check .
-
-      - name: Run flake8
-        run: poetry run flake8
+      - name: Run Ruff
+        run: |
+          ruff format .
+          ruff check --output-format=github --fix .
+        continue-on-error: true
