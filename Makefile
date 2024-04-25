@@ -16,12 +16,15 @@ logs:
 shell:
 	docker-compose exec $(SERVICE_NAME) /bin/sh
 
-flake8-check:
-	poetry run flake8 $(CODE_DIR)
+ruff-format:
+	poetry run ruff format .
+
+ruff-check:
+	poetry run ruff check . --fix
 
 pre-commit-run:
 	poetry run pre-commit run --all-files
 
-code-check: flake8-check pre-commit-run
+code-check: ruff-format ruff-check pre-commit-run
 
 .PHONY: build up down logs shell code-check
