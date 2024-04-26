@@ -1,0 +1,28 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Requirements
+        run: |
+          sudo apt-get update &&
+          pip install poetry &&
+          poetry lock &&
+          poetry install
+
+      - name: Run Ruff
+        run: poetry run make code-check
+        continue-on-error: true
+
+      - name: Test with pytest
+        run: poetry run make test
