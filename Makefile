@@ -27,4 +27,7 @@ pre-commit-run:
 
 code-check: ruff-format ruff-check pre-commit-run
 
-.PHONY: build up down logs shell code-check
+test:
+	poetry run pytest tests/
+
+.PHONY: build up down logs shell code-check test
