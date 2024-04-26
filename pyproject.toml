@@ -45,6 +45,7 @@ mkdocs-material = "^9.5.11"
 python-semantic-release = "^9.1.1"
 pyright = "^1.1.354"
 ruff = "^0.4.1"
+pytest = "^8.1.1"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
