@@ -1,3 +1,13 @@
+"""
+Tests for the load_configuration function in the config_loader module.
+
+This file contains test cases to verify the behavior of loading configuration 
+files using the load_configuration function under different scenarios, such as:
+- When the configuration file exists and is valid YAML
+- When the configuration file does not exist 
+- When the configuration file contains invalid YAML
+"""
+
 from unittest.mock import mock_open, patch
 
 import pytest
