@@ -57,7 +57,10 @@ If the worker is prompted to finish like `Supervisor: FINISH`, always be answere
             )
 
         def parse(message: Next) -> dict:
-            return {"next": self.remove_quotes(message.next)}
+            next = self.remove_quotes(message.next)
+            if next in member_names:
+                return {"next": next}
+            return {"next": "FINISH"}
 
         return prompt | self.llm.with_structured_output(Next) | parse
 
@@ -92,7 +95,10 @@ Given the following user request, respond with the worker to act next.
             )
 
         def parse(message: Assign) -> dict:
-            return {"assign": self.remove_quotes(message.assign)}
+            assign = self.remove_quotes(message.assign)
+            if assign in member_names:
+                return {"assign": assign}
+            return {"assign": "PROJECT_MANAGER"}
 
         return prompt | self.llm.with_structured_output(Assign) | parse
 
