@@ -1226,13 +1226,13 @@ extended-testing = ["faker (>=19.3.1,<20.0.0)", "jinja2 (>=3,<4)", "pandas (>=2.
 
 [[package]]
 name = "langchain-openai"
-version = "0.1.4"
+version = "0.1.5"
 description = "An integration package connecting OpenAI and LangChain"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_openai-0.1.4-py3-none-any.whl", hash = "sha256:a349ada8724921e380aab03ee312568f5ca99adbc806f6878d79ff9cd1d6d353"},
-    {file = "langchain_openai-0.1.4.tar.gz", hash = "sha256:1a3220464c270d73ea3987010617789adc2099d4d4740b15c7734ab07e1f054b"},
+    {file = "langchain_openai-0.1.5-py3-none-any.whl", hash = "sha256:8789af68afe747fd05acbe5190e5f0f17cbcce4c07bc58f0584f169318ed9f1c"},
+    {file = "langchain_openai-0.1.5.tar.gz", hash = "sha256:c161890f871f8675eb633dcebb53173527045996468ed9d393ed892448408ab1"},
 ]
 
 [package.dependencies]
