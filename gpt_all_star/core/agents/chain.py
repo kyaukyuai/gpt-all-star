@@ -174,7 +174,10 @@ Given the conversation above, create a detailed and specific plan to fully meet 
         ).partial()
 
         def parse(ai_message: AIMessage) -> dict:
-            return {"plan": ai_message.tool_calls[0]["args"]["plan"]}
+            try:
+                return {"plan": ai_message.tool_calls[0]["args"]["plan"]}
+            except (KeyError, IndexError):
+                return {"plan": []}
 
         return prompt | self.llm.bind_tools([tool_def]) | parse
 
@@ -247,7 +250,10 @@ Given the conversation above, update the original plan to fully meet the user's 
         ).partial()
 
         def parse(ai_message: AIMessage) -> dict:
-            return {"plan": ai_message.tool_calls[0]["args"]["plan"]}
+            try:
+                return {"plan": ai_message.tool_calls[0]["args"]["plan"]}
+            except (KeyError, IndexError):
+                return {"plan": []}
 
         return prompt | self.llm.bind_tools([tool_def]) | parse
 
