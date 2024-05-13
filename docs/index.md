@@ -32,7 +32,7 @@ $ pip install gpt-all-star
 2. Set the `GPT ALL STAR` environment variables
 
 ```bash
-$ export OPENAI_API_MODEL=gpt-4
+$ export OPENAI_API_MODEL=gpt-4o
 $ export OPENAI_API_KEY=<your-openai-api-key>
 ```
 
