@@ -7,7 +7,9 @@ class Tokenizer:
         self.model_name = model_name
         self._tiktoken_tokenizer = (
             tiktoken.encoding_for_model(model_name)
-            if "gpt-4" in model_name or "gpt-3.5" in model_name
+            if "gpt-4" in model_name
+            or "gpt-3.5" in model_name
+            or "gpt-4o" in model_name
             else tiktoken.get_encoding("cl100k_base")
         )
 
