@@ -2869,13 +2869,13 @@ dev = ["atomicwrites (==1.4.1)", "attrs (==23.2.0)", "coverage (==7.4.1)", "hatc
 
 [[package]]
 name = "python-semantic-release"
-version = "9.7.2"
+version = "9.7.3"
 description = "Automatic Semantic Versioning for Python projects"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "python_semantic_release-9.7.2-py3-none-any.whl", hash = "sha256:0fb65ad18f1e7511f72f906fdca878d7d5c4260c385044029d183f3bf5265618"},
-    {file = "python_semantic_release-9.7.2.tar.gz", hash = "sha256:c8d0c8f2fb453ecd87220450fa55001b40ef26e5de7e8bd200828c1b6037a437"},
+    {file = "python_semantic_release-9.7.3-py3-none-any.whl", hash = "sha256:caf6c2f70e61f888765058752b525d96cff7cee330d65688eb64620a3e10c5d5"},
+    {file = "python_semantic_release-9.7.3.tar.gz", hash = "sha256:15c10cb18a4b3886e2d88460fb825e55299bb44d7036391e90be1d5c99d256ba"},
 ]
 
 [package.dependencies]
