@@ -1,11 +1,10 @@
 from pathlib import Path
-
-from langchain.agents import Tool
 from llama_index.core.indices import VectorStoreIndex
 from llama_index.core.readers import SimpleDirectoryReader
 from llama_index.core.schema import Document
 
 from gpt_all_star.core.tools.document_chunker import DocumentChunker
+from langchain_core.tools import Tool
 
 
 def llama_index_tool(path: Path) -> Tool:

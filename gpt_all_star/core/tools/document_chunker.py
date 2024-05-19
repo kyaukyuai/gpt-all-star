@@ -3,8 +3,8 @@ from pathlib import Path
 from typing import Any, Dict, List, NamedTuple
 
 import tree_sitter_languages
-from langchain.docstore.document import Document
-from langchain.text_splitter import TextSplitter
+from langchain_core.documents import Document
+from langchain_text_splitters import TextSplitter
 
 
 class CodeSplitter(TextSplitter):
