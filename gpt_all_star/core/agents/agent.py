@@ -8,9 +8,6 @@ from datetime import datetime
 from enum import Enum
 
 from langchain.agents import AgentExecutor, create_tool_calling_agent
-from langchain.agents.agent_toolkits.file_management.toolkit import (
-    FileManagementToolkit,
-)
 from langchain_core.messages import BaseMessage
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.prompts.prompt import PromptTemplate
@@ -24,6 +21,7 @@ from gpt_all_star.core.message import Message
 from gpt_all_star.core.storage import Storages
 from gpt_all_star.core.tools.shell_tool import ShellTool
 from gpt_all_star.helper.translator import create_translator
+from langchain_community.agent_toolkits import FileManagementToolkit
 
 # from gpt_all_star.core.tools.llama_index_tool import llama_index_tool
 
