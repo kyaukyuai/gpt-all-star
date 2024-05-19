@@ -1365,17 +1365,18 @@ extended-testing = ["lxml (>=5.1.0,<6.0.0)"]
 
 [[package]]
 name = "langgraph"
-version = "0.0.49"
+version = "0.0.50"
 description = "langgraph"
 optional = false
 python-versions = "<4.0,>=3.9.0"
 files = [
-    {file = "langgraph-0.0.49-py3-none-any.whl", hash = "sha256:229f29959d44c6bc4cec9f42ba68766cadedd25f0b3052afb2a43cbfac4f8d4d"},
-    {file = "langgraph-0.0.49.tar.gz", hash = "sha256:fa10cf938b1fbc270e2f597d79fbb7ab196f9c0a56d6a96a479e65879729d70e"},
+    {file = "langgraph-0.0.50-py3-none-any.whl", hash = "sha256:a65c929118f026e5548aba36b6828cec630e7b20fd6fa9b6482a78aa86f53d74"},
+    {file = "langgraph-0.0.50.tar.gz", hash = "sha256:9cee33b1bdf107fb77b9d6fd7bb8d8d770273472f328bf1314bf32f401e37a64"},
 ]
 
 [package.dependencies]
-langchain-core = ">=0.1.52,<0.2.0"
+langchain-core = ">=0.1.52,<0.3"
+uuid6 = ">=2024.1.12,<2025.0.0"
 
 [[package]]
 name = "langsmith"
@@ -3920,6 +3921,17 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "uuid6"
+version = "2024.1.12"
+description = "New time-based UUID formats which are suited for use as a database key"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "uuid6-2024.1.12-py3-none-any.whl", hash = "sha256:8150093c8d05a331bc0535bc5ef6cf57ac6eceb2404fd319bc10caee2e02c065"},
+    {file = "uuid6-2024.1.12.tar.gz", hash = "sha256:ed0afb3a973057575f9883201baefe402787ca5e11e1d24e377190f0c43f1993"},
+]
+
+[[package]]
 name = "uvicorn"
 version = "0.29.0"
 description = "The lightning-fast ASGI server."
@@ -4428,4 +4440,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "6e05004131ce2f809bffe2f4a95c5375de9060d8d664b84e2061d3d526f5c3d6"
+content-hash = "fb9ad1a07e0b5e5b03f3ab60b1fb52d43b7b11b46aa5fdbbcc3f0c1efa33445e"
