@@ -83,8 +83,10 @@ OPENAI_API_KEY=<your-openai-api-key>
 
 # USE when ENDPOINT=AZURE
 AZURE_OPENAI_API_KEY=<your-azure-openai-api-key>
-AZURE_OPENAI_ENDPOINT=https://<your-azure-openai-endpoint>.openai.azure.com/
+AZURE_OPENAI_API_VERSION=2024-05-01-preview
+AZURE_OPENAI_API_MODEL=<your-azure-openai-api-model>
 AZURE_OPENAI_DEPLOYMENT_NAME=<your-azure-openai-deployment-name>
+AZURE_OPENAI_ENDPOINT=https://<your-azure-openai-endpoint>.openai.azure.com/
 
 # USE when ENDPOINT=ANTHROPIC
 ANTHROPIC_API_KEY=<your-anthropic-api-key>
