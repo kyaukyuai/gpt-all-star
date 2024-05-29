@@ -22,13 +22,12 @@ def create_llm(llm_name: LLM_TYPE) -> BaseChatModel:
     elif llm_name == LLM_TYPE.AZURE:
         return _create_azure_chat_openai(
             api_key=os.getenv("AZURE_OPENAI_API_KEY"),
-            azure_endpoint=os.getenv(
-                "AZURE_OPENAI_ENDPOINT", "https://interpreter.openai.azure.com/"
-            ),
+            azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
             openai_api_version=os.getenv(
-                "AZURE_OPENAI_API_VERSION", "2023-07-01-preview"
+                "AZURE_OPENAI_API_VERSION", "2024-05-01-preview"
             ),
-            deployment_name=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4-32k"),
+            deployment_name=os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4o"),
+            model_name=os.getenv("AZURE_OPENAI_API_MODEL", "gpt-4o"),
             temperature=0.1,
         )
     elif llm_name == LLM_TYPE.ANTHROPIC:
@@ -56,6 +55,7 @@ def _create_azure_chat_openai(
     azure_endpoint: str,
     openai_api_version: str,
     deployment_name: str,
+    model_name: str,
     temperature: float,
 ) -> AzureChatOpenAI:
     openai.api_type = "azure"
@@ -64,6 +64,7 @@ def _create_azure_chat_openai(
         azure_endpoint=azure_endpoint,
         openai_api_version=openai_api_version,
         deployment_name=deployment_name,
+        model_name=model_name,
         temperature=temperature,
         streaming=True,
     )
