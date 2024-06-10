@@ -1437,13 +1437,13 @@ extended-testing = ["beautifulsoup4 (>=4.12.3,<5.0.0)", "lxml (>=4.9.3,<6.0)"]
 
 [[package]]
 name = "langgraph"
-version = "0.0.64"
+version = "0.0.66"
 description = "langgraph"
 optional = false
 python-versions = "<4.0,>=3.9.0"
 files = [
-    {file = "langgraph-0.0.64-py3-none-any.whl", hash = "sha256:607c15a1292619ca1d0ce4bdcc65dade48a3e9cd604c966ecba47621d9842daf"},
-    {file = "langgraph-0.0.64.tar.gz", hash = "sha256:e8e9904ac1515848b19b72d44013955fffc2deca1f81a486377f617c1f6ae725"},
+    {file = "langgraph-0.0.66-py3-none-any.whl", hash = "sha256:4a6676afadc74fb9c85b318dbcb2cc17f528136b7a6edc3febd170651b2d7a56"},
+    {file = "langgraph-0.0.66.tar.gz", hash = "sha256:34dcb4f83f7072ee6ed2ec5c41e9db065c55477ea7f6e3d3e0fbc9a8c67ef6fe"},
 ]
 
 [package.dependencies]
@@ -4483,4 +4483,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "d69370b1d29dbe24c93122b80ef70424af9dcae257cc0b4eda8c2b0773d25ca5"
+content-hash = "3b6312c11fac40818700256cfcd98691f38c202ae5a4faf04e6f269f9c2d47cd"
