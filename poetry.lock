@@ -1443,19 +1443,18 @@ requests = ">=2,<3"
 
 [[package]]
 name = "llama-index"
-version = "0.10.45"
+version = "0.10.46"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index-0.10.45-py3-none-any.whl", hash = "sha256:654871d8587397ecb9048f890934de1f44dee23d2bd4f48230b588b719798c81"},
-    {file = "llama_index-0.10.45.tar.gz", hash = "sha256:1bfb5410b2a3b6e1d1898c2713c523be9e592e873ddf16cb47d10dc83d1c6e15"},
+    {file = "llama_index-0.10.46-py3-none-any.whl", hash = "sha256:2adb116a8c67b1d8688277dff1559390a3e070ad684d5d0912bd475ab0df6bb6"},
 ]
 
 [package.dependencies]
 llama-index-agent-openai = ">=0.1.4,<0.3.0"
 llama-index-cli = ">=0.1.2,<0.2.0"
-llama-index-core = "0.10.44"
+llama-index-core = "0.10.46"
 llama-index-embeddings-openai = ">=0.1.5,<0.2.0"
 llama-index-indices-managed-llama-cloud = ">=0.1.2,<0.2.0"
 llama-index-legacy = ">=0.9.48,<0.10.0"
@@ -1500,13 +1499,13 @@ llama-index-llms-openai = ">=0.1.1,<0.2.0"
 
 [[package]]
 name = "llama-index-core"
-version = "0.10.44"
+version = "0.10.46"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index_core-0.10.44-py3-none-any.whl", hash = "sha256:eea293fb9bafab303bbf6de8f0fca45188971fda80d77fbd4fed5773967ef49c"},
-    {file = "llama_index_core-0.10.44.tar.gz", hash = "sha256:df1543e6935bb909b22a50d3f702096c8431bab94642cbb3ba6b07ea9f8edf38"},
+    {file = "llama_index_core-0.10.46-py3-none-any.whl", hash = "sha256:403acc4a6139a8228b686a3a5051bdc09699243c1689668a5755e2be7affda5c"},
+    {file = "llama_index_core-0.10.46.tar.gz", hash = "sha256:6c38467fc6974d316a22afa4214e610636cbec16fcb7b065e3f011fef35bb75f"},
 ]
 
 [package.dependencies]
@@ -1520,14 +1519,14 @@ llamaindex-py-client = ">=0.1.18,<0.2.0"
 nest-asyncio = ">=1.5.8,<2.0.0"
 networkx = ">=3.0"
 nltk = ">=3.8.1,<4.0.0"
-numpy = "*"
+numpy = "<2.0.0"
 openai = ">=1.1.0"
 pandas = "*"
 pillow = ">=9.0.0"
 PyYAML = ">=6.0.1"
 requests = ">=2.31.0"
 SQLAlchemy = {version = ">=1.4.49", extras = ["asyncio"]}
-tenacity = ">=8.2.0,<9.0.0"
+tenacity = ">=8.2.0,<8.4.0"
 tiktoken = ">=0.3.3"
 tqdm = ">=4.66.1,<5.0.0"
 typing-extensions = ">=4.5.0"
