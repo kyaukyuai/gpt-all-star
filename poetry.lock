@@ -1443,19 +1443,19 @@ requests = ">=2,<3"
 
 [[package]]
 name = "llama-index"
-version = "0.10.46"
+version = "0.10.48.post1"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index-0.10.46-py3-none-any.whl", hash = "sha256:2adb116a8c67b1d8688277dff1559390a3e070ad684d5d0912bd475ab0df6bb6"},
-    {file = "llama_index-0.10.46.tar.gz", hash = "sha256:a02957143158d09e6f8bb128a5362578c925161fcf3dffcb226d485f2f529209"},
+    {file = "llama_index-0.10.48.post1-py3-none-any.whl", hash = "sha256:4fefceb769624ea680ddd6bad810f35eeaaee26d0ef9263b7ad10d3006d8934e"},
+    {file = "llama_index-0.10.48.post1.tar.gz", hash = "sha256:4790110c19ee072097e660ec290211aac3ad7d83c06838278855371c7f098416"},
 ]
 
 [package.dependencies]
 llama-index-agent-openai = ">=0.1.4,<0.3.0"
 llama-index-cli = ">=0.1.2,<0.2.0"
-llama-index-core = "0.10.46"
+llama-index-core = "0.10.48"
 llama-index-embeddings-openai = ">=0.1.5,<0.2.0"
 llama-index-indices-managed-llama-cloud = ">=0.1.2,<0.2.0"
 llama-index-legacy = ">=0.9.48,<0.10.0"
@@ -1500,13 +1500,13 @@ llama-index-llms-openai = ">=0.1.1,<0.2.0"
 
 [[package]]
 name = "llama-index-core"
-version = "0.10.46"
+version = "0.10.48"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index_core-0.10.46-py3-none-any.whl", hash = "sha256:403acc4a6139a8228b686a3a5051bdc09699243c1689668a5755e2be7affda5c"},
-    {file = "llama_index_core-0.10.46.tar.gz", hash = "sha256:6c38467fc6974d316a22afa4214e610636cbec16fcb7b065e3f011fef35bb75f"},
+    {file = "llama_index_core-0.10.48-py3-none-any.whl", hash = "sha256:320ede0a4a33e7582a6c600c53f9aa2ee8290abfa6e315c4c6fab65bd1d1116b"},
+    {file = "llama_index_core-0.10.48.tar.gz", hash = "sha256:160140adc085a23d346c562cf9089a6f69fb78d0cc9443bfa8a94381a3296bd9"},
 ]
 
 [package.dependencies]
@@ -1527,7 +1527,7 @@ pillow = ">=9.0.0"
 PyYAML = ">=6.0.1"
 requests = ">=2.31.0"
 SQLAlchemy = {version = ">=1.4.49", extras = ["asyncio"]}
-tenacity = ">=8.2.0,<8.4.0"
+tenacity = ">=8.2.0,<8.4.0 || >8.4.0,<9.0.0"
 tiktoken = ">=0.3.3"
 tqdm = ">=4.66.1,<5.0.0"
 typing-extensions = ">=4.5.0"
