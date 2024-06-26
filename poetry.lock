@@ -1307,19 +1307,19 @@ tenacity = ">=8.1.0,<9.0.0"
 
 [[package]]
 name = "langchain-anthropic"
-version = "0.1.15"
+version = "0.1.16"
 description = "An integration package connecting AnthropicMessages and LangChain"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_anthropic-0.1.15-py3-none-any.whl", hash = "sha256:7cceea526f473e4d514f39295dc128eec57da628a4bbb54850d11dda7aa959fc"},
-    {file = "langchain_anthropic-0.1.15.tar.gz", hash = "sha256:c5c3c6eaccb11ed99a63886e50873ac21eaf8e9441e0f75c7ae7cd8cdef65155"},
+    {file = "langchain_anthropic-0.1.16-py3-none-any.whl", hash = "sha256:0d3f66b7ffb2d4ef739ef87c4b096f0dbbf0ce12f988205d1fcaa1da2c9d09fa"},
+    {file = "langchain_anthropic-0.1.16.tar.gz", hash = "sha256:28187dfb19389772e0abba98eeb0210ed3d99ab0a73f2e6707aa46c9bbbbe407"},
 ]
 
 [package.dependencies]
 anthropic = ">=0.28.0,<1"
 defusedxml = ">=0.7.1,<0.8.0"
-langchain-core = ">=0.2.2rc1,<0.3"
+langchain-core = ">=0.2.10,<0.3"
 
 [[package]]
 name = "langchain-community"
@@ -1346,22 +1346,22 @@ tenacity = ">=8.1.0,<9.0.0"
 
 [[package]]
 name = "langchain-core"
-version = "0.2.7"
+version = "0.2.10"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_core-0.2.7-py3-none-any.whl", hash = "sha256:fd02e153c898486dd728d634684ffc64bc257ff2ba443dc7e53d017ac0bf4658"},
-    {file = "langchain_core-0.2.7.tar.gz", hash = "sha256:b0b1b6dfbdedb39426fcb8bd3f07e40eec7964856e3fc384c420ca6dba61b34e"},
+    {file = "langchain_core-0.2.10-py3-none-any.whl", hash = "sha256:6eb72086b6bc86db9812da98f79e507c2209a15c0112aefd214a04182ada8586"},
+    {file = "langchain_core-0.2.10.tar.gz", hash = "sha256:33d1fc234ab58c80476eb5bbde2107ef522a2ce8f46bdf47d9e1bd21e054208f"},
 ]
 
 [package.dependencies]
 jsonpatch = ">=1.33,<2.0"
 langsmith = ">=0.1.75,<0.2.0"
 packaging = ">=23.2,<25"
-pydantic = ">=1,<3"
+pydantic = {version = ">=1,<3", markers = "python_full_version < \"3.12.4\""}
 PyYAML = ">=5.3"
-tenacity = ">=8.1.0,<9.0.0"
+tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
 
 [[package]]
 name = "langchain-experimental"
