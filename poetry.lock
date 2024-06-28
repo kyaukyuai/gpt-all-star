@@ -1380,13 +1380,13 @@ langchain-core = ">=0.2.10,<0.3.0"
 
 [[package]]
 name = "langchain-openai"
-version = "0.1.11"
+version = "0.1.12"
 description = "An integration package connecting OpenAI and LangChain"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_openai-0.1.11-py3-none-any.whl", hash = "sha256:12676e02846db63938ed40177d3271c8419a0659023afaee6da42518a0a28630"},
-    {file = "langchain_openai-0.1.11.tar.gz", hash = "sha256:a5901bfee091060b7915fd6de6fd98aa429544de8cab51ac9b13ba484d9caffb"},
+    {file = "langchain_openai-0.1.12-py3-none-any.whl", hash = "sha256:5d6679ccac4a5cee82aa37ab5c7bb1422405e6cee72d3057b96b8ec9c277c8ab"},
+    {file = "langchain_openai-0.1.12.tar.gz", hash = "sha256:9e27888536c579c3c4cd6e23e65c42fb6756c19f93c14ba00a15d2a236344fe8"},
 ]
 
 [package.dependencies]
