@@ -1413,13 +1413,13 @@ extended-testing = ["beautifulsoup4 (>=4.12.3,<5.0.0)", "lxml (>=4.9.3,<6.0)"]
 
 [[package]]
 name = "langgraph"
-version = "0.1.1"
+version = "0.1.3"
 description = "Building stateful, multi-actor applications with LLMs"
 optional = false
 python-versions = "<4.0,>=3.9.0"
 files = [
-    {file = "langgraph-0.1.1-py3-none-any.whl", hash = "sha256:6d798072625fd23ff155d40ee823b4e5eb00731ad8a64e2551fd6ae0cb53aec4"},
-    {file = "langgraph-0.1.1.tar.gz", hash = "sha256:cea9831c334f36bae9caa66637422e37f76f069b47233ceb253be6cfb3ecb35e"},
+    {file = "langgraph-0.1.3-py3-none-any.whl", hash = "sha256:4d12b16f57a47763796c78a7e55a70ce1bd84d9989d064d63c1819370af6f3a8"},
+    {file = "langgraph-0.1.3.tar.gz", hash = "sha256:bc6cd90d6cecfa67ae4e807b226362c057e94d5e0832f490917ff1a872760775"},
 ]
 
 [package.dependencies]
