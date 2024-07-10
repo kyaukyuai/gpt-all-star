@@ -1458,13 +1458,13 @@ pydantic = ">=1.10"
 
 [[package]]
 name = "llama-index"
-version = "0.10.53"
+version = "0.10.54"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index-0.10.53-py3-none-any.whl", hash = "sha256:c61566311ac2e825296efd0bb919d6460ea4ecd61e4d3e7371e72b0b53fefeac"},
-    {file = "llama_index-0.10.53.tar.gz", hash = "sha256:3823eaeabec20c8aecfcdf01686cb07446c235cd2447c06d914e900eec78644c"},
+    {file = "llama_index-0.10.54-py3-none-any.whl", hash = "sha256:778e7038bd2ccc2ee5eea969ef6d7367253b5c5f82614f9c2419159a93b26dd0"},
+    {file = "llama_index-0.10.54.tar.gz", hash = "sha256:d60b601cf166ed0351bb4a4b5ffb1fab100610f898bf882cf1b1a3855b54ebdc"},
 ]
 
 [package.dependencies]
