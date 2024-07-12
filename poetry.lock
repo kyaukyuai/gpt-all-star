@@ -1458,19 +1458,19 @@ pydantic = ">=1.10"
 
 [[package]]
 name = "llama-index"
-version = "0.10.54"
+version = "0.10.55"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index-0.10.54-py3-none-any.whl", hash = "sha256:778e7038bd2ccc2ee5eea969ef6d7367253b5c5f82614f9c2419159a93b26dd0"},
-    {file = "llama_index-0.10.54.tar.gz", hash = "sha256:d60b601cf166ed0351bb4a4b5ffb1fab100610f898bf882cf1b1a3855b54ebdc"},
+    {file = "llama_index-0.10.55-py3-none-any.whl", hash = "sha256:b07e4708e451c4505df978997c998f10ff2ebdbda12fbf892b7e6df79f5cf4c8"},
+    {file = "llama_index-0.10.55.tar.gz", hash = "sha256:32781185d60d99dc7a02f2efa73bdaca2f0ae96bf5d42cef6f1b9124f9eacf65"},
 ]
 
 [package.dependencies]
 llama-index-agent-openai = ">=0.1.4,<0.3.0"
 llama-index-cli = ">=0.1.2,<0.2.0"
-llama-index-core = "0.10.53.post1"
+llama-index-core = "0.10.55"
 llama-index-embeddings-openai = ">=0.1.5,<0.2.0"
 llama-index-indices-managed-llama-cloud = ">=0.2.0"
 llama-index-legacy = ">=0.9.48,<0.10.0"
@@ -1515,13 +1515,13 @@ llama-index-llms-openai = ">=0.1.1,<0.2.0"
 
 [[package]]
 name = "llama-index-core"
-version = "0.10.53.post1"
+version = "0.10.55"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index_core-0.10.53.post1-py3-none-any.whl", hash = "sha256:565d0967dd8f05456c66f5aca6ee6ee3dbc5645b6a55c81957f776ff029d6a99"},
-    {file = "llama_index_core-0.10.53.post1.tar.gz", hash = "sha256:6219a737b66c887b406814b0d9db6e24addd35f3136ffb6a879e54ac3f133406"},
+    {file = "llama_index_core-0.10.55-py3-none-any.whl", hash = "sha256:e2f7dbc9c992d4487dabad6a7b0f40ed145cce0ab99e52cc78e9caf0cd4c1c08"},
+    {file = "llama_index_core-0.10.55.tar.gz", hash = "sha256:b02d46595c17805221a8f404c04a97609d1ce22e5be24ad7b7c4ac30e5181561"},
 ]
 
 [package.dependencies]
@@ -1531,7 +1531,6 @@ deprecated = ">=1.2.9.3"
 dirtyjson = ">=1.0.8,<2.0.0"
 fsspec = ">=2023.5.0"
 httpx = "*"
-llama-cloud = ">=0.0.6,<0.0.7"
 nest-asyncio = ">=1.5.8,<2.0.0"
 networkx = ">=3.0"
 nltk = ">=3.8.1,<4.0.0"
