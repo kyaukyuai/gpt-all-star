@@ -1307,19 +1307,19 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
 
 [[package]]
 name = "langchain-anthropic"
-version = "0.1.19"
+version = "0.1.20"
 description = "An integration package connecting AnthropicMessages and LangChain"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_anthropic-0.1.19-py3-none-any.whl", hash = "sha256:ed0d5823dcf65802c6367a8fada2e82610aa1c96dfaae5400b6920131483707b"},
-    {file = "langchain_anthropic-0.1.19.tar.gz", hash = "sha256:7f4b3834947bbefdc43f5dc4ebbaddac4b58253c0c54684ac960af5054acc341"},
+    {file = "langchain_anthropic-0.1.20-py3-none-any.whl", hash = "sha256:3a0d89ac6856be98beb3ec63813393bf29af3c5134247979c055938e741b7d9d"},
+    {file = "langchain_anthropic-0.1.20.tar.gz", hash = "sha256:cb9607fecfc0f0de49b79dd0fc066790e2877873ef753abd98d2ae38d6e0f5b2"},
 ]
 
 [package.dependencies]
 anthropic = ">=0.28.0,<1"
 defusedxml = ">=0.7.1,<0.8.0"
-langchain-core = ">=0.2.10,<0.3"
+langchain-core = ">=0.2.17,<0.3"
 
 [[package]]
 name = "langchain-community"
