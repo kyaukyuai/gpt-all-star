@@ -98,7 +98,7 @@ LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
 LANGCHAIN_API_KEY=<your-langchain-api-key>
 LANGCHAIN_PROJECT=<your-langchain-project>
 
-# This is an environment variable to use if you want to manage the code you want to generate with gpt-all-star on Github.
+# This is an environment variable to use if you want to manage the code you want to generate with gpt-all-star on GitHub.
 GITHUB_ORG=<your-github-org>
 GITHUB_TOKEN=<your-github-token>
 ```
