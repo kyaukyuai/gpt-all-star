@@ -1363,13 +1363,13 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
 
 [[package]]
 name = "langchain-experimental"
-version = "0.0.62"
+version = "0.0.63"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_experimental-0.0.62-py3-none-any.whl", hash = "sha256:9240f9e3490e819976f20a37863970036e7baacb7104b9eb6833d19ab6d518c9"},
-    {file = "langchain_experimental-0.0.62.tar.gz", hash = "sha256:9737fbc8429d24457ea4d368e3c9ba9ed1cace0564fb5f1a96a3027a588bd0ac"},
+    {file = "langchain_experimental-0.0.63-py3-none-any.whl", hash = "sha256:cb4ae7a685bb3c077d138b4533ed02e8df1f5f784333c3e52dcae8c80f031ca2"},
+    {file = "langchain_experimental-0.0.63.tar.gz", hash = "sha256:fc894599bfac43445004a9ff60d9a28751426b2fea1979e4b2fa453c847850c4"},
 ]
 
 [package.dependencies]
@@ -4387,4 +4387,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "f43569b2426b5524e9e4939fdf21cf7ec85a49af9a98f2ae3449fdd73aba053e"
+content-hash = "001ac594189639aca0e29c541ccebc53bf13e1dff0a33426fe57d5352ecd598f"
