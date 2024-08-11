@@ -1240,13 +1240,13 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
 
 [[package]]
 name = "langchain-core"
-version = "0.2.24"
+version = "0.2.28"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_core-0.2.24-py3-none-any.whl", hash = "sha256:9444fc082d21ef075d925590a684a73fe1f9688a3d90087580ec929751be55e7"},
-    {file = "langchain_core-0.2.24.tar.gz", hash = "sha256:f2e3fa200b124e8c45d270da9bf836bed9c09532612c96ff3225e59b9a232f5a"},
+    {file = "langchain_core-0.2.28-py3-none-any.whl", hash = "sha256:0728761d02ce696a1c6a57cfad18b874cf6c9566ba86120e2f542e442cb77a06"},
+    {file = "langchain_core-0.2.28.tar.gz", hash = "sha256:589f907fcb1f15acea55ea3f451a37faaa61c2e68b3d39d436cf73ca3dd23ef5"},
 ]
 
 [package.dependencies]
@@ -1256,6 +1256,7 @@ packaging = ">=23.2,<25"
 pydantic = {version = ">=1,<3", markers = "python_full_version < \"3.12.4\""}
 PyYAML = ">=5.3"
 tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
+typing-extensions = ">=4.7"
 
 [[package]]
 name = "langchain-experimental"
@@ -1307,13 +1308,28 @@ extended-testing = ["beautifulsoup4 (>=4.12.3,<5.0.0)", "lxml (>=4.9.3,<6.0)"]
 
 [[package]]
 name = "langgraph"
-version = "0.1.19"
+version = "0.2.0"
 description = "Building stateful, multi-actor applications with LLMs"
 optional = false
 python-versions = "<4.0,>=3.9.0"
 files = [
-    {file = "langgraph-0.1.19-py3-none-any.whl", hash = "sha256:7155b86e5d3559e986b3cbcd1c34ee96959136814bc2db679f84fc5fa7a8e61c"},
-    {file = "langgraph-0.1.19.tar.gz", hash = "sha256:715babd412eebdc6f5f4e8a485073be55669ebf73495b795ec816668027dbe74"},
+    {file = "langgraph-0.2.0-py3-none-any.whl", hash = "sha256:e6722350d07d5ea87014204cc78f05e34505072f89a83bffac6aa8b3c6c572e7"},
+    {file = "langgraph-0.2.0.tar.gz", hash = "sha256:18721ecbb857a85e69ac9322e292c85c5ad5557bd80d0638a5c45b80f0574585"},
+]
+
+[package.dependencies]
+langchain-core = ">=0.2.27,<0.3"
+langgraph-checkpoint = ">=1.0.1,<2.0.0"
+
+[[package]]
+name = "langgraph-checkpoint"
+version = "1.0.1"
+description = "Library with base interfaces for LangGraph checkpoint savers."
+optional = false
+python-versions = "<4.0.0,>=3.9.0"
+files = [
+    {file = "langgraph_checkpoint-1.0.1-py3-none-any.whl", hash = "sha256:dfba42302919ef4835442172f87155eef8ab06b750167771147fa0faf87ea06d"},
+    {file = "langgraph_checkpoint-1.0.1.tar.gz", hash = "sha256:3557f4802ef5559706c7a7f7ea237945caf8dcbbdb4a2387454b70044e93d208"},
 ]
 
 [package.dependencies]
@@ -4050,4 +4066,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10.0,<3.11"
-content-hash = "12385f421060e044659db04bd3a1eb4010e0f66304f95c550784f854b37a9660"
+content-hash = "6e61294225af27d6bf60027a63ff5ca916ba1040044e4f0f89aa362b18f8c07c"
