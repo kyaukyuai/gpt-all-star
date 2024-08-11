@@ -1240,13 +1240,13 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
 
 [[package]]
 name = "langchain-core"
-version = "0.2.28"
+version = "0.2.29"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_core-0.2.28-py3-none-any.whl", hash = "sha256:0728761d02ce696a1c6a57cfad18b874cf6c9566ba86120e2f542e442cb77a06"},
-    {file = "langchain_core-0.2.28.tar.gz", hash = "sha256:589f907fcb1f15acea55ea3f451a37faaa61c2e68b3d39d436cf73ca3dd23ef5"},
+    {file = "langchain_core-0.2.29-py3-none-any.whl", hash = "sha256:846c04a3bb72e409a9b928e0eb3ea1762e1473f2c4fb6df2596fbd7b3ab75973"},
+    {file = "langchain_core-0.2.29.tar.gz", hash = "sha256:491324745a7afee5a7b285c3904edd9dd0c6efa7daf26b92fec6e84a2d2f5d10"},
 ]
 
 [package.dependencies]
@@ -1275,18 +1275,18 @@ langchain-core = ">=0.2.27,<0.3.0"
 
 [[package]]
 name = "langchain-openai"
-version = "0.1.19"
+version = "0.1.21"
 description = "An integration package connecting OpenAI and LangChain"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_openai-0.1.19-py3-none-any.whl", hash = "sha256:a7a739f1469d54cd988865420e7fc21b50fb93727b2e6da5ad30273fc61ecf19"},
-    {file = "langchain_openai-0.1.19.tar.gz", hash = "sha256:3bf342bb302d1444f4abafdf01c467dbd9b248497e1133808c4bae70396c79b3"},
+    {file = "langchain_openai-0.1.21-py3-none-any.whl", hash = "sha256:44420f0c84859ae236a80c8ac8754a16d5b660c24377c27ba98308145d346352"},
+    {file = "langchain_openai-0.1.21.tar.gz", hash = "sha256:2c65feaf12bb284eccf7bce35725fd06f3035fa751babad6aa84af2f99867f88"},
 ]
 
 [package.dependencies]
-langchain-core = ">=0.2.24,<0.3.0"
-openai = ">=1.32.0,<2.0.0"
+langchain-core = ">=0.2.29,<0.3.0"
+openai = ">=1.40.0,<2.0.0"
 tiktoken = ">=0.7,<1"
 
 [[package]]
