@@ -1368,19 +1368,19 @@ pydantic = ">=1.10"
 
 [[package]]
 name = "llama-index"
-version = "0.10.59"
+version = "0.10.64"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index-0.10.59-py3-none-any.whl", hash = "sha256:759326e6d36ce088b814b0d96bb0a5724bcbdbdbb3f91e268109cbab79fc5634"},
-    {file = "llama_index-0.10.59.tar.gz", hash = "sha256:9da8c5d79051057b8cfcd5ffcfe0b55b15f84f296845dcd7b4a5ebd8d49f327e"},
+    {file = "llama_index-0.10.64-py3-none-any.whl", hash = "sha256:ec9daf2c31824dbf9e26ff750cbbee278fb2f492a014c2cdaf4c959d78a4b186"},
+    {file = "llama_index-0.10.64.tar.gz", hash = "sha256:3dbb19a2a99925173d3afc426b2d16ac959c9ba197904944926f3b3e532cbdd0"},
 ]
 
 [package.dependencies]
 llama-index-agent-openai = ">=0.1.4,<0.3.0"
 llama-index-cli = ">=0.1.2,<0.2.0"
-llama-index-core = "0.10.59"
+llama-index-core = ">=0.10.64,<0.11.0"
 llama-index-embeddings-openai = ">=0.1.5,<0.2.0"
 llama-index-indices-managed-llama-cloud = ">=0.2.0"
 llama-index-legacy = ">=0.9.48,<0.10.0"
@@ -1425,13 +1425,13 @@ llama-index-llms-openai = ">=0.1.1,<0.2.0"
 
 [[package]]
 name = "llama-index-core"
-version = "0.10.59"
+version = "0.10.64"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index_core-0.10.59-py3-none-any.whl", hash = "sha256:57074e91add520e1e4a85f0af1e54162dca40fb2e279a650c689f54067501de8"},
-    {file = "llama_index_core-0.10.59.tar.gz", hash = "sha256:668c1f3e7811f4f853333a57c87f4a7ac9285eead79871db9f84a87fbe4a4a1e"},
+    {file = "llama_index_core-0.10.64-py3-none-any.whl", hash = "sha256:03a22f8bbace4ec92a191d606fb01d44809982a854073a1092b8d7d9fe31749c"},
+    {file = "llama_index_core-0.10.64.tar.gz", hash = "sha256:8f2599bfcc00efd7fb525e255f7d0610b02f0d06e2050a20cee5c0139171e3e6"},
 ]
 
 [package.dependencies]
