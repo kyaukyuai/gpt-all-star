@@ -123,12 +123,13 @@ files = [
 
 [[package]]
 name = "anthropic"
-version = "0.28.0"
+version = "0.34.0"
 description = "The official Python library for the anthropic API"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "anthropic-0.28.0-py3-none-any.whl", hash = "sha256:2b620b21aee3d20c5d8005483c34df239d53ae895687113b26b8a36892a7e20f"},
+    {file = "anthropic-0.34.0-py3-none-any.whl", hash = "sha256:4f4b3b5cb7647f5879ee72c22543a10af6da83b18c8401938053b9b4965a9595"},
+    {file = "anthropic-0.34.0.tar.gz", hash = "sha256:820d6cc77cfcbbe56f0920a58f7e2bacf119b9e80f6de1bf92a422799ee4680f"},
 ]
 
 [package.dependencies]
@@ -1201,17 +1202,17 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
 
 [[package]]
 name = "langchain-anthropic"
-version = "0.1.22"
+version = "0.1.23"
 description = "An integration package connecting AnthropicMessages and LangChain"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "langchain_anthropic-0.1.22-py3-none-any.whl", hash = "sha256:149c4056efbdeddde901c9ff301b0d30ea4fd6bb951f9469ac74cd5efcc86bff"},
-    {file = "langchain_anthropic-0.1.22.tar.gz", hash = "sha256:8d46ea715e2f80911ceca299b4249e01461f36c22cda82e08f49bdb07a785b1d"},
+    {file = "langchain_anthropic-0.1.23-py3-none-any.whl", hash = "sha256:89cafdaf4c9e522484b0ca8bafcceb0a5e4ffca89f7c7c9cec1e2ba411208208"},
+    {file = "langchain_anthropic-0.1.23.tar.gz", hash = "sha256:f2ce045bd0ae09d5f11fed4b84a38ce306822b7bcac77232345f40115df66d51"},
 ]
 
 [package.dependencies]
-anthropic = ">=0.28.0,<1"
+anthropic = ">=0.30.0,<1"
 defusedxml = ">=0.7.1,<0.8.0"
 langchain-core = ">=0.2.26,<0.3.0"
 
