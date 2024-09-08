@@ -2853,13 +2853,13 @@ yaml = ["PyYaml (>=6.0.1)"]
 
 [[package]]
 name = "python-semantic-release"
-version = "9.8.7"
+version = "9.8.8"
 description = "Automatic Semantic Versioning for Python projects"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "python_semantic_release-9.8.7-py3-none-any.whl", hash = "sha256:ed26c69878dd5439ad1dc8120e5f4251088277b1a760278b60bf7957f0e88630"},
-    {file = "python_semantic_release-9.8.7.tar.gz", hash = "sha256:0781e615c3c12583bee78c7e772f14b75078de17f81ab2527bb71a1e13706b74"},
+    {file = "python_semantic_release-9.8.8-py3-none-any.whl", hash = "sha256:df43d02234ce4be3802bceca804c3a357aebf833a97624dc74563ec69da8a3ef"},
+    {file = "python_semantic_release-9.8.8.tar.gz", hash = "sha256:19ac268bc417b2b8ea869caede307c50bc1fc2c6c70ee42e88403e321d13f494"},
 ]
 
 [package.dependencies]
