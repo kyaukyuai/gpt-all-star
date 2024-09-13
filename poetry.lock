@@ -1389,19 +1389,19 @@ pydantic = ">=1.10"
 
 [[package]]
 name = "llama-index"
-version = "0.11.7"
+version = "0.11.9"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index-0.11.7-py3-none-any.whl", hash = "sha256:dc4f01410d5dffd379c59dec26e40c06c919bfcffc26e58d9a2cf1b986f959be"},
-    {file = "llama_index-0.11.7.tar.gz", hash = "sha256:2431cc7f63a7e1a2cf110ba91c177572205c12cdf78715842a3020645f44b0b5"},
+    {file = "llama_index-0.11.9-py3-none-any.whl", hash = "sha256:b406dd6c099299b01379f85f517fddffd1bfa89fb7c036e42d48415458cda783"},
+    {file = "llama_index-0.11.9.tar.gz", hash = "sha256:ef6f433e0b8c439e85774383c0a86b34079e027e663dbd3b87b99d3da68287e9"},
 ]
 
 [package.dependencies]
 llama-index-agent-openai = ">=0.3.1,<0.4.0"
-llama-index-cli = ">=0.3.0,<0.4.0"
-llama-index-core = ">=0.11.7,<0.12.0"
+llama-index-cli = ">=0.3.1,<0.4.0"
+llama-index-core = ">=0.11.9,<0.12.0"
 llama-index-embeddings-openai = ">=0.2.4,<0.3.0"
 llama-index-indices-managed-llama-cloud = ">=0.3.0"
 llama-index-legacy = ">=0.9.48,<0.10.0"
@@ -1431,13 +1431,13 @@ openai = ">=1.14.0"
 
 [[package]]
 name = "llama-index-cli"
-version = "0.3.0"
+version = "0.3.1"
 description = "llama-index cli"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index_cli-0.3.0-py3-none-any.whl", hash = "sha256:23227f305b7b320c7909f54ef2eeba90b9ad1a56231fbfbe1298280542bb9f24"},
-    {file = "llama_index_cli-0.3.0.tar.gz", hash = "sha256:a42e01fe2a02aa0fd3b645eb1403f9058fa7f62fbeea2a06a55b7fb8c07d5d02"},
+    {file = "llama_index_cli-0.3.1-py3-none-any.whl", hash = "sha256:2111fbb6973f5b1eabce0d6cca3986499f0f2f625b13d7f48269a49c64c027d4"},
+    {file = "llama_index_cli-0.3.1.tar.gz", hash = "sha256:1890dd687cf440f3651365a549e303363162c167b8efbd87a3aa10058d6d5c77"},
 ]
 
 [package.dependencies]
@@ -1447,13 +1447,13 @@ llama-index-llms-openai = ">=0.2.0,<0.3.0"
 
 [[package]]
 name = "llama-index-core"
-version = "0.11.7"
+version = "0.11.9"
 description = "Interface between LLMs and your data"
 optional = false
 python-versions = "<4.0,>=3.8.1"
 files = [
-    {file = "llama_index_core-0.11.7-py3-none-any.whl", hash = "sha256:4a656d650b44e800ad9fe40c685cc1ee51075e1f5bb8c445231b0872fe2501cd"},
-    {file = "llama_index_core-0.11.7.tar.gz", hash = "sha256:66bcd18939d45cac35aa53d4560f0d1e82f191ea8b65b33914d490a2ae3291fd"},
+    {file = "llama_index_core-0.11.9-py3-none-any.whl", hash = "sha256:cd89742692d9662f4ad503724409ce9df69e2124fd89e580119f8716a42aad6c"},
+    {file = "llama_index_core-0.11.9.tar.gz", hash = "sha256:aa11141161a0f40d22dae2d5fe08a3ead5ad209e0e1daf54f75643c816f3fd2d"},
 ]
 
 [package.dependencies]
