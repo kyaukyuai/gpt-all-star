@@ -31,7 +31,7 @@ llama-index = "^0.11.0"
 tree-sitter-languages = "^1.10.2"
 pygithub = "^2.2.0"
 uvicorn = "^0.30.0"
-fastapi = "^0.112.0"
+fastapi = "^0.114.0"
 langchain-anthropic = "^0.1.4"
 
 [tool.poetry.scripts]
