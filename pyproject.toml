@@ -32,7 +32,7 @@ tree-sitter-languages = "^1.10.2"
 pygithub = "^2.2.0"
 uvicorn = "^0.30.0"
 fastapi = "^0.115.0"
-langchain-anthropic = "^0.1.4"
+langchain-anthropic = "^0.2.0"
 
 [tool.poetry.scripts]
 gpt-all-star = 'gpt_all_star.main:app'
