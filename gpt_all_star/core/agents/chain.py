@@ -4,7 +4,7 @@ import os
 
 from langchain_core.messages.ai import AIMessage
 from langchain_core.prompts.chat import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 
 from gpt_all_star.core.agents.agent import Agent
 from gpt_all_star.core.llm import LLM_TYPE, create_llm
