@@ -1263,19 +1263,19 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
 
 [[package]]
 name = "langchain-anthropic"
-version = "0.2.1"
+version = "0.2.3"
 description = "An integration package connecting AnthropicMessages and LangChain"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "langchain_anthropic-0.2.1-py3-none-any.whl", hash = "sha256:fb3e6cc7f7da323326d37ab4d021bdd2e13ce546192fdfa0ae4fcee38e68b1f4"},
-    {file = "langchain_anthropic-0.2.1.tar.gz", hash = "sha256:acc1113274284ccbce708a44b7a154abe282da04df2cdb9bfdad4b1ff34f9ea5"},
+    {file = "langchain_anthropic-0.2.3-py3-none-any.whl", hash = "sha256:d555901865074b1481a0fbd40505eedaa3b414af25f6b227c39f2a6529ce1800"},
+    {file = "langchain_anthropic-0.2.3.tar.gz", hash = "sha256:29d3464bf276ff6444543be94a9ba555a8f8ef858df3ace82ce8dfc7fedb0bec"},
 ]
 
 [package.dependencies]
 anthropic = ">=0.30.0,<1"
 defusedxml = ">=0.7.1,<0.8.0"
-langchain-core = ">=0.3.1,<0.4.0"
+langchain-core = ">=0.3.9,<0.4.0"
 pydantic = ">=2.7.4,<3.0.0"
 
 [[package]]
@@ -1304,13 +1304,13 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
 
 [[package]]
 name = "langchain-core"
-version = "0.3.8"
+version = "0.3.9"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "langchain_core-0.3.8-py3-none-any.whl", hash = "sha256:07015f7b1d9f52eefe05130e8cafe4dcbdbbf72a8411c9edafe38422e4d11b5c"},
-    {file = "langchain_core-0.3.8.tar.gz", hash = "sha256:7485904f7082f1df880d5ae470a488161616132f30d99f556a1877901fffd1cb"},
+    {file = "langchain_core-0.3.9-py3-none-any.whl", hash = "sha256:26efa048666c7de56d0ab311de2c0778b04cbb2ffe95bff76139118f13815d01"},
+    {file = "langchain_core-0.3.9.tar.gz", hash = "sha256:7a6ac988d24d0ddce5874b28f538cd95f69f502b7f50581de22aca0dc58199a8"},
 ]
 
 [package.dependencies]
@@ -3560,6 +3560,7 @@ files = [
     {file = "tiktoken-0.8.0-cp310-cp310-win_amd64.whl", hash = "sha256:d8c2d0e5ba6453a290b86cd65fc51fedf247e1ba170191715b049dac1f628005"},
     {file = "tiktoken-0.8.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:d622d8011e6d6f239297efa42a2657043aaed06c4f68833550cac9e9bc723ef1"},
     {file = "tiktoken-0.8.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:2efaf6199717b4485031b4d6edb94075e4d79177a172f38dd934d911b588d54a"},
+    {file = "tiktoken-0.8.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:5637e425ce1fc49cf716d88df3092048359a4b3bbb7da762840426e937ada06d"},
     {file = "tiktoken-0.8.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9fb0e352d1dbe15aba082883058b3cce9e48d33101bdaac1eccf66424feb5b47"},
     {file = "tiktoken-0.8.0-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:56edfefe896c8f10aba372ab5706b9e3558e78db39dd497c940b47bf228bc419"},
     {file = "tiktoken-0.8.0-cp311-cp311-win_amd64.whl", hash = "sha256:326624128590def898775b722ccc327e90b073714227175ea8febbc920ac0a99"},
