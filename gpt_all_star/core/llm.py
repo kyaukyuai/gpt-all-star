@@ -15,7 +15,6 @@ class LLM_TYPE(str, Enum):
 
 def create_llm(llm_name: LLM_TYPE) -> BaseChatModel:
     if llm_name == LLM_TYPE.OPENAI:
-        print(os.getenv("OPENAI_API_BASE_URL"))
         return _create_chat_openai(
             model_name=os.getenv("OPENAI_API_MODEL", "gpt-4o"),
             temperature=0.1,
