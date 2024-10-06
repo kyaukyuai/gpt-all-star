@@ -15,9 +15,11 @@ class LLM_TYPE(str, Enum):
 
 def create_llm(llm_name: LLM_TYPE) -> BaseChatModel:
     if llm_name == LLM_TYPE.OPENAI:
+        print(os.getenv("OPENAI_API_BASE_URL"))
         return _create_chat_openai(
             model_name=os.getenv("OPENAI_API_MODEL", "gpt-4o"),
             temperature=0.1,
+            base_url=os.getenv("OPENAI_API_BASE"),
         )
     elif llm_name == LLM_TYPE.AZURE:
         return _create_azure_chat_openai(
@@ -40,13 +42,16 @@ def create_llm(llm_name: LLM_TYPE) -> BaseChatModel:
         raise ValueError(f"Unsupported LLM type: {llm_name}")
 
 
-def _create_chat_openai(model_name: str, temperature: float) -> ChatOpenAI:
+def _create_chat_openai(
+    model_name: str, temperature: float, base_url: str | None
+) -> ChatOpenAI:
     openai.api_type = "openai"
     return ChatOpenAI(
         model_name=model_name,
         temperature=temperature,
         streaming=True,
         client=openai.chat.completions,
+        openai_api_base=base_url,
     )
 
 
