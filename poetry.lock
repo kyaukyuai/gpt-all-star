@@ -1239,19 +1239,19 @@ files = [
 
 [[package]]
 name = "langchain"
-version = "0.3.2"
+version = "0.3.3"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "langchain-0.3.2-py3-none-any.whl", hash = "sha256:cf005dcba132e46fb5e8d3dfaf7f8751bffd2d73e738c36be58f41edc7e3a4b8"},
-    {file = "langchain-0.3.2.tar.gz", hash = "sha256:dc330e6eb10d81d23ba0305d18358702c73cc59e95c410eca6c6779aab4ddc9b"},
+    {file = "langchain-0.3.3-py3-none-any.whl", hash = "sha256:05ac98c674853c2386d043172820e37ceac9b913aaaf1e51217f0fc424112c72"},
+    {file = "langchain-0.3.3.tar.gz", hash = "sha256:6435882996a029a60c61c356bbe51bab4a8f43a54210f5f03e3c4474d19d1842"},
 ]
 
 [package.dependencies]
 aiohttp = ">=3.8.3,<4.0.0"
 async-timeout = {version = ">=4.0.0,<5.0.0", markers = "python_version < \"3.11\""}
-langchain-core = ">=0.3.8,<0.4.0"
+langchain-core = ">=0.3.10,<0.4.0"
 langchain-text-splitters = ">=0.3.0,<0.4.0"
 langsmith = ">=0.1.17,<0.2.0"
 numpy = {version = ">=1,<2", markers = "python_version < \"3.12\""}
@@ -1304,13 +1304,13 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<9.0.0"
 
 [[package]]
 name = "langchain-core"
-version = "0.3.9"
+version = "0.3.10"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "langchain_core-0.3.9-py3-none-any.whl", hash = "sha256:26efa048666c7de56d0ab311de2c0778b04cbb2ffe95bff76139118f13815d01"},
-    {file = "langchain_core-0.3.9.tar.gz", hash = "sha256:7a6ac988d24d0ddce5874b28f538cd95f69f502b7f50581de22aca0dc58199a8"},
+    {file = "langchain_core-0.3.10-py3-none-any.whl", hash = "sha256:146be6bf2d3dc0d6f4feb46ef082182cf57b056e8163d45278529cd7b7343d2f"},
+    {file = "langchain_core-0.3.10.tar.gz", hash = "sha256:63b9a3d03b52dba29cc248b752c574cdcb5fb04bd0fc5c76097fcbb7aaba5221"},
 ]
 
 [package.dependencies]
