@@ -44,7 +44,7 @@ mkdocs = "^1.5.3"
 mkdocs-material = "^9.5.11"
 python-semantic-release = "^9.1.1"
 pyright = "^1.1.354"
-ruff = "^0.5.0"
+ruff = "^0.6.0"
 pytest = "^8.1.1"
 
 [tool.pyright]
