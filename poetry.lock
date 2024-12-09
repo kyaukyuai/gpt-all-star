@@ -1369,18 +1369,18 @@ langchain-core = ">=0.3.15,<0.4.0"
 
 [[package]]
 name = "langchain-openai"
-version = "0.2.11"
+version = "0.2.12"
 description = "An integration package connecting OpenAI and LangChain"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "langchain_openai-0.2.11-py3-none-any.whl", hash = "sha256:c019ae915a5782943bee9503388e65c8622d400e0451ef885f3e4989cf35727f"},
-    {file = "langchain_openai-0.2.11.tar.gz", hash = "sha256:563bd843092d260c7ffd88b8e0e6b830f36347e058e62a6d5e9cc4c461a8da98"},
+    {file = "langchain_openai-0.2.12-py3-none-any.whl", hash = "sha256:916965c45584d9ea565825ad3bb7629b1ff57f12f36d4b937e5b7d65903839d6"},
+    {file = "langchain_openai-0.2.12.tar.gz", hash = "sha256:8b92096623065a2820e89aa5fb0a262fb109d56c346e3b09ba319af424c45cd1"},
 ]
 
 [package.dependencies]
 langchain-core = ">=0.3.21,<0.4.0"
-openai = ">=1.54.0,<2.0.0"
+openai = ">=1.55.3,<2.0.0"
 tiktoken = ">=0.7,<1"
 
 [[package]]
