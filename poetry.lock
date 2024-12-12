@@ -1334,18 +1334,18 @@ tenacity = ">=8.1.0,<8.4.0 || >8.4.0,<10"
 
 [[package]]
 name = "langchain-core"
-version = "0.3.21"
+version = "0.3.24"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "langchain_core-0.3.21-py3-none-any.whl", hash = "sha256:7e723dff80946a1198976c6876fea8326dc82566ef9bcb5f8d9188f738733665"},
-    {file = "langchain_core-0.3.21.tar.gz", hash = "sha256:561b52b258ffa50a9fb11d7a1940ebfd915654d1ec95b35e81dfd5ee84143411"},
+    {file = "langchain_core-0.3.24-py3-none-any.whl", hash = "sha256:97192552ef882a3dd6ae3b870a180a743801d0137a1159173f51ac555eeb7eec"},
+    {file = "langchain_core-0.3.24.tar.gz", hash = "sha256:460851e8145327f70b70aad7dce2cdbd285e144d14af82b677256b941fc99656"},
 ]
 
 [package.dependencies]
 jsonpatch = ">=1.33,<2.0"
-langsmith = ">=0.1.125,<0.2.0"
+langsmith = ">=0.1.125,<0.3"
 packaging = ">=23.2,<25"
 pydantic = {version = ">=2.5.2,<3.0.0", markers = "python_full_version < \"3.12.4\""}
 PyYAML = ">=5.3"
@@ -1399,17 +1399,17 @@ langchain-core = ">=0.3.15,<0.4.0"
 
 [[package]]
 name = "langgraph"
-version = "0.2.56"
+version = "0.2.59"
 description = "Building stateful, multi-actor applications with LLMs"
 optional = false
 python-versions = "<4.0,>=3.9.0"
 files = [
-    {file = "langgraph-0.2.56-py3-none-any.whl", hash = "sha256:ad8a4b772e34dc0137e890bb6ced596a39a1e684af66250c1e7c8150dbe90e9c"},
-    {file = "langgraph-0.2.56.tar.gz", hash = "sha256:af10b1ffd10d52fd4072a73f154b8c2513c0b22e5bd5d20f4567dfeecab98d1e"},
+    {file = "langgraph-0.2.59-py3-none-any.whl", hash = "sha256:9b2d1331bbdcea96cfffde8e88700776118f4583d15f6a3423fc4482fe84ae56"},
+    {file = "langgraph-0.2.59.tar.gz", hash = "sha256:61cb5dd409878641fe8a12e9d7928a7524caa3e54ab12bc883feeaba4a5ba618"},
 ]
 
 [package.dependencies]
-langchain-core = ">=0.2.43,<0.3.0 || >0.3.0,<0.3.1 || >0.3.1,<0.3.2 || >0.3.2,<0.3.3 || >0.3.3,<0.3.4 || >0.3.4,<0.3.5 || >0.3.5,<0.3.6 || >0.3.6,<0.3.7 || >0.3.7,<0.3.8 || >0.3.8,<0.3.9 || >0.3.9,<0.3.10 || >0.3.10,<0.3.11 || >0.3.11,<0.3.12 || >0.3.12,<0.3.13 || >0.3.13,<0.3.14 || >0.3.14,<0.4.0"
+langchain-core = ">=0.2.43,<0.3.0 || >0.3.0,<0.3.1 || >0.3.1,<0.3.2 || >0.3.2,<0.3.3 || >0.3.3,<0.3.4 || >0.3.4,<0.3.5 || >0.3.5,<0.3.6 || >0.3.6,<0.3.7 || >0.3.7,<0.3.8 || >0.3.8,<0.3.9 || >0.3.9,<0.3.10 || >0.3.10,<0.3.11 || >0.3.11,<0.3.12 || >0.3.12,<0.3.13 || >0.3.13,<0.3.14 || >0.3.14,<0.3.15 || >0.3.15,<0.3.16 || >0.3.16,<0.3.17 || >0.3.17,<0.3.18 || >0.3.18,<0.3.19 || >0.3.19,<0.3.20 || >0.3.20,<0.3.21 || >0.3.21,<0.3.22 || >0.3.22,<0.4.0"
 langgraph-checkpoint = ">=2.0.4,<3.0.0"
 langgraph-sdk = ">=0.1.42,<0.2.0"
 
