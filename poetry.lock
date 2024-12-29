@@ -1268,19 +1268,19 @@ files = [
 
 [[package]]
 name = "langchain"
-version = "0.3.12"
+version = "0.3.13"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = "<4.0,>=3.9"
 files = [
-    {file = "langchain-0.3.12-py3-none-any.whl", hash = "sha256:581ad93a9de12e4b957bc2af9ba8482eb86e3930e84c4ee20ed677da5e2311cd"},
-    {file = "langchain-0.3.12.tar.gz", hash = "sha256:0d8247afbf37beb263b4adc29f7aa8a5ae83c43a6941894e2f9ba39d5c869e3b"},
+    {file = "langchain-0.3.13-py3-none-any.whl", hash = "sha256:dd3549a28dc28b5d4769122b60fad0890aee86928d1bdbba3f9349d9f023315d"},
+    {file = "langchain-0.3.13.tar.gz", hash = "sha256:3d618a8e7e496704dc4407d224218ff28baf9416c1241e7bdcdd117e6c70daa8"},
 ]
 
 [package.dependencies]
 aiohttp = ">=3.8.3,<4.0.0"
 async-timeout = {version = ">=4.0.0,<5.0.0", markers = "python_version < \"3.11\""}
-langchain-core = ">=0.3.25,<0.4.0"
+langchain-core = ">=0.3.26,<0.4.0"
 langchain-text-splitters = ">=0.3.3,<0.4.0"
 langsmith = ">=0.1.17,<0.3"
 numpy = {version = ">=1.22.4,<2", markers = "python_version < \"3.12\""}
