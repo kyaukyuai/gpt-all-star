@@ -201,12 +201,6 @@ poetry shell
 pre-commit install
 ```
 
-**Running static type checks**
-
-```bash
-poetry run pyright
-```
-
 **Packaging**
 
 ```bash

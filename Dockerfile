@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.12-slim
 
 RUN apt-get update && apt-get install -y \
   build-essential \
@@ -15,7 +15,7 @@ RUN git clone https://github.com/tsl0922/ttyd.git && \
   make && make install
 
 ENV NVM_DIR /root/.nvm
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
   && . "$NVM_DIR/nvm.sh" \
   && nvm install node \
   && nvm use node
@@ -25,7 +25,7 @@ COPY . .
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV POETRY_VERSION=1.7.1
+ENV POETRY_VERSION=1.8.5
 RUN pip install "poetry==$POETRY_VERSION"
 ENV POETRY_VIRTUALENVS_CREATE=false
 RUN poetry install --no-root --no-dev
