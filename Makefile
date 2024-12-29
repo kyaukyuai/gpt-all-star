@@ -25,7 +25,10 @@ ruff-check:
 pre-commit-run:
 	poetry run pre-commit run --all-files
 
-code-check: ruff-format ruff-check pre-commit-run
+mypy:
+	poetry run mypy $(CODE_DIR)
+
+check: ruff-format ruff-check pre-commit-run mypy
 
 test:
 	poetry run pytest tests/ --doctest-modules --junitxml=junit/test-results.xml
