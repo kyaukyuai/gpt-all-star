@@ -3,44 +3,56 @@ name: CI
 on: [pull_request]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install Requirements
-        run: |
-          sudo apt-get update &&
-          pip install poetry &&
-          poetry lock &&
-          poetry install
-      - name: Run Ruff
-        run: poetry run make code-check
-        continue-on-error: true
+ lint:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v4
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Install Requirements
-        run: |
-          sudo apt-get update &&
-          pip install poetry &&
-          poetry lock &&
-          poetry install
-      - name: Test with pytest
-        run: poetry run make test
-      - name: Upload pytest test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: pytest-results
-          path: junit/test-results.xml
-        # Use always() to always run this step to publish test results when there are test failures
-        if: ${{ always() }}
+     - name: Set up Python
+       uses: actions/setup-python@v5
+       with:
+         python-version: '3.12'
+
+     - name: Install Requirements
+       run: |
+         sudo apt-get update
+         pip install --upgrade pip
+         pip install "poetry==1.8.5"
+         poetry config virtualenvs.create true
+         poetry config virtualenvs.in-project true
+         poetry lock --no-update
+         poetry install
+
+     - name: Run Ruff
+       run: poetry run make code-check
+       continue-on-error: true
+
+ test:
+   runs-on: ubuntu-latest
+   steps:
+     - uses: actions/checkout@v4
+
+     - name: Set up Python
+       uses: actions/setup-python@v5
+       with:
+         python-version: '3.12'
+
+     - name: Install Requirements
+       run: |
+         sudo apt-get update
+         pip install --upgrade pip
+         pip install "poetry==1.8.5"
+         poetry config virtualenvs.create true
+         poetry config virtualenvs.in-project true
+         poetry lock --no-update
+         poetry install
+
+     - name: Test with pytest
+       run: poetry run make test
+
+     - name: Upload pytest test results
+       uses: actions/upload-artifact@v4
+       with:
+         name: pytest-results
+         path: junit/test-results.xml
+       if: ${{ always() }}
