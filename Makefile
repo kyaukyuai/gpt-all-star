@@ -26,7 +26,8 @@ pre-commit-run:
 	poetry run pre-commit run --all-files
 
 mypy:
-	poetry run mypy $(CODE_DIR)
+	poetry run mypy --config-file mypy.toml --show-error-codes --pretty $(CODE_DIR)
+
 
 check: ruff-format ruff-check pre-commit-run mypy
 
