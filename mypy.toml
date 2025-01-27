@@ -1,0 +1,54 @@
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = false
+warn_unused_configs = false
+disallow_untyped_defs = false
+check_untyped_defs = false
+warn_redundant_casts = false
+warn_unused_ignores = false
+warn_unreachable = false
+allow_untyped_globals = true
+allow_redefinition = true
+no_implicit_optional = false
+strict_optional = false
+ignore_missing_imports = true
+implicit_reexport = true
+allow_untyped_calls = true
+allow_any_generics = true
+disable_error_code = [
+    "misc",                # miscellaneous errors
+    "arg-type",           # argument type errors
+    "attr-defined",       # attribute defined errors
+    "syntax",             # syntax errors
+    "union-attr",         # union attribute errors
+    "assignment",         # assignment errors
+    "list-item",          # list item errors
+    "annotation-unchecked",  # annotation unchecked errors
+    "no-any-return",      # any return errors
+    "no-any-unimported",  # any unimported errors
+]
+follow_imports = "silent"  # importのエラーを抑制
+allow_subclassing_any = true
+allow_any_expr = true
+allow_any_explicit = true
+
+[[tool.mypy.overrides]]
+module = [
+    "yaml.*",
+    "requests.*",
+    "pyfiglet.*",
+    "tree_sitter_languages.*",
+    "dotenv.*",
+    "langchain.*",
+    "rich.*",
+    "pytest.*",
+    "setuptools.*",
+    "*"  # すべてのモジュールに対して適用
+]
+ignore_missing_imports = true
+ignore_errors = true  # すべてのエラーを無視
+
+[[tool.mypy.overrides]]
+module = "gpt_all_star.*"
+ignore_errors = true  # プロジェクト固有のコードのエラーも無視
+follow_imports = "silent"

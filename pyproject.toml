@@ -46,6 +46,9 @@ python-semantic-release = "^9.1.1"
 ruff = "^0.8.0"
 pytest = "^8.1.1"
 mypy = "^1.14.0"
+types-pyyaml = "^6.0.12.20241230"
+types-requests = "^2.32.0.20241016"
+types-tree-sitter-languages = "^1.10.0.20240612"
 
 [tool.pyright]
 # https://github.com/microsoft/pyright/blob/main/docs/configuration.md
