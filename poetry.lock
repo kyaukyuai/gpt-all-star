@@ -2942,13 +2942,13 @@ files = [
 
 [[package]]
 name = "pygithub"
-version = "2.5.0"
+version = "2.6.1"
 description = "Use the full Github API v3"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "PyGithub-2.5.0-py3-none-any.whl", hash = "sha256:b0b635999a658ab8e08720bdd3318893ff20e2275f6446fcf35bf3f44f2c0fd2"},
-    {file = "pygithub-2.5.0.tar.gz", hash = "sha256:e1613ac508a9be710920d26eb18b1905ebd9926aa49398e88151c1b526aad3cf"},
+    {file = "PyGithub-2.6.1-py3-none-any.whl", hash = "sha256:6f2fa6d076ccae475f9fc392cc6cdbd54db985d4f69b8833a28397de75ed6ca3"},
+    {file = "pygithub-2.6.1.tar.gz", hash = "sha256:b5c035392991cca63959e9453286b41b54d83bf2de2daa7d7ff7e4312cebf3bf"},
 ]
 
 [package.dependencies]
