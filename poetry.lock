@@ -1336,13 +1336,13 @@ langchain-core = ">=0.3.29,<0.4.0"
 
 [[package]]
 name = "langgraph"
-version = "0.2.69"
+version = "0.2.75"
 description = "Building stateful, multi-actor applications with LLMs"
 optional = false
 python-versions = "<4.0,>=3.9.0"
 files = [
-    {file = "langgraph-0.2.69-py3-none-any.whl", hash = "sha256:b64a5755fa2c7f2f67608ff4ce0ef8c168b30a0fb551a6c1d2e19bf1d2268ce4"},
-    {file = "langgraph-0.2.69.tar.gz", hash = "sha256:77bd6efd967b4f092ec31d2148b3e6ba3c31e202b4f3a975dbb082b19b5bb057"},
+    {file = "langgraph-0.2.75-py3-none-any.whl", hash = "sha256:24d7637aa78cba20c6e32050ff441389c432be3dd4ef295b5a35d5f5839ad71b"},
+    {file = "langgraph-0.2.75.tar.gz", hash = "sha256:f548509eba71282140a00bd97799fa6135bd9c8944144e4ccfbe2a6d64314218"},
 ]
 
 [package.dependencies]
