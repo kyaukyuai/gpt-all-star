@@ -1,214 +1,181 @@
-<div align="center">
-<img width="628" alt="gpt-all-star" src="https://github.com/kyaukyuai/gpt-all-star/assets/1140707/dc46fbf4-16f9-4989-801d-7df65af0c696">
-
-[![PyPI](https://img.shields.io/pypi/v/gpt-all-star.svg)](https://pypi.org/project/gpt-all-star/) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-
-<p>
-AI-powered code generation tool for scratch development of web applications with a team collaboration of autonomous AI agents.
-This is a research-project, and its primary value is to explore the possibility of autonomous AI agents.
+<p align="center"><h1 align="center">GPT-ALL-STAR</h1></p>
+<p align="center">
+	<a href="https://itmo.ru/"><img src="https://raw.githubusercontent.com/aimclub/open-source-ops/43bb283758b43d75ec1df0a6bb4ae3eb20066323/badges/ITMO_badge.svg"></a>
+	<img src="https://img.shields.io/github/license/kyaukyuai/gpt-all-star?style=default&logo=opensourceinitiative&logoColor=white&color=blue" alt="license">
+	<a href="https://github.com/ITMO-NSS-team/Open-Source-Advisor"><img src="https://img.shields.io/badge/improved%20by-OSA-blue"></a>
 </p>
-</div>
+<p align="center">Built with the tools and technologies:</p>
+<p align="center">
+	<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=default&logo=Docker&logoColor=white"alt="Docker">
+	<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=default&logo=GitHub-Actions&logoColor=white"alt="GitHub%20Actions">
+</p>
+<br>
 
-![gpt-all-star-demo](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/1ec23255-7463-4510-90fc-80b15eb64cb9)
 
-<h2>Table of contents</h2>
-</hr>
+---
+## Overview
 
-- [🏛 Concept](#-concept)
-- [🐳 Getting Started](#-getting-started)
-  - [For User](#for-user)
-  - [For Developer](#for-developer)
-- [🕴 Current Situation](#-current-situation)
-- [🧑‍💻️ UI Project](#️-ui-project)
-- [🔎 Examples](#-examples)
-  - [⏱️ Pomodoro Timer](#️-pomodoro-timer)
-- [🍻 Contribution](#-contribution)
+<overview>
+gpt-all-star provides a robust and automated development environment for software projects. It streamlines workflows, ensures code quality through AI review, and simplifies releases with detailed changelogs. This benefits developers seeking efficient collaboration, reliable deployments, and maintainable project evolution.
+</overview>
 
-## 🏛 Concept
+---
 
-- **Build Team, Build App**: Simply organize your team and decide on what to build.
-- **AI Agent Collaboration**: Assemble a group of AI agents and work together to carry out the steps.
-  1. Choose the right ｌeader for each step.
-  2. Leaders create a plan of action for each step.
-  3. Work with team members to complete every task in the action plan.
 
-![gpt-all-star-concept](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/77bdd5fa-afe9-4e3c-8dfd-85399852aec6)
+## Table of contents
 
-## 🐳 Getting Started
+- [Core features](#core-features)
+- [Installation](#installation)
+- [Examples](#examples)
+- [Documentation](#documentation)
+- [Getting started](#getting-started)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Contacts](#contacts)
+- [Citation](#citation)
 
-### For User
+---
 
-1. Installation
+## Core features
 
-```bash
-$ pip install gpt-all-star
+<corefeatures>
+
+1. **Dockerization**: Enables reproducible environments for development and deployment.
+2. **GitHub Actions CI/CD**: Automates testing, linting & release pipelines.
+3. **MkDocs Documentation**: Builds and maintains project documentation easily.
+4. **AI-Powered Code Review**: Integrates automated pull request quality checks.
+5. **Automated Release Drafting**: Generates changelogs for transparent updates.
+
+</corefeatures>
+
+---
+
+
+## Installation
+
+Install gpt-all-star using one of the following methods:
+
+**Build from source:**
+
+1. Clone the gpt-all-star repository:
+```sh
+❯ git clone https://github.com/kyaukyuai/gpt-all-star
 ```
 
-2. Set the `GPT ALL STAR` environment variables
-
-```bash
-$ export OPENAI_API_MODEL=gpt-4o
-$ export OPENAI_API_KEY=<your-openai-api-key>
+2. Navigate to the project directory:
+```sh
+❯ cd gpt-all-star
 ```
 
-3. Fun `GPT ALL STAR`
+3. Install the project dependencies:
 
-```bash
-$ gpt-all-star
+
+**Using `docker`** &nbsp;
+[<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
+
+```sh
+❯ docker build -t kyaukyuai/gpt-all-star .
 ```
 
-### For Developer
 
-:bulb: While it's entirely feasible to launch the application on your local machine directly, we **strongly recommend** using **Docker** for starting up the application.
 
-1. Clone the repository
+---
 
-```bash
-$ git clone git@github.com:kyaukyuai/gpt-all-star.git
+
+## Examples
+
+Examples of how this should work and how it should be used are available in [Not found any examples](https://github.com/kyaukyuai/gpt-all-star/tree/main/).
+
+---
+
+
+## Documentation
+
+A detailed gpt-all-star description is available in [docs](https://kyaukyuai.github.io/gpt-all-star/).
+
+---
+
+
+## Getting started
+
+### Usage
+
+Run gpt-all-star using the following command:
+ 
+ **Using `docker`** &nbsp;
+[<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
+
+```sh
+❯ docker run -it {image_name}
 ```
 
-2. Edit the `.env` file
 
-```bash
-$ mv .env.sample .env
-```
+---
 
-```bash
-# OPENAI or AZURE or ANTHROPIC
-ENDPOINT=OPENAI
 
-# USE when ENDPOINT=OPENAI
-OPENAI_API_MODEL=gpt-4o
-OPENAI_API_KEY=<your-openai-api-key>
+## Contributing
 
-# USE when ENDPOINT=AZURE
-AZURE_OPENAI_API_KEY=<your-azure-openai-api-key>
-AZURE_OPENAI_API_VERSION=2024-05-01-preview
-AZURE_OPENAI_API_MODEL=<your-azure-openai-api-model>
-AZURE_OPENAI_DEPLOYMENT_NAME=<your-azure-openai-deployment-name>
-AZURE_OPENAI_ENDPOINT=https://<your-azure-openai-endpoint>.openai.azure.com/
+- **[Join the Discussions](https://github.com/kyaukyuai/gpt-all-star/discussions )**: Share your insights, provide feedback, or ask questions.
 
-# USE when ENDPOINT=ANTHROPIC
-ANTHROPIC_API_KEY=<your-anthropic-api-key>
-ANTHROPIC_MODEL=<your-anthropic-model-name>
+- **[Report Issues](https://github.com/kyaukyuai/gpt-all-star/issues )**: Submit bugs found or log feature requests for the gpt-all-star project.
 
-# LangSmith
-LANGCHAIN_TRACING_V2=true
-LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
-LANGCHAIN_API_KEY=<your-langchain-api-key>
-LANGCHAIN_PROJECT=<your-langchain-project>
 
-# This is an environment variable to use if you want to manage the code you want to generate with gpt-all-star on GitHub.
-GITHUB_ORG=<your-github-org>
-GITHUB_TOKEN=<your-github-token>
-```
+---
 
-3. Run `docker compose build` and `docker compose up`
 
-```bash
-$ make build
-$ make up
-```
+## License
 
-4. Open the web terminal `port 7681`
+This project is protected under the MIT License. For more details, refer to the [LICENSE](https://github.com/kyaukyuai/gpt-all-star/blob/main/LICENSE) file.
 
-Open: http://localhost:7681
+---
 
-5. Install dependencies
 
-```bash
-$ poetry install
-```
+## Acknowledgments
 
-6. Start `GPT ALL STAR`
+- List any resources, contributors, inspiration, etc. here.
 
-```bash
-$ poetry run gpt-all-star
-```
+---
 
-```bash
-$ poetry run gpt-all-star --help
 
-Usage: gpt-all-star [OPTIONS]
 
-╭─ Options ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ --step                -s      [none|default|build|specification|system_design|development  Step to be performed [default: StepType.DEFAULT]            │
-│                               |entrypoint|ui_design|healing]                                                                               │
-│ --project_name        -p      TEXT                                                         Project name [default: None]                                │
-│ --japanese_mode       -j                                                                   Japanese mode                                               │
-│ --review_mode         -r                                                                   Review mode                                                 │
-│ --debug_mode          -d                                                                   Debug mode                                                  │
-│ --plan_and_solve                                                                           Plan-and-Solve Prompting                                    │
-│ --install-completion          [bash|zsh|fish|powershell|pwsh]                              Install completion for the specified shell. [default: None] │
-│ --show-completion             [bash|zsh|fish|powershell|pwsh]                              Show completion for the specified shell, to copy it or      │
-│                                                                                            customize the installation.                                 │
-│                                                                                            [default: None]                                             │
-│ --help                                                                                     Show this message and exit.                                 │
-╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-```
+## Contacts
 
-7. Edit the team members
+Your contacts. For example:
 
-If you want to change the team members, edit the `gpt_all_star/agents.yml` file.
+- [Telegram channel](https://t.me/) answering questions about your project
+- [VK group](<https://vk.com/>) your VK group
+- etc.
 
-## 🕴 Current Situation
+---
 
-This is a research project and the main focus is currently on validating `Client Web Applications` in `React` and `ChakraUI` using `JavaScript`.
-We would like to test other languages and libraries as well and welcome contributions.
 
-## 🧑‍💻️ UI Project
+## Citation
 
-[gpt-all-star-ui](https://github.com/kyaukyuai/gpt-all-star-ui) is a web application that uses `gpt-all-star` as a backend.
-It's a simple web application that allows you to use `gpt-all-star` as a service.
+If you use this software, please cite it as below.
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://gpt-all-star.streamlit.app/)
+### APA format:
 
-## 🔎 Examples
+    kyaukyuai (2023). gpt-all-star repository [Computer software]. https://github.com/kyaukyuai/gpt-all-star
 
-### ⏱️ Pomodoro Timer
+### BibTeX format:
 
-- 💬 Instruction: `Pomodoro Timer fully designed by human interface guideline`
-- 💻️ [GitHub](https://github.com/gpt-all-star/pomodoro)
+    @misc{gpt-all-star,
 
-![Export-1707059574807](https://github.com/kyaukyuai/gpt-all-star/assets/1140707/c194dced-d179-4d1e-8e5d-f89dbafa00ee)
+        author = {kyaukyuai},
 
-## 🍻 Contribution
+        title = {gpt-all-star repository},
 
-GPT ALL STAR is open-source and we welcome contributions. If you're looking to contribute, please:
+        year = {2023},
 
-- Fork the repository.
-- Create a new branch for your feature.
-- Add your feature or improvement.
-- Send a pull request.
-- We appreciate your input!
+        publisher = {github.com},
 
-**Installing Dependencies**
+        journal = {github.com repository},
 
-```bash
-poetry lock
-poetry install
-```
+        howpublished = {\url{https://github.com/kyaukyuai/gpt-all-star.git}},
 
-**Virtual Env**
+        url = {https://github.com/kyaukyuai/gpt-all-star.git}
 
-```bash
-poetry shell
-```
+    }
 
-**Pre-commit hooks**
-
-```bash
-pre-commit install
-```
-
-**Packaging**
-
-```bash
-poetry build
-```
-
-**Installing Locally**
-
-```bash
-pip install dist/*.tar.gz
-```
+---
