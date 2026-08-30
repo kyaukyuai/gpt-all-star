@@ -2680,17 +2680,17 @@ virtualenv = ">=20.10.0"
 
 [[package]]
 name = "prompt-toolkit"
-version = "3.0.50"
+version = "3.0.53"
 description = "Library for building powerful interactive command lines in Python"
 optional = false
-python-versions = ">=3.8.0"
+python-versions = ">=3.10"
 files = [
-    {file = "prompt_toolkit-3.0.50-py3-none-any.whl", hash = "sha256:9b6427eb19e479d98acff65196a307c555eb567989e6d88ebbb1b509d9779198"},
-    {file = "prompt_toolkit-3.0.50.tar.gz", hash = "sha256:544748f3860a2623ca5cd6d2795e7a14f3d0e1c3c9728359013f79877fc89bab"},
+    {file = "prompt_toolkit-3.0.53-py3-none-any.whl", hash = "sha256:01c0891d7f9237d5e339f7d3e42cdae80b7534abb1c7c0e3352efba6231492f2"},
+    {file = "prompt_toolkit-3.0.53.tar.gz", hash = "sha256:9ec8a0ad96d5c56148b3f914aa79c1564c3fde5d2e6b876e7bc327e353cf8fa6"},
 ]
 
 [package.dependencies]
-wcwidth = "*"
+wcwidth = ">=0.1.4"
 
 [[package]]
 name = "propcache"
